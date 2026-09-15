@@ -64,11 +64,8 @@ export function AppSidebar({ containerClass }: Props) {
       collapsible="offcanvas"
     >
       <SidebarHeader className="p-0 pt-2">
-        <div className="pl-2 border-b pb-3 pt-1">
-          <Link
-            href="/"
-            className="block h-[48px] w-full max-w-[220px] relative"
-          >
+        <div className="border-b px-4 pb-4 pt-2">
+          <Link href="/" className="block h-[39] w-full max-w-[190px] relative">
             {!mounted || isBrandingLoading ? (
               <div className="h-full w-full rounded bg-muted animate-pulse" />
             ) : !logo || failedLogoSrc === logo ? (
@@ -82,7 +79,7 @@ export function AppSidebar({ containerClass }: Props) {
                 src={toAbsoluteUrl(logo)}
                 fill
                 alt={appName}
-                className="object-contain object-left"
+                className="object-contain scale-200"
                 unoptimized={!!logo}
                 onError={() => setFailedLogoSrc(logo)}
               />

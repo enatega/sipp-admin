@@ -1,8 +1,8 @@
 import { deployment } from '@/config/deployment';
 import { QueryProvider } from '@/components/provider/QueryProvider';
 import EnategaLoader from '@/components/shared/EnategaLoader';
-import '@/styles/globals.css';
 import '@/styles/enatega-loader.css';
+import '@/styles/globals.css';
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -12,11 +12,7 @@ import { Toaster } from 'react-hot-toast';
 export const metadata: Metadata = {
   title: deployment.brand.titles.admin,
   description: deployment.brand.description,
-  icons: deployment.brand.favicon
-    ? {
-        icon: deployment.brand.favicon,
-      }
-    : undefined,
+  icons: '/sipp-favicon.png',
 };
 
 export default async function RootLayout({

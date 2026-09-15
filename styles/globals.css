@@ -99,7 +99,9 @@
 
   /* <------------ LUMI Theme -------------> */
 
-  --primary: #f97316;
+  --primary: #66c0f2;
+  --secondary: #e33935;
+  --tertiary: #b98d45;
   --light: #fafafa;
   --white: #fff;
   --black: #000;

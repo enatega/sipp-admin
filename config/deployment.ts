@@ -28,29 +28,30 @@ export interface DeploymentConfig {
 
 export const deployment: DeploymentConfig = {
   brand: {
-    companyName: 'Enatega',
-    appName: 'Enatega Admin',
-    shortName: 'Enatega',
-    description: 'Enatega Deliveries administration portal',
-    logo: '/images/main-logo.png',
-    favicon: '/favicon.ico',
+    companyName: 'SIPP',
+    appName: 'SIPP Admin',
+    shortName: 'SIPP',
+    description: 'SIPP administration portal',
+    logo: '/images/sip-transparent-logo.png',
+    favicon: '/sipp-favicon.png',
+
     colors: {
-      primary: '#1e40af',
-      secondary: '#0f172a',
-      tertiary: '#e2e8f0',
+      primary: '#66c0f2',
+      secondary: '#e33935',
+      tertiary: '#b98d45',
     },
     titles: {
-      admin: 'Enatega Admin',
-      auth: 'Enatega Admin',
-      vendor: 'Enatega Vendor',
-      store: 'Enatega Store',
+      admin: 'SIPP Admin',
+      auth: 'SIPP Admin',
+      vendor: 'SIPP Vendor',
+      store: 'SIPP Store',
     },
   },
   enabledModules: {
     deliveries: true,
   },
   moduleLabels: {
-    deliveries: 'Enatega Deliveries',
+    deliveries: 'SIPP Deliveries',
   },
 };
 

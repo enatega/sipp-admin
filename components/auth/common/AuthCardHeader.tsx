@@ -11,13 +11,17 @@ interface Props {
 }
 
 const AuthCardHeader = ({ title, description }: Props) => {
-  const { logo, appName, appNameClassName, isLoading: isBrandingLoading } =
-    useAdminBranding();
+  const {
+    logo,
+    appName,
+    appNameClassName,
+    isLoading: isBrandingLoading,
+  } = useAdminBranding();
   const [failedLogoSrc, setFailedLogoSrc] = useState<string | null>(null);
   return (
     <div>
       <div className="w-full flex items-center justify-center mb-4">
-        <div className="h-[56px] w-full max-w-[420px] relative mx-auto">
+        <div className="h-[76px] w-full max-w-[280px] relative mx-auto">
           {isBrandingLoading ? (
             <div className="h-full w-full rounded bg-muted animate-pulse" />
           ) : !logo || failedLogoSrc === logo ? (
@@ -31,7 +35,7 @@ const AuthCardHeader = ({ title, description }: Props) => {
               src={toAbsoluteUrl(logo)}
               fill
               alt={appName}
-              className="object-contain object-center"
+              className="object-contain object-center scale-150"
               priority
               unoptimized={!!logo}
               onError={() => setFailedLogoSrc(logo)}

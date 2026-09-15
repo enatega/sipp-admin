@@ -97,10 +97,10 @@ const StoreSidebar = () => {
   return (
     <Sidebar className={cn('z-50 w-[250px]')} collapsible="offcanvas">
       <SidebarHeader className="p-0 pt-2">
-        <div className="pl-2 border-b pb-3 pt-1">
+        <div className="border-b px-4 pb-4 pt-2">
           <Link
             href={storeHomePath}
-            className="block h-[48px] w-full max-w-[220px] relative"
+            className="block h-[39px] w-full max-w-[190px] relative"
           >
             {isBrandingLoading ? (
               <div className="h-full w-full rounded bg-muted animate-pulse" />
@@ -115,7 +115,7 @@ const StoreSidebar = () => {
                 src={toAbsoluteUrl(logo)}
                 fill
                 alt={appName}
-                className="object-contain object-left"
+                className="object-contain scale-200 "
                 unoptimized={!!logo}
                 onError={() => setFailedLogoSrc(logo)}
               />

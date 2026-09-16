@@ -6861,6 +6861,7 @@
       "codLimitDisabledValue": "Deaktiviert (Unbegrenzte Nachnahme)",
       "notApplicable": "k.A.",
       "driverTypeCardLabel": "Fahrertyp",
+      "legacyDocumentLabel": "Dokument {number}",
       "documentVerificationTitle": "Dokumentenprüfung",
       "documentCardDriverLicense": "Führerschein",
       "documentCardNationalIdPassport": "Personalausweis/Reisepass",

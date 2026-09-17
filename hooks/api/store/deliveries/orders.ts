@@ -1,7 +1,7 @@
 import Axios from '@/config/axios';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { ApiErrorResponse, CustomerInfo, DeliveryInfo, GetOrdersQueryParams, GetOrdersResponse, OrderDetail, OrderDetailResponse, OrderLog, OrderProduct, OrderSummary, PaymentInfo, RiderInfo } from '@/types';
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { UseMutationOptions, UseQueryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 
@@ -160,6 +160,59 @@ export const useGetStoreOrderDetail = (
             };
 
             return mapped;
+        },
+        ...options,
+    });
+};
+
+type StoreOrderActionResponse = {
+    message: string;
+    orderId: string;
+    status: string;
+};
+
+export const useAcceptStoreOrder = (
+    options?: UseMutationOptions<StoreOrderActionResponse, ApiErrorResponse, string>,
+) => {
+    const queryClient = useQueryClient();
+    const paramsRoute = useParams();
+    const rawStoreId = paramsRoute.storeId;
+    const storeId = Array.isArray(rawStoreId) ? rawStoreId[0] : rawStoreId;
+
+    return useMutation<StoreOrderActionResponse, ApiErrorResponse, string>({
+        mutationFn: async (orderId) => {
+            const { data } = await Axios.patch<StoreOrderActionResponse>(
+                `/apps/deliveries/store/orders/${storeId}/order/${orderId}/accept`,
+            );
+            return data;
+        },
+        onSuccess: (_data, orderId) => {
+            queryClient.invalidateQueries({ queryKey: ['get-orders-store'], exact: false });
+            queryClient.invalidateQueries({ queryKey: ['get-store-order', storeId, orderId] });
+        },
+        ...options,
+    });
+};
+
+export const useRejectStoreOrder = (
+    options?: UseMutationOptions<StoreOrderActionResponse, ApiErrorResponse, { orderId: string; reason: string }>,
+) => {
+    const queryClient = useQueryClient();
+    const paramsRoute = useParams();
+    const rawStoreId = paramsRoute.storeId;
+    const storeId = Array.isArray(rawStoreId) ? rawStoreId[0] : rawStoreId;
+
+    return useMutation<StoreOrderActionResponse, ApiErrorResponse, { orderId: string; reason: string }>({
+        mutationFn: async ({ orderId, reason }) => {
+            const { data } = await Axios.patch<StoreOrderActionResponse>(
+                `/apps/deliveries/store/orders/${storeId}/order/${orderId}/reject`,
+                { reason },
+            );
+            return data;
+        },
+        onSuccess: (_data, { orderId }) => {
+            queryClient.invalidateQueries({ queryKey: ['get-orders-store'], exact: false });
+            queryClient.invalidateQueries({ queryKey: ['get-store-order', storeId, orderId] });
         },
         ...options,
     });

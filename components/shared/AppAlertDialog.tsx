@@ -28,6 +28,7 @@ const sizeToMaxWidth: Record<Size, string> = {
 
 interface AppAlertDialogProps {
   trigger?: ReactNode;
+  children?: ReactNode;
 
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -48,6 +49,7 @@ interface AppAlertDialogProps {
 
 const AppAlertDialog = ({
   trigger,
+  children,
   open,
   onOpenChange,
   title,
@@ -107,6 +109,7 @@ const AppAlertDialog = ({
           {description && (
             <span className="text-sm text-mute">{description}</span>
           )}
+          {children}
         </div>
 
         <div className="flex items-center justify-between p-4">

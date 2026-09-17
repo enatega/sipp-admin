@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import type { OrdersItem as Order } from '@/types';
 import { ApiErrorResponse } from '@/types';
-import { Eye, MapPin, MoreVertical, Trash, UserPlus } from 'lucide-react';
+import { Check, Eye, MapPin, MoreVertical, Trash, UserPlus, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
@@ -15,6 +15,10 @@ import {
   useDeleteOrder,
   useGetOrderDetail,
 } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import {
+  useAcceptStoreOrder,
+  useRejectStoreOrder,
+} from '@/hooks/api/store/deliveries/orders';
 import { useCurrency } from '@/hooks/use-currency';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useSortableData } from '@/hooks/use-sortable-data';
@@ -132,8 +136,14 @@ export function OrdersTable({
   const [deletingOrder, setDeletingOrder] = useState<string | null>(null);
   const [assigningOrderId, setAssigningOrderId] = useState<string | null>(null);
   const [trackingOrderId, setTrackingOrderId] = useState<string | null>(null);
+  const [rejectingOrderId, setRejectingOrderId] = useState<string | null>(null);
+  const [rejectionReason, setRejectionReason] = useState('');
 
   const { mutateAsync: deleteOrder, isPending: isDeleting } = useDeleteOrder();
+  const { mutateAsync: acceptStoreOrder, isPending: isAccepting } =
+    useAcceptStoreOrder();
+  const { mutateAsync: rejectStoreOrder, isPending: isRejecting } =
+    useRejectStoreOrder();
   const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
     useGetOrderDetail(trackingOrderId ?? undefined);
 
@@ -155,6 +165,34 @@ export function OrdersTable({
   };
 
   const pathname = usePathname();
+  const storeOrdersPath = isStoreOrdersPath(pathname);
+
+  const handleAcceptOrder = async (orderId: string) => {
+    try {
+      await acceptStoreOrder(orderId);
+      toast.success('Order accepted successfully');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleRejectOrder = async () => {
+    const reason = rejectionReason.trim();
+    if (!rejectingOrderId || !reason) {
+      toast.error('Please enter a rejection reason');
+      return;
+    }
+    try {
+      await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      toast.success('Order rejected successfully');
+      setRejectingOrderId(null);
+      setRejectionReason('');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
 
   const handleRowClick = (id: string) => {
     if (isStoreOrdersPath(pathname)) {
@@ -243,6 +281,13 @@ export function OrdersTable({
                 const riderAssigned = Boolean(order.riderId || order.riderName);
                 const showAssignRiderButton =
                   !riderAssigned && canShowAssignRiderButton(order.status);
+                const normalizedStatus = normalizeOrderStatus(order.status);
+                const canAccept =
+                  storeOrdersPath &&
+                  (normalizedStatus === 'pending' || normalizedStatus === 'scheduled');
+                const canReject =
+                  storeOrdersPath &&
+                  (normalizedStatus === 'pending' || normalizedStatus === 'accepted');
 
                 return (
                   <TableRow
@@ -374,6 +419,34 @@ export function OrdersTable({
                                 </span>
                               </DropdownMenuItem>
 
+                              {canAccept && (
+                                <DropdownMenuItem
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none text-green-700"
+                                  disabled={isAccepting}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    void handleAcceptOrder(order.orderId);
+                                  }}
+                                >
+                                  <Check className="size-[18px]" />
+                                  <span className="text-sm">Accept Order</span>
+                                </DropdownMenuItem>
+                              )}
+
+                              {canReject && (
+                                <DropdownMenuItem
+                                  variant="destructive"
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setRejectingOrderId(order.orderId);
+                                  }}
+                                >
+                                  <X className="size-[18px] text-destructive" />
+                                  <span className="text-sm text-destructive">Reject Order</span>
+                                </DropdownMenuItem>
+                              )}
+
                               <DropdownMenuItem
                                 className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
                                 onClick={(e) => {
@@ -391,7 +464,7 @@ export function OrdersTable({
                                 </span>
                               </DropdownMenuItem>
 
-                              <DropdownMenuItem
+                              {!storeOrdersPath && <DropdownMenuItem
                                 variant="destructive"
                                 className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
                                 onClick={(e) => {
@@ -403,7 +476,7 @@ export function OrdersTable({
                                 <span className="text-sm text-destructive">
                                   {tTable('delete')}
                                 </span>
-                              </DropdownMenuItem>
+                              </DropdownMenuItem>}
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </div>
@@ -441,6 +514,39 @@ export function OrdersTable({
           onConfirm={handleDeleteOrder}
           loading={isDeleting}
         />
+      )}
+
+      {rejectingOrderId && (
+        <AppAlertDialog
+          title="Reject Order"
+          subTitle="Why are you rejecting this order?"
+          description="This reason will be visible in the order history."
+          open
+          onOpenChange={(open) => {
+            if (!open) {
+              setRejectingOrderId(null);
+              setRejectionReason('');
+            }
+          }}
+          variant="delete"
+          confirmLabel="Reject Order"
+          onConfirm={handleRejectOrder}
+          loading={isRejecting}
+        >
+          <textarea
+            value={rejectionReason}
+            onChange={(event) => setRejectionReason(event.target.value)}
+            onClick={(event) => event.stopPropagation()}
+            maxLength={200}
+            rows={4}
+            autoFocus
+            placeholder="Enter rejection reason"
+            className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          />
+          <div className="mt-1 text-right text-xs text-muted-foreground">
+            {rejectionReason.length}/200
+          </div>
+        </AppAlertDialog>
       )}
 
       {assigningOrderId && (

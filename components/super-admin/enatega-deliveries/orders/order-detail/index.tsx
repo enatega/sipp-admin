@@ -128,7 +128,7 @@ export function OrderDetailPage() {
           {isAccepting ? 'Accepting...' : 'Accept Order'}
         </AppButton>}
         {canReject && <AppButton
-          variant="outline"
+          variant="mute"
           onClick={() => setShowRejectDialog(true)}
           className="h-10 px-6 text-destructive border-destructive"
         >

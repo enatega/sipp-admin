@@ -223,7 +223,7 @@ export const useUpdateSupportTicketStatus = (
 
 
 const sendMessageEndpointMap: Record<SupportModule, string> = {
-    deliveries: '/deliveries/support-chat/send',
+    deliveries: '/deliveries/support-chat/send-to-chat-box',
 };
 
 export const useSendSupportChatMessage = (

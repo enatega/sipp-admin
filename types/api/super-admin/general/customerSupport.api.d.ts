@@ -130,8 +130,7 @@ export interface Message {
 // GetCustomerSupportTicketMessagesById End
 
 export interface SupportChatSendMessagePayload {
-  senderId: string;
-  receiverId: string;
+  chatBoxId: string;
   text: string;
 }
 

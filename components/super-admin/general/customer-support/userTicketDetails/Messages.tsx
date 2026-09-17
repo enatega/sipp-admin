@@ -122,7 +122,7 @@ export default function Messages({
     });
 
     setLiveMessages((prev) => [...prev, body]);
-    mutate({ senderId: userId, receiverId, text });
+    mutate({ chatBoxId: ticketId, text });
   };
 
   return (

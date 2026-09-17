@@ -66,6 +66,11 @@ const normalizeDiscountType = (
   return 'FIXED';
 };
 
+function numericField(value: unknown, fallback = 0) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
 function mapSuperAdminCoupon(data: Coupon): EditCouponFormData {
   const usageLimit =
     typeof data?.usage_limit === 'number'
@@ -202,7 +207,7 @@ export function EditCouponForm({
           description: values.couponDescription,
           discount_type: values.discountType as 'PERCENTAGE' | 'FIXED',
           discount_value: Number(values.discountValue),
-          max_discount_cap: Number(values.maxDiscountCap) || 0,
+          max_discount_cap: numericField(values.maxDiscountCap),
           min_order_value: Number(values.minOrderValue) || 0,
           total_usage_limit: Number(values.totalUsageLimit),
           usage_per_user: Number(values.usagePerUser),
@@ -237,7 +242,7 @@ export function EditCouponForm({
           description: values.couponDescription,
           discount_type: values.discountType as 'PERCENTAGE' | 'FIXED',
           discount_value: Number(values.discountValue),
-          max_discount_cap: Number(values.maxDiscountCap) || undefined,
+          max_discount_cap: numericField(values.maxDiscountCap),
           min_order_value: Number(values.minOrderValue) || undefined,
           total_usage_limit: Number(values.totalUsageLimit),
           usage_per_user: Number(values.usagePerUser),

@@ -8,10 +8,10 @@ import {
   CustomerSupportTicketItem,
   SupportModule,
 } from '@/types/api/super-admin/general/customerSupport.api';
-import { formatTime } from '@/lib/date';
-import { cn } from '@/lib/utils';
+import { cn, formatReadableLabel } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoDataFound from '@/components/shared/NoDataFound';
+import RelativeTime from '@/components/shared/RelativeTime';
 import Status from '@/components/shared/Status';
 import StatusIcon from '@/components/shared/StatusIcon';
 
@@ -110,10 +110,10 @@ const TicketsInformation: React.FC<Props> = ({
                   <div className="text-xs text-muted-foreground">
                     ID: #{t.id}
                   </div>
-                  <div className="font-medium mt-1">{t.title}</div>
+                  <div className="font-medium mt-1">{formatReadableLabel(t.title)}</div>
                 </div>
                 <div className="text-sm text-muted-foreground text-right">
-                  <div>{formatTime(t.latestMessageAt)}</div>
+                  <div><RelativeTime date={t.latestMessageAt} /></div>
                   <div className="mt-2">
                     {/* <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs">
                       {t.totalMessages}

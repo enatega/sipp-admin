@@ -4,8 +4,8 @@ import React from 'react';
 import { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
 import {
+  CustomerSupportGroupedByCustomer,
   CustomerSupportGroupedTickets,
-  CustomerSupportTicketItem,
 } from '@/types/api/super-admin/general/customerSupport.api';
 import { useSyncedTab, type TabDef } from '@/hooks/use-synced-tabs';
 import {
@@ -25,7 +25,7 @@ type Props = {
   isFetching?: boolean;
   error?: ApiErrorResponse | null;
   selectedItemId?: string | null;
-  onSelect?: (item: CustomerSupportTicketItem) => void;
+  onSelect?: (item: CustomerSupportGroupedByCustomer) => void;
 };
 
 export const TabList: React.FC<Props> = ({

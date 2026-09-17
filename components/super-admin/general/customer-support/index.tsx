@@ -1,20 +1,23 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useQueryClient } from '@tanstack/react-query';
 import {
-  CustomerSupportTicketItem,
+  CustomerSupportGroupedByCustomer,
   SupportModule,
 } from '@/types/api/super-admin/general/customerSupport.api';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetDeliverySupport } from '@/hooks/api/super-admin/general/customer-support-deliveries';
+import { useSocket } from '@/hooks/use-socket';
+import { getUser } from '@/lib/user';
 import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
 import Filters from './Filters';
 import MainPageSkeleton from './skeleton/MainPageSkeleton';
 import TabList from './tabsList/TabList';
 import TicketsInformation from './tickets/TicketsInformation';
-import { groupSupportTickets } from './useGroupSupportTicket';
+import { groupSupportTickets, groupTicketsByCustomer } from './useGroupSupportTicket';
 
 // const SUPPORT_TABS: {
 //   label: string;
@@ -44,7 +47,28 @@ const CustomerSupportMain = () => {
   // const [activeTab, setActiveTab] = useState<SupportModule>('deliveries');
 
   const [selectedTicket, setSelectedTicket] =
-    useState<CustomerSupportTicketItem | null>(null);
+    useState<CustomerSupportGroupedByCustomer | null>(null);
+
+  const queryClient = useQueryClient();
+  const userId = getUser()?.id ?? null;
+  const { socket, connected } = useSocket(undefined, { namespace: 'deliveries' });
+
+  useEffect(() => {
+    if (!connected || !userId) return;
+    socket.emit('add-user', userId);
+  }, [connected, socket, userId]);
+
+  useEffect(() => {
+    const handleSupportUpdated = () => {
+      queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
+    };
+
+    socket.on('support-updated', handleSupportUpdated);
+
+    return () => {
+      socket.off('support-updated', handleSupportUpdated);
+    };
+  }, [socket, queryClient]);
 
   // Queries for each support module
   // const deliveriesQuery = useGetDeliverySupport({
@@ -103,7 +127,7 @@ const CustomerSupportMain = () => {
       };
     }
 
-    return groupSupportTickets(data.data);
+    return groupSupportTickets(groupTicketsByCustomer(data.data));
   }, [data]);
 
   const allTickets = useMemo(() => data?.data ?? [], [data?.data]);

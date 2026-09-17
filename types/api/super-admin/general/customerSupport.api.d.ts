@@ -15,21 +15,27 @@ export interface GetCustomerSupportResponse {
 
 
 export interface CustomerSupportGroupedTickets {
-  today: CustomerSupportTicketItem[];
-  yesterday: CustomerSupportTicketItem[];
-  older: CustomerSupportTicketItem[];
+  today: CustomerSupportGroupedByCustomer[];
+  yesterday: CustomerSupportGroupedByCustomer[];
+  older: CustomerSupportGroupedByCustomer[];
 }
 
 export interface CustomerSupportTicketItem {
   id: string;
+  ticketId: string | null;
   title: string;
   status: string;
   priority: string;
   ticketType: string;
   latestMessage: string;
   latestMessageAt: string;
+  createdAt: string;
   sender: CustomerSupportSenderInfo;
   totalMessages: number;
+}
+
+export interface CustomerSupportGroupedByCustomer extends CustomerSupportTicketItem {
+  ticketCount: number;
 }
 
 export interface CustomerSupportSenderInfo {
@@ -136,7 +142,8 @@ export interface SupportChatSendMessagePayload {
 
 export type SupportChatSendMessageResponse = {
   message: string;
-  details: Message
+  chatBoxId: string;
+  detail: Message
 };
 
 // update ticket status start

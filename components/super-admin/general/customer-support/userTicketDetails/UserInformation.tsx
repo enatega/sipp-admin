@@ -28,10 +28,10 @@ const UserInformation = ({
 
   const registrationDate = createdAt
     ? moment(createdAt).format('DD MMM YYYY, hh:mm A')
-    : '';
+    : 'N/A';
   const lastLoginDate = last_login
     ? moment(last_login).format('DD MMM YYYY, hh:mm A')
-    : '';
+    : 'N/A';
 
   if (isLoading) {
     return (
@@ -107,11 +107,11 @@ const UserInformation = ({
           <div className="space-y-3">
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('id')}</span>
-              <span className="font-medium text-black">{id}</span>
+              <span className="font-medium text-black">{id || 'N/A'}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('phone')}</span>
-              <span className="font-medium text-black">{phone}</span>
+              <span className="font-medium text-black">{phone || 'N/A'}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('regMethod')}</span>
@@ -128,12 +128,6 @@ const UserInformation = ({
           </div>
 
           <div className="space-y-3">
-            <div className="flex flex-col gap-1">
-              <span className="text-mute">{t('derivedFrom')}</span>
-              <span className="font-medium text-black">
-                {data?.derivedFrom}
-              </span>
-            </div>
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('accountStatus')}</span>
               <span className="font-medium text-black">

@@ -208,10 +208,7 @@ export const useUpdateSupportTicketStatus = (
             });
 
             queryClient.invalidateQueries({
-                queryKey: [
-                    'get-support-chat',
-                    module,
-                ],
+                queryKey: ['get-delivery-support-chat'],
             });
 
             options?.onSuccess?.(...args);
@@ -261,10 +258,7 @@ export const useSendSupportChatMessage = (
             });
 
             queryClient.invalidateQueries({
-                queryKey: [
-                    'get-support-chat',
-                    module,
-                ],
+                queryKey: ['get-delivery-support-chat'],
             });
 
             options?.onSuccess?.(...args);

@@ -2,17 +2,17 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
-import moment from 'moment';
+import { useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import type {
   GetCustomerSupportTicketMessagesByIdResponse,
-  Message,
   Message as Msg,
   SupportModule,
 } from '@/types/api/super-admin/general/customerSupport.api';
 import { getUser } from '@/lib/user';
 import { useSendSupportChatMessage } from '@/hooks/api/super-admin/general/customerSupport';
 import { useSocket } from '@/hooks/use-socket';
+import RelativeTime from '@/components/shared/RelativeTime';
 
 export default function Messages({
   data,
@@ -33,21 +33,19 @@ export default function Messages({
   const user = getUser();
   const userId = user?.id;
   const receiverId = data?.sender?.id;
+  const queryClient = useQueryClient();
 
   const [liveMessages, setLiveMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState('');
   const listRef = useRef<HTMLDivElement>(null);
   const serverMessages = useMemo(() => data?.messages ?? [], [data?.messages]);
 
-  const { socket, connected } = useSocket({
-    message: (m) => {
-      const msg = m as Message;
-      if (!msg || msg.chat_box_id !== ticketId) return;
-      setLiveMessages((prev) =>
-        prev.find((x) => x.id === msg.id) ? prev : [...prev, msg],
-      );
-    },
-  });
+  const { socket, connected } = useSocket(undefined, { namespace: 'deliveries' });
+
+  useEffect(() => {
+    if (!connected || !userId) return;
+    socket.emit('add-user', userId);
+  }, [connected, socket, userId]);
 
   const messages = useMemo(() => {
     if (liveMessages.length === 0) {
@@ -78,51 +76,66 @@ export default function Messages({
   }, [connected, socket]);
 
   useEffect(() => {
-    const handleReceiveMessage = (message: {
-      sender?: string;
-      receiver?: string;
-      text?: string;
+    const handleSupportUpdated = (payload: {
+      type: string;
+      chatBoxId: string;
+      message?: Msg;
     }) => {
-      const newMsg: Msg = {
-        sender_id: message?.sender ?? '',
-        receiver_id: message?.receiver ?? '',
-        text: message?.text ?? '',
-        createdAt: String(new Date()),
-      };
-      setLiveMessages((prev) => [...prev, newMsg]);
+      if (payload?.chatBoxId !== ticketId) return;
+
+      // Own messages are already shown optimistically by sendMessage().
+      if (
+        payload.type === 'message' &&
+        payload.message &&
+        payload.message.sender_id !== userId
+      ) {
+        const msg = payload.message;
+        setLiveMessages((prev) =>
+          prev.find((x) => x.id === msg.id) ? prev : [...prev, msg],
+        );
+      }
+
+      queryClient.invalidateQueries({
+        queryKey: ['get-support-chat-messages-by-id'],
+      });
     };
 
-    socket.on('receive-message', handleReceiveMessage);
+    socket.on('support-updated', handleSupportUpdated);
 
     return () => {
-      socket.off('receive-message', handleReceiveMessage);
+      socket.off('support-updated', handleSupportUpdated);
     };
-  }, [socket]);
+  }, [socket, ticketId, queryClient, userId]);
 
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight);
   }, [messages]);
 
-  const { mutate } = useSendSupportChatMessage(supportModule);
+  const { mutate, isPending } = useSendSupportChatMessage(supportModule);
 
   const sendMessage = () => {
     const text = input.trim();
-    if (!text || !userId || !receiverId) return;
+    if (!text || !userId || !receiverId || isPending) return;
     setInput('');
-    const body: Msg = {
-      sender_id: userId,
-      receiver_id: receiverId,
-      text,
-      createdAt: String(new Date()),
-    };
-    socket.emit('send-message', {
-      sender: userId,
-      receiver: receiverId,
-      text,
-    });
 
-    setLiveMessages((prev) => [...prev, body]);
-    mutate({ chatBoxId: ticketId, text });
+    // Only show the message once send-to-chat-box actually succeeds, using
+    // the server-persisted record (real id + real createdAt) so it isn't
+    // duplicated once the message list refetches with the same row.
+    mutate(
+      { chatBoxId: ticketId, text },
+      {
+        onSuccess: (response) => {
+          const detail = response?.detail;
+          if (!detail) return;
+          setLiveMessages((prev) =>
+            prev.find((x) => x.id === detail.id) ? prev : [...prev, detail],
+          );
+        },
+        onError: () => {
+          setInput(text);
+        },
+      },
+    );
   };
 
   return (
@@ -154,7 +167,7 @@ export default function Messages({
                 <div
                   className={`mt-1 text-[11px] ${mine ? 'text-white/80' : 'text-mute'}`}
                 >
-                  {moment(m.createdAt).fromNow()}
+                  <RelativeTime date={m.createdAt} />
                 </div>
               </div>
               {mine && (

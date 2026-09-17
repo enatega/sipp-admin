@@ -3,13 +3,14 @@
 import React from 'react';
 import Image from 'next/image';
 import { Flag } from 'lucide-react';
-import { CustomerSupportTicketItem } from '@/types/api/super-admin/general/customerSupport.api';
-import { formatTime } from '@/lib/date';
+import { CustomerSupportGroupedByCustomer } from '@/types/api/super-admin/general/customerSupport.api';
+import { formatReadableLabel } from '@/lib/utils';
+import RelativeTime from '@/components/shared/RelativeTime';
 import Status from '@/components/shared/Status';
 import StatusIcon from '@/components/shared/StatusIcon';
 
 export interface TabItemProps {
-  item: CustomerSupportTicketItem;
+  item: CustomerSupportGroupedByCustomer;
   isSelected?: boolean;
   onClick?: () => void;
   isLast?: boolean;
@@ -75,7 +76,7 @@ export const TabItem: React.FC<TabItemProps> = ({
               <div
                 className={`text-xs truncate ${isSelected ? 'text-white' : 'text-muted-foreground'}`}
               >
-                {item.title}
+                {formatReadableLabel(item.title)}
               </div>
             </div>
           </div>
@@ -83,10 +84,10 @@ export const TabItem: React.FC<TabItemProps> = ({
             <div
               className={`text-xs ${isSelected ? 'text-white' : 'text-muted-foreground'}`}
             >
-              {formatTime(item.latestMessageAt)}
+              <RelativeTime date={item.latestMessageAt} />
             </div>
             <span className="text-xs text-white bg-primary px-1.5 py-0.5 rounded-full">
-              {item.totalMessages}
+              {item.ticketCount}
             </span>
           </div>
         </div>
@@ -102,7 +103,7 @@ export const TabItem: React.FC<TabItemProps> = ({
           <span
             className={`text-xs px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-700'}`}
           >
-            {item.ticketType}
+            {formatReadableLabel(item.ticketType)}
           </span>
         </div>
       </div>

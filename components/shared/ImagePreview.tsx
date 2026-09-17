@@ -13,6 +13,7 @@ interface ImagePreviewProps {
   label?: string;
   className?: string;
   imageClassName?: string;
+  privateSource?: boolean;
 }
 
 const normalizePreviewSource = (value?: string | null): string | null => {
@@ -38,6 +39,7 @@ export const ImagePreview = ({
   label,
   className,
   imageClassName,
+  privateSource = false,
 }: ImagePreviewProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const t = useTranslations('imagePreview');
@@ -74,6 +76,7 @@ export const ImagePreview = ({
             <div className="relative w-full">
               <Image
                 src={imageSrc}
+                unoptimized={privateSource}
                 alt={label ?? 'image'}
                 width={300}
                 height={300}

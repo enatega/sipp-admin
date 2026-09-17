@@ -34,6 +34,7 @@ import DisplayError from '@/components/shared/DisplayError';
 import NoDataFound from '@/components/shared/NoDataFound';
 import Status from '@/components/shared/Status';
 import { VerificationDocumentCard } from '@/components/shared/documents/VerificationDocumentCard';
+import { ImagePreview } from '@/components/shared/ImagePreview';
 import { RejectRiderDialog } from '../rider-table/RejectRiderDialog';
 import { RiderDetailShimmer } from './RiderDetailShimmer';
 
@@ -65,6 +66,9 @@ export default function RiderDetailDialog({
     error,
   } = useGetDeliveryRider(riderId || '', {
     enabled: !!riderId && open,
+    staleTime: 0,
+    refetchOnMount: 'always',
+    refetchInterval: open ? 10 * 60 * 1000 : false,
   });
 
   const { mutateAsync: approveRider, isPending: isApproving } =
@@ -76,6 +80,8 @@ export default function RiderDetailDialog({
 
   const rider = riderData?.rider;
   const riderRecord = (rider as Record<string, unknown>) || {};
+  const legacyDocuments = (Array.isArray(riderRecord.legacyDocuments)
+    ? riderRecord.legacyDocuments : []) as { attachmentId: string; label: string; url: string }[];
   const codSettings =
     (riderRecord.cod_limit_settings as Record<string, unknown>) || {};
   const codLimitEnabledRaw =
@@ -540,6 +546,19 @@ export default function RiderDetailDialog({
                   <FileText className="w-5 h-5 text-primary" />
                   {t('documentVerificationTitle')}
                 </h3>
+
+                {legacyDocuments.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {legacyDocuments.map(document => (
+                      <ImagePreview
+                        key={document.attachmentId}
+                        image={document.url}
+                        label={t('legacyDocumentLabel', { number: document.label.replace('DOCUMENT_', '') })}
+                        privateSource
+                      />
+                    ))}
+                  </div>
+                )}
 
                 <VerificationDocumentCard
                   title={t('documentCardDriverLicense')}

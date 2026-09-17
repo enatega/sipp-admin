@@ -6540,6 +6540,7 @@
       "codLimitDisabledValue": "Disabled (Unlimited COD)",
       "notApplicable": "N/A",
       "driverTypeCardLabel": "Driver Type",
+      "legacyDocumentLabel": "Document {number}",
       "documentVerificationTitle": "Document Verification",
       "documentCardDriverLicense": "Driver License",
       "documentCardNationalIdPassport": "National ID/Passport",

@@ -17,7 +17,7 @@ export function formatDateGroup(date: Date) {
 
 export function formatTime(dateInput: Date | string | number | undefined): string {
   if (!dateInput) return '';
-  const then = typeof dateInput === 'string' || typeof dateInput === 'number' ? new Date(dateInput) : dateInput;
+  const then = parseAppDate(dateInput);
   if (Number.isNaN(then.getTime())) return '';
 
   const now = new Date();
@@ -32,4 +32,13 @@ export function formatTime(dateInput: Date | string | number | undefined): strin
   if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
 
   return then.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+export function parseAppDate(dateInput: Date | string | number): Date {
+  if (dateInput instanceof Date) return dateInput;
+  if (typeof dateInput === 'number') return new Date(dateInput);
+  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(dateInput)
+    ? dateInput
+    : `${dateInput}Z`;
+  return new Date(normalized);
 }

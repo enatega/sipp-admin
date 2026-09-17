@@ -27,17 +27,18 @@ export const groupTicketsByCustomer = (
         const existing = byCustomer.get(customerId);
 
         if (!existing) {
-            byCustomer.set(customerId, { ...ticket, ticketCount: 1 });
+            byCustomer.set(customerId, { ...ticket, ticketCount: 1, unreadCount: ticket.unreadCount ?? 0 });
             continue;
         }
 
         const ticketCount = existing.ticketCount + 1;
+        const unreadCount = (existing.unreadCount ?? 0) + (ticket.unreadCount ?? 0);
         const isMoreRecent =
             new Date(ticket.latestMessageAt) > new Date(existing.latestMessageAt);
 
         byCustomer.set(
             customerId,
-            isMoreRecent ? { ...ticket, ticketCount } : { ...existing, ticketCount }
+            isMoreRecent ? { ...ticket, ticketCount, unreadCount } : { ...existing, ticketCount, unreadCount }
         );
     }
 

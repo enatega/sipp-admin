@@ -1,3 +1,5 @@
+import { parseAppDate } from './date';
+
 const DEFAULT_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-GB', {
   day: '2-digit',
   month: 'short',
@@ -13,7 +15,7 @@ export function formatDateTime(
 ): string {
   if (!value) return fallback;
 
-  const date = value instanceof Date ? value : new Date(value);
+  const date = parseAppDate(value);
   if (Number.isNaN(date.getTime())) return fallback;
 
   return DEFAULT_DATE_TIME_FORMATTER.format(date).replace(',', '');

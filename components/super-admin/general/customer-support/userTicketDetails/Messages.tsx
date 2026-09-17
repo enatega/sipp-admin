@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
+import { LoaderCircle } from 'lucide-react';
 import type {
   GetCustomerSupportTicketMessagesByIdResponse,
   Message as Msg,
@@ -204,10 +205,16 @@ export default function Messages({
         </div>
         <button
           onClick={sendMessage}
-          className="px-4 py-2 text-sm rounded-md text-white"
+          disabled={isPending || !input.trim()}
+          aria-busy={isPending}
+          className="min-w-20 px-4 py-2 text-sm rounded-md text-white disabled:cursor-not-allowed disabled:opacity-60"
           style={{ backgroundColor: 'var(--primary,#0ea5e9)' }}
         >
-          {t('send')}
+          {isPending ? (
+            <LoaderCircle className="mx-auto size-5 animate-spin" aria-hidden="true" />
+          ) : (
+            t('send')
+          )}
         </button>
       </div>
     </div>

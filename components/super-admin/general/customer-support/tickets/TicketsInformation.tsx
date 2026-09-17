@@ -114,11 +114,13 @@ const TicketsInformation: React.FC<Props> = ({
                 </div>
                 <div className="text-sm text-muted-foreground text-right">
                   <div><RelativeTime date={t.latestMessageAt} /></div>
-                  <div className="mt-2">
-                    {/* <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs">
-                      {t.totalMessages}
-                    </span> */}
-                  </div>
+                  {t.unreadCount > 0 ? (
+                    <div className="mt-2">
+                      <span className="inline-flex min-w-6 items-center justify-center rounded-full bg-red-500 px-2 py-0.5 text-xs text-white">
+                        {t.unreadCount}
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
               </div>
 

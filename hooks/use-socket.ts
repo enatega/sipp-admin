@@ -26,19 +26,7 @@ export function useSocket(
   events?: SocketEventsMap,
   opts: UseSocketOptions = { autoConnect: true }
 ) {
-  const [socket] = useState<Socket>(() => {
-    const s = getSocket(opts.namespace);
-    const userId = getUser()?.id ?? null;
-
-    if (userId) {
-      s.auth = {
-        ...(typeof s.auth === 'object' && s.auth !== null ? s.auth : {}),
-        userId,
-      };
-    }
-
-    return s;
-  });
+  const [socket] = useState<Socket>(() => getSocket(opts.namespace));
   const [connected, setConnected] = useState<boolean>(socket.connected);
 
   useEffect(() => {

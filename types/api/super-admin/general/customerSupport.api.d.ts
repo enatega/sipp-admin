@@ -32,10 +32,12 @@ export interface CustomerSupportTicketItem {
   createdAt: string;
   sender: CustomerSupportSenderInfo;
   totalMessages: number;
+  unreadCount: number;
 }
 
 export interface CustomerSupportGroupedByCustomer extends CustomerSupportTicketItem {
   ticketCount: number;
+  unreadCount: number;
 }
 
 export interface CustomerSupportSenderInfo {

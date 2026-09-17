@@ -89,6 +89,11 @@ export const TabItem: React.FC<TabItemProps> = ({
             <span className="text-xs text-white bg-primary px-1.5 py-0.5 rounded-full">
               {item.ticketCount}
             </span>
+            {item.unreadCount > 0 ? (
+              <span className="text-xs text-white bg-red-500 px-1.5 py-0.5 rounded-full">
+                {item.unreadCount}
+              </span>
+            ) : null}
           </div>
         </div>
 

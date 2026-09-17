@@ -1,5 +1,6 @@
 // lib/socket.ts
 import { io, Socket } from "socket.io-client";
+import { getUser } from "@/lib/user";
 
 const sockets: Record<string, Socket> = {};
 const socketPath = process.env.NEXT_PUBLIC_SOCKET_PATH ?? "/socket.io";
@@ -33,6 +34,17 @@ export function getSocket(namespace?: string): Socket {
       autoConnect: false,
       path: socketPath,
     });
+  }
+
+  const user = getUser();
+  if (user?.id && user.token) {
+    sockets[key].auth = {
+      ...(typeof sockets[key].auth === 'object' && sockets[key].auth !== null
+        ? sockets[key].auth
+        : {}),
+      userId: user.id,
+      token: user.token,
+    };
   }
 
   return sockets[key];

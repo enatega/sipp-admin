@@ -39,7 +39,8 @@ export const Step3Form: React.FC = () => {
   const vehicleTypeOptions = useMemo(() => {
     return vehicleTypesData?.map((type) => ({
       key: type.name,
-      value: type.name,
+      // The API resolves vehicle types by ID, while `name` is display-only.
+      value: type.id,
     })) || [];
   }, [vehicleTypesData]);
 
@@ -75,8 +76,13 @@ export const Step3Form: React.FC = () => {
         validationSchema={RiderFormStep3Schema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, values }) => (
-          <Form className="space-y-6">
+        {({ isSubmitting, values }) => {
+          const selectedVehicleTypeName = vehicleTypesData?.find(
+            (type) => type.id === values.vehicle_type,
+          )?.name?.toLowerCase() || '';
+
+          return (
+            <Form className="space-y-6">
             <AppSelect
               label={tVehicle('label')}
               name="vehicle_type"
@@ -134,7 +140,7 @@ export const Step3Form: React.FC = () => {
             </div>
 
             {/* Conditional fields based on vehicle type */}
-            {values.vehicle_type?.toLowerCase() === 'car' && (
+            {selectedVehicleTypeName === 'car' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <AppCheckBox
                   name="air_conditioning"
@@ -144,7 +150,7 @@ export const Step3Form: React.FC = () => {
               </div>
             )}
 
-            {values.vehicle_type?.toLowerCase() === 'bike' && (
+            {selectedVehicleTypeName === 'bike' && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <AppCheckBox
                   name="helmet"
@@ -173,8 +179,9 @@ export const Step3Form: React.FC = () => {
                 {t('nextButton')}
               </AppButton>
             </div>
-          </Form>
-        )}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

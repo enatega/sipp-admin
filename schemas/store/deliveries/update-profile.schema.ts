@@ -7,7 +7,7 @@ const getPhoneDigitCount = (value: unknown) => {
   return String(value ?? '').replace(/\D/g, '').length;
 };
 
-export const updateProfileValidationSchema = (t: TSchema) =>
+export const updateProfileValidationSchema = (t: TSchema, isLegacyMigrated = false) =>
   Yup.object().shape({
     storeName: Yup.string().required(t('storeNameRequired')),
     vendorId: Yup.string().required(t('vendorIdRequired')),
@@ -28,4 +28,13 @@ export const updateProfileValidationSchema = (t: TSchema) =>
     nationalIdBack: Yup.mixed().nullable(),
     storeRegistrationDocument: Yup.mixed().nullable(),
     taxCertificate: Yup.mixed().nullable(),
+    ...(isLegacyMigrated ? {
+      email: Yup.string().email(t('emailInvalid')).optional(),
+      supportPhone: Yup.string().optional().test(
+        'phoneMaxDigits', t('supportPhoneRequired'),
+        (value) => getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
+      ),
+      zoneId: Yup.string().optional(),
+      tagLine: Yup.string().optional(),
+    } : {}),
   });

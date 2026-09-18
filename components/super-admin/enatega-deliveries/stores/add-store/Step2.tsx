@@ -3,15 +3,16 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { StoreFormStep2Schema } from '@/schemas/enatega-deliveries/stores/store-form';
+import { ApiErrorResponse } from '@/types';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import type { Step2Data } from '@/types/entities/super-admin/enatega-deliveries/store-form';
-import { ApiErrorResponse } from '@/types';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import { useGetAllShopTypesSimple } from '@/hooks/api/super-admin/enatega-deliveries/shop-type';
 import { AppButton } from '@/components/shared/AppButton';
 import DisplayError from '@/components/shared/DisplayError';
+import TaxConfiguration from '@/components/shared/form/TaxConfiguration';
 import NoDataFound from '@/components/shared/NoDataFound';
 import { EMPTY_STEP2 } from './data';
 
@@ -31,7 +32,13 @@ export const Step2Form: React.FC<Step2FormProps> = ({
   const tSchema = useTranslations('Schemas.storeForm');
 
   // Fetch shop types from API
-  const { data: shopTypes, isLoading, isError, error, refetch } = useGetAllShopTypesSimple();
+  const {
+    data: shopTypes,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useGetAllShopTypesSimple();
 
   const initialValues = React.useMemo<Step2Data>(
     () => initialData ?? EMPTY_STEP2,
@@ -58,6 +65,7 @@ export const Step2Form: React.FC<Step2FormProps> = ({
         {({ isSubmitting, setFieldValue, values }) => {
           return (
             <Form className="space-y-6">
+              <TaxConfiguration />
               <div className="space-y-3">
                 {/* Loading State */}
                 {isLoading ? (

@@ -1,9 +1,9 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useGetProduct } from '@/hooks/api/store/deliveries/product-management/products';
-import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
-import { useCurrency } from '@/hooks/use-currency';
+import type { ApiErrorResponse } from '@/types';
+import { useTranslations } from 'next-intl';
+import type { Product } from '@/types/entities/store/deliveries/product';
 import {
   buildDealSummaryIndex,
   calculatePriceAfterDeal,
@@ -15,11 +15,12 @@ import {
 import { formatCurrency } from '@/lib/formatCurrency';
 import { getNormalizedProductImages } from '@/lib/product-images';
 import { returnErrorMessage } from '@/lib/toast-error';
-import type { ApiErrorResponse } from '@/types';
-import type { Product } from '@/types/entities/store/deliveries/product';
-import { useTranslations } from 'next-intl';
+import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
+import { useGetProduct } from '@/hooks/api/store/deliveries/product-management/products';
+import { useCurrency } from '@/hooks/use-currency';
 import { AppDialog } from '@/components/shared/AppDialog';
 import DisplayError from '@/components/shared/DisplayError';
+import TaxSummary from '@/components/shared/TaxSummary';
 
 const UNLIMITED_STOCK_THRESHOLD = 1000000;
 
@@ -134,7 +135,8 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
       ) : isError ? (
         <DisplayError
           message={
-            returnErrorMessage(error as ApiErrorResponse) || tErrors('fetchFailed')
+            returnErrorMessage(error as ApiErrorResponse) ||
+            tErrors('fetchFailed')
           }
         />
       ) : currentProduct ? (
@@ -165,7 +167,9 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                           type="button"
                           onClick={() => setSelectedImage(image)}
                           className={`overflow-hidden rounded-lg border transition ${
-                            isActive ? 'border-primary ring-2 ring-primary/20' : 'border-border'
+                            isActive
+                              ? 'border-primary ring-2 ring-primary/20'
+                              : 'border-border'
                           }`}
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -185,7 +189,9 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {tForm('nameLabel')}
                   </p>
-                  <p className="text-2xl font-semibold">{currentProduct.name}</p>
+                  <p className="text-2xl font-semibold">
+                    {currentProduct.name}
+                  </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="rounded-xl border bg-light p-4">
@@ -214,8 +220,15 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                       {`${tForm('priceLabel')} (${resolvedCurrencySymbol})`}
                     </p>
                     <p className="font-medium">
-                      {formatCurrency(Number(currentProduct.price), resolvedCurrencySymbol)}
+                      {formatCurrency(
+                        Number(currentProduct.price),
+                        resolvedCurrencySymbol,
+                      )}
                     </p>
+                    <TaxSummary
+                      configuration={currentProduct}
+                      price={currentProduct.price}
+                    />
                     {productDealSummary ? (
                       <p className="text-xs text-primary mt-1">
                         {tForm('priceAfterDealLabel')}:{' '}
@@ -230,7 +243,8 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                     ) : null}
                     {productDealSummary ? (
                       <p className="text-xs text-muted-foreground mt-1">
-                        {tDetailFields('appliedDeal')}: {productDealSummary.dealName}
+                        {tDetailFields('appliedDeal')}:{' '}
+                        {productDealSummary.dealName}
                       </p>
                     ) : null}
                   </div>
@@ -266,7 +280,9 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
           </div>
 
           <div className="rounded-2xl border bg-white p-5">
-            <p className="text-sm font-semibold mb-2">{tForm('descriptionLabel')}</p>
+            <p className="text-sm font-semibold mb-2">
+              {tForm('descriptionLabel')}
+            </p>
             <p className="text-sm leading-6 text-muted-foreground">
               {currentProduct.description || tTable('notAvailable')}
             </p>
@@ -274,7 +290,9 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
 
           <div className="rounded-2xl border bg-white p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">{tDetailSections('deals')}</h3>
+              <h3 className="text-lg font-semibold">
+                {tDetailSections('deals')}
+              </h3>
               <span className="text-sm text-muted-foreground">
                 {appliedDeals.length}
               </span>
@@ -294,7 +312,8 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                         : tDetailValues('appliesOnBoth');
 
                   const variationLabel = deal.variationId
-                    ? variationNameById.get(deal.variationId) || deal.variationId
+                    ? variationNameById.get(deal.variationId) ||
+                      deal.variationId
                     : tDetailValues('allVariations');
 
                   return (
@@ -420,7 +439,9 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
           <div className="rounded-2xl border bg-white p-5 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">{tForm('addonsLabel')}</h3>
-              <span className="text-sm text-muted-foreground">{addOns.length}</span>
+              <span className="text-sm text-muted-foreground">
+                {addOns.length}
+              </span>
             </div>
             {addOns.length === 0 ? (
               <p className="text-sm text-muted-foreground">
@@ -429,7 +450,10 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
             ) : (
               <div className="space-y-3">
                 {addOns.map((addOn) => (
-                  <div key={addOn.id} className="rounded-xl border bg-light p-4 space-y-3">
+                  <div
+                    key={addOn.id}
+                    className="rounded-xl border bg-light p-4 space-y-3"
+                  >
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div>
                         <p className="text-xs text-muted-foreground">

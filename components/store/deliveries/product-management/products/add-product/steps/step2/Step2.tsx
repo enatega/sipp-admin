@@ -9,15 +9,15 @@ import { Plus, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
-import { getStorePath } from '@/lib/store';
-import { returnErrorMessage } from '@/lib/toast-error';
 import {
   calculatePriceAfterDeal,
   findDealSummaryById,
 } from '@/lib/deal-pricing';
 import { formatCurrency } from '@/lib/formatCurrency';
-import { useCreateProduct } from '@/hooks/api/store/deliveries/product-management/products';
+import { getStorePath } from '@/lib/store';
+import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
+import { useCreateProduct } from '@/hooks/api/store/deliveries/product-management/products';
 import { useCurrency } from '@/hooks/use-currency';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
@@ -134,6 +134,7 @@ export const Step2Form: React.FC = () => {
         subcategory_id: step1.subcategoryId || undefined,
         name: step1.name.trim(),
         price: Number(step1.price),
+        taxRateId: step1.taxRateId || undefined,
         stock_quantity: Number(step1.stockQuantity),
         description: step1.description || undefined,
         unit_of_measure: step1.unitOfMeasure || undefined,
@@ -218,7 +219,11 @@ export const Step2Form: React.FC = () => {
                           step="0.01"
                           min="0"
                           placeholder={t('pricePlaceholder')}
-                          prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+                          prefix={
+                            <span className="font-semibold text-primary">
+                              {resolvedCurrencySymbol}
+                            </span>
+                          }
                           requiredAsterisk
                         />
                       </div>

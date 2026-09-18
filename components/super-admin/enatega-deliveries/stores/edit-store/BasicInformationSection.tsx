@@ -9,9 +9,10 @@ import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import { Store } from './types';
 
-export function BasicInformationSection() {
+export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacyMigrated?: boolean }) {
   const { values, setFieldValue } = useFormikContext<Store>();
   const t = useTranslations('lumiFood.stores.addStore.step1');
+  const tLegacy = useTranslations('legacyStoreProfile');
 
   // Fetch zones from API
   const { data: zones, isLoading: isLoadingZones } = useGetZonesSimple();
@@ -28,6 +29,7 @@ export function BasicInformationSection() {
   return (
     <div className="bg-white p-10 rounded-xl shadow space-y-5">
       <h3 className="text-2xl font-semibold mb-10">{t('title')}</h3>
+      {isLegacyMigrated && <p className="text-sm text-muted-foreground">{tLegacy('useProfileHint')}</p>}
 
       <AppInputField
         label={t('storeNameLabel')}
@@ -35,6 +37,7 @@ export function BasicInformationSection() {
         type="text"
         placeholder={t('storeNamePlaceholder')}
         requiredAsterisk
+        disabled={isLegacyMigrated}
       />
 
       {/* Email - Read Only */}
@@ -44,11 +47,11 @@ export function BasicInformationSection() {
           name="email"
           type="email"
           placeholder={t('emailPlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={!isLegacyMigrated}
           disabled
         />
         <p className="text-xs text-muted-foreground mt-1">
-          {t('emailImmutableHint')}
+          {isLegacyMigrated ? tLegacy('loginHint') : t('emailImmutableHint')}
         </p>
       </div>
 
@@ -56,7 +59,8 @@ export function BasicInformationSection() {
         label={t('phoneLabel')}
         name="phone"
         placeholder={t('phonePlaceholder')}
-        requiredAsterisk
+        requiredAsterisk={!isLegacyMigrated}
+        disabled={isLegacyMigrated}
       />
 
       <AppFileInput
@@ -79,7 +83,7 @@ export function BasicInformationSection() {
         options={zoneOptions}
         value={values.zoneId}
         onValueChange={(value) => setFieldValue('zoneId', value)}
-        requiredAsterisk
+        requiredAsterisk={!isLegacyMigrated}
         disabled={isLoadingZones}
       />
 

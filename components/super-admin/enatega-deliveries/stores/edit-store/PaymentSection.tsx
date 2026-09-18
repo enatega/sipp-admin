@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { AppInputField } from '@/components/shared/form/AppInput';
 
-export function PaymentSection() {
+export function PaymentSection({ isLegacyMigrated = false }: { isLegacyMigrated?: boolean }) {
   const t = useTranslations('lumiFood.stores.addStore.step6');
 
   return (
@@ -16,19 +16,19 @@ export function PaymentSection() {
           label={t('bankNameLabel')}
           name="bankName"
           placeholder={t('bankNamePlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={!isLegacyMigrated}
         />
         <AppInputField
           label={t('accountHolderNameLabel')}
           name="accountHolderName"
           placeholder={t('accountHolderNamePlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={!isLegacyMigrated}
         />
         <AppInputField
           label={t('accountNumberLabel')}
           name="accountNumber"
           placeholder={t('accountNumberPlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={!isLegacyMigrated}
         />
         <AppInputField
           label={t('branchCodeLabel')}

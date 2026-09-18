@@ -1,23 +1,26 @@
 'use client';
 
 import Image from 'next/image';
+import { LegacyStoreNotice } from '@/components/shared/LegacyStoreNotice';
 import { ApiErrorResponse } from '@/types';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
-import { useCurrency } from '@/hooks/use-currency';
 import { useUpdateStoreSetting } from '@/hooks/api/store/deliveries/profile';
+import { useCurrency } from '@/hooks/use-currency';
 import { Switch } from '@/components/ui/switch';
 import CardShimmer from '@/components/shared/CardShimmer';
 import DisplayError from '@/components/shared/DisplayError';
 import { ImagePreview } from '@/components/shared/ImagePreview';
+import TaxSummary from '@/components/shared/TaxSummary';
 import { useStoreProfileViewModel } from './profileData';
 import StatusBadge from './StatusBadge';
 
 const ProfileDetail = () => {
   const t = useTranslations('storeProfile.detail');
+  const tLegacy = useTranslations('legacyStoreProfile');
   const tErrors = useTranslations('storeProfile.detail.errors');
   const tToast = useTranslations('storeProfile.detail.toast');
   const tSections = useTranslations('storeProfile.detail.sections');
@@ -29,6 +32,8 @@ const ProfileDetail = () => {
   const {
     storeId,
     profile,
+    isLegacyMigrated,
+    taxConfiguration,
     settings,
     additionalNotes,
     BasicInformation,
@@ -74,10 +79,14 @@ const ProfileDetail = () => {
         />
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h2 className="font-medium">{profile?.name || t('notAvailable')}</h2>
+            <h2 className="font-medium">
+              {profile?.name || t('notAvailable')}
+            </h2>
             <StatusBadge />
           </div>
-          <p className="text-xs text-mute">{profile?.email || t('notAvailable')}</p>
+          <p className="text-xs text-mute">
+            {profile?.email || t('notAvailable')}
+          </p>
           <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-mute">
             <span className="font-medium text-foreground">
               {profile?.rating || t('notAvailable')}
@@ -98,16 +107,23 @@ const ProfileDetail = () => {
       </div>
 
       <div className="space-y-8 p-4 md:p-6">
+        {isLegacyMigrated && <LegacyStoreNotice />}
         <section>
           <h3 className="text-lg font-semibold text-foreground">
             {tSections('basicInformation')}
           </h3>
           <div className="mt-4 grid gap-6 md:grid-cols-2">
+            {taxConfiguration && (
+              <TaxSummary configuration={taxConfiguration} />
+            )}
             {BasicInformation.map((item) => (
               <div key={`${item.key}-${item.label}`} className="space-y-1">
                 <p className="text-sm text-mute">{item.label}</p>
                 <p className="text-sm text-foreground">
-                  {item.key === 'minimumOrderValue' && item.value !== null && item.value !== undefined && item.value !== ''
+                  {item.key === 'minimumOrderValue' &&
+                  item.value !== null &&
+                  item.value !== undefined &&
+                  item.value !== ''
                     ? formatCurrency(Number(item.value), resolvedCurrencySymbol)
                     : item.value || t('notAvailable')}
                 </p>
@@ -144,7 +160,9 @@ const ProfileDetail = () => {
                 <span>{contactDetails?.showContactInStorePage.label}</span>
                 <Switch
                   name="show_contact_on_store_page"
-                  checked={Boolean(contactDetails?.showContactInStorePage.value)}
+                  checked={Boolean(
+                    contactDetails?.showContactInStorePage.value,
+                  )}
                   onCheckedChange={(checked) =>
                     handleUpdateSetting('show_contact_on_store_page', checked)
                   }
@@ -157,7 +175,9 @@ const ProfileDetail = () => {
         </section>
 
         <section>
-          <h3 className="text-lg font-semibold text-foreground">{tSections('settings')}</h3>
+          <h3 className="text-lg font-semibold text-foreground">
+            {tSections('settings')}
+          </h3>
           <div className="mt-4 grid gap-6 md:grid-cols-2">
             <div className="flex items-center justify-between w-[250px]">
               <p className="text-sm text-mute">{tSettings('pickupAllowed')}</p>
@@ -171,7 +191,9 @@ const ProfileDetail = () => {
               />
             </div>
             <div className="flex items-center justify-between gap-4 w-[250px]">
-              <p className="text-sm text-mute">{tSettings('cardPaymentAllowed')}</p>
+              <p className="text-sm text-mute">
+                {tSettings('cardPaymentAllowed')}
+              </p>
               <Switch
                 checked={Boolean(settings?.cardPaymentAllowed)}
                 onCheckedChange={(checked) =>
@@ -182,7 +204,9 @@ const ProfileDetail = () => {
               />
             </div>
             <div className="flex items-center justify-between w-[250px]">
-              <p className="text-sm text-mute">{tSettings('deliveryAllowed')}</p>
+              <p className="text-sm text-mute">
+                {tSettings('deliveryAllowed')}
+              </p>
               <Switch
                 checked={Boolean(settings?.deliveryAllowed)}
                 onCheckedChange={(checked) =>
@@ -193,7 +217,9 @@ const ProfileDetail = () => {
               />
             </div>
             <div className="flex items-center justify-between gap-4 w-[250px]">
-              <p className="text-sm text-mute">{tSettings('codPaymentAllowed')}</p>
+              <p className="text-sm text-mute">
+                {tSettings('codPaymentAllowed')}
+              </p>
               <Switch
                 checked={Boolean(settings?.codPaymentAllowed)}
                 onCheckedChange={(checked) =>
@@ -222,14 +248,17 @@ const ProfileDetail = () => {
           <h3 className="text-lg font-semibold text-foreground">
             {tSections('kycDocuments')}
           </h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {tLegacy('kycProgress', { count: kycDocuments.filter((doc) => doc.src).length, total: kycDocuments.length })}
+          </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {kycDocuments?.slice(0, 6).map((doc) => (
               <div key={doc.label} className="space-y-2">
-                <p className="text-sm text-mute">{doc.label}</p>
                 <div className="overflow-hidden rounded-lg border bg-mute/5">
                   <ImagePreview
-                    image={doc.src || 'https://placehold.co/600x400'}
-                    className="h-28 w-full"
+                    image={doc.src}
+                    label={doc.label}
+                    className="w-full"
                   />
                 </div>
               </div>

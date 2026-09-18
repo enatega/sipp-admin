@@ -1,10 +1,11 @@
 'use client';
 
-import moment from 'moment';
-import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
-import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
+import { normalizePreviewSource } from '@/lib/document-preview';
+import { useParams } from 'next/navigation';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 
 const PROFILE_DATE_TIME_FORMAT = 'DD MMM YYYY, hh:mm A';
 
@@ -15,7 +16,9 @@ const formatProfileDateTime = (value?: string) => {
 };
 
 export const useStoreProfileViewModel = () => {
-  const tBasicFields = useTranslations('storeProfile.detail.basicInformation.fields');
+  const tBasicFields = useTranslations(
+    'storeProfile.detail.basicInformation.fields',
+  );
   const tContact = useTranslations('storeProfile.detail.contactDetails');
   const tKyc = useTranslations('storeProfile.detail.kycDocuments');
   const params = useParams();
@@ -27,9 +30,11 @@ export const useStoreProfileViewModel = () => {
     if (!data) {
       return {
         profile: undefined,
+        isLegacyMigrated: false,
         settings: undefined,
         additionalNotes: undefined,
         BasicInformation: [],
+        taxConfiguration: undefined,
         contactDetails: undefined,
         kycDocuments: [],
       };
@@ -37,6 +42,8 @@ export const useStoreProfileViewModel = () => {
 
     return {
       profile: data.profile,
+      isLegacyMigrated: data.isLegacyMigrated === true,
+      taxConfiguration: data.basicInformation,
       settings: data.settings,
       additionalNotes: data.additionalNotes,
       contactDetails: {
@@ -90,32 +97,32 @@ export const useStoreProfileViewModel = () => {
       kycDocuments: [
         {
           label: tKyc('businessLicenseFrontLabel'),
-          src: data?.kycDocuments?.businessLicenseFront,
+          src: normalizePreviewSource(data?.kycDocuments?.businessLicenseFront),
           alt: tKyc('businessLicenseFrontAlt'),
         },
         {
           label: tKyc('businessLicenseBackLabel'),
-          src: data?.kycDocuments?.businessLicenseBack,
+          src: normalizePreviewSource(data?.kycDocuments?.businessLicenseBack),
           alt: tKyc('businessLicenseBackAlt'),
         },
         {
           label: tKyc('storeRegistrationDocumentLabel'),
-          src: data?.kycDocuments?.registeredStoreDocs,
+          src: normalizePreviewSource(data?.kycDocuments?.registeredStoreDocs),
           alt: tKyc('storeRegistrationDocumentAlt'),
         },
         {
           label: tKyc('taxCertificateLabel'),
-          src: data?.kycDocuments?.taxIdCertificate,
+          src: normalizePreviewSource(data?.kycDocuments?.taxIdCertificate),
           alt: tKyc('taxCertificateAlt'),
         },
         {
           label: tKyc('nationalIdFrontLabel'),
-          src: data?.kycDocuments?.nationalIdFront,
+          src: normalizePreviewSource(data?.kycDocuments?.nationalIdFront),
           alt: tKyc('nationalIdFrontAlt'),
         },
         {
           label: tKyc('nationalIdBackLabel'),
-          src: data?.kycDocuments?.nationalIdBack,
+          src: normalizePreviewSource(data?.kycDocuments?.nationalIdBack),
           alt: tKyc('nationalIdBackAlt'),
         },
       ],

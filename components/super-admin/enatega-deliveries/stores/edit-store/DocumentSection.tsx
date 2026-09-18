@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { Step5Lables } from './data';
 
-export function DocumentSection() {
+export function DocumentSection({ isLegacyMigrated = false }: { isLegacyMigrated?: boolean }) {
   const t = useTranslations('lumiFood.stores.addStore.step5');
   const tEdit = useTranslations('lumiFood.stores.editStore.documents');
 
@@ -21,7 +21,7 @@ export function DocumentSection() {
               key={field.name}
               name={field.name}
               label={t(`fields.${field.labelKey}`)}
-              requiredAsterisk
+              requiredAsterisk={!isLegacyMigrated}
               previewHeight={120}
             />
           ))}

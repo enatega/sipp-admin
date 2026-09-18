@@ -1,6 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
+import { pruneUnchangedStoreFields } from '@/lib/store-update-payload';
+import { LegacyStoreNotice } from '@/components/shared/LegacyStoreNotice';
 import { useParams, useRouter } from 'next/navigation';
 import { updateProfileValidationSchema } from '@/schemas/store/deliveries/update-profile.schema';
 import { ApiErrorResponse } from '@/types';
@@ -10,12 +12,12 @@ import toast from 'react-hot-toast';
 import { UpdateStoreDataPayload } from '@/types/api/store/deliveries/profile';
 import { resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import { useGetZonesSimple } from '@/hooks/api/common/zones';
+import { useGetAllVendorsSimple } from '@/hooks/api/deliveries/vendors';
 import {
   useGetStoreProfile,
   useUpdateStoreData,
 } from '@/hooks/api/store/deliveries/profile';
-import { useGetAllVendorsSimple } from '@/hooks/api/deliveries/vendors';
-import { useGetZonesSimple } from '@/hooks/api/common/zones';
 import { useCurrency } from '@/hooks/use-currency';
 import { AppButton } from '@/components/shared/AppButton';
 import CardShimmer from '@/components/shared/CardShimmer';
@@ -24,6 +26,7 @@ import { AppInputField } from '@/components/shared/form/AppInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import EditableDocumentField from '@/components/shared/form/EditableDocumentFIeld';
+import TaxConfiguration from '@/components/shared/form/TaxConfiguration';
 import { Heading } from '@/components/shared/Heading';
 
 const UpdateProfileDetails = () => {
@@ -33,6 +36,7 @@ const UpdateProfileDetails = () => {
   const tErrors = useTranslations('storeUpdateProfile.errors');
   const tToast = useTranslations('storeUpdateProfile.toast');
   const tSchema = useTranslations('storeUpdateProfile.schema');
+  const tLegacy = useTranslations('legacyStoreProfile');
   const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = resolveCurrencySymbol(currencySymbol);
   const params = useParams();
@@ -43,6 +47,7 @@ const UpdateProfileDetails = () => {
     isError,
     error,
   } = useGetStoreProfile(storeId);
+  const isLegacyMigrated = getStoreProfile?.isLegacyMigrated === true;
   const { data: vendors, isError: vendorIsError } = useGetAllVendorsSimple();
   const { data: zones, isError: zoneIsError } = useGetZonesSimple();
 
@@ -68,6 +73,9 @@ const UpdateProfileDetails = () => {
       email: getStoreProfile?.contactInformation.email ?? '',
       supportPhone: getStoreProfile?.contactInformation.phoneNumber ?? '',
       zoneId: getStoreProfile?.basicInformation.zoneId ?? '',
+      productTaxMode:
+        getStoreProfile?.basicInformation.productTaxMode || 'store_rate',
+      taxRateId: getStoreProfile?.basicInformation.taxRateId || '',
       // createdDate: getStoreProfile?.basicInformation.createdDate ?? '',
       tagLine: getStoreProfile?.basicInformation.tagLine ?? '',
       description: getStoreProfile?.basicInformation.description ?? '',
@@ -76,7 +84,7 @@ const UpdateProfileDetails = () => {
       notes: getStoreProfile?.additionalNotes ?? '',
 
       // Files start as null (new upload)
-      businessLicenseFront: getStoreProfile?.kycDocuments.nationalIdFront ?? '',
+      businessLicenseFront: getStoreProfile?.kycDocuments.businessLicenseFront ?? '',
       businessLicenseBack:
         getStoreProfile?.kycDocuments.businessLicenseBack ?? '',
       nationalIdFront: getStoreProfile?.kycDocuments.nationalIdFront ?? '',
@@ -97,6 +105,9 @@ const UpdateProfileDetails = () => {
       formData.append('email', values.email ?? '');
       formData.append('phone', values.supportPhone ?? '');
       formData.append('zoneId', values.zoneId ?? '');
+      formData.append('productTaxMode', values.productTaxMode);
+      if (values.productTaxMode !== 'product_level' && values.taxRateId)
+        formData.append('taxRateId', values.taxRateId);
       formData.append('minimumOrder', values.minimumOrderValue ?? '0');
       formData.append('tagLine', values.tagLine ?? '');
       formData.append('description', values.description ?? '');
@@ -122,6 +133,18 @@ const UpdateProfileDetails = () => {
       );
       appendFileIfExists('taxIdCertificate', values.taxCertificate);
 
+      if (isLegacyMigrated) {
+        pruneUnchangedStoreFields(formData, values, initialValues, {
+          storeName: 'storeName', email: 'email', supportPhone: 'phone', zoneId: 'zoneId',
+          minimumOrderValue: 'minimumOrder', tagLine: 'tagLine', description: 'description', notes: 'notes',
+          productTaxMode: 'productTaxMode', taxRateId: 'taxRateId',
+        });
+        if (values.productTaxMode !== initialValues.productTaxMode || values.taxRateId !== initialValues.taxRateId) {
+          formData.set('productTaxMode', values.productTaxMode);
+          if (values.productTaxMode !== 'product_level' && values.taxRateId)
+            formData.set('taxRateId', values.taxRateId);
+        }
+      }
       // Call mutation with FormData
       const response = await updateStore(
         formData as unknown as UpdateStoreDataPayload,
@@ -144,7 +167,7 @@ const UpdateProfileDetails = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={updateProfileValidationSchema(tSchema)}
+      validationSchema={updateProfileValidationSchema(tSchema, isLegacyMigrated)}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit: formikHandleSubmit }) => (
@@ -156,6 +179,10 @@ const UpdateProfileDetails = () => {
         >
           <main className="space-y-8">
             <Heading title={t('title')} showBackBtn />
+            {isLegacyMigrated && <LegacyStoreNotice />}
+            <TaxConfiguration
+              currentRate={getStoreProfile?.basicInformation.taxRate}
+            />
             <section className="rounded-xl border bg-white p-4 md:p-6">
               <h3 className="text-lg font-semibold text-foreground">
                 {tSections('storeInformation')}
@@ -176,7 +203,9 @@ const UpdateProfileDetails = () => {
                   name="email"
                   label={tForm('emailLabel')}
                   type="email"
+                  disabled={isLegacyMigrated}
                 />
+                {isLegacyMigrated && <p className="text-sm text-muted-foreground">{tLegacy('loginHint')}</p>}
                 <AppInputField
                   name="supportPhone"
                   label={tForm('supportPhoneLabel')}

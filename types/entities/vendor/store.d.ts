@@ -1,13 +1,8 @@
-import type { ZoneData } from '@/components/shared/maps/InteractiveMap';
 import type { DayTimings, StoreTimings } from '@/shared/contracts/store';
+import type { ZoneData } from '@/components/shared/maps/InteractiveMap';
 
 export type StoreStatus =
-  | 'active'
-  | 'pending'
-  | 'blocked'
-  | 'deactivated'
-  | 'approved'
-  | 'rejected';
+  'active' | 'pending' | 'blocked' | 'deactivated' | 'approved' | 'rejected';
 export type ShopType = 'restaurant' | 'grocery' | 'pharmacy' | 'convenience';
 export type StoreType = 'dine_in' | 'takeaway' | 'delivery' | 'all';
 
@@ -48,6 +43,8 @@ export interface VendorStep1Data {
 }
 
 export interface Step2Data {
+  productTaxMode?: 'store_rate' | 'product_level';
+  taxRateId?: string;
   shopType: string;
 }
 

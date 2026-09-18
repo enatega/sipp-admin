@@ -2,15 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import {
-  useDeleteProduct,
-  useGetProducts,
-  useToggleProductInStock,
-} from '@/hooks/api/store/deliveries/product-management/products';
-import { useQueryParams } from '@/hooks/use-query-params';
-import { useSortableData } from '@/hooks/use-sortable-data';
-import { useCurrency } from '@/hooks/use-currency';
-import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
+import type { ApiErrorResponse } from '@/types';
+import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
+import type { Product } from '@/types/entities/store/deliveries/product';
 import {
   buildDealSummaryIndex,
   calculatePriceAfterDeal,
@@ -20,12 +15,17 @@ import {
 } from '@/lib/deal-pricing';
 import { formatCurrency } from '@/lib/formatCurrency';
 import { getProductCoverImage } from '@/lib/product-images';
-import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { getStorePath } from '@/lib/store';
-import type { ApiErrorResponse } from '@/types';
-import type { Product } from '@/types/entities/store/deliveries/product';
-import { useTranslations } from 'next-intl';
-import toast from 'react-hot-toast';
+import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
+import {
+  useDeleteProduct,
+  useGetProducts,
+  useToggleProductInStock,
+} from '@/hooks/api/store/deliveries/product-management/products';
+import { useCurrency } from '@/hooks/use-currency';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { useSortableData } from '@/hooks/use-sortable-data';
 import { Switch } from '@/components/ui/switch';
 import {
   Table,
@@ -40,10 +40,13 @@ import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
-import { TableShimmer, type TLimitType } from '@/components/shared/TableShimmer';
+import {
+  TableShimmer,
+  type TLimitType,
+} from '@/components/shared/TableShimmer';
 import { ProductDetailDialog } from '@/components/store/deliveries/product-management/products/product-detail/ProductDetailDialog';
-import ProductActions from './ProductActions';
 import Filters from './Filters';
+import ProductActions from './ProductActions';
 
 const UNLIMITED_STOCK_THRESHOLD = 1000000;
 
@@ -87,10 +90,7 @@ export function ProductsTable() {
     },
   });
 
-  const {
-    mutate: deleteProduct,
-    isPending: isDeleting,
-  } = useDeleteProduct({
+  const { mutate: deleteProduct, isPending: isDeleting } = useDeleteProduct({
     onSuccess: (response) => {
       toast.success(response.message || t('success.delete'));
       setDeletingProduct(null);
@@ -221,13 +221,21 @@ export function ProductsTable() {
                       product.category?.name ||
                       t('table.notAvailable')}
                   </TableCell>
-                  <TableCell>{formatPrice(product.price)}</TableCell>
+                  <TableCell>
+                    {formatPrice(product.price)}
+                    {product.taxRate && (
+                      <p className="text-xs text-muted-foreground">
+                        {product.taxRate.name} ({product.taxRate.rate}%)
+                      </p>
+                    )}
+                  </TableCell>
                   <TableCell>
                     {(() => {
                       const appliedDeals = extractAppliedDealsFromProduct(
                         product as Record<string, unknown>,
                       );
-                      const productDealRef = getProductAppliedDealRef(appliedDeals);
+                      const productDealRef =
+                        getProductAppliedDealRef(appliedDeals);
                       const productDealSummary = resolveAppliedDealSummary(
                         productDealRef,
                         dealSummaryIndex,
@@ -238,15 +246,21 @@ export function ProductsTable() {
                         Number(product.price),
                         productDealSummary,
                       );
-                      if (discountedPrice === null) return t('table.notAvailable');
+                      if (discountedPrice === null)
+                        return t('table.notAvailable');
 
-                      return formatCurrency(discountedPrice, resolvedCurrencySymbol);
+                      return formatCurrency(
+                        discountedPrice,
+                        resolvedCurrencySymbol,
+                      );
                     })()}
                   </TableCell>
                   <TableCell>
                     {product.unitOfMeasure || t('table.notAvailable')}
                   </TableCell>
-                  <TableCell>{formatStockQuantity(product.stockQuantity)}</TableCell>
+                  <TableCell>
+                    {formatStockQuantity(product.stockQuantity)}
+                  </TableCell>
                   <TableCell onClick={(event) => event.stopPropagation()}>
                     <Switch
                       checked={product.inStock}

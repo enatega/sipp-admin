@@ -2,20 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useVendorAddStoreForm } from '@/contexts/vendor/deliveries/store/use-add-store-form';
+import { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { useVendorAddStoreForm } from '@/contexts/vendor/deliveries/store/use-add-store-form';
+import type { VendorStoreFormData } from '@/types/entities/vendor/store';
 import { handleApiError } from '@/lib/toast-error';
 import { useCreateStore } from '@/hooks/api/vendor/deliveries/stores';
-import { ApiErrorResponse } from '@/types';
-import type { VendorStoreFormData } from '@/types/entities/vendor/store';
-import { Step1Form } from './Step1';
 import {
   SharedStep2Form,
   SharedStep4Form,
   SharedStep5Form,
   SharedStep6Form,
 } from '@/components/shared/enatega-deliveries/stores/add-store';
+import { Step1Form } from './Step1';
 
 const VendorAddStoreForm = () => {
   const router = useRouter();
@@ -23,14 +23,7 @@ const VendorAddStoreForm = () => {
   const tStep4 = useTranslations('vendorDeliveriesStores.addStore.step4');
   const tMessages = useTranslations('vendorDeliveriesStores.addStore.messages');
   const { vendorId } = useParams() as { vendorId: string };
-  const {
-    currentStep,
-    formData,
-    nextStep,
-    prevStep,
-    setStepData,
-    resetForm,
-  } =
+  const { currentStep, formData, nextStep, prevStep, setStepData, resetForm } =
     useVendorAddStoreForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -39,9 +32,7 @@ const VendorAddStoreForm = () => {
       setIsSubmitting(false);
       toast.success(data.message || tMessages('createSuccess'));
       resetForm();
-      const createdStoreId =
-        data?.storeId ||
-        data?.data?.storeId
+      const createdStoreId = data?.storeId || data?.data?.storeId;
 
       const createdStoreEmail = formData.step1?.email;
 
@@ -151,6 +142,15 @@ const VendorAddStoreForm = () => {
 
       if (formData.step2) {
         formDataToSend.append('shopType', formData.step2.shopType);
+        formDataToSend.append(
+          'productTaxMode',
+          formData.step2.productTaxMode || 'store_rate',
+        );
+        if (
+          formData.step2.productTaxMode !== 'product_level' &&
+          formData.step2.taxRateId
+        )
+          formDataToSend.append('taxRateId', formData.step2.taxRateId);
       }
 
       // if (formData.step3) {
@@ -284,10 +284,7 @@ const VendorAddStoreForm = () => {
       }
 
       formDataToSend.append('bank_name', step6Data.bankName);
-      formDataToSend.append(
-        'account_holder_name',
-        step6Data.accountHolderName,
-      );
+      formDataToSend.append('account_holder_name', step6Data.accountHolderName);
       formDataToSend.append('account_number', step6Data.accountNumber);
       formDataToSend.append('branch_code', step6Data.branchCode || '');
 

@@ -25,6 +25,7 @@ import AddonsAsyncMultiSelect from '@/components/store/deliveries/product-manage
 import CategoryAsyncSelect from '@/components/store/deliveries/product-management/common/CategoryAsyncSelect';
 import DealsAsyncMultiSelect from '@/components/store/deliveries/product-management/common/DealsAsyncMultiSelect';
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
+import ProductTaxField from '../../ProductTaxField';
 
 const EMPTY_STEP1: Step1Data = {
   name: '',
@@ -184,6 +185,7 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           requiredAsterisk
         />
 
+        <ProductTaxField />
         <div className="space-y-2">
           <AppInputField
             label={t('stockQuantityLabel')}

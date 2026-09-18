@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { useAddStoreForm } from '@/contexts/super-admin/enatega-deliveries/store/use-add-store-form';
 import { ApiErrorResponse } from '@/types';
+import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import type { StoreFormData } from '@/types/entities/super-admin/enatega-deliveries/store-form';
-import { handleApiError } from '@/lib/toast-error';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
+import { handleApiError } from '@/lib/toast-error';
 import { useCreateStore } from '@/hooks/api/super-admin/enatega-deliveries/stores';
 import { Step1Form } from './Step1';
 import { Step2Form } from './Step2';
@@ -20,7 +20,9 @@ const AddStoreForm = () => {
   const router = useRouter();
   const pathname = usePathname();
   const tStep4 = useTranslations('lumiFood.stores.addStore.step4');
-  const tAddStoreMessages = useTranslations('lumiFood.stores.addStore.messages');
+  const tAddStoreMessages = useTranslations(
+    'lumiFood.stores.addStore.messages',
+  );
   const { currentStep, formData, nextStep, prevStep, setStepData, resetForm } =
     useAddStoreForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,17 +41,17 @@ const AddStoreForm = () => {
     },
     onError: (error) => {
       setIsSubmitting(false);
-      
+
       // Force reset after a short delay as fallback
       setTimeout(() => {
         setIsSubmitting(false);
       }, 100);
-      
+
       handleApiError(error as ApiErrorResponse);
     },
     onSettled: () => {
       setIsSubmitting(false);
-      
+
       // Force reset after a short delay as fallback
       setTimeout(() => {
         setIsSubmitting(false);
@@ -109,8 +111,14 @@ const AddStoreForm = () => {
         formDataToSend.append('description', formData.step1.description || '');
         formDataToSend.append('minimumOrder', formData.step1.minimumOrderValue);
 
-        formDataToSend.append('change_password_allowed', formData.step1.changePassword ? 'true' : 'false');
-        formDataToSend.append('mail_login_credentials', formData.step1.mailLoginCredentials ? 'true' : 'false');
+        formDataToSend.append(
+          'change_password_allowed',
+          formData.step1.changePassword ? 'true' : 'false',
+        );
+        formDataToSend.append(
+          'mail_login_credentials',
+          formData.step1.mailLoginCredentials ? 'true' : 'false',
+        );
 
         if (formData.step1.zoneId) {
           formDataToSend.append('zoneId', formData.step1.zoneId);
@@ -127,6 +135,15 @@ const AddStoreForm = () => {
       // Step 2 data
       if (formData.step2) {
         formDataToSend.append('shopType', formData.step2.shopType);
+        formDataToSend.append(
+          'productTaxMode',
+          formData.step2.productTaxMode || 'store_rate',
+        );
+        if (
+          formData.step2.productTaxMode !== 'product_level' &&
+          formData.step2.taxRateId
+        )
+          formDataToSend.append('taxRateId', formData.step2.taxRateId);
       }
 
       // Step 3 (Store Operation Mode) intentionally disabled for enatega-deliveries/stores.
@@ -218,20 +235,20 @@ const AddStoreForm = () => {
           };
         }
 
-      if (Object.keys(addressZone).length > 0) {
-        formDataToSend.append('address_zone', JSON.stringify(addressZone));
-      }
+        if (Object.keys(addressZone).length > 0) {
+          formDataToSend.append('address_zone', JSON.stringify(addressZone));
+        }
 
-      if (formData.step4.exactStoreLocation) {
-        formDataToSend.append(
-          'latitude',
-          String(formData.step4.exactStoreLocation.latitude),
-        );
-        formDataToSend.append(
-          'longitude',
-          String(formData.step4.exactStoreLocation.longitude),
-        );
-      }
+        if (formData.step4.exactStoreLocation) {
+          formDataToSend.append(
+            'latitude',
+            String(formData.step4.exactStoreLocation.latitude),
+          );
+          formDataToSend.append(
+            'longitude',
+            String(formData.step4.exactStoreLocation.longitude),
+          );
+        }
       }
 
       // Step 5 data (documents)
@@ -283,15 +300,30 @@ const AddStoreForm = () => {
       // Store timings from Step 4
       const storeTimings = formData.step4?.storeTimings || {
         monday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
-        tuesday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
-        wednesday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
-        thursday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
+        tuesday: {
+          is_active: true,
+          slots: [{ open: '09:00', close: '22:00' }],
+        },
+        wednesday: {
+          is_active: true,
+          slots: [{ open: '09:00', close: '22:00' }],
+        },
+        thursday: {
+          is_active: true,
+          slots: [{ open: '09:00', close: '22:00' }],
+        },
         friday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
-        saturday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
+        saturday: {
+          is_active: true,
+          slots: [{ open: '09:00', close: '22:00' }],
+        },
         sunday: { is_active: true, slots: [{ open: '09:00', close: '22:00' }] },
       };
 
-      const formattedTimings: Record<string, { is_active: boolean; slots: { open: string; close: string }[] }> = {};
+      const formattedTimings: Record<
+        string,
+        { is_active: boolean; slots: { open: string; close: string }[] }
+      > = {};
       Object.keys(storeTimings).forEach((day) => {
         const dayTimings = storeTimings[day as keyof typeof storeTimings];
         formattedTimings[day] = {
@@ -303,7 +335,6 @@ const AddStoreForm = () => {
       formDataToSend.append('storeTimings', JSON.stringify(formattedTimings));
 
       createStore(formDataToSend);
-      
     } catch {
       setIsSubmitting(false);
       toast.error(tAddStoreMessages('prepareFailed'));

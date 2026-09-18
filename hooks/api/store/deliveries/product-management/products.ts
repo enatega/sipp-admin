@@ -1,13 +1,13 @@
-import Axios from '@/config/axios';
-import { useQueryParams } from '@/hooks/use-query-params';
+import { useCallback, useMemo } from 'react';
+import { useParams } from 'next/navigation';
 import {
   ApiErrorResponse,
   BulkUploadProductsPayload,
   BulkUploadProductsResponse,
-  CreateProductPayload,
-  CreateProductResponse,
   CreateProductCustomizationGroupPayload,
   CreateProductCustomizationGroupResponse,
+  CreateProductPayload,
+  CreateProductResponse,
   DeleteProductCustomizationGroupPayload,
   DeleteProductCustomizationGroupResponse,
   DeleteProductResponse,
@@ -17,20 +17,20 @@ import {
   GetProductSubCategoryOptionsResponse,
   ProductStockFilter,
   ToggleProductInStockResponse,
-  UpdateProductPayload,
   UpdateProductCustomizationGroupPayload,
   UpdateProductCustomizationGroupResponse,
+  UpdateProductPayload,
   UpdateProductResponse,
 } from '@/types';
 import {
   useMutation,
+  useQuery,
   useQueryClient,
   type UseMutationOptions,
-  useQuery,
   type UseQueryOptions,
 } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
+import Axios from '@/config/axios';
+import { useQueryParams } from '@/hooks/use-query-params';
 
 const resolveStockFilter = (tab?: string): ProductStockFilter => {
   if (tab === 'instock' || tab === 'in_stock') {
@@ -65,9 +65,7 @@ type CustomizationGroupFormPayload = {
   variation_image?: File;
 };
 
-const buildAddonGroupFormData = (
-  payload: CustomizationGroupFormPayload,
-) => {
+const buildAddonGroupFormData = (payload: CustomizationGroupFormPayload) => {
   if (!payload.optionIds?.length) {
     throw new Error('At least one option is required');
   }
@@ -138,26 +136,29 @@ export const useGetProducts = (
     [limit, page, search, stock, storeId],
   );
 
-  const fetchProducts = useCallback(async (
-    requestParams: NonNullable<typeof params>,
-  ): Promise<GetProductsResponse> => {
-    const query = new URLSearchParams();
+  const fetchProducts = useCallback(
+    async (
+      requestParams: NonNullable<typeof params>,
+    ): Promise<GetProductsResponse> => {
+      const query = new URLSearchParams();
 
-    query.append('store_id', requestParams.store_id);
-    query.append('page', String(requestParams.page));
-    query.append('limit', String(requestParams.limit));
-    query.append('stock', requestParams.stock);
+      query.append('store_id', requestParams.store_id);
+      query.append('page', String(requestParams.page));
+      query.append('limit', String(requestParams.limit));
+      query.append('stock', requestParams.stock);
 
-    if (requestParams.search) {
-      query.append('search', requestParams.search);
-    }
+      if (requestParams.search) {
+        query.append('search', requestParams.search);
+      }
 
-    const { data } = await Axios.get<GetProductsResponse>(
-      `/apps/deliveries/products?${query.toString()}`,
-    );
+      const { data } = await Axios.get<GetProductsResponse>(
+        `/apps/deliveries/products?${query.toString()}`,
+      );
 
-    return data;
-  }, []);
+      return data;
+    },
+    [],
+  );
 
   return useQuery<GetProductsResponse, ApiErrorResponse>({
     queryKey: ['store-products', params],
@@ -248,6 +249,7 @@ export const useCreateProduct = (
       formData.append('category_id', payload.category_id);
       formData.append('name', payload.name);
       formData.append('price', String(payload.price));
+      if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       formData.append('stock_quantity', String(payload.stock_quantity));
       (payload.menu_ids ?? []).forEach((menuId) => {
         formData.append('menu_ids', menuId);
@@ -354,7 +356,10 @@ export const useUpdateProduct = (
         : [];
 
       const normalizedNewImages = Array.isArray(images)
-        ? images.filter((galleryImage): galleryImage is File => galleryImage instanceof File)
+        ? images.filter(
+            (galleryImage): galleryImage is File =>
+              galleryImage instanceof File,
+          )
         : [];
 
       if (normalizedNewImages.length > 0) {
@@ -377,6 +382,8 @@ export const useUpdateProduct = (
       formData.append('category_id', payload.category_id);
       formData.append('name', payload.name);
       formData.append('price', String(payload.price));
+      if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
+      if (payload.useDefaultTax) formData.append('useDefaultTax', 'true');
       formData.append('stock_quantity', String(payload.stock_quantity));
 
       if (payload.subcategory_id) {
@@ -576,10 +583,11 @@ export const useAddProductCustomizationGroup = (
           ? buildAddonGroupFormData(payload)
           : buildVariationGroupFormData(payload);
 
-      const { data } = await Axios.post<CreateProductCustomizationGroupResponse>(
-        `/apps/deliveries/products/${payload.productId}/customization-groups`,
-        formData,
-      );
+      const { data } =
+        await Axios.post<CreateProductCustomizationGroupResponse>(
+          `/apps/deliveries/products/${payload.productId}/customization-groups`,
+          formData,
+        );
 
       return data;
     },
@@ -661,9 +669,10 @@ export const useDeleteProductCustomizationGroup = (
   >({
     ...options,
     mutationFn: async ({ id }) => {
-      const { data } = await Axios.delete<DeleteProductCustomizationGroupResponse>(
-        `/apps/deliveries/products/customization-groups/${id}`,
-      );
+      const { data } =
+        await Axios.delete<DeleteProductCustomizationGroupResponse>(
+          `/apps/deliveries/products/customization-groups/${id}`,
+        );
 
       return data;
     },

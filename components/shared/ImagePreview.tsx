@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Download, FileText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { normalizePreviewSource } from '@/lib/document-preview';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 
@@ -16,24 +17,6 @@ interface ImagePreviewProps {
   privateSource?: boolean;
 }
 
-const normalizePreviewSource = (value?: string | null): string | null => {
-  if (!value) return null;
-
-  const trimmed = value.trim();
-  if (!trimmed || trimmed.toLowerCase() === 'n/a') return null;
-
-  if (
-    trimmed.startsWith('/') ||
-    /^https?:\/\//i.test(trimmed) ||
-    /^data:image\//i.test(trimmed) ||
-    /^blob:/i.test(trimmed)
-  ) {
-    return trimmed;
-  }
-
-  return `/${trimmed.replace(/^\/+/, '')}`;
-};
-
 export const ImagePreview = ({
   image,
   label,
@@ -42,6 +25,7 @@ export const ImagePreview = ({
   privateSource = false,
 }: ImagePreviewProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [failedSource, setFailedSource] = useState<string | null>(null);
   const t = useTranslations('imagePreview');
   const imageSrc = normalizePreviewSource(image);
   const isPdf = Boolean(imageSrc && /\.pdf($|\?)/i.test(imageSrc));
@@ -58,9 +42,10 @@ export const ImagePreview = ({
   return (
     <div className={cn('space-y-2', className)}>
       {label && <p className="text-base font-medium text-slate-600">{label}</p>}
-      {imageSrc ? (
+      {imageSrc && failedSource !== imageSrc ? (
         <button
           type="button"
+          aria-label={label ? `${label}: ${t('documentPreview')}` : t('documentPreview')}
           onClick={handlePreviewClick}
           className="group relative w-full rounded-lg overflow-hidden bg-white shadow-sm transition-all duration-300 transform hover:scale-[1.02]"
         >
@@ -76,6 +61,7 @@ export const ImagePreview = ({
             <div className="relative w-full">
               <Image
                 src={imageSrc}
+                onError={() => setFailedSource(imageSrc)}
                 unoptimized={privateSource}
                 alt={label ?? 'image'}
                 width={300}
@@ -94,7 +80,7 @@ export const ImagePreview = ({
       ) : (
         <div className="flex h-[140px] flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-100">
           <FileText className="mb-1 h-8 w-8 text-slate-400" />
-          <p className="text-xs text-slate-500">{t('notUploaded')}</p>
+          <p className="text-sm text-slate-600">{imageSrc ? t('loadFailed') : t('notUploaded')}</p>
         </div>
       )}
 

@@ -17,6 +17,7 @@ export const adminRoutes = {
     discountsOffers: withSuffix('/discounts-offers'),
     deliveryFee: withSuffix('/delivery-fee'),
     shopTypes: withSuffix('/shop-types'),
+    taxRates: withSuffix('/tax-rates'),
     commissionRate: withSuffix('/commission-rate'),
     earningsReports: withSuffix('/earnings-reports'),
     withdrawalRequests: withSuffix('/withdrawal-requests'),

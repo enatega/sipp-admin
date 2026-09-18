@@ -9,9 +9,10 @@ import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import { VendorStore } from './types';
 
-export function BasicInformationSection() {
+export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacyMigrated?: boolean }) {
   const { values, setFieldValue } = useFormikContext<VendorStore>();
   const t = useTranslations('vendorDeliveriesStores.addStore.step1');
+  const tLegacy = useTranslations('legacyStoreProfile');
   const { data: zones, isLoading: isLoadingZones } = useGetZonesSimple();
   const { currencySymbol } = useCurrency();
 
@@ -40,7 +41,7 @@ export function BasicInformationSection() {
         label={t('phoneLabel')}
         name="phone"
         placeholder={t('phonePlaceholder')}
-        requiredAsterisk
+        requiredAsterisk={!isLegacyMigrated}
         disabled
       />
       <p className="-mt-3 text-xs text-muted-foreground">
@@ -62,11 +63,11 @@ export function BasicInformationSection() {
         name="email"
         type="email"
         placeholder={t('emailPlaceholder')}
-        requiredAsterisk
+        requiredAsterisk={!isLegacyMigrated}
         disabled
       />
       <p className="-mt-3 text-xs text-muted-foreground">
-        {t('emailImmutableHint')}
+        {isLegacyMigrated ? tLegacy('loginHint') : t('emailImmutableHint')}
       </p>
       <AppSelect
         name="zoneId"
@@ -75,7 +76,7 @@ export function BasicInformationSection() {
         options={zoneOptions}
         value={values.zoneId}
         onValueChange={(value) => setFieldValue('zoneId', value)}
-        requiredAsterisk
+        requiredAsterisk={!isLegacyMigrated}
         disabled={isLoadingZones}
       />
       <AppInputField

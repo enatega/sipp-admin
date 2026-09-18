@@ -1,7 +1,7 @@
-import { GetStoreDetailResponse } from '@/types';
-import { Store } from './types';
-import { ZoneData } from '@/components/shared/maps/InteractiveMap';
 import type { StoreTimings } from '@/shared/contracts/store';
+import { GetStoreDetailResponse } from '@/types';
+import { ZoneData } from '@/components/shared/maps/InteractiveMap';
+import { Store } from './types';
 
 export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   const toNumber = (value: unknown): number | null => {
@@ -33,7 +33,12 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
       | {
           type?: string;
           center?:
-            | { lat?: unknown; lng?: unknown; latitude?: unknown; longitude?: unknown }
+            | {
+                lat?: unknown;
+                lng?: unknown;
+                latitude?: unknown;
+                longitude?: unknown;
+              }
             | unknown[];
           radius?: unknown;
         }
@@ -63,7 +68,8 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   };
 
   const mapPointShapeToZone = (shape: unknown): ZoneData | null => {
-    const point = shape as { type?: string; coordinates?: unknown } | null | undefined;
+    const point = shape as
+      { type?: string; coordinates?: unknown } | null | undefined;
     if (!point || point.type !== 'Point' || !Array.isArray(point.coordinates)) {
       return null;
     }
@@ -79,8 +85,13 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   };
 
   const mapPolygonShapeToZone = (shape: unknown): ZoneData | null => {
-    const polygon = shape as { type?: string; coordinates?: unknown } | null | undefined;
-    if (!polygon || polygon.type !== 'Polygon' || !Array.isArray(polygon.coordinates)) {
+    const polygon = shape as
+      { type?: string; coordinates?: unknown } | null | undefined;
+    if (
+      !polygon ||
+      polygon.type !== 'Polygon' ||
+      !Array.isArray(polygon.coordinates)
+    ) {
       return null;
     }
 
@@ -106,7 +117,8 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   };
 
   const mapLineStringShapeToZone = (shape: unknown): ZoneData | null => {
-    const line = shape as { type?: string; coordinates?: unknown } | null | undefined;
+    const line = shape as
+      { type?: string; coordinates?: unknown } | null | undefined;
     const coordsRaw = parseDeep(line?.coordinates);
     if (!line || line.type !== 'LineString' || !Array.isArray(coordsRaw)) {
       return null;
@@ -167,7 +179,10 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   const storeTimings: StoreTimings = {
     monday: apiData.storetimings?.monday || { is_active: false, slots: [] },
     tuesday: apiData.storetimings?.tuesday || { is_active: false, slots: [] },
-    wednesday: apiData.storetimings?.wednesday || { is_active: false, slots: [] },
+    wednesday: apiData.storetimings?.wednesday || {
+      is_active: false,
+      slots: [],
+    },
     thursday: apiData.storetimings?.thursday || { is_active: false, slots: [] },
     friday: apiData.storetimings?.friday || { is_active: false, slots: [] },
     saturday: apiData.storetimings?.saturday || { is_active: false, slots: [] },
@@ -185,21 +200,23 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
     id: apiData.id,
     name: apiData.storename,
     vendorId: '', // Not provided by API
-    phone: apiData.storephone,
-    email: apiData.storeemail,
+    phone: apiData.storephone ?? '',
+    email: apiData.storeemail ?? '',
     logo: apiData.logo || null,
     banner: apiData.banner || null,
-    zoneId: apiData.zoneid,
+    zoneId: apiData.zoneid ?? '',
     minimumOrderValue: apiData.minimumorder,
     tagLine: apiData.tagline || '',
     description: apiData.description || '',
     address: apiData.address,
     shopType: apiData.shoptypeid,
+    productTaxMode: apiData.productTaxMode || 'store_rate',
+    taxRateId: apiData.taxRateId || '',
     storeType: 'independent', // Default, not provided by API
     location,
     exactStoreLocation,
     storeTimings,
-    
+
     // Store Operations
     prepareTime: apiData.preparetime,
     packingCharges: String(apiData.packingcharges),
@@ -209,13 +226,13 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
     baseFee: String(apiData.basefee),
     perKmFee: String(apiData.perkmfee),
     freeDeliveryThreshold: String(apiData.freedeliverythreshold),
-    
+
     // Bank Details
-    bankName: apiData.bankname,
-    accountHolderName: apiData.accountholdername,
-    accountNumber: apiData.accountnumber,
-    branchCode: apiData.branchcode,
-    
+    bankName: apiData.bankname ?? '',
+    accountHolderName: apiData.accountholdername ?? '',
+    accountNumber: apiData.accountnumber ?? '',
+    branchCode: apiData.branchcode ?? '',
+
     // Documents (URLs from API)
     businessLicenseFront: apiData.businesslicencefront,
     businessLicenseBack: apiData.businesslicenceback,
@@ -223,7 +240,7 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
     identityCardBack: apiData.nationalidback,
     storeRegistrationDoc: apiData.registereddocs,
     taxCertificate: apiData.taxidcertificate,
-    
+
     // These fields are not editable in edit mode
     password: '',
     autoGeneratePassword: false,

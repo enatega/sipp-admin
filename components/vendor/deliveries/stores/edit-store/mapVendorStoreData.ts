@@ -1,8 +1,10 @@
-import { GetStoreDetailResponse } from '@/types';
 import type { StoreTimings } from '@/shared/contracts/store';
+import { GetStoreDetailResponse } from '@/types';
 import { VendorStore } from './types';
 
-export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore {
+export function mapVendorStoreData(
+  apiData: GetStoreDetailResponse,
+): VendorStore {
   const toNumber = (value: unknown): number | null => {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : null;
@@ -29,9 +31,12 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
 
   let location: VendorStore['location'] = null;
 
-  if (apiData.addresszonepolygon) {
+  const locationSource = apiData.addresszoneshape === 'Circle'
+    ? apiData.addresscircledata ?? apiData.addresszonepolygon
+    : apiData.addresszonepolygon ?? apiData.addresscircledata;
+  if (locationSource) {
     try {
-      const parsed = parseDeep(apiData.addresszonepolygon) as {
+      const parsed = parseDeep(locationSource) as {
         type?: string;
         coordinates?: unknown;
         center?: unknown;
@@ -52,7 +57,10 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
             },
           };
         }
-      } else if (parsed.type === 'Polygon' && Array.isArray(parsed.coordinates)) {
+      } else if (
+        parsed.type === 'Polygon' &&
+        Array.isArray(parsed.coordinates)
+      ) {
         const polygonCoords = Array.isArray(parsed.coordinates[0]?.[0])
           ? parsed.coordinates[0]
           : parsed.coordinates;
@@ -67,13 +75,18 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
               return { lng, lat };
             })
             .filter(
-              (coord: { lng: number; lat: number } | null): coord is {
+              (
+                coord: { lng: number; lat: number } | null,
+              ): coord is {
                 lng: number;
                 lat: number;
               } => coord !== null,
             ),
         };
-      } else if (parsed.type === 'LineString' && Array.isArray(parsed.coordinates)) {
+      } else if (
+        parsed.type === 'LineString' &&
+        Array.isArray(parsed.coordinates)
+      ) {
         location = {
           type: 'polyline',
           path: parsed.coordinates
@@ -85,7 +98,9 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
               return { lng, lat };
             })
             .filter(
-              (coord: { lng: number; lat: number } | null): coord is {
+              (
+                coord: { lng: number; lat: number } | null,
+              ): coord is {
                 lng: number;
                 lat: number;
               } => coord !== null,
@@ -96,19 +111,25 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
         const center = Array.isArray(centerRaw)
           ? { lng: toNumber(centerRaw[0]), lat: toNumber(centerRaw[1]) }
           : {
-            lng: toNumber(
-              (centerRaw as { lng?: unknown; longitude?: unknown } | undefined)
-                ?.lng ??
-              (centerRaw as { lng?: unknown; longitude?: unknown } | undefined)
-                ?.longitude,
-            ),
-            lat: toNumber(
-              (centerRaw as { lat?: unknown; latitude?: unknown } | undefined)
-                ?.lat ??
-              (centerRaw as { lat?: unknown; latitude?: unknown } | undefined)
-                ?.latitude,
-            ),
-          };
+              lng: toNumber(
+                (
+                  centerRaw as
+                    { lng?: unknown; longitude?: unknown } | undefined
+                )?.lng ??
+                  (
+                    centerRaw as
+                      { lng?: unknown; longitude?: unknown } | undefined
+                  )?.longitude,
+              ),
+              lat: toNumber(
+                (centerRaw as { lat?: unknown; latitude?: unknown } | undefined)
+                  ?.lat ??
+                  (
+                    centerRaw as
+                      { lat?: unknown; latitude?: unknown } | undefined
+                  )?.latitude,
+              ),
+            };
         const radius = toNumber(parsed.radius);
         if (center.lng === null || center.lat === null || radius === null) {
           location = null;
@@ -131,7 +152,10 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
   const storeTimings: StoreTimings = {
     monday: apiData.storetimings?.monday || { is_active: false, slots: [] },
     tuesday: apiData.storetimings?.tuesday || { is_active: false, slots: [] },
-    wednesday: apiData.storetimings?.wednesday || { is_active: false, slots: [] },
+    wednesday: apiData.storetimings?.wednesday || {
+      is_active: false,
+      slots: [],
+    },
     thursday: apiData.storetimings?.thursday || { is_active: false, slots: [] },
     friday: apiData.storetimings?.friday || { is_active: false, slots: [] },
     saturday: apiData.storetimings?.saturday || { is_active: false, slots: [] },
@@ -141,31 +165,37 @@ export function mapVendorStoreData(apiData: GetStoreDetailResponse): VendorStore
   return {
     id: apiData.id,
     name: apiData.storename,
-    phone: apiData.storephone,
-    email: apiData.storeemail,
+    phone: apiData.storephone ?? '',
+    email: apiData.storeemail ?? '',
     logo: apiData.logo || null,
     banner: apiData.banner || null,
-    zoneId: apiData.zoneid,
+    zoneId: apiData.zoneid ?? '',
     minimumOrderValue: apiData.minimumorder || '0',
     tagLine: apiData.tagline || '',
     description: apiData.description || '',
     address: apiData.address || '',
     shopType: apiData.shoptypeid,
+    productTaxMode: apiData.productTaxMode || 'store_rate',
+    taxRateId: apiData.taxRateId || '',
     storeType: 'independent',
     storeTimings,
     location,
     prepareTime: apiData.preparetime ?? '',
-    packingCharges: apiData.packingcharges ? String(apiData.packingcharges) : '',
+    packingCharges: apiData.packingcharges
+      ? String(apiData.packingcharges)
+      : '',
     scheduleBooking: apiData.allowschedulebooking,
     pickupAllowed: apiData.pickupallow,
     deliveryAllowed: apiData.deliveryallow,
     baseFee: apiData.basefee ? String(apiData.basefee) : '',
     perKmFee: apiData.basefee ? String(apiData.perkmfee) : '',
-    freeDeliveryThreshold: apiData.freedeliverythreshold ? String(apiData.freedeliverythreshold) : '',
-    bankName: apiData.bankname,
-    accountHolderName: apiData.accountholdername,
-    accountNumber: apiData.accountnumber,
-    branchCode: apiData.branchcode,
+    freeDeliveryThreshold: apiData.freedeliverythreshold
+      ? String(apiData.freedeliverythreshold)
+      : '',
+    bankName: apiData.bankname ?? '',
+    accountHolderName: apiData.accountholdername ?? '',
+    accountNumber: apiData.accountnumber ?? '',
+    branchCode: apiData.branchcode ?? '',
     businessLicenseFront: apiData.businesslicencefront,
     businessLicenseBack: apiData.businesslicenceback,
     identityCardFront: apiData.nationalidfront,

@@ -8,7 +8,10 @@ import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { extractDealIdFromProduct } from '@/lib/deal-pricing';
-import { getNormalizedProductImages, splitProductFormImages } from '@/lib/product-images';
+import {
+  getNormalizedProductImages,
+  splitProductFormImages,
+} from '@/lib/product-images';
 import { getStorePath } from '@/lib/store';
 import { returnErrorMessage } from '@/lib/toast-error';
 import {
@@ -68,6 +71,8 @@ export default function EditProductPage() {
         deal_ids: values.dealId ? [values.dealId] : [],
         name: values.name.trim(),
         price: Number(values.price),
+        taxRateId: values.taxRateId || undefined,
+        useDefaultTax: !values.taxRateId,
         stock_quantity: Number(values.stockQuantity),
         description: values.description || undefined,
         unit_of_measure: values.unitOfMeasure || undefined,
@@ -120,6 +125,7 @@ export default function EditProductPage() {
     subcategoryId: product.subcategory_id || product.subcategory?.id || '',
     dealId: extractDealIdFromProduct(product as Record<string, unknown>),
     price: String(product.price ?? ''),
+    taxRateId: product.taxRateId || '',
     stockQuantity: String(product.stockQuantity ?? 0),
     unitOfMeasure: product.unitOfMeasure || '',
     description: product.description || '',

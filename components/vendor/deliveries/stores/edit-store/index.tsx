@@ -1,26 +1,29 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { pruneUnchangedStoreFields, STORE_EDIT_PAYLOAD_FIELDS } from '@/lib/store-update-payload';
+import { LegacyStoreNotice } from '@/components/shared/LegacyStoreNotice';
 import { useParams, useRouter } from 'next/navigation';
 import { editStoreFormSchema } from '@/schemas/enatega-deliveries/stores/store-form';
 import { GetStoreDetailResponse } from '@/types';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { StoreTimings } from '@/types/entities/super-admin/enatega-deliveries/store-form';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { useUpdateVendorStore } from '@/hooks/api/vendor/deliveries/stores';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import { AppButton } from '@/components/shared/AppButton';
+import TaxConfiguration from '@/components/shared/form/TaxConfiguration';
 import { FormErrorDisplay } from '@/components/shared/FormErrorDisplay';
-import { DocumentSection } from './DocumentSection';
-import { PaymentSection } from './PaymentSection';
-import { ShopTypeSection } from './ShopTypeSection';
 import { BasicInformationSection } from './BasicInformationSection';
+import { DocumentSection } from './DocumentSection';
 import { LocationSection } from './LocationSection';
 import { mapVendorStoreData } from './mapVendorStoreData';
+import { PaymentSection } from './PaymentSection';
+import { ShopTypeSection } from './ShopTypeSection';
 import { StoreOperationSection } from './StoreOperationSection';
 import { VendorStore } from './types';
-import { StoreTimings } from '@/types/entities/super-admin/enatega-deliveries/store-form';
 
 export function VendorEditStoreForm({
   store: apiStore,
@@ -28,6 +31,7 @@ export function VendorEditStoreForm({
   store: GetStoreDetailResponse;
 }) {
   const router = useRouter();
+  const isLegacyMigrated = apiStore.isLegacyMigrated === true;
   const t = useTranslations('vendorDeliveriesStores');
   const tSchema = useTranslations('Schemas.storeForm');
   const tConfirmDialog = useTranslations(
@@ -47,8 +51,8 @@ export function VendorEditStoreForm({
   }, [apiStore]);
 
   const validationSchema = useMemo(
-    () => editStoreFormSchema(tSchema),
-    [tSchema],
+    () => editStoreFormSchema(tSchema, isLegacyMigrated),
+    [tSchema, isLegacyMigrated],
   );
 
   const { mutate: updateStore, isPending } = useUpdateVendorStore({
@@ -90,6 +94,15 @@ export function VendorEditStoreForm({
     formData.append('description', pendingValues.description || '');
     formData.append('minimumOrder', pendingValues.minimumOrderValue || '0');
     formData.append('shopType', pendingValues.shopType);
+    formData.append(
+      'productTaxMode',
+      pendingValues.productTaxMode || 'store_rate',
+    );
+    if (
+      pendingValues.productTaxMode !== 'product_level' &&
+      pendingValues.taxRateId
+    )
+      formData.append('taxRateId', pendingValues.taxRateId);
     formData.append('zoneId', pendingValues.zoneId);
 
     formData.append('prepare_time', pendingValues.prepareTime);
@@ -216,6 +229,19 @@ export function VendorEditStoreForm({
       formData.append('taxIdCertificate', pendingValues.taxCertificate);
     }
 
+    if (isLegacyMigrated) {
+      pruneUnchangedStoreFields(formData, pendingValues, initialValues, STORE_EDIT_PAYLOAD_FIELDS);
+      if (pendingValues.productTaxMode !== initialValues.productTaxMode || pendingValues.taxRateId !== initialValues.taxRateId) {
+        formData.set('productTaxMode', pendingValues.productTaxMode || 'store_rate');
+        if (pendingValues.productTaxMode !== 'product_level' && pendingValues.taxRateId)
+          formData.set('taxRateId', pendingValues.taxRateId);
+      }
+      if (!Array.from(formData.keys()).length) {
+        setShowConfirmDialog(false);
+        toast(t('noChangesDetected'));
+        return;
+      }
+    }
     updateStore({ storeId: apiStore.id, formData });
     setShowConfirmDialog(false);
   };
@@ -242,17 +268,19 @@ export function VendorEditStoreForm({
         >
           {({ errors, touched }) => (
             <Form className="space-y-5">
-              <BasicInformationSection />
+              {isLegacyMigrated && <LegacyStoreNotice />}
+              <BasicInformationSection isLegacyMigrated={isLegacyMigrated} />
 
               <ShopTypeSection />
+              <TaxConfiguration currentRate={apiStore.taxRate} />
 
               <StoreOperationSection />
 
               <LocationSection />
 
-              <DocumentSection />
+              <DocumentSection isLegacyMigrated={isLegacyMigrated} />
 
-              <PaymentSection />
+              <PaymentSection isLegacyMigrated={isLegacyMigrated} />
 
               <FormErrorDisplay
                 formikErrors={errors}

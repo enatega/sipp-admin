@@ -31,6 +31,8 @@ export interface VendorStore {
 
   // Shop Type
   shopType: string;
+  productTaxMode?: 'store_rate' | 'product_level';
+  taxRateId?: string;
   storeType: string;
 
   // Store Timings

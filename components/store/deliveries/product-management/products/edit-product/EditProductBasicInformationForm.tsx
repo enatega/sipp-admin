@@ -22,6 +22,7 @@ import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import CategoryAsyncSelect from '@/components/store/deliveries/product-management/common/CategoryAsyncSelect';
 import DealsAsyncMultiSelect from '@/components/store/deliveries/product-management/common/DealsAsyncMultiSelect';
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
+import ProductTaxField from '../ProductTaxField';
 
 interface EditProductBasicInformationFormProps {
   initialValues: EditProductFormValues;
@@ -180,6 +181,7 @@ export function EditProductBasicInformationForm({
                   }
                   requiredAsterisk
                 />
+                <ProductTaxField currentRate={product.taxRate} />
 
                 <div className="space-y-2">
                   <AppInputField

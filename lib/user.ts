@@ -167,8 +167,7 @@ export const hasAdminProfile = (
 
 export const hasStoreProfile = (
   profiles: AdminProfile[] | null | undefined = getAdminProfiles(),
-) =>
-  Boolean(getProfileByKey(profiles, 'Store'));
+) => Boolean(getProfileByKey(profiles, 'Store'));
 
 export const shouldRedirectVendorToResetPassword = (
   profiles: AdminProfile[] | null | undefined = getAdminProfiles(),
@@ -356,6 +355,7 @@ const routePermissionMap: Record<string, string | null> = {
   [adminRoutes.deliveries.deliveryFee]:
     'general-delivery.delivery_fee_settings',
   [adminRoutes.deliveries.shopTypes]: 'general-delivery.shop_types',
+  [adminRoutes.deliveries.taxRates]: 'general-delivery.tax_rates',
   [adminRoutes.deliveries.commissionRate]: 'general-delivery.store_commissions',
   [adminRoutes.deliveries.earningsReports]: 'general-delivery.earning',
   [adminRoutes.deliveries.withdrawalRequests]:

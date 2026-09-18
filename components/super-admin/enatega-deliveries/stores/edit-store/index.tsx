@@ -1,26 +1,30 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { pruneUnchangedStoreFields, STORE_EDIT_PAYLOAD_FIELDS } from '@/lib/store-update-payload';
+import { LegacyStoreNotice } from '@/components/shared/LegacyStoreNotice';
+import { EnableStoreLoginDialog } from '@/components/shared/EnableStoreLoginDialog';
 import { usePathname, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { editStoreFormSchema } from '@/schemas/enatega-deliveries/stores/store-form';
+import { StoreTimings } from '@/shared/contracts/store';
 import { GetStoreDetailResponse } from '@/types';
 import { Form, Formik } from 'formik';
+import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { useUpdateStore } from '@/hooks/api/super-admin/enatega-deliveries/stores';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import { AppButton } from '@/components/shared/AppButton';
+import TaxConfiguration from '@/components/shared/form/TaxConfiguration';
 import { FormErrorDisplay } from '@/components/shared/FormErrorDisplay';
-import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
-import { formatStoreUpdateError } from './formatStoreUpdateError';
 import { BasicInformationSection } from './BasicInformationSection';
 import { DocumentSection } from './DocumentSection';
+import { formatStoreUpdateError } from './formatStoreUpdateError';
 import { LocationSection } from './LocationSection';
 import { mapStoreApiToForm } from './mapStoreData';
 import { PaymentSection } from './PaymentSection';
 import { ShopTypeSection } from './ShopTypeSection';
 import { Store } from './types';
-import { StoreTimings } from '@/shared/contracts/store';
 
 export function EditStoreForm({
   store: apiStore,
@@ -34,6 +38,9 @@ export function EditStoreForm({
   const tErrorFeedback = useTranslations('lumiFood.stores.errorFeedback');
   const router = useRouter();
   const pathname = usePathname();
+  const isLegacyMigrated = apiStore.isLegacyMigrated === true;
+  const tLogin = useTranslations('storeLogin');
+  const [loginOpen, setLoginOpen] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [pendingValues, setPendingValues] = useState<Store | null>(null);
@@ -43,7 +50,10 @@ export function EditStoreForm({
     return mapStoreApiToForm(apiStore);
   }, [apiStore]);
 
-  const validationSchema = useMemo(() => editStoreFormSchema(tSchema), [tSchema]);
+  const validationSchema = useMemo(
+    () => editStoreFormSchema(tSchema, isLegacyMigrated),
+    [tSchema, isLegacyMigrated],
+  );
 
   const { mutate: updateStore, isPending } = useUpdateStore({
     onSuccess: () => {
@@ -84,6 +94,15 @@ export function EditStoreForm({
     formData.append('description', pendingValues.description || '');
     formData.append('minimumOrder', pendingValues.minimumOrderValue || '0');
     formData.append('shopType', pendingValues.shopType);
+    formData.append(
+      'productTaxMode',
+      pendingValues.productTaxMode || 'store_rate',
+    );
+    if (
+      pendingValues.productTaxMode !== 'product_level' &&
+      pendingValues.taxRateId
+    )
+      formData.append('taxRateId', pendingValues.taxRateId);
     formData.append('zoneId', pendingValues.zoneId);
 
     // Store Operation Mode fields intentionally disabled for enatega-deliveries/stores.
@@ -216,6 +235,19 @@ export function EditStoreForm({
       formData.append('taxIdCertificate', pendingValues.taxCertificate);
     }
 
+    if (isLegacyMigrated) {
+      pruneUnchangedStoreFields(formData, pendingValues, initialValues, STORE_EDIT_PAYLOAD_FIELDS);
+      if (pendingValues.productTaxMode !== initialValues.productTaxMode || pendingValues.taxRateId !== initialValues.taxRateId) {
+        formData.set('productTaxMode', pendingValues.productTaxMode || 'store_rate');
+        if (pendingValues.productTaxMode !== 'product_level' && pendingValues.taxRateId)
+          formData.set('taxRateId', pendingValues.taxRateId);
+      }
+      if (!Array.from(formData.keys()).length) {
+        setShowConfirmDialog(false);
+        toast(t('noChangesDetected'));
+        return;
+      }
+    }
     updateStore({ storeId: apiStore.id, formData });
     setShowConfirmDialog(false);
   };
@@ -237,6 +269,12 @@ export function EditStoreForm({
   return (
     <>
       <div className="bg-accent p-10 rounded-md my-5">
+        {isLegacyMigrated && apiStore.storeLoginEnabled === false && (
+          <div className="flex justify-end mb-5">
+            <AppButton type="button" onClick={() => setLoginOpen(true)}>{tLogin('title')}</AppButton>
+          </div>
+        )}
+        <EnableStoreLoginDialog storeId={apiStore.id} open={loginOpen} onClose={() => setLoginOpen(false)} />
         <Formik
           initialValues={initialValues}
           enableReinitialize
@@ -247,17 +285,19 @@ export function EditStoreForm({
         >
           {({ errors, touched }) => (
             <Form className="space-y-5">
-              <BasicInformationSection />
+              {isLegacyMigrated && <LegacyStoreNotice />}
+              <BasicInformationSection isLegacyMigrated={isLegacyMigrated} />
 
               <ShopTypeSection />
+              <TaxConfiguration currentRate={apiStore.taxRate} />
 
               {/* <StoreOperationSection /> */}
 
               <LocationSection />
 
-              <DocumentSection />
+              <DocumentSection isLegacyMigrated={isLegacyMigrated} />
 
-              <PaymentSection />
+              <PaymentSection isLegacyMigrated={isLegacyMigrated} />
 
               {/* Error Display */}
               <FormErrorDisplay

@@ -1,14 +1,14 @@
-import type { ZoneData } from '@/components/shared/maps/InteractiveMap';
 import type { StoreTimings } from '@/shared/contracts/store';
-export type { DayTimings, StoreTimings, TimeSlot } from '@/shared/contracts/store';
+import type { ZoneData } from '@/components/shared/maps/InteractiveMap';
+
+export type {
+  DayTimings,
+  StoreTimings,
+  TimeSlot,
+} from '@/shared/contracts/store';
 
 export type StoreStatus =
-  | 'active'
-  | 'pending'
-  | 'blocked'
-  | 'deactivated'
-  | 'approved'
-  | 'rejected';
+  'active' | 'pending' | 'blocked' | 'deactivated' | 'approved' | 'rejected';
 export type ShopType = 'restaurant' | 'grocery' | 'pharmacy' | 'convenience';
 export type StoreType = 'dine_in' | 'takeaway' | 'delivery' | 'all';
 
@@ -30,7 +30,6 @@ export interface Store extends Record<string, unknown> {
   totalSales: number;
   rating: number;
 }
-
 
 export interface StoreFormData {
   step1: Step1Data | null;
@@ -60,6 +59,8 @@ export interface Step1Data {
 }
 
 export interface Step2Data {
+  productTaxMode?: 'store_rate' | 'product_level';
+  taxRateId?: string;
   shopType: string;
 }
 

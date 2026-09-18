@@ -350,7 +350,10 @@ export const step6Schema = (t: ReturnType<typeof useTranslations>) => {
   })
 }
 
-export const editStoreFormSchema = (t: ReturnType<typeof useTranslations>) => {
+export const editStoreFormSchema = (
+  t: ReturnType<typeof useTranslations>,
+  isLegacyMigrated = false,
+) => {
   const fileOrUrlValidator = createFileOrUrlValidator(t);
   const requiredFileOrUrlValidator = createRequiredFileOrUrlValidator(t);
 
@@ -456,12 +459,38 @@ export const editStoreFormSchema = (t: ReturnType<typeof useTranslations>) => {
     branchCode: Yup.string().optional(),
   };
 
+  const legacyFields = isLegacyMigrated ? {
+    email: Yup.string().nullable().email(t('invalidEmailAddress')).optional(),
+    phone: Yup.string().nullable().optional()
+      .test('phoneMinDigits', t('phoneMinLength'), (value) =>
+        !value || value.length >= 10,
+      )
+      .test('phoneMaxDigits', t('phoneMinLength'), (value) =>
+        getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
+      ),
+    zoneId: Yup.string().nullable().optional(),
+    businessLicenseFront: fileOrUrlValidator.nullable(),
+    businessLicenseBack: fileOrUrlValidator.nullable(),
+    identityCardFront: fileOrUrlValidator.nullable(),
+    identityCardBack: fileOrUrlValidator.nullable(),
+    storeRegistrationDoc: fileOrUrlValidator.nullable(),
+    taxCertificate: fileOrUrlValidator.nullable(),
+    bankName: Yup.string().nullable().optional(),
+    accountHolderName: Yup.string().nullable().optional(),
+    branchCode: Yup.string().nullable().optional(),
+    accountNumber: Yup.string().nullable().trim().optional().test(
+      'is-valid-account-or-iban', t('accountNumberOrIbanInvalid'),
+      (value) => !value || /^\d{8,20}$/.test(value) || /^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$/i.test(value),
+    ),
+  } : {};
+
   return Yup.object()
     .shape({
       ...commonFields,
       // ...step3Fields, // Store Operation Mode validation intentionally disabled for enatega-deliveries/stores.
       ...documentFields,
       ...bankFields,
+      ...legacyFields,
     })
     .test(
       'exact-location-within-delivery-bounds',

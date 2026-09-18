@@ -11,6 +11,11 @@ export interface StoreTimingsResponse {
 }
 
 export interface GetStoreDetailResponse {
+  isLegacyMigrated?: boolean;
+  storeLoginEnabled?: boolean;
+  productTaxMode?: 'store_rate' | 'product_level';
+  taxRateId?: string | null;
+  taxRate?: import('@/types/tax').TaxRate | null;
   id: string;
   address: string;
   deliverytime: string;
@@ -50,12 +55,15 @@ export interface GetStoreDetailResponse {
     | string
     | {
         type?: 'Circle' | string;
-        center?: {
-          lat?: number | string | null;
-          lng?: number | string | null;
-          latitude?: number | string | null;
-          longitude?: number | string | null;
-        } | [number | string, number | string] | null;
+        center?:
+          | {
+              lat?: number | string | null;
+              lng?: number | string | null;
+              latitude?: number | string | null;
+              longitude?: number | string | null;
+            }
+          | [number | string, number | string]
+          | null;
         radius?: number | string | null;
       }
     | null;
@@ -102,12 +110,15 @@ export interface GetStoreDetailResponse {
     | string
     | {
         type?: 'Circle' | string;
-        center?: {
-          lat?: number | string | null;
-          lng?: number | string | null;
-          latitude?: number | string | null;
-          longitude?: number | string | null;
-        } | [number | string, number | string] | null;
+        center?:
+          | {
+              lat?: number | string | null;
+              lng?: number | string | null;
+              latitude?: number | string | null;
+              longitude?: number | string | null;
+            }
+          | [number | string, number | string]
+          | null;
         radius?: number | string | null;
       }
     | null;

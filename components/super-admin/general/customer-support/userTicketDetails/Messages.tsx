@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTranslations } from 'next-intl';
 import { LoaderCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type {
   GetCustomerSupportTicketMessagesByIdResponse,
   Message as Msg,
@@ -34,6 +34,8 @@ export default function Messages({
   const user = getUser();
   const userId = user?.id;
   const receiverId = data?.sender?.id;
+  const canReply =
+    !!userId && (!data?.assignedAdminId || data.assignedAdminId === userId);
   const queryClient = useQueryClient();
 
   const [liveMessages, setLiveMessages] = useState<Msg[]>([]);
@@ -41,7 +43,9 @@ export default function Messages({
   const listRef = useRef<HTMLDivElement>(null);
   const serverMessages = useMemo(() => data?.messages ?? [], [data?.messages]);
 
-  const { socket, connected } = useSocket(undefined, { namespace: 'deliveries' });
+  const { socket, connected } = useSocket(undefined, {
+    namespace: 'deliveries',
+  });
 
   useEffect(() => {
     if (!connected || !userId) return;
@@ -54,8 +58,9 @@ export default function Messages({
     }
 
     const signatures = new Set(
-      serverMessages.map((message) =>
-        `${message.sender_id}|${message.receiver_id}|${message.text}|${message.createdAt}`,
+      serverMessages.map(
+        (message) =>
+          `${message.sender_id}|${message.receiver_id}|${message.text}|${message.createdAt}`,
       ),
     );
 
@@ -116,7 +121,7 @@ export default function Messages({
 
   const sendMessage = () => {
     const text = input.trim();
-    if (!text || !userId || !receiverId || isPending) return;
+    if (!text || !userId || !receiverId || !canReply || isPending) return;
     setInput('');
 
     // Only show the message once send-to-chat-box actually succeeds, using
@@ -144,40 +149,54 @@ export default function Messages({
       <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
         {messages.map((m, idx) => {
           const mine = m.sender_id === userId;
+          const isAdminMessage =
+            m.senderType === 'admin' || (m.senderType === undefined && mine);
+          const isCustomerMessage = !isAdminMessage;
           return (
             <div
               key={m?.id ?? idx}
-              className={`flex gap-3 ${mine ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-3 ${isAdminMessage ? 'justify-end' : 'justify-start'}`}
             >
-              {!mine && (
+              {isCustomerMessage && (
                 <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-sm">
-                  {data?.sender?.name.trim()[0]}
+                  {(m.senderName ?? data?.sender?.name ?? 'C').trim()[0]}
                 </div>
               )}
               <div
                 className={`max-w-[70%] px-4 py-2 rounded-lg shadow-sm ${
-                  mine ? 'text-white' : 'text-black'
+                  isAdminMessage ? 'text-white' : 'text-black'
                 }`}
                 style={{
                   backgroundColor: mine
                     ? 'var(--primary,#0ea5e9)'
-                    : 'var(--muted,#f3f4f6)',
+                    : isAdminMessage
+                      ? '#dcfce7'
+                      : 'var(--muted,#f3f4f6)',
                 }}
               >
-                <div className="text-sm">{m.text}</div>
+                {!mine && (
+                  <div className="mb-1 text-[11px] font-semibold text-gray-600">
+                    {isAdminMessage
+                      ? `Admin: ${m.senderName ?? 'Support admin'}`
+                      : 'Customer'}
+                  </div>
+                )}
+                <div className={`text-sm text-black`}>{m.text}</div>
                 <div
                   className={`mt-1 text-[11px] ${mine ? 'text-white/80' : 'text-mute'}`}
                 >
                   <RelativeTime date={m.createdAt} />
                 </div>
               </div>
-              {mine && (
+              {isAdminMessage && (
                 <div
                   className="h-8 w-8 rounded-full flex items-center justify-center text-sm"
                   style={{ backgroundColor: '#e0f2fe', color: '#0ea5e9' }}
                 >
-                  {user?.role?.name?.[0]?.toUpperCase() ||
-                    user?.email?.[0]?.toUpperCase() ||
+                  {(mine
+                    ? user?.role?.name
+                    : m.senderName)?.[0]?.toUpperCase() ||
+                    (mine ? user?.email : m.senderName)?.[0]?.toUpperCase() ||
                     '?'}
                 </div>
               )}
@@ -188,6 +207,12 @@ export default function Messages({
 
       {/* Input */}
       <div className="px-4 py-3 border-t flex gap-3">
+        {!canReply ? (
+          <div className="text-sm text-amber-700 self-center">
+            Ticket is already assigned to{' '}
+            {data?.assignedAdminName ?? 'another admin'}.
+          </div>
+        ) : null}
         <div className="relative flex items-center border rounded-md w-full">
           <textarea
             value={input}
@@ -198,6 +223,7 @@ export default function Messages({
               (e.preventDefault(), sendMessage())
             }
             placeholder={t('placeholder')}
+            disabled={!canReply}
             className="resize-none px-3 text-sm border-none outline-none pt-2 w-full"
             rows={2}
           />
@@ -205,13 +231,16 @@ export default function Messages({
         </div>
         <button
           onClick={sendMessage}
-          disabled={isPending || !input.trim()}
+          disabled={!canReply || isPending || !input.trim()}
           aria-busy={isPending}
           className="min-w-20 px-4 py-2 text-sm rounded-md text-white disabled:cursor-not-allowed disabled:opacity-60"
           style={{ backgroundColor: 'var(--primary,#0ea5e9)' }}
         >
           {isPending ? (
-            <LoaderCircle className="mx-auto size-5 animate-spin" aria-hidden="true" />
+            <LoaderCircle
+              className="mx-auto size-5 animate-spin"
+              aria-hidden="true"
+            />
           ) : (
             t('send')
           )}

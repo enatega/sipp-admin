@@ -6,14 +6,17 @@ import { useParams } from 'next/navigation';
 import { ApiErrorResponse } from '@/types';
 import { MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useGetStoreOrderDetail } from '@/hooks/api/store/deliveries/orders';
-import { useGetOrderDetail as useGetSuperOrderDetail } from '@/hooks/api/super-admin/enatega-deliveries/orders';
-// Spinner import removed (unused)
-import { AppButton } from '@/components/shared/AppButton';
-import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
-import { useAcceptStoreOrder, useRejectStoreOrder } from '@/hooks/api/store/deliveries/orders';
 import toast from 'react-hot-toast';
 import { handleApiError } from '@/lib/toast-error';
+import {
+  useAcceptStoreOrder,
+  useGetStoreOrderDetail,
+  useRejectStoreOrder,
+} from '@/hooks/api/store/deliveries/orders';
+import { useGetOrderDetail as useGetSuperOrderDetail } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+// Spinner import removed (unused)
+import { AppButton } from '@/components/shared/AppButton';
 import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
 import { OrderDetailMain } from './order-detail-main';
@@ -43,8 +46,10 @@ export function OrderDetailPage() {
 
   const storeIdParam = params.storeId;
   const storeId = Array.isArray(storeIdParam) ? storeIdParam[0] : storeIdParam;
-  const { mutateAsync: acceptOrder, isPending: isAccepting } = useAcceptStoreOrder();
-  const { mutateAsync: rejectOrder, isPending: isRejecting } = useRejectStoreOrder();
+  const { mutateAsync: acceptOrder, isPending: isAccepting } =
+    useAcceptStoreOrder();
+  const { mutateAsync: rejectOrder, isPending: isRejecting } =
+    useRejectStoreOrder();
 
   // Always call both hooks (Rules of Hooks). Gate each with `enabled` so only
   // the relevant one actually fires a network request.
@@ -79,9 +84,13 @@ export function OrderDetailPage() {
 
   if (!order) return <DisplayError message={tDetail('notFound')} />;
 
-  const normalizedStatus = String(order.status || order.summary.status || '').toLowerCase();
-  const canAccept = Boolean(storeId) && ['pending', 'scheduled'].includes(normalizedStatus);
-  const canReject = Boolean(storeId) && ['pending', 'accepted'].includes(normalizedStatus);
+  const normalizedStatus = String(
+    order.status || order.summary.status || '',
+  ).toLowerCase();
+  const canAccept =
+    Boolean(storeId) && ['pending', 'scheduled'].includes(normalizedStatus);
+  const canReject =
+    Boolean(storeId) && ['pending', 'accepted'].includes(normalizedStatus);
 
   const handleAccept = async () => {
     try {
@@ -119,30 +128,34 @@ export function OrderDetailPage() {
           containerClassName="mb-0"
         />
         <div className="flex w-full flex-wrap gap-2 sm:w-auto">
-        {canAccept && <AppButton
-          variant="primary"
-          onClick={handleAccept}
-          disabled={isAccepting}
-          className="h-10 px-6"
-        >
-          {isAccepting ? 'Accepting...' : 'Accept Order'}
-        </AppButton>}
-        {canReject && <AppButton
-          variant="mute"
-          onClick={() => setShowRejectDialog(true)}
-          className="h-10 px-6 text-destructive border-destructive"
-        >
-          Reject Order
-        </AppButton>}
-        <AppButton
-          variant="primary"
-          onClick={() => setIsTrackModalOpen(true)}
-          className="h-10 px-6 w-full sm:w-auto"
-          leftIcon={<MapPin size={18} />}
-          disabled={order.summary.status?.toLowerCase() === 'pending'}
-        >
-          {tTable('liveTracking')}
-        </AppButton>
+          {canAccept && (
+            <AppButton
+              variant="primary"
+              onClick={handleAccept}
+              disabled={isAccepting}
+              className="h-10 px-6"
+            >
+              {isAccepting ? 'Accepting...' : 'Accept Order'}
+            </AppButton>
+          )}
+          {canReject && (
+            <AppButton
+              variant="red"
+              onClick={() => setShowRejectDialog(true)}
+              className="h-10 px-6 text-destructive border-destructive"
+            >
+              Reject Order
+            </AppButton>
+          )}
+          <AppButton
+            variant="primary"
+            onClick={() => setIsTrackModalOpen(true)}
+            className="h-10 px-6 w-full sm:w-auto"
+            leftIcon={<MapPin size={18} />}
+            disabled={order.summary.status?.toLowerCase() === 'pending'}
+          >
+            {tTable('liveTracking')}
+          </AppButton>
         </div>
       </div>
       <OrderDetailMain order={order} />

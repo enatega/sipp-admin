@@ -1,6 +1,9 @@
 'use client';
 
-import { CURRENCY_OPTIONS } from '@/constants/currency.constants';
+import {
+  CURRENCY_OPTIONS,
+  DEFAULT_CURRENCY,
+} from '@/constants/currency.constants';
 import {
   useGetActiveCurrency,
   useSaveCurrency,
@@ -19,8 +22,8 @@ import { AppInputField } from '@/components/shared/form/AppInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 
 const INITIAL_VALUES: ConfigurationFormValues = {
-  currencyCode: '',
-  currencySymbol: '',
+  currencyCode: DEFAULT_CURRENCY.code,
+  currencySymbol: DEFAULT_CURRENCY.symbol,
 };
 
 export function ConfigurationForm() {

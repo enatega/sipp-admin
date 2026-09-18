@@ -220,12 +220,12 @@ export default function StoreWithdrawalTable() {
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.store_balance != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.store_balance}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.store_balance}`
                   : notAvailable}
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.requested_amount != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.requested_amount}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.requested_amount}`
                   : notAvailable}
               </TableCell>
               <TableCell>

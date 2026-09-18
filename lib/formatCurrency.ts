@@ -1,4 +1,4 @@
-export const resolveCurrencySymbol = (symbol?: string) => symbol || '$';
+export const resolveCurrencySymbol = (symbol?: string) => symbol || '₡';
 
 // Helper function to format currency
 export const formatCurrency = (

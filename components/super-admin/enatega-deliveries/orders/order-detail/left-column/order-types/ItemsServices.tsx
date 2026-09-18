@@ -34,7 +34,7 @@ export function ItemsServices({ items }: ItemsServicesProps) {
   const t = useTranslations('orders.orderDetail.itemsServices');
   const tHeaders = useTranslations('orders.orderDetail.itemsServices.headers');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || 'QAR';
+  const currency = currencySymbol || '₡';
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAddons, setSelectedAddons] = useState<Addon[]>([]);
 

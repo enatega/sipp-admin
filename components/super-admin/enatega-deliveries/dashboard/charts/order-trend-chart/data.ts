@@ -81,5 +81,5 @@ export const orderTrendChartSeriesData = [
 
 export const orderTrendChartMetaData = {
     granularity: 'year',
-    currency: 'USD',
+        currency: 'CRC',
 };

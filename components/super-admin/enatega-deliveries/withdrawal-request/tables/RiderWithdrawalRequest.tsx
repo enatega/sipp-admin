@@ -207,12 +207,12 @@ export default function RiderWithdrawalTable() {
               <TableCell>{withdrawalRequest?.zone_name || notAvailable}</TableCell>
               <TableCell>
                 {withdrawalRequest?.rider_balance != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.rider_balance}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.rider_balance}`
                   : notAvailable}
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.requested_amount != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.requested_amount}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.requested_amount}`
                   : notAvailable}
               </TableCell>
               <TableCell>

@@ -124,7 +124,7 @@ export function OrdersTable({
   const tStatuses = useTranslations('orders.statuses');
   const tOrderTypes = useTranslations('orders.orderTypes');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || 'QAR';
+  const currency = currencySymbol || '₡';
   useQueryParams();
 
   const { items, requestSort, sortConfig } = useSortableData(data || []);

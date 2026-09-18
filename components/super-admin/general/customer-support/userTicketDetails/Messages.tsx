@@ -34,8 +34,10 @@ export default function Messages({
   const user = getUser();
   const userId = user?.id;
   const receiverId = data?.sender?.id;
-  const canReply =
-    !!userId && (!data?.assignedAdminId || data.assignedAdminId === userId);
+  const canReply = !!userId && data?.assignedAdminId === userId;
+  const assignmentMessage = !data?.assignedAdminId
+    ? 'Take this ticket before replying.'
+    : `Ticket is already assigned to ${data.assignedAdminName ?? 'another admin'}.`;
   const queryClient = useQueryClient();
 
   const [liveMessages, setLiveMessages] = useState<Msg[]>([]);
@@ -209,8 +211,7 @@ export default function Messages({
       <div className="px-4 py-3 border-t flex gap-3">
         {!canReply ? (
           <div className="text-sm text-amber-700 self-center">
-            Ticket is already assigned to{' '}
-            {data?.assignedAdminName ?? 'another admin'}.
+            {assignmentMessage}
           </div>
         ) : null}
         <div className="relative flex items-center border rounded-md w-full">

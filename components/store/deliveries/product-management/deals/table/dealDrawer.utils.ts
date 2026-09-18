@@ -96,5 +96,5 @@ export const getDiscountDisplayValue = (
 
   return discountType === 'percentage'
     ? `${numericDiscount}%`
-    : `${currencyCode || 'USD'} ${numericDiscount.toFixed(2)}`;
+    : `${currencyCode || 'CRC'} ${numericDiscount.toFixed(2)}`;
 };

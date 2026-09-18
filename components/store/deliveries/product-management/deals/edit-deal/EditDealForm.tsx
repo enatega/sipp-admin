@@ -44,7 +44,7 @@ export default function EditDealForm({
   const tDealType = useTranslations('deals.dealType');
   const tSchema = useTranslations('Schemas.deals');
   const { currencyCode, currencySymbol } = useCurrency();
-  const resolvedCurrencyCode = currencyCode || 'USD';
+  const resolvedCurrencyCode = currencyCode || 'CRC';
   const resolvedCurrencySymbol = currencySymbol || '$';
   const discountTypeOptions = [
     { key: tDealType('percentage'), value: 'percentage' },

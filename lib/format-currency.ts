@@ -31,7 +31,7 @@ export function formatCurrency(
   try {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
-      currency: currencyCode || 'USD',
+      currency: currencyCode || 'CRC',
       minimumFractionDigits: options?.minimumFractionDigits ?? 2,
       maximumFractionDigits: options?.maximumFractionDigits ?? 2,
       useGrouping: options?.useGrouping ?? true,
@@ -43,7 +43,7 @@ export function formatCurrency(
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-    const currencySymbol = currencyCode ? currencyCode.toUpperCase() : 'USD';
+    const currencySymbol = currencyCode ? currencyCode.toUpperCase() : 'CRC';
     return `${formattedNum} ${currencySymbol}`;
   }
 }

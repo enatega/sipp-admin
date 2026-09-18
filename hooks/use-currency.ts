@@ -1,6 +1,7 @@
 import { useGetActiveCurrency } from '@/hooks/api/super-admin/general/currency';
 import { useLocale } from 'next-intl';
 import { formatCurrency } from '@/lib/format-currency';
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 
 export const useCurrency = () => {
     const locale = useLocale();
@@ -8,9 +9,9 @@ export const useCurrency = () => {
         refetchOnMount: false
     });
 
-    const currencyCode = currency?.code || 'USD';
-    const currencySymbol = currency?.symbol || '';
-    const currencyName = currency?.name || '';
+    const currencyCode = currency?.code || DEFAULT_CURRENCY.code;
+    const currencySymbol = currency?.symbol || DEFAULT_CURRENCY.symbol;
+    const currencyName = currency?.name || DEFAULT_CURRENCY.name;
 
     return {
         currency: currency || null,

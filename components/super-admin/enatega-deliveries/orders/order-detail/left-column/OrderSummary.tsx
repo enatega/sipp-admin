@@ -23,7 +23,7 @@ export function OrderSummary({ order }: IOrderSummaryProps) {
   const tPaymentStatuses = useTranslations('orders.paymentStatuses');
   const tStatuses = useTranslations('orders.statuses');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || 'QAR';
+  const currency = currencySymbol || '₡';
 
   const summaryItems = [
     {

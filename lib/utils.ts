@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export const formatToUSD = (amount: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'CRC',
   }).format(amount);
 };
 
@@ -58,4 +58,3 @@ export const formatReadableLabel = (value?: string | null) => {
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 };
-

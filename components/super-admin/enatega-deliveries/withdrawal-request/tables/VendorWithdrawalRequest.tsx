@@ -196,13 +196,13 @@ export default function VendorWithdrawalTable() {
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.total_vendor_balance != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.total_vendor_balance}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.total_vendor_balance}`
                   : notAvailable}
               </TableCell>
 
               <TableCell>
                 {withdrawalRequest?.requested_amount != null
-                  ? `${currencySymbol || 'QAR '}${withdrawalRequest.requested_amount}`
+                  ? `${currencySymbol || '₡'}${withdrawalRequest.requested_amount}`
                   : notAvailable}
               </TableCell>
 

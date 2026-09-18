@@ -5,6 +5,12 @@ export interface CurrencyOption {
   symbol: string;
 }
 
+export const DEFAULT_CURRENCY = {
+  code: 'CRC',
+  name: 'Costa Rican Colón',
+  symbol: '₡',
+} as const;
+
 export const CURRENCY_OPTIONS: CurrencyOption[] = [
   { id: 1, label: 'US Dollar', value: 'USD', symbol: '$' },
   { id: 2, label: 'Euro', value: 'EUR', symbol: '€' },
@@ -16,4 +22,5 @@ export const CURRENCY_OPTIONS: CurrencyOption[] = [
   { id: 8, label: 'Canadian Dollar', value: 'CAD', symbol: 'C$' },
   { id: 9, label: 'Australian Dollar', value: 'AUD', symbol: 'A$' },
   { id: 10, label: 'Japanese Yen', value: 'JPY', symbol: '¥' },
+  { id: 11, label: 'Costa Rican Colón', value: 'CRC', symbol: '₡' },
 ];

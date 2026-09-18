@@ -20,7 +20,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
   const tPaymentMethods = useTranslations('orders.paymentMethods');
   const tPaymentStatuses = useTranslations('orders.paymentStatuses');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || 'QAR';
+  const currency = currencySymbol || '₡';
   const paymentStatus =
     (order?.payment && (order.payment as PaymentInfo).paymentStatus) ||
     order?.paymentMethod ||

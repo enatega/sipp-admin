@@ -12,6 +12,7 @@ export interface StoreTimingsResponse {
 
 export interface GetStoreDetailResponse {
   isLegacyMigrated?: boolean;
+  storeLoginEnabled?: boolean;
   productTaxMode?: 'store_rate' | 'product_level';
   taxRateId?: string | null;
   taxRate?: import('@/types/tax').TaxRate | null;

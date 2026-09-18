@@ -1,4 +1,14 @@
 {
+  "storeLogin": {
+    "title": "Store-Login aktivieren",
+    "description": "Legen Sie eine E-Mail-Adresse und ein Passwort für den Store-Login fest.",
+    "email": "Login-E-Mail",
+    "password": "Initiales Passwort",
+    "passwordHint": "Verwenden Sie 8–72 Zeichen. Teilen Sie die Zugangsdaten sicher mit dem Store.",
+    "cancel": "Abbrechen",
+    "processing": "Login wird aktiviert…",
+    "success": "Store-Login aktiviert."
+  },
   "taxRates": {
     "inactive": "Inaktiv (aktuelle Zuordnung)",
     "title": "Steuersätze",
@@ -128,7 +138,7 @@
     "useProfileHint": "Zum Ändern des Betriebsnamens oder der Kontakttelefonnummer öffnen Sie das Betriebsprofil und wählen Sie Profil aktualisieren.",
     "description": "Kontakt-, Zonen-, KYC- oder Bankdaten können fehlen. Unterstützte Profiländerungen können gespeichert werden, ohne alle fehlenden Angaben zu ergänzen.",
     "preservationHint": "Leere Felder behalten vorhandene Informationen bei. Dieses Formular erstellt keinen separaten Betriebszugang und weist keine Zone automatisch zu.",
-    "loginHint": "Verwaltung über das verknüpfte Anbieterkonto. Die Migration hat keinen separaten Betriebszugang eingerichtet.",
+    "loginHint": "Der Anbieterzugang bleibt verfügbar. Admins können über Store-Login aktivieren einen separaten Zugang einrichten; Kontaktänderungen allein aktivieren keinen Login.",
     "kycProgress": "Vorhandene Dokumente: {count} von {total}",
     "loadFailed": "Das Dokument konnte nicht geladen werden."
   },

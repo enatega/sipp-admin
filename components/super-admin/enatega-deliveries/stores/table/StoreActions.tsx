@@ -9,6 +9,7 @@ import {
   CircleCheckBig,
   CircleX,
   Eye,
+  KeyRound,
   MoreVertical,
   PenIcon,
   TrashIcon,
@@ -31,6 +32,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import RejectStoreDialog from './RejectStoreDialog';
+import { EnableStoreLoginDialog } from '@/components/shared/EnableStoreLoginDialog';
 
 interface StoreActionsProps {
   store: DeliveryStore;
@@ -40,6 +42,8 @@ type ActionType = 'delete' | 'approve' | 'reject' | 'block' | null;
 
 export default function StoreActions({ store }: StoreActionsProps) {
   const t = useTranslations('lumiFood.stores');
+  const tLogin = useTranslations('storeLogin');
+  const [loginOpen, setLoginOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const [currentAction, setCurrentAction] = useState<ActionType>(null);
@@ -225,6 +229,12 @@ export default function StoreActions({ store }: StoreActionsProps) {
             <span className="text-sm">{t('editStoreLabel')}</span>
           </DropdownMenuItem>
 
+          {store.isLegacyMigrated === true && store.storeLoginEnabled === false && (
+            <DropdownMenuItem onClick={() => setLoginOpen(true)} className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none">
+              <KeyRound className="size-[18px]" />
+              <span className="text-sm">{tLogin('title')}</span>
+            </DropdownMenuItem>
+          )}
           {showApprove && (
             <DropdownMenuItem
               className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
@@ -286,6 +296,7 @@ export default function StoreActions({ store }: StoreActionsProps) {
       )}
 
       {/* Custom Reject Dialog with Reason Input */}
+      <EnableStoreLoginDialog storeId={store.id} storeName={store.storename} open={loginOpen} onClose={() => setLoginOpen(false)} />
       <RejectStoreDialog
         open={currentAction === 'reject'}
         onOpenChange={(open) => !open && setCurrentAction(null)}

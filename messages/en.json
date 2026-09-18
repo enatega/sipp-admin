@@ -1,4 +1,14 @@
 {
+  "storeLogin": {
+    "title": "Enable Store Login",
+    "description": "Set an email and password for this store to log in.",
+    "email": "Login email",
+    "password": "Initial password",
+    "passwordHint": "Use 8–72 characters. Share the credentials securely with the store.",
+    "cancel": "Cancel",
+    "processing": "Enabling login…",
+    "success": "Store login enabled."
+  },
   "taxRates": {
     "inactive": "Inactive (current assignment)",
     "title": "Tax Rates",
@@ -128,7 +138,7 @@
     "useProfileHint": "To update the store name or contact phone, open the store profile and choose Update Profile.",
     "description": "Some contact, zone, KYC or bank information may be missing. You can save supported profile changes without completing every missing field.",
     "preservationHint": "Empty fields preserve existing information. This form does not create a separate store login or automatically assign a zone.",
-    "loginHint": "Managed through the linked vendor account. Separate store login has not been set up by migration.",
+    "loginHint": "Vendor access remains available. Admin can enable separate store access using Enable Store Login; changing contact details alone does not enable login.",
     "kycProgress": "Documents provided: {count} of {total}",
     "loadFailed": "Document could not be loaded."
   },

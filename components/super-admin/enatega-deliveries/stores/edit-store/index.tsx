@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { pruneUnchangedStoreFields, STORE_EDIT_PAYLOAD_FIELDS } from '@/lib/store-update-payload';
 import { LegacyStoreNotice } from '@/components/shared/LegacyStoreNotice';
+import { EnableStoreLoginDialog } from '@/components/shared/EnableStoreLoginDialog';
 import { usePathname, useRouter } from 'next/navigation';
 import { editStoreFormSchema } from '@/schemas/enatega-deliveries/stores/store-form';
 import { StoreTimings } from '@/shared/contracts/store';
@@ -38,6 +39,8 @@ export function EditStoreForm({
   const router = useRouter();
   const pathname = usePathname();
   const isLegacyMigrated = apiStore.isLegacyMigrated === true;
+  const tLogin = useTranslations('storeLogin');
+  const [loginOpen, setLoginOpen] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [pendingValues, setPendingValues] = useState<Store | null>(null);
@@ -266,6 +269,12 @@ export function EditStoreForm({
   return (
     <>
       <div className="bg-accent p-10 rounded-md my-5">
+        {isLegacyMigrated && apiStore.storeLoginEnabled === false && (
+          <div className="flex justify-end mb-5">
+            <AppButton type="button" onClick={() => setLoginOpen(true)}>{tLogin('title')}</AppButton>
+          </div>
+        )}
+        <EnableStoreLoginDialog storeId={apiStore.id} open={loginOpen} onClose={() => setLoginOpen(false)} />
         <Formik
           initialValues={initialValues}
           enableReinitialize

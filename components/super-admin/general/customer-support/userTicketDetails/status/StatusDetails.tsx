@@ -2,6 +2,8 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { GetCustomerSupportTicketMessagesByIdResponse } from '@/types/api/super-admin/general/customerSupport.api';
 import StatusDropdown from './StatusDropdown';
+import { useAssignSupportTicket, useSupportAdmins } from '@/hooks/api/super-admin/general/customerSupport';
+import { getUser } from '@/lib/user';
 
 const formatDateTime = (value?: string) =>
   value ? moment(value).format('DD MMM YYYY, hh:mm A') : 'N/A';
@@ -14,6 +16,9 @@ export const StatusDetails: React.FC<{
   if (isLoading || !data) {
     return null;
   }
+  const admins = useSupportAdmins().data?.admins ?? [];
+  const assign = useAssignSupportTicket();
+  const currentUserId = getUser()?.id;
 
   const createdOn = data?.sender?.createdAt;
   const lastUpdated = data?.sender.updatedAt;
@@ -47,6 +52,11 @@ export const StatusDetails: React.FC<{
         </div>
         <div className="flex gap-2 items-center">
           <StatusDropdown id={data?.chatBoxId} status={data?.status} />
+          <select className="border rounded px-2 py-1 text-sm" value={data.assignedAdminId ?? ''} onChange={(e) => assign.mutate({ chatBoxId: data.chatBoxId, assignedAdminId: e.target.value || null })} disabled={assign.isPending}>
+            <option value="">Unassigned</option>
+            {admins.map((admin) => <option key={admin.id} value={admin.id}>{admin.name}{admin.id === currentUserId ? ' (You)' : ''}</option>)}
+          </select>
+          {!data.assignedAdminId && currentUserId ? <button className="border rounded px-2 py-1 text-sm" onClick={() => assign.mutate({ chatBoxId: data.chatBoxId, assignedAdminId: currentUserId })}>Take Ticket</button> : null}
           {/* <PriorityStatus /> */}
         </div>
       </div>

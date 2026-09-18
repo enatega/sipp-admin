@@ -10,9 +10,25 @@ import {
     SupportModule,
     UpdateTicketStatusPayload,
     UpdateTicketStatusResponse
+    , GetSupportAdminsResponse
 } from '@/types/api/super-admin/general/customerSupport.api';
 import { Priority, Status, TicketType } from '@/types/entities/super-admin/general/customer-support';
 import { useMutation, UseMutationOptions, useQuery, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+
+export const useSupportAdmins = () => useQuery({
+    queryKey: ['support-admins'],
+    queryFn: async () => (await Axios.get<GetSupportAdminsResponse>('/deliveries/support-chat/admins')).data,
+    staleTime: 60000,
+});
+
+export const useAssignSupportTicket = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async ({ chatBoxId, assignedAdminId }: { chatBoxId: string; assignedAdminId: string | null }) =>
+            (await Axios.patch(`/deliveries/support-chat/tickets/${chatBoxId}/assignment`, { assignedAdminId })).data,
+        onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['get-support-chat-messages-by-id'] }); queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] }); },
+    });
+};
 
 
 

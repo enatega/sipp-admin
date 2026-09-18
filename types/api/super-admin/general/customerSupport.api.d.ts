@@ -89,7 +89,12 @@ export interface GetCustomerSupportTicketMessagesByIdResponse {
   reviews: Reviews;
   totalMessages: number;
   messages: Message[];
+  assignedAdminId?: string | null;
+  assignedAdminName?: string | null;
 }
+
+export interface SupportAdmin { id: string; name: string; image?: string | null }
+export interface GetSupportAdminsResponse { count: number; admins: SupportAdmin[] }
 
 export interface Sender {
   id: string
@@ -134,6 +139,8 @@ export interface Message {
   chat_box_id?: string
   createdAt?: string
   updatedAt?: string
+  senderType?: 'customer' | 'admin';
+  senderName?: string | null;
 }
 // GetCustomerSupportTicketMessagesById End
 

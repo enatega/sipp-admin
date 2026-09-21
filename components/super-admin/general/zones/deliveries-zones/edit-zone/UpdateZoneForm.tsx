@@ -3,6 +3,7 @@
 import * as Yup from 'yup';
 import { ApiErrorResponse, DeliveriesZone } from '@/types';
 import { Form, Formik } from 'formik';
+import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { handleApiError } from '@/lib/toast-error';
 import { usePutDeliveriesZone } from '@/hooks/api/super-admin/general/deliveries-zones';
@@ -33,11 +34,14 @@ export default function UpdateZoneForm({
   const { mutateAsync: putZone, isPending: isPuttingZone } =
     usePutDeliveriesZone();
 
-  const initialValues: DeliveriesZoneFormValues = {
-    title: zone.title,
-    description: zone.description,
-    zoneData: convertZoneToZoneData(zone),
-  };
+  const initialValues = useMemo<DeliveriesZoneFormValues>(
+    () => ({
+      title: zone.title,
+      description: zone.description,
+      zoneData: convertZoneToZoneData(zone),
+    }),
+    [zone],
+  );
 
   const handleSubmit = async (
     values: DeliveriesZoneFormValues,

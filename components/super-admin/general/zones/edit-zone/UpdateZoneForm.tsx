@@ -11,6 +11,7 @@ import {
   ZoneType,
 } from '@/types';
 import { Form, Formik } from 'formik';
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { handleApiError } from '@/lib/toast-error';
@@ -283,16 +284,19 @@ export default function UpdateZoneForm({ onClose, zone }: UpdateZoneFormProps) {
 
   const types = ['LO Foods', 'LO Drive', 'LO Hotels', 'LO Tickets'];
 
-  const initialValues = {
-    name: zone.title,
-    description: zone.description,
-    selectedTypes: zone.zoneType.map((type) => reverseTypeMapping[type]),
-    zoneData: convertZoneToZoneData(
-      zone.zoneShape,
-      zone.zonePolygon,
-      zone.circleData,
-    ),
-  };
+  const initialValues = useMemo(
+    () => ({
+      name: zone.title,
+      description: zone.description,
+      selectedTypes: zone.zoneType.map((type) => reverseTypeMapping[type]),
+      zoneData: convertZoneToZoneData(
+        zone.zoneShape,
+        zone.zonePolygon,
+        zone.circleData,
+      ),
+    }),
+    [zone],
+  );
 
   return (
     <Formik

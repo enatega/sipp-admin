@@ -240,6 +240,7 @@ export default function InteractiveMap({
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
   const { isLoaded, loadError } = useGoogleMapsLoader();
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const onChangeRef = useRef(onChange);
   const [drawingMode, setDrawingMode] = useState<DrawingMode | null>(null);
   const drawingModeRef = useRef<DrawingMode | null>(null);
   const drawnOverlayRef = useRef<GoogleMapOverlay | null>(null);
@@ -293,6 +294,10 @@ export default function InteractiveMap({
     [zoneValueCenterLat, zoneValueCenterLng],
   );
   const stableZonePath = value?.path ?? null;
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   const getMarkerLibrary = useCallback(async () => {
     if (markerLibraryRef.current) {
@@ -407,10 +412,10 @@ export default function InteractiveMap({
       syncPolylineFill(path, map);
 
       if (shouldEmitChange) {
-        onChange({ type: 'polyline', path });
+        onChangeRef.current({ type: 'polyline', path });
       }
     },
-    [map, onChange, syncPolylineFill],
+    [map, syncPolylineFill],
   );
 
   const syncPolygonOverlay = useCallback(
@@ -423,10 +428,10 @@ export default function InteractiveMap({
       );
 
       if (shouldEmitChange) {
-        onChange({ type: 'polygon', path });
+        onChangeRef.current({ type: 'polygon', path });
       }
     },
-    [onChange],
+    [],
   );
 
   const attachPolylineListeners = useCallback(
@@ -454,12 +459,12 @@ export default function InteractiveMap({
         const position = toLatLngLiteral(marker.position);
         if (!position) return;
 
-        onChange({ type: 'marker', center: position });
+        onChangeRef.current({ type: 'marker', center: position });
       };
 
       overlayListenersRef.current = [marker.addListener('dragend', sync)];
     },
-    [clearOverlayListeners, onChange],
+    [clearOverlayListeners],
   );
 
   const attachCircleListeners = useCallback(
@@ -470,7 +475,7 @@ export default function InteractiveMap({
         const center = circle.getCenter();
         if (!center) return;
 
-        onChange({
+        onChangeRef.current({
           type: 'circle',
           center: center.toJSON(),
           radius: circle.getRadius(),
@@ -483,7 +488,7 @@ export default function InteractiveMap({
         circle.addListener('dragend', sync),
       ];
     },
-    [clearOverlayListeners, onChange],
+    [clearOverlayListeners],
   );
 
   const attachPolygonListeners = useCallback(
@@ -533,14 +538,13 @@ export default function InteractiveMap({
         firstPointMarker.current = null;
       }
       if (shouldEmitChange) {
-        onChange(null);
+        onChangeRef.current(null);
       }
     },
     [
       clearDraftPolyline,
       clearOverlayListeners,
       clearPolylineFill,
-      onChange,
     ],
   );
 
@@ -612,7 +616,7 @@ export default function InteractiveMap({
         }
       }
 
-      onChange(zoneData);
+      onChangeRef.current(zoneData);
       setDrawingMode(null);
 
       if (!centroid || type === 'polygon') {
@@ -679,7 +683,6 @@ export default function InteractiveMap({
       attachPolylineListeners,
       clearDrawing,
       getMarkerLibrary,
-      onChange,
       syncPolylineFill,
       syncPolylineOverlay,
     ],

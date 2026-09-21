@@ -3402,6 +3402,7 @@
     },
     "actions": {
       "viewDetails": "Details Anzeigen",
+      "loginAsUser": "Als Benutzer anmelden",
       "internalNotes": "Interne Notizen",
       "forceLogout": "Abmeldung Erzwingen",
       "activateAccount": "Konto Aktivieren",
@@ -3420,7 +3421,8 @@
       "fetchFailed": "Fehler beim Abrufen der Benutzer",
       "tryAgain": "Bitte versuchen Sie es später erneut.",
       "noUsers": "Keine Benutzer gefunden",
-      "noUsersSubtitle": "Derzeit sind keine Benutzer verfügbar."
+      "noUsersSubtitle": "Derzeit sind keine Benutzer verfügbar.",
+      "impersonationFailed": "Die Benutzer-Imitation konnte nicht gestartet werden."
     },
     "notAvailable": "k.A."
   },

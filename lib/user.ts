@@ -334,6 +334,16 @@ export const hasPermission = (permission?: string): boolean => {
   );
 };
 
+export const hasNamedPermission = (permissionName: string): boolean => {
+  const role = getRoleAndPermissions();
+  return Boolean(
+    role?.permissions?.some(
+      (permission) =>
+        permission.name.toLowerCase() === permissionName.toLowerCase(),
+    ),
+  );
+};
+
 const routePermissionMap: Record<string, string | null> = {
   '/': null,
   '/general/users': 'general.users',

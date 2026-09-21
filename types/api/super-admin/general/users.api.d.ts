@@ -18,6 +18,11 @@ export interface GetUserManagementResponse {
   limit: number;
 }
 
+export interface CreateImpersonationTokenResponse {
+  token: string;
+  expiresIn: number;
+}
+
 export interface UpdateInternalNotePayload {
   userId: string;
   internalNote: string;

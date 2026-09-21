@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 
 const tools = [
   { name: 'circle', icon: '/svgs/circle-icon.svg', drawingMode: 'CIRCLE' },
-  { name: 'marker', icon: '/svgs/point-icon.svg', drawingMode: 'MARKER' },
   { name: 'polygon', icon: '/svgs/polygon-icon.svg', drawingMode: 'POLYGON' },
   {
     name: 'polyline',
@@ -16,10 +15,12 @@ const tools = [
   },
 ];
 
-type ToolName = 'circle' | 'polygon' | 'polyline' | 'marker';
+type ToolName = 'circle' | 'polygon' | 'polyline';
 
 interface DrawingToolsProps {
-  tool?: ToolName | null;
+  // Also accepts legacy zone types (e.g. `marker`) so old saved zones don't
+  // crash the picker; those simply don't match any of the current tools.
+  tool?: ToolName | 'marker' | null;
   onToolSelect: (tool: string | null) => void;
 }
 
@@ -41,7 +42,7 @@ export default function DrawingTools({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-3 gap-4">
       {tools.map((tool) => (
         <ToolButton
           key={tool.name}
@@ -80,7 +81,7 @@ function ToolButton({ tool, isSelected, onClick }: ToolButtonProps) {
         alt={t(tool.name as ToolName)}
         width={32}
         height={32}
-        className={cn('mx-auto', isSelected && 'filter invert')}
+        className={cn('mx-auto', isSelected && 'brightness-0 invert')}
       />
       <p className="mt-2 text-sm capitalize">{t(tool.name as ToolName)}</p>
     </div>

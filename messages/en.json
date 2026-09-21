@@ -3405,6 +3405,7 @@
     },
     "actions": {
       "viewDetails": "View Details",
+      "loginAsUser": "Login as User",
       "internalNotes": "Internal Notes",
       "forceLogout": "Force Logout",
       "activateAccount": "Activate Account",
@@ -3423,7 +3424,8 @@
       "fetchFailed": "Failed to fetch users",
       "tryAgain": "Please try again later.",
       "noUsers": "No users found",
-      "noUsersSubtitle": "No users available at the moment."
+      "noUsersSubtitle": "No users available at the moment.",
+      "impersonationFailed": "Could not start user impersonation."
     },
     "notAvailable": "N/A"
   },

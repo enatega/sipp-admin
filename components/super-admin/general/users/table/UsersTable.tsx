@@ -10,12 +10,18 @@ import {
   FileText,
   LogOut,
   MoreVertical,
+  UserRoundCog,
   XCircle,
 } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
 import { returnErrorMessage } from '@/lib/toast-error';
-import { useGetUserManagement } from '@/hooks/api/super-admin/general/users';
+import { hasNamedPermission } from '@/lib/user';
+import {
+  useCreateImpersonationToken,
+  useGetUserManagement,
+} from '@/hooks/api/super-admin/general/users';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import {
   DropdownMenu,
@@ -46,8 +52,12 @@ import { Filters } from './Filters';
 
 export function UsersTable() {
   const t = useTranslations('users');
+  const actions = useTranslations('users.actions');
+  const userErrors = useTranslations('users.errors');
   const router = useRouter();
   const { data, isLoading, isError, error } = useGetUserManagement();
+  const createImpersonationToken = useCreateImpersonationToken();
+  const canImpersonate = hasNamedPermission('impersonate_users');
 
   const {
     items: sortedUsers,
@@ -88,6 +98,25 @@ export function UsersTable() {
 
   const handleRowClick = (id: string) => {
     router.push(`/general/users/${id}`);
+  };
+
+  const handleImpersonate = async (user: UserManagementItem) => {
+    try {
+      const result = await createImpersonationToken.mutateAsync(
+        user.userProfile.user.id,
+      );
+      const customerWebUrl = new URL(
+        '/auth/impersonate',
+        process.env.NEXT_PUBLIC_CUSTOMER_WEB_URL || 'http://localhost:3001',
+      );
+      customerWebUrl.searchParams.set('token', result.token);
+      window.location.assign(customerWebUrl.toString());
+    } catch (caught) {
+      toast.error(
+        returnErrorMessage(caught as ApiErrorResponse) ||
+          userErrors('impersonationFailed'),
+      );
+    }
   };
 
   return (
@@ -250,6 +279,23 @@ export function UsersTable() {
                             {t('actions.viewDetails')}
                           </span>
                         </DropdownMenuItem>
+                        {canImpersonate &&
+                          user.userProfile.user.active_status &&
+                          !user.userProfile.user.block_status && (
+                            <DropdownMenuItem
+                              disabled={createImpersonationToken.isPending}
+                              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                void handleImpersonate(user);
+                              }}
+                            >
+                              <UserRoundCog className="size-[18px]" />
+                              <span className="text-sm">
+                                {actions('loginAsUser')}
+                              </span>
+                            </DropdownMenuItem>
+                          )}
                         <DropdownMenuItem
                           className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
                           onClick={(e) => {

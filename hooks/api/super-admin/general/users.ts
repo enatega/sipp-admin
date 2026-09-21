@@ -1,6 +1,6 @@
 import Axios from "@/config/axios";
 import { useQueryParams } from "@/hooks/use-query-params";
-import { AccountStatus, ApiErrorResponse, BlockUnblockUserPayload, DeactivateUserPayload, GetUMUserDetailsResponse, GetUserAddressesResponse, GetUserAuditLogsResponse, GetUserHistoryResponse, GetUserManagementQueryParams, GetUserManagementResponse, GetUserOrdersResponse, GetUserReviewsResponse, MessageResponse, RegistrationMethod, UpdateInternalNotePayload, UpdateInternalNoteResponse } from "@/types";
+import { AccountStatus, ApiErrorResponse, BlockUnblockUserPayload, CreateImpersonationTokenResponse, DeactivateUserPayload, GetUMUserDetailsResponse, GetUserAddressesResponse, GetUserAuditLogsResponse, GetUserHistoryResponse, GetUserManagementQueryParams, GetUserManagementResponse, GetUserOrdersResponse, GetUserReviewsResponse, MessageResponse, RegistrationMethod, UpdateInternalNotePayload, UpdateInternalNoteResponse } from "@/types";
 import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 
 
@@ -83,6 +83,17 @@ export const useForceLogout = () => {
         mutationFn: async (userId: string) => {
             const { data } = await Axios.patch(
                 `/user-management/force-logout/${userId}`
+            );
+            return data;
+        },
+    });
+};
+
+export const useCreateImpersonationToken = () => {
+    return useMutation<CreateImpersonationTokenResponse, ApiErrorResponse, string>({
+        mutationFn: async (userId: string) => {
+            const { data } = await Axios.post<CreateImpersonationTokenResponse>(
+                `/user-management/${userId}/impersonation`,
             );
             return data;
         },

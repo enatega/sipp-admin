@@ -14,6 +14,8 @@ import { handleApiError } from '@/lib/toast-error';
 import {
   useDeleteOrder,
   useGetOrderDetail,
+  useAcceptAdminOrder,
+  useRejectAdminOrder,
 } from '@/hooks/api/super-admin/enatega-deliveries/orders';
 import {
   useAcceptStoreOrder,
@@ -144,6 +146,10 @@ export function OrdersTable({
     useAcceptStoreOrder();
   const { mutateAsync: rejectStoreOrder, isPending: isRejecting } =
     useRejectStoreOrder();
+  const { mutateAsync: acceptAdminOrder, isPending: isAcceptingAdmin } =
+    useAcceptAdminOrder();
+  const { mutateAsync: rejectAdminOrder, isPending: isRejectingAdmin } =
+    useRejectAdminOrder();
   const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
     useGetOrderDetail(trackingOrderId ?? undefined);
 
@@ -169,7 +175,11 @@ export function OrdersTable({
 
   const handleAcceptOrder = async (orderId: string) => {
     try {
-      await acceptStoreOrder(orderId);
+      if (storeOrdersPath) {
+        await acceptStoreOrder(orderId);
+      } else {
+        await acceptAdminOrder(orderId);
+      }
       toast.success('Order accepted successfully');
       onOrderUpdated?.();
     } catch (error) {
@@ -179,12 +189,16 @@ export function OrdersTable({
 
   const handleRejectOrder = async () => {
     const reason = rejectionReason.trim();
-    if (!rejectingOrderId || !reason) {
+    if (!rejectingOrderId || (storeOrdersPath && !reason)) {
       toast.error('Please enter a rejection reason');
       return;
     }
     try {
-      await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      if (storeOrdersPath) {
+        await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      } else {
+        await rejectAdminOrder({ orderId: rejectingOrderId, reason });
+      }
       toast.success('Order rejected successfully');
       setRejectingOrderId(null);
       setRejectionReason('');
@@ -283,11 +297,9 @@ export function OrdersTable({
                   !riderAssigned && canShowAssignRiderButton(order.status);
                 const normalizedStatus = normalizeOrderStatus(order.status);
                 const canAccept =
-                  storeOrdersPath &&
-                  (normalizedStatus === 'pending' || normalizedStatus === 'scheduled');
+                  normalizedStatus === 'pending' || normalizedStatus === 'scheduled';
                 const canReject =
-                  storeOrdersPath &&
-                  (normalizedStatus === 'pending' || normalizedStatus === 'accepted');
+                  normalizedStatus === 'pending' || normalizedStatus === 'accepted';
 
                 return (
                   <TableRow
@@ -422,7 +434,7 @@ export function OrdersTable({
                               {canAccept && (
                                 <DropdownMenuItem
                                   className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none text-green-700"
-                                  disabled={isAccepting}
+                                  disabled={isAccepting || isAcceptingAdmin}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     void handleAcceptOrder(order.orderId);
@@ -519,8 +531,16 @@ export function OrdersTable({
       {rejectingOrderId && (
         <AppAlertDialog
           title="Reject Order"
-          subTitle="Why are you rejecting this order?"
-          description="This reason will be visible in the order history."
+          subTitle={
+            storeOrdersPath
+              ? 'Why are you rejecting this order?'
+              : 'Are you sure you want to reject this order?'
+          }
+          description={
+            storeOrdersPath
+              ? 'This reason will be visible in the order history.'
+              : 'This order will be marked as rejected.'
+          }
           open
           onOpenChange={(open) => {
             if (!open) {
@@ -531,21 +551,25 @@ export function OrdersTable({
           variant="delete"
           confirmLabel="Reject Order"
           onConfirm={handleRejectOrder}
-          loading={isRejecting}
+          loading={isRejecting || isRejectingAdmin}
         >
-          <textarea
-            value={rejectionReason}
-            onChange={(event) => setRejectionReason(event.target.value)}
-            onClick={(event) => event.stopPropagation()}
-            maxLength={200}
-            rows={4}
-            autoFocus
-            placeholder="Enter rejection reason"
-            className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-          <div className="mt-1 text-right text-xs text-muted-foreground">
-            {rejectionReason.length}/200
-          </div>
+          {storeOrdersPath && (
+            <>
+              <textarea
+                value={rejectionReason}
+                onChange={(event) => setRejectionReason(event.target.value)}
+                onClick={(event) => event.stopPropagation()}
+                maxLength={200}
+                rows={4}
+                autoFocus
+                placeholder="Enter rejection reason"
+                className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+              <div className="mt-1 text-right text-xs text-muted-foreground">
+                {rejectionReason.length}/200
+              </div>
+            </>
+          )}
         </AppAlertDialog>
       )}
 

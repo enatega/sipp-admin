@@ -11,6 +11,12 @@ const normalizeTextValue = (value: unknown): string | null => {
     return trimmed;
 };
 
+type OrderActionResponse = {
+    message: string;
+    orderId: string;
+    status: string;
+};
+
 
 
 
@@ -299,6 +305,56 @@ export const useAutoAssignRider = (
                 queryClient.invalidateQueries({ queryKey: ['get-available-riders', orderId] });
             }
 
+            queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
+        },
+        ...options,
+    });
+};
+
+export const useAcceptAdminOrder = (
+    options?: UseMutationOptions<OrderActionResponse, ApiErrorResponse, string>,
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation<OrderActionResponse, ApiErrorResponse, string>({
+        mutationFn: async (orderId) => {
+            const { data } = await Axios.patch<OrderActionResponse>(
+                `/admin/orders/update-status/${orderId}`,
+                { status: 'accepted' },
+            );
+            return data;
+        },
+        onSuccess: (_data, orderId) => {
+            queryClient.invalidateQueries({ queryKey: ['get-order', orderId] });
+            queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
+        },
+        ...options,
+    });
+};
+
+export const useRejectAdminOrder = (
+    options?: UseMutationOptions<
+        OrderActionResponse,
+        ApiErrorResponse,
+        { orderId: string; reason: string }
+    >,
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation<
+        OrderActionResponse,
+        ApiErrorResponse,
+        { orderId: string; reason: string }
+    >({
+        mutationFn: async ({ orderId }) => {
+            const { data } = await Axios.patch<OrderActionResponse>(
+                `/admin/orders/update-status/${orderId}`,
+                { status: 'rejected' },
+            );
+            return data;
+        },
+        onSuccess: (_data, { orderId }) => {
+            queryClient.invalidateQueries({ queryKey: ['get-order', orderId] });
             queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
         },
         ...options,

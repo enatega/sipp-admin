@@ -114,7 +114,7 @@ export interface GetRoleByIdResponse {
 }
 
 export interface InviteUserPayload {
-    roleId: string;
+    roleId?: string;
     email: string;
     fullName: string;
     password?: string; // Password can be optional if system generates it

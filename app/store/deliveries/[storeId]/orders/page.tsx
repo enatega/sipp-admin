@@ -25,9 +25,9 @@ function Page() {
     customerProfile: item.customerProfile || '',
     vendorName: item.vendorName || t('notAvailable'),
     storeName: item.storeName || t('notAvailable'),
-    riderName: item.riderName || t('notAvailable'),
+    riderName: item.riderName ?? null,
     riderProfile: item?.riderUser?.profile || t('notAvailable'),
-    riderId: item.riderId || t('notAvailable'),
+    riderId: item.riderId ?? null,
 
     // Store orders API returns `product` where super-admin returns `orderType`
     orderType: item.product || item.orderType || t('notAvailable'),
@@ -64,6 +64,7 @@ function Page() {
           limit={toAllowedLimit(apiRes?.limit)}
           total={apiRes?.total}
           isLoading={isLoading}
+          onOrderUpdated={() => refetch()}
         />
       )}
     </>

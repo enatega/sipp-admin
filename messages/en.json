@@ -3596,7 +3596,8 @@
     },
     "map": {
       "searchPlaceholder": "Search here...",
-      "radiusLabel": "Radius (meters):",
+      "radiusLabel": "Radius (km):",
+      "polygonRadiusLabel": "Radius (km):",
       "scaleLabel": "Scale:",
       "dragVertices": "Drag vertices or use buttons",
       "loading": "Loading Map...",

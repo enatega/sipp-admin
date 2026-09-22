@@ -14,7 +14,11 @@ import { handleApiError } from '@/lib/toast-error';
 import {
   useDeleteOrder,
   useGetOrderDetail,
+  useAcceptAdminOrder,
+  useRejectAdminOrder,
+  useUpdateSuperAdminOrderStatus,
 } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import { hasNamedPermission } from '@/lib/user';
 import {
   useAcceptStoreOrder,
   useRejectStoreOrder,
@@ -38,6 +42,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import AppPagination from '@/components/shared/AppPagination';
 import CopyButton from '@/components/shared/CopyButton';
 import Status from '@/components/shared/Status';
@@ -109,6 +120,22 @@ const canShowAssignRiderButton = (status?: string | null) => {
   );
 };
 
+const ORDER_STATUSES = [
+  'scheduled',
+  'pending',
+  'accepted',
+  'preparing',
+  'ready',
+  'rider_assigned',
+  'picked_up',
+  'out_for_delivery',
+  'arrived',
+  'delivered',
+  'cancelled',
+  'rejected',
+  'failed',
+] as const;
+
 export function OrdersTable({
   data,
   page = 1,
@@ -144,6 +171,14 @@ export function OrdersTable({
     useAcceptStoreOrder();
   const { mutateAsync: rejectStoreOrder, isPending: isRejecting } =
     useRejectStoreOrder();
+  const { mutateAsync: acceptAdminOrder, isPending: isAcceptingAdmin } =
+    useAcceptAdminOrder();
+  const { mutateAsync: rejectAdminOrder, isPending: isRejectingAdmin } =
+    useRejectAdminOrder();
+  const {
+    mutateAsync: updateSuperAdminOrderStatus,
+    isPending: isUpdatingSuperAdminOrderStatus,
+  } = useUpdateSuperAdminOrderStatus();
   const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
     useGetOrderDetail(trackingOrderId ?? undefined);
 
@@ -166,10 +201,17 @@ export function OrdersTable({
 
   const pathname = usePathname();
   const storeOrdersPath = isStoreOrdersPath(pathname);
+  const canUpdateSuperAdminOrderStatus = hasNamedPermission(
+    'delivery_update_super_admin_order_status',
+  );
 
   const handleAcceptOrder = async (orderId: string) => {
     try {
-      await acceptStoreOrder(orderId);
+      if (storeOrdersPath) {
+        await acceptStoreOrder(orderId);
+      } else {
+        await acceptAdminOrder(orderId);
+      }
       toast.success('Order accepted successfully');
       onOrderUpdated?.();
     } catch (error) {
@@ -179,15 +221,32 @@ export function OrdersTable({
 
   const handleRejectOrder = async () => {
     const reason = rejectionReason.trim();
-    if (!rejectingOrderId || !reason) {
+    if (!rejectingOrderId || (storeOrdersPath && !reason)) {
       toast.error('Please enter a rejection reason');
       return;
     }
     try {
-      await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      if (storeOrdersPath) {
+        await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      } else {
+        await rejectAdminOrder({ orderId: rejectingOrderId, reason });
+      }
       toast.success('Order rejected successfully');
       setRejectingOrderId(null);
       setRejectionReason('');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleSuperAdminStatusChange = async (
+    orderId: string,
+    status: string,
+  ) => {
+    try {
+      await updateSuperAdminOrderStatus({ orderId, status });
+      toast.success('Order status updated successfully');
       onOrderUpdated?.();
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
@@ -283,11 +342,9 @@ export function OrdersTable({
                   !riderAssigned && canShowAssignRiderButton(order.status);
                 const normalizedStatus = normalizeOrderStatus(order.status);
                 const canAccept =
-                  storeOrdersPath &&
-                  (normalizedStatus === 'pending' || normalizedStatus === 'scheduled');
+                  normalizedStatus === 'pending' || normalizedStatus === 'scheduled';
                 const canReject =
-                  storeOrdersPath &&
-                  (normalizedStatus === 'pending' || normalizedStatus === 'accepted');
+                  normalizedStatus === 'pending' || normalizedStatus === 'accepted';
 
                 return (
                   <TableRow
@@ -366,14 +423,52 @@ export function OrdersTable({
                       {formatCurrency(order?.amount ?? 0, currency)}
                     </TableCell>
                     <TableCell>
-                      <Status
-                        status={(order?.status || '').toLowerCase()}
-                        label={formatOrderStatusLabel(
-                          order?.status,
-                          tStatuses,
-                          t('notAvailable'),
-                        )}
-                      />
+                      {!storeOrdersPath && canUpdateSuperAdminOrderStatus ? (
+                        <div onClick={(event) => event.stopPropagation()}>
+                          <Select
+                            value={normalizedStatus || undefined}
+                            disabled={isUpdatingSuperAdminOrderStatus}
+                            onValueChange={(status) => {
+                              if (status !== normalizedStatus) {
+                                void handleSuperAdminStatusChange(
+                                  order.orderId,
+                                  status,
+                                );
+                              }
+                            }}
+                          >
+                            <SelectTrigger className="w-[175px]">
+                              <SelectValue
+                                placeholder={formatOrderStatusLabel(
+                                  order?.status,
+                                  tStatuses,
+                                  t('notAvailable'),
+                                )}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {ORDER_STATUSES.map((status) => (
+                                <SelectItem key={status} value={status}>
+                                  {formatOrderStatusLabel(
+                                    status,
+                                    tStatuses,
+                                    status.replace(/_/g, ' '),
+                                  )}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      ) : (
+                        <Status
+                          status={(order?.status || '').toLowerCase()}
+                          label={formatOrderStatusLabel(
+                            order?.status,
+                            tStatuses,
+                            t('notAvailable'),
+                          )}
+                        />
+                      )}
                     </TableCell>
                     <TableCell>{formatDateTime(order?.dateTime)}</TableCell>
                     <TableCell>
@@ -422,7 +517,7 @@ export function OrdersTable({
                               {canAccept && (
                                 <DropdownMenuItem
                                   className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none text-green-700"
-                                  disabled={isAccepting}
+                                  disabled={isAccepting || isAcceptingAdmin}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     void handleAcceptOrder(order.orderId);
@@ -519,8 +614,16 @@ export function OrdersTable({
       {rejectingOrderId && (
         <AppAlertDialog
           title="Reject Order"
-          subTitle="Why are you rejecting this order?"
-          description="This reason will be visible in the order history."
+          subTitle={
+            storeOrdersPath
+              ? 'Why are you rejecting this order?'
+              : 'Are you sure you want to reject this order?'
+          }
+          description={
+            storeOrdersPath
+              ? 'This reason will be visible in the order history.'
+              : 'This order will be marked as rejected.'
+          }
           open
           onOpenChange={(open) => {
             if (!open) {
@@ -531,21 +634,25 @@ export function OrdersTable({
           variant="delete"
           confirmLabel="Reject Order"
           onConfirm={handleRejectOrder}
-          loading={isRejecting}
+          loading={isRejecting || isRejectingAdmin}
         >
-          <textarea
-            value={rejectionReason}
-            onChange={(event) => setRejectionReason(event.target.value)}
-            onClick={(event) => event.stopPropagation()}
-            maxLength={200}
-            rows={4}
-            autoFocus
-            placeholder="Enter rejection reason"
-            className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-          />
-          <div className="mt-1 text-right text-xs text-muted-foreground">
-            {rejectionReason.length}/200
-          </div>
+          {storeOrdersPath && (
+            <>
+              <textarea
+                value={rejectionReason}
+                onChange={(event) => setRejectionReason(event.target.value)}
+                onClick={(event) => event.stopPropagation()}
+                maxLength={200}
+                rows={4}
+                autoFocus
+                placeholder="Enter rejection reason"
+                className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+              <div className="mt-1 text-right text-xs text-muted-foreground">
+                {rejectionReason.length}/200
+              </div>
+            </>
+          )}
         </AppAlertDialog>
       )}
 

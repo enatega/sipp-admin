@@ -3593,7 +3593,8 @@
     },
     "map": {
       "searchPlaceholder": "Hier suchen...",
-      "radiusLabel": "Radius (Meter):",
+      "radiusLabel": "Radius (km):",
+      "polygonRadiusLabel": "Radius (km):",
       "scaleLabel": "Skalierung:",
       "dragVertices": "Eckpunkte ziehen oder Buttons verwenden",
       "loading": "Karte wird geladen...",

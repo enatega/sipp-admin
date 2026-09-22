@@ -323,6 +323,7 @@ export default function AddRoleForm({ onClose, onSubmit }: AddRoleFormProps) {
       <InviteUserDialog
         open={inviteDialogOpen}
         onClose={() => setInviteDialogOpen(false)}
+        showRoleField={false}
       />
     </>
   );

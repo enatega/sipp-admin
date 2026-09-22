@@ -27,16 +27,21 @@ import { Heading } from '@/components/shared/Heading';
 interface InviteUserDialogProps {
   open: boolean;
   onClose: () => void;
+  showRoleField?: boolean;
 }
 
-export function InviteUserDialog({ open, onClose }: InviteUserDialogProps) {
+export function InviteUserDialog({
+  open,
+  onClose,
+  showRoleField = true,
+}: InviteUserDialogProps) {
   const t = useTranslations('roleAndPermissions.inviteDialog');
   const tForm = useTranslations('roleAndPermissions.form');
   const tSchema = useTranslations();
   const queryClient = useQueryClient();
 
   const { data: rolesData, isLoading: isLoadingRoles } =
-    useGetAllRoleForInvite();
+    useGetAllRoleForInvite({ enabled: showRoleField });
   const inviteUserMutation = useInviteUser();
 
   const roleOptions =
@@ -57,7 +62,7 @@ export function InviteUserDialog({ open, onClose }: InviteUserDialogProps) {
   const handleSubmit = async (values: InviteUserFormValues) => {
     try {
       await inviteUserMutation.mutateAsync({
-        roleId: values.role,
+        roleId: values.role || undefined,
         email: values.email,
         fullName: values.fullName,
         password: values.password,
@@ -118,15 +123,15 @@ export function InviteUserDialog({ open, onClose }: InviteUserDialogProps) {
               requiredAsterisk
             />
 
-            {/* Role */}
-            <AppSelect
-              name="role"
-              label={t('role')}
-              options={roleOptions}
-              placeholder={t('rolePlaceholder')}
-              requiredAsterisk
-              disabled={isLoadingRoles}
-            />
+            {showRoleField && (
+              <AppSelect
+                name="role"
+                label={t('role')}
+                options={roleOptions}
+                placeholder={t('rolePlaceholder')}
+                disabled={isLoadingRoles}
+              />
+            )}
 
             {/* Must Change Password Checkbox */}
             <div className="flex items-center space-x-2 pt-2">

@@ -16,7 +16,7 @@ export const inviteUserValidationSchema = (t: ReturnType<typeof useTranslations>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
         t('Schemas.inviteUser.passwordRequirements'),
       ),
-    role: Yup.string().required(t('Schemas.inviteUser.roleRequired')),
+    role: Yup.string().optional(),
     mustChangePassword: Yup.boolean(),
   });
 

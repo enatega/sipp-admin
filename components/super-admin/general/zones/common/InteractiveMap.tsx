@@ -19,16 +19,64 @@ const containerStyle = {
   position: 'relative' as const,
 };
 
+// Costa Rica
 const DEFAULT_CENTER = {
-  lat: 40.7128,
-  lng: -74.006,
+  lat: 9.7489,
+  lng: -83.7534,
 };
 
 const ZONE_FILL_COLOR = '#F97316';
 const ZONE_STROKE_COLOR = '#9A3412';
 const ZONE_FILL_OPACITY = 0.38;
 const ZONE_STROKE_WEIGHT = 3;
-const DEFAULT_CIRCLE_RADIUS = 500;
+const METERS_PER_KM = 1000;
+const DEFAULT_CIRCLE_RADIUS = 50 * METERS_PER_KM;
+const MIN_SEARCH_RADIUS = 200;
+
+const EARTH_RADIUS_METERS = 6371000;
+
+const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+
+const haversineDistanceMeters = (
+  a: { lat: number; lng: number },
+  b: { lat: number; lng: number },
+) => {
+  const dLat = toRadians(b.lat - a.lat);
+  const dLng = toRadians(b.lng - a.lng);
+  const lat1 = toRadians(a.lat);
+  const lat2 = toRadians(b.lat);
+
+  const sinDLat = Math.sin(dLat / 2);
+  const sinDLng = Math.sin(dLng / 2);
+  const h =
+    sinDLat * sinDLat + Math.cos(lat1) * Math.cos(lat2) * sinDLng * sinDLng;
+
+  return 2 * EARTH_RADIUS_METERS * Math.asin(Math.min(1, Math.sqrt(h)));
+};
+
+const getPathCentroid = (path: { lat: number; lng: number }[]) => {
+  const lats = path.map((point) => point.lat);
+  const lngs = path.map((point) => point.lng);
+
+  return {
+    lat: (Math.min(...lats) + Math.max(...lats)) / 2,
+    lng: (Math.min(...lngs) + Math.max(...lngs)) / 2,
+  };
+};
+
+const getPathAverageRadiusMeters = (path: { lat: number; lng: number }[]) => {
+  if (path.length === 0) {
+    return 0;
+  }
+
+  const center = getPathCentroid(path);
+  const total = path.reduce(
+    (sum, point) => sum + haversineDistanceMeters(center, point),
+    0,
+  );
+
+  return total / path.length;
+};
 
 const SHAPE_OPTIONS = {
   fillColor: ZONE_FILL_COLOR,
@@ -192,6 +240,7 @@ export default function InteractiveMap({
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
   const { isLoaded, loadError } = useGoogleMapsLoader();
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const onChangeRef = useRef(onChange);
   const [drawingMode, setDrawingMode] = useState<DrawingMode | null>(null);
   const drawingModeRef = useRef<DrawingMode | null>(null);
   const drawnOverlayRef = useRef<GoogleMapOverlay | null>(null);
@@ -245,6 +294,10 @@ export default function InteractiveMap({
     [zoneValueCenterLat, zoneValueCenterLng],
   );
   const stableZonePath = value?.path ?? null;
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   const getMarkerLibrary = useCallback(async () => {
     if (markerLibraryRef.current) {
@@ -359,10 +412,10 @@ export default function InteractiveMap({
       syncPolylineFill(path, map);
 
       if (shouldEmitChange) {
-        onChange({ type: 'polyline', path });
+        onChangeRef.current({ type: 'polyline', path });
       }
     },
-    [map, onChange, syncPolylineFill],
+    [map, syncPolylineFill],
   );
 
   const syncPolygonOverlay = useCallback(
@@ -375,10 +428,10 @@ export default function InteractiveMap({
       );
 
       if (shouldEmitChange) {
-        onChange({ type: 'polygon', path });
+        onChangeRef.current({ type: 'polygon', path });
       }
     },
-    [onChange],
+    [],
   );
 
   const attachPolylineListeners = useCallback(
@@ -406,12 +459,12 @@ export default function InteractiveMap({
         const position = toLatLngLiteral(marker.position);
         if (!position) return;
 
-        onChange({ type: 'marker', center: position });
+        onChangeRef.current({ type: 'marker', center: position });
       };
 
       overlayListenersRef.current = [marker.addListener('dragend', sync)];
     },
-    [clearOverlayListeners, onChange],
+    [clearOverlayListeners],
   );
 
   const attachCircleListeners = useCallback(
@@ -422,7 +475,7 @@ export default function InteractiveMap({
         const center = circle.getCenter();
         if (!center) return;
 
-        onChange({
+        onChangeRef.current({
           type: 'circle',
           center: center.toJSON(),
           radius: circle.getRadius(),
@@ -435,7 +488,7 @@ export default function InteractiveMap({
         circle.addListener('dragend', sync),
       ];
     },
-    [clearOverlayListeners, onChange],
+    [clearOverlayListeners],
   );
 
   const attachPolygonListeners = useCallback(
@@ -443,12 +496,12 @@ export default function InteractiveMap({
       clearOverlayListeners();
 
       const sync = () => syncPolygonOverlay(polygon);
-      const path = polygon.getPath();
 
       overlayListenersRef.current = [
-        path.addListener('set_at', sync),
-        path.addListener('insert_at', sync),
-        path.addListener('remove_at', sync),
+        // Persist only after a pointer gesture finishes. Updating React state
+        // on every `set_at` tears down the overlay mid-drag and cancels both
+        // native vertex editing and whole-polygon dragging.
+        polygon.addListener('mouseup', sync),
         polygon.addListener('dragend', sync),
       ];
     },
@@ -485,10 +538,14 @@ export default function InteractiveMap({
         firstPointMarker.current = null;
       }
       if (shouldEmitChange) {
-        onChange(null);
+        onChangeRef.current(null);
       }
     },
-    [clearDraftPolyline, clearOverlayListeners, clearPolylineFill, onChange],
+    [
+      clearDraftPolyline,
+      clearOverlayListeners,
+      clearPolylineFill,
+    ],
   );
 
   const completeOverlay = useCallback(
@@ -559,7 +616,7 @@ export default function InteractiveMap({
         }
       }
 
-      onChange(zoneData);
+      onChangeRef.current(zoneData);
       setDrawingMode(null);
 
       if (!centroid || type === 'polygon') {
@@ -626,7 +683,6 @@ export default function InteractiveMap({
       attachPolylineListeners,
       clearDrawing,
       getMarkerLibrary,
-      onChange,
       syncPolylineFill,
       syncPolylineOverlay,
     ],
@@ -653,6 +709,8 @@ export default function InteractiveMap({
       const polygon = new google.maps.Polygon({
         paths: path,
         ...SHAPE_OPTIONS,
+        editable: true,
+        clickable: true,
         map: mapInstance,
       });
 
@@ -797,6 +855,8 @@ export default function InteractiveMap({
       } else if (zoneValueType === 'polygon' && Array.isArray(stableZonePath)) {
         newOverlay = new google.maps.Polygon({
           ...SHAPE_OPTIONS,
+          editable: true,
+          clickable: true,
           paths: normalizePolygonPath(stableZonePath),
           map,
         });
@@ -1098,13 +1158,25 @@ export default function InteractiveMap({
 
   const resolveLegacyPredictionLocation = useCallback(
     (placeId: string) =>
-      new Promise<google.maps.LatLng | null>((resolve, reject) => {
+      new Promise<{
+        location: google.maps.LatLng;
+        viewport: google.maps.LatLngBounds | null;
+      } | null>((resolve, reject) => {
         try {
           const geocoder = getGeocoder();
 
           geocoder.geocode({ placeId }, (results, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
-              resolve(results?.[0]?.geometry?.location ?? null);
+              const location = results?.[0]?.geometry?.location ?? null;
+              if (!location) {
+                resolve(null);
+                return;
+              }
+
+              resolve({
+                location,
+                viewport: results?.[0]?.geometry?.viewport ?? null,
+              });
               return;
             }
 
@@ -1123,38 +1195,65 @@ export default function InteractiveMap({
   );
 
   const applySelectedLocation = useCallback(
-    async (location: google.maps.LatLng) => {
+    async (
+      location: google.maps.LatLng,
+      viewport?: google.maps.LatLngBounds | null,
+    ) => {
       if (!map) {
         return;
       }
 
       const coords = location.toJSON();
       map.panTo(location);
-      map.setZoom(15);
 
       if (onExactStoreLocationChange) {
         onExactStoreLocationChange({
           latitude: coords.lat,
           longitude: coords.lng,
         });
-      }
-
-      if (!searchSelectsMarker || onExactStoreLocationChange) {
+        map.setZoom(15);
         return;
       }
 
-      const hasNonMarkerZone = Boolean(value?.type) && value?.type !== 'marker';
+      if (searchSelectsMarker) {
+        map.setZoom(15);
+        const hasNonMarkerZone =
+          Boolean(value?.type) && value?.type !== 'marker';
 
-      if (!hasNonMarkerZone) {
-        clearDrawing(false);
-        await createMarkerAt(
-          new google.maps.LatLng(coords.lat, coords.lng),
-          map,
-        );
+        if (!hasNonMarkerZone) {
+          clearDrawing(false);
+          await createMarkerAt(location, map);
+        }
+        return;
       }
+
+      // Pure zone-drawing flow: auto-fit a circle around the searched
+      // place so, e.g., searching "Costa Rica" roughly encircles it.
+      const hasNonCircleZone = Boolean(value?.type) && value?.type !== 'circle';
+      if (hasNonCircleZone) {
+        map.setZoom(15);
+        return;
+      }
+
+      const searchRadius = viewport
+        ? Math.max(
+            haversineDistanceMeters(coords, viewport.getNorthEast().toJSON()),
+            MIN_SEARCH_RADIUS,
+          )
+        : DEFAULT_CIRCLE_RADIUS;
+
+      clearDrawing(false);
+      const circle = new google.maps.Circle({
+        ...SHAPE_OPTIONS,
+        center: location,
+        radius: searchRadius,
+        map,
+      });
+      await completeOverlay('circle', circle, map);
     },
     [
       clearDrawing,
+      completeOverlay,
       createMarkerAt,
       map,
       onExactStoreLocationChange,
@@ -1297,19 +1396,19 @@ export default function InteractiveMap({
         const place = prediction.nextPrediction.toPlace();
 
         await place.fetchFields({
-          fields: ['location'],
+          fields: ['location', 'viewport'],
         });
 
         if (place.location) {
-          await applySelectedLocation(place.location);
+          await applySelectedLocation(place.location, place.viewport ?? null);
         }
       } else if (prediction.placeId) {
-        const location = await resolveLegacyPredictionLocation(
+        const resolved = await resolveLegacyPredictionLocation(
           prediction.placeId,
         );
 
-        if (location) {
-          await applySelectedLocation(location);
+        if (resolved) {
+          await applySelectedLocation(resolved.location, resolved.viewport);
         }
       }
 
@@ -1354,14 +1453,19 @@ export default function InteractiveMap({
     setDrawingMode(resolvedMode);
   };
 
+  // `newRadius` is in meters (the unit Google Maps' Circle API expects);
+  // the UI converts to/from kilometers for display.
   const handleRadiusChange = (newRadius: number) => {
     if (drawnOverlayRef.current && value?.type === 'circle') {
-      (drawnOverlayRef.current as google.maps.Circle).setRadius(newRadius);
-      onChange({ ...value, radius: newRadius });
+      const radius = Math.max(newRadius, METERS_PER_KM);
+      (drawnOverlayRef.current as google.maps.Circle).setRadius(radius);
+      onChange({ ...value, radius });
     }
   };
 
-  const handlePolygonScaleChange = (scaleFactor: number) => {
+  // `newRadiusMeters` is the target average distance from the polygon's
+  // centroid to its vertices; the polygon is uniformly scaled to match it.
+  const handlePolygonRadiusChange = (newRadiusMeters: number) => {
     if (
       drawnOverlayRef.current &&
       value?.type === 'polygon' &&
@@ -1374,23 +1478,28 @@ export default function InteractiveMap({
           .getPath()
           .getArray()
           .map((point: google.maps.LatLng) => point.toJSON()),
-      ).map((point: LatLngPoint) => new google.maps.LatLng(point.lat, point.lng));
+      );
 
-      const bounds = new google.maps.LatLngBounds();
-      currentPath.forEach((latLng: google.maps.LatLng) => bounds.extend(latLng));
-      const centroid = bounds.getCenter();
+      const currentRadius = getPathAverageRadiusMeters(currentPath);
+      if (currentRadius <= 0) {
+        return;
+      }
 
-      const newPath = currentPath.map((point: google.maps.LatLng) => {
-        const latOffset = point.lat() - centroid.lat();
-        const lngOffset = point.lng() - centroid.lng();
-        return new google.maps.LatLng(
-          centroid.lat() + latOffset * scaleFactor,
-          centroid.lng() + lngOffset * scaleFactor,
-        );
+      const targetRadius = Math.max(newRadiusMeters, METERS_PER_KM);
+      const scaleFactor = targetRadius / currentRadius;
+      const centroid = getPathCentroid(currentPath);
+
+      const newPath = currentPath.map((point: LatLngPoint) => {
+        const latOffset = point.lat - centroid.lat;
+        const lngOffset = point.lng - centroid.lng;
+        return {
+          lat: centroid.lat + latOffset * scaleFactor,
+          lng: centroid.lng + lngOffset * scaleFactor,
+        };
       });
 
       polygon.setPath(newPath);
-      const updatedPath = normalizePolygonPath(newPath.map((p: google.maps.LatLng) => p.toJSON()));
+      const updatedPath = normalizePolygonPath(newPath);
       onChange({ ...value, path: updatedPath });
     }
   };
@@ -1519,7 +1628,7 @@ export default function InteractiveMap({
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={DEFAULT_CENTER}
-        zoom={10}
+        zoom={8}
         onLoad={onMapLoad}
         onClick={handleMapClick}
         onMouseMove={handleMapMouseMove}
@@ -1599,21 +1708,24 @@ export default function InteractiveMap({
       )}
       {value?.type === 'circle' && (
         <div className="flex items-center gap-2">
-          <Label>{t('radiusLabel')}</Label>
+          <Label>{t('radiusLabel', { defaultValue: 'Radius (km)' })}</Label>
           <AppButton
             size="sm"
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              handleRadiusChange((value.radius || 0) - 100);
+              handleRadiusChange((value.radius || 0) - METERS_PER_KM);
             }}
           >
             <Minus size={16} />
           </AppButton>
           <Input
             type="number"
-            value={value.radius || 0}
-            onChange={(e) => handleRadiusChange(Number(e.target.value))}
+            min={1}
+            value={Math.round((value.radius || 0) / METERS_PER_KM)}
+            onChange={(e) =>
+              handleRadiusChange(Number(e.target.value) * METERS_PER_KM)
+            }
             className="w-24"
           />
           <AppButton
@@ -1621,7 +1733,7 @@ export default function InteractiveMap({
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              handleRadiusChange((value.radius || 0) + 100);
+              handleRadiusChange((value.radius || 0) + METERS_PER_KM);
             }}
           >
             <Plus size={16} />
@@ -1630,32 +1742,49 @@ export default function InteractiveMap({
       )}
       {value?.type === 'polygon' && (
         <div className="flex items-center gap-2">
-          <Label>{t('scaleLabel', { defaultValue: 'Scale' })}</Label>
+          <Label>
+            {t('polygonRadiusLabel', { defaultValue: 'Radius (km)' })}
+          </Label>
           <AppButton
             size="sm"
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              handlePolygonScaleChange(0.9);
+              handlePolygonRadiusChange(
+                getPathAverageRadiusMeters(value.path ?? []) - METERS_PER_KM,
+              );
             }}
           >
             <Minus size={16} />
+          </AppButton>
+          <Input
+            type="number"
+            min={1}
+            value={Math.round(
+              getPathAverageRadiusMeters(value.path ?? []) / METERS_PER_KM,
+            )}
+            onChange={(e) =>
+              handlePolygonRadiusChange(Number(e.target.value) * METERS_PER_KM)
+            }
+            className="w-24"
+          />
+          <AppButton
+            size="sm"
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              handlePolygonRadiusChange(
+                getPathAverageRadiusMeters(value.path ?? []) + METERS_PER_KM,
+              );
+            }}
+          >
+            <Plus size={16} />
           </AppButton>
           <span className="text-sm text-gray-600">
             {t('dragVertices', {
               defaultValue: 'Drag vertices or use buttons',
             })}
           </span>
-          <AppButton
-            size="sm"
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              handlePolygonScaleChange(1.1);
-            }}
-          >
-            <Plus size={16} />
-          </AppButton>
         </div>
       )}
       <DrawingTools tool={value?.type} onToolSelect={handleToolSelect} />

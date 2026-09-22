@@ -1,7 +1,7 @@
-import { LayoutDashboard, LucideIcon, Settings, Utensils } from 'lucide-react';
 import { deployment } from '@/config/deployment';
 import { adminRoutes } from '@/lib/routes';
 import { getRoleAndPermissions, hasPermission } from '@/lib/user';
+import { LayoutDashboard, LucideIcon, Settings, Utensils } from 'lucide-react';
 
 export interface SidebarMenu {
   id: string | number;
@@ -18,7 +18,7 @@ export const sidebarMenus: SidebarMenu[] = [
     id: 1,
     name: 'Dashboard',
     translationKey: 'sidebar.dashboard',
-    path: '/',
+    path: adminRoutes.deliveries.dashboard,
     icon: LayoutDashboard,
   },
   {
@@ -74,13 +74,13 @@ export const sidebarMenus: SidebarMenu[] = [
     icon: Utensils,
     permission: 'general-delivery.dashboard',
     subMenus: [
-      {
-        id: 3.1,
-        name: 'Dashboard',
-        translationKey: 'sidebar.dashboard',
-        path: adminRoutes.deliveries.dashboard,
-        permission: 'general-delivery.dashboard',
-      },
+      // {
+      //   id: 3.1,
+      //   name: 'Dashboard',
+      //   translationKey: 'sidebar.dashboard',
+      //   path: adminRoutes.deliveries.dashboard,
+      //   permission: 'general-delivery.dashboard',
+      // },
       {
         id: 3.2,
         name: 'Vendors',

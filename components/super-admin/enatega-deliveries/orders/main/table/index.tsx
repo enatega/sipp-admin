@@ -16,7 +16,9 @@ import {
   useGetOrderDetail,
   useAcceptAdminOrder,
   useRejectAdminOrder,
+  useUpdateSuperAdminOrderStatus,
 } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import { hasNamedPermission } from '@/lib/user';
 import {
   useAcceptStoreOrder,
   useRejectStoreOrder,
@@ -40,6 +42,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import AppPagination from '@/components/shared/AppPagination';
 import CopyButton from '@/components/shared/CopyButton';
 import Status from '@/components/shared/Status';
@@ -111,6 +120,22 @@ const canShowAssignRiderButton = (status?: string | null) => {
   );
 };
 
+const ORDER_STATUSES = [
+  'scheduled',
+  'pending',
+  'accepted',
+  'preparing',
+  'ready',
+  'rider_assigned',
+  'picked_up',
+  'out_for_delivery',
+  'arrived',
+  'delivered',
+  'cancelled',
+  'rejected',
+  'failed',
+] as const;
+
 export function OrdersTable({
   data,
   page = 1,
@@ -150,6 +175,10 @@ export function OrdersTable({
     useAcceptAdminOrder();
   const { mutateAsync: rejectAdminOrder, isPending: isRejectingAdmin } =
     useRejectAdminOrder();
+  const {
+    mutateAsync: updateSuperAdminOrderStatus,
+    isPending: isUpdatingSuperAdminOrderStatus,
+  } = useUpdateSuperAdminOrderStatus();
   const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
     useGetOrderDetail(trackingOrderId ?? undefined);
 
@@ -172,6 +201,9 @@ export function OrdersTable({
 
   const pathname = usePathname();
   const storeOrdersPath = isStoreOrdersPath(pathname);
+  const canUpdateSuperAdminOrderStatus = hasNamedPermission(
+    'delivery_update_super_admin_order_status',
+  );
 
   const handleAcceptOrder = async (orderId: string) => {
     try {
@@ -202,6 +234,19 @@ export function OrdersTable({
       toast.success('Order rejected successfully');
       setRejectingOrderId(null);
       setRejectionReason('');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleSuperAdminStatusChange = async (
+    orderId: string,
+    status: string,
+  ) => {
+    try {
+      await updateSuperAdminOrderStatus({ orderId, status });
+      toast.success('Order status updated successfully');
       onOrderUpdated?.();
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
@@ -378,14 +423,52 @@ export function OrdersTable({
                       {formatCurrency(order?.amount ?? 0, currency)}
                     </TableCell>
                     <TableCell>
-                      <Status
-                        status={(order?.status || '').toLowerCase()}
-                        label={formatOrderStatusLabel(
-                          order?.status,
-                          tStatuses,
-                          t('notAvailable'),
-                        )}
-                      />
+                      {!storeOrdersPath && canUpdateSuperAdminOrderStatus ? (
+                        <div onClick={(event) => event.stopPropagation()}>
+                          <Select
+                            value={normalizedStatus || undefined}
+                            disabled={isUpdatingSuperAdminOrderStatus}
+                            onValueChange={(status) => {
+                              if (status !== normalizedStatus) {
+                                void handleSuperAdminStatusChange(
+                                  order.orderId,
+                                  status,
+                                );
+                              }
+                            }}
+                          >
+                            <SelectTrigger className="w-[175px]">
+                              <SelectValue
+                                placeholder={formatOrderStatusLabel(
+                                  order?.status,
+                                  tStatuses,
+                                  t('notAvailable'),
+                                )}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {ORDER_STATUSES.map((status) => (
+                                <SelectItem key={status} value={status}>
+                                  {formatOrderStatusLabel(
+                                    status,
+                                    tStatuses,
+                                    status.replace(/_/g, ' '),
+                                  )}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      ) : (
+                        <Status
+                          status={(order?.status || '').toLowerCase()}
+                          label={formatOrderStatusLabel(
+                            order?.status,
+                            tStatuses,
+                            t('notAvailable'),
+                          )}
+                        />
+                      )}
                     </TableCell>
                     <TableCell>{formatDateTime(order?.dateTime)}</TableCell>
                     <TableCell>

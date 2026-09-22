@@ -361,6 +361,35 @@ export const useRejectAdminOrder = (
     });
 };
 
+export const useUpdateSuperAdminOrderStatus = (
+    options?: UseMutationOptions<
+        OrderActionResponse,
+        ApiErrorResponse,
+        { orderId: string; status: string }
+    >,
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation<
+        OrderActionResponse,
+        ApiErrorResponse,
+        { orderId: string; status: string }
+    >({
+        mutationFn: async ({ orderId, status }) => {
+            const { data } = await Axios.patch<OrderActionResponse>(
+                `/apps/deliveries/super-admin/orders/${orderId}/status`,
+                { status },
+            );
+            return data;
+        },
+        onSuccess: (_data, { orderId }) => {
+            queryClient.invalidateQueries({ queryKey: ['get-order', orderId] });
+            queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
+        },
+        ...options,
+    });
+};
+
 export const useGetSimpleStores = (
     options?: Omit<UseQueryOptions<GetSimpleStoresListResponse, ApiErrorResponse, GetSimpleStoresListResponse, readonly unknown[]>, 'queryKey' | 'queryFn'>,
 ) => {

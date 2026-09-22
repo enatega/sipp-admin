@@ -153,7 +153,7 @@ export default function PermissionCard({
                       className="flex items-start gap-2 p-3 border rounded-lg hover:bg-accent/30 transition-colors"
                     >
                       <Checkbox
-                        id={permission.id}
+                        id={`${module.id}-${subModule.id}-${permission.id}`}
                         checked={safeSelectedPermissions.includes(permission.id)}
                         onCheckedChange={(checked) =>
                           onPermissionChange(permission.id, checked as boolean)
@@ -161,7 +161,7 @@ export default function PermissionCard({
                       />
                       <div className="flex-1">
                         <Label
-                          htmlFor={permission.id}
+                          htmlFor={`${module.id}-${subModule.id}-${permission.id}`}
                           className="text-sm font-normal cursor-pointer leading-tight"
                         >
                           {permission.name}

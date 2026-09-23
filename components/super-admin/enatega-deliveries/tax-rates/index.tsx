@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { ApiErrorResponse } from '@/types';
+import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { Loader2 } from 'lucide-react';
 import { TaxRate, TaxScope } from '@/types/tax';
 import { handleApiError } from '@/lib/toast-error';
 import {
@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import { StoreTaxAssignments } from './StoreTaxAssignments';
 
 export default function TaxRates() {
   const t = useTranslations('taxRates');
@@ -41,7 +42,6 @@ export default function TaxRates() {
   const [name, setName] = useState('');
   const [rate, setRate] = useState('');
   const [active, setActive] = useState(true);
-  const [isDefault, setDefault] = useState(false);
   const [error, setError] = useState('');
   const [processing, setProcessing] = useState('');
   const open = (value: TaxRate | 'new') => {
@@ -50,7 +50,6 @@ export default function TaxRates() {
     setName(value === 'new' ? '' : value.name);
     setRate(value === 'new' ? '' : String(value.rate));
     setActive(value === 'new' ? true : value.isActive);
-    setDefault(value === 'new' ? false : value.isDefault);
   };
   const save = async (
     values: Parameters<typeof mutation.mutateAsync>[0],
@@ -115,20 +114,19 @@ export default function TaxRates() {
               <TableHead>{t('name')}</TableHead>
               <TableHead>{t('rate')}</TableHead>
               <TableHead>{t('active')}</TableHead>
-              {scope === 'product' && <TableHead>{t('default')}</TableHead>}
               <TableHead>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {query.isPending ? (
               <TableRow>
-                <TableCell colSpan={5} role="status">
+                <TableCell colSpan={4} role="status">
                   {t('loading')}
                 </TableCell>
               </TableRow>
             ) : query.isError ? (
               <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={4}>
                   <p role="alert" className="text-destructive">
                     {t('loadError')}
                   </p>
@@ -139,7 +137,7 @@ export default function TaxRates() {
               </TableRow>
             ) : !query.data?.length ? (
               <TableRow>
-                <TableCell colSpan={5}>{t('empty')}</TableCell>
+                <TableCell colSpan={4}>{t('empty')}</TableCell>
               </TableRow>
             ) : (
               query.data.map((item) => (
@@ -149,7 +147,7 @@ export default function TaxRates() {
                   <TableCell>
                     <Switch
                       checked={item.isActive}
-                      disabled={mutation.isPending || item.isDefault}
+                      disabled={mutation.isPending}
                       aria-label={t('activeFor', { name: item.name })}
                       onCheckedChange={(isActive) =>
                         save(
@@ -161,26 +159,6 @@ export default function TaxRates() {
                       }
                     />
                   </TableCell>
-                  {scope === 'product' && (
-                    <TableCell>
-                      {item.isDefault ? (
-                        t('default')
-                      ) : (
-                        <Button
-                          variant="outline"
-                          disabled={!item.isActive || mutation.isPending}
-                          onClick={() =>
-                            save(
-                              { id: item.id, values: { isDefault: true } },
-                              t('settingDefault', { name: item.name }),
-                            )
-                          }
-                        >
-                          {t('setDefault')}
-                        </Button>
-                      )}
-                    </TableCell>
-                  )}
                   <TableCell>
                     <div className="flex gap-2">
                       <Button
@@ -192,7 +170,7 @@ export default function TaxRates() {
                       </Button>
                       <Button
                         variant="outline"
-                        disabled={item.isDefault || mutation.isPending}
+                        disabled={mutation.isPending}
                         onClick={() => setDeleting(item)}
                       >
                         {t('delete')}
@@ -205,6 +183,7 @@ export default function TaxRates() {
           </TableBody>
         </Table>
       </div>
+      <StoreTaxAssignments key={scope} scope={scope} />
       <Dialog
         open={editing !== null}
         onOpenChange={(value) => {
@@ -236,7 +215,6 @@ export default function TaxRates() {
                       rate: Number(rate),
                       ...(editing === 'new' ? { scope } : {}),
                       isActive: active,
-                      ...(scope === 'product' ? { isDefault } : {}),
                     },
                   },
                   editing === 'new'
@@ -269,26 +247,9 @@ export default function TaxRates() {
               />
             </label>
             <label className="flex gap-3 items-center">
-              <Switch
-                checked={active}
-                disabled={isDefault}
-                onCheckedChange={setActive}
-              />
+              <Switch checked={active} onCheckedChange={setActive} />
               {t('active')}
             </label>
-            {scope === 'product' && (
-              <label className="flex gap-3 items-center">
-                <Switch
-                  checked={isDefault}
-                  disabled={editing !== 'new' && !!editing?.isDefault}
-                  onCheckedChange={(value) => {
-                    setDefault(value);
-                    if (value) setActive(true);
-                  }}
-                />
-                {t('default')}
-              </label>
-            )}
             {error && (
               <p role="alert" className="text-destructive">
                 {error}

@@ -22,6 +22,8 @@ export interface StoreProfileResponse {
     productTaxMode?: 'store_rate' | 'product_level';
     taxRateId?: string | null;
     taxRate?: import('@/types/tax').TaxRate | null;
+    productDefaultTaxRateId?: string | null;
+    productDefaultTaxRate?: import('@/types/tax').TaxRate | null;
     storeId: string;
     vendor: AssociatedVendor;
     tagLine: string;

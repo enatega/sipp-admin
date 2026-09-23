@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { TaxRate, TaxScope } from '@/types/tax';
+import { StoreTaxAssignmentsResponse, TaxRate, TaxScope } from '@/types/tax';
 import Axios from '@/config/axios';
 
 export function useTaxRates(scope: TaxScope, admin = false) {
@@ -35,6 +35,53 @@ export function useTaxRateMutation() {
     onSuccess: async () => {
       await client.invalidateQueries({ queryKey: ['tax-rates'] });
       await client.invalidateQueries({ queryKey: ['get-store-detail'] });
+    },
+  });
+}
+
+export function useTaxStoreAssignments(params: {
+  scope: TaxScope;
+  page: number;
+  limit: number;
+  search?: string;
+  taxRateId?: string;
+}) {
+  return useQuery({
+    queryKey: ['tax-rate-store-assignments', params],
+    queryFn: async () =>
+      (
+        await Axios.get<StoreTaxAssignmentsResponse>(
+          '/apps/deliveries/admin/tax-rates/stores',
+          { params },
+        )
+      ).data,
+  });
+}
+
+export function useStoreTaxAssignmentMutation() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      storeId,
+      scope,
+      taxRateId,
+    }: {
+      storeId: string;
+      scope: TaxScope;
+      taxRateId: string;
+    }) =>
+      (
+        await Axios.patch(
+          `/apps/deliveries/admin/tax-rates/stores/${storeId}`,
+          { scope, taxRateId },
+        )
+      ).data,
+    onSuccess: async () => {
+      await Promise.all([
+        client.invalidateQueries({ queryKey: ['tax-rate-store-assignments'] }),
+        client.invalidateQueries({ queryKey: ['get-store-detail'] }),
+        client.invalidateQueries({ queryKey: ['store-profile'] }),
+      ]);
     },
   });
 }

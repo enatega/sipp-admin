@@ -2528,7 +2528,8 @@
       "totalSalesTitle": "Total Sales",
       "totalOrdersTitle": "Total Orders",
       "storeRatingTitle": "Store Rating",
-      "cancelledOrdersTitle": "Cancelled Orders"
+      "cancelledOrdersTitle": "Cancelled Orders",
+      "walletBalanceTitle": "Wallet Balance"
     },
     "revenueChart": {
       "title": "Order Overview",
@@ -2734,6 +2735,7 @@
       "enterAmountLabel": "Enter amount",
       "enterAmountPlaceholder": "Enter amount",
       "maximumOption": "Maximum ({currencySymbol}{maxAmount} per request)",
+      "availableBalanceLabel": "Available to withdraw",
       "bankInfoLabel": "Bank Information",
       "bankNameLabel": "Bank Name",
       "accountTitleLabel": "Account Title",
@@ -3321,6 +3323,8 @@
     "stats": {
       "totalEarnings": "Total Earnings",
       "totalCommission": "Total Commission",
+      "netEarnings": "Net Store Earnings",
+      "commissionAndVat": "SIPP Commission & VAT",
       "pendingWithdrawals": "Pending Withdrawals"
     },
     "charts": {
@@ -5132,6 +5136,9 @@
       "storePlaceholder": "Store",
       "commissionLabel": "Commission Rate",
       "commissionPlaceholder": "Enter commission rate",
+      "commissionVatLabel": "Commission VAT Rate",
+      "commissionVatPlaceholder": "Enter commission VAT rate",
+      "commissionVatHelp": "This VAT percentage is applied to SIPP's commission for new orders.",
       "statusLabel": "Status",
       "statusActive": "Active",
       "statusInactive": "Inactive",
@@ -5160,6 +5167,7 @@
       "vendor": "Vendor",
       "zone": "Zone",
       "defaultCommission": "Default Commission",
+      "commissionVat": "Commission VAT Rate",
       "status": "Status",
       "actions": "Actions",
       "loadFailedTitle": "Failed to load store commission table",
@@ -5575,6 +5583,10 @@
       "commissionRateNonNegative": "Commission rate must be non-negative",
       "commissionRateMax100": "Commission rate cannot exceed 100%",
       "commissionRateMustBeNumber": "Commission rate must be a number",
+      "commissionVatRateRequired": "Commission VAT rate is required",
+      "commissionVatRateNonNegative": "Commission VAT rate must be non-negative",
+      "commissionVatRateMax100": "Commission VAT rate cannot exceed 100%",
+      "commissionVatRateMustBeNumber": "Commission VAT rate must be a number",
       "zoneRequired": "Zone is required",
       "storeRequired": "Store is required"
     },
@@ -5863,6 +5875,13 @@
   },
   "withdrawalRequests": {
     "title": "Withdrawal Requests",
+    "wallet": {
+      "summaryLabel": "Store wallet summary",
+      "balance": "Wallet Balance",
+      "available": "Available to Withdraw",
+      "pending": "Pending Withdrawal",
+      "pendingNotice": "A withdrawal request is pending. You can create another request after it is processed."
+    },
     "tabs": {
       "all": "All",
       "pending": "Pending",
@@ -7289,7 +7308,12 @@
         "adminCommissionLabel": "Admin Commission:",
         "totalAmountLabel": "Total Amount",
         "commissionBreakdownTitle": "Commission Breakdown",
-        "commissionBreakdownHint": "(if multi-vendor)",
+        "commissionBreakdownHint": "Commission is deducted from store earnings, not added to the customer's total.",
+        "commissionNetLabel": "SIPP commission",
+        "vatOnCommissionLabel": "VAT on commission",
+        "vatOnCommissionNotChargedLabel": "VAT on commission (not charged)",
+        "totalCommissionDebitLabel": "Total commission deduction",
+        "sippAbsorbedVatLabel": "VAT covered by SIPP",
         "storeEarningsLabel": "Store Earnings:",
         "notAvailable": "---"
       },

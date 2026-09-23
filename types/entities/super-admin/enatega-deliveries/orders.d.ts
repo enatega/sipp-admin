@@ -100,6 +100,11 @@ export interface OrderLog {
 }
 
 export interface OrderSummary {
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
+    sippAbsorbedVat?: number;
     // backend sometimes uses `id` instead of `orderId`
     id?: string | number;
     orderId?: string;
@@ -116,6 +121,11 @@ export interface OrderSummary {
 }
 
 export interface PaymentInfo {
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
+    sippAbsorbedVat?: number;
     paymentMethod?: string;
     paymentStatus?: string;
     subtotal?: number;

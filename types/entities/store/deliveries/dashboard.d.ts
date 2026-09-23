@@ -8,6 +8,7 @@ export interface StoreDashboardCards {
   totalOrders: StoreDashboardCard;
   storeRating: StoreDashboardCard;
   cancelledOrders: StoreDashboardCard;
+  walletBalance: StoreDashboardCard;
 }
 
 export interface StorePeakHour {

@@ -18,6 +18,8 @@ export interface StoreCommissionRateItemResponse {
   vendor_name: string;
   zone_name: string;
   default_commission: string;
+  commission_vat_rate: number;
+  commission_vat_treatment: 'charged_to_store' | 'covered_by_sipp';
   status: string;
 }
 
@@ -75,11 +77,13 @@ export interface UpdateZoneCommissionRateResponse {
 
 export interface UpdateStoreCommissionRatePayload {
   commission_rate: number;
+  commission_vat_rate: number;
   status: 'active' | 'deactive';
 }
 
 export interface UpdateStoreCommissionRateResponse {
   store_id: string;
   commission_rate: number;
+  commission_vat_rate: number;
   status: string;
 }

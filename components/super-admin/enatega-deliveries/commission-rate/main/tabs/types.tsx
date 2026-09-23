@@ -26,7 +26,7 @@ export interface StoreCommissionData {
   vendor: string;
   zone: string;
   defaultCommission: string;
+  commissionVatRate?: string;
   status: 'Active' | 'Inactive';
 
 }
-

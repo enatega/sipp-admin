@@ -6,8 +6,8 @@ import {
 } from 'lucide-react';
 
 interface StoreStatsLabels {
-  totalEarnings: string;
-  totalCommission: string;
+  netEarnings: string;
+  commissionAndVat: string;
   pendingWithdrawals: string;
 }
 
@@ -16,14 +16,14 @@ export const buildStoreStatsData = (
   labels: StoreStatsLabels,
 ) => [
   {
-    title: labels.totalEarnings,
+    title: labels.netEarnings,
     value: String(cards?.totalEarnings?.value ?? 0),
     isPositive: (cards?.totalEarnings?.change ?? 0) >= 0,
     icon: LucideBanknote,
     change: cards?.totalEarnings?.change ?? 0,
   },
   {
-    title: labels.totalCommission,
+    title: labels.commissionAndVat,
     value: String(cards?.totalCommission?.value ?? 0),
     isPositive: (cards?.totalCommission?.change ?? 0) >= 0,
     icon: CircleDollarSignIcon,

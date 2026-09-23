@@ -2646,6 +2646,7 @@
       "enterAmountLabel": "Betrag eingeben",
       "enterAmountPlaceholder": "Betrag eingeben",
       "maximumOption": "Maximum ({currencySymbol}{maxAmount} pro Anfrage)",
+      "availableBalanceLabel": "Zur Auszahlung verfügbar",
       "bankInfoLabel": "Bankinformationen",
       "bankNameLabel": "Bankname",
       "accountTitleLabel": "Kontoinhaber",
@@ -3128,7 +3129,8 @@
       "totalSalesTitle": "Gesamtumsatz",
       "totalOrdersTitle": "Gesamtbestellungen",
       "storeRatingTitle": "Store-Bewertung",
-      "cancelledOrdersTitle": "Stornierte Bestellungen"
+      "cancelledOrdersTitle": "Stornierte Bestellungen",
+      "walletBalanceTitle": "Wallet-Guthaben"
     },
     "revenueChart": {
       "title": "Bestellübersicht",
@@ -3319,6 +3321,8 @@
     "stats": {
       "totalEarnings": "Gesamtverdienst",
       "totalCommission": "Gesamtprovision",
+      "netEarnings": "Nettoverdienst des Stores",
+      "commissionAndVat": "SIPP-Provision und MwSt.",
       "pendingWithdrawals": "Ausstehende Auszahlungen"
     },
     "charts": {
@@ -5457,6 +5461,9 @@
       "storePlaceholder": "Store",
       "commissionLabel": "Provisionssatz",
       "commissionPlaceholder": "Provisionssatz eingeben",
+      "commissionVatLabel": "Mehrwertsteuer auf Provision",
+      "commissionVatPlaceholder": "Mehrwertsteuersatz eingeben",
+      "commissionVatHelp": "Dieser Mehrwertsteuersatz wird bei neuen Bestellungen auf die SIPP-Provision angewendet.",
       "statusLabel": "Status",
       "statusActive": "Aktiv",
       "statusInactive": "Inaktiv",
@@ -5485,6 +5492,7 @@
       "vendor": "Anbieter",
       "zone": "Zone",
       "defaultCommission": "Standardprovision",
+      "commissionVat": "Provisions-Mehrwertsteuersatz",
       "status": "Status",
       "actions": "Aktionen",
       "loadFailedTitle": "Store-Provisionstabelle konnte nicht geladen werden",
@@ -5896,6 +5904,10 @@
       "commissionRateNonNegative": "Provisionssatz darf nicht negativ sein",
       "commissionRateMax100": "Provisionssatz darf 100% nicht überschreiten",
       "commissionRateMustBeNumber": "Provisionssatz muss eine Zahl sein",
+      "commissionVatRateRequired": "Provisions-Mehrwertsteuersatz ist erforderlich",
+      "commissionVatRateNonNegative": "Provisions-Mehrwertsteuersatz darf nicht negativ sein",
+      "commissionVatRateMax100": "Provisions-Mehrwertsteuersatz darf 100% nicht überschreiten",
+      "commissionVatRateMustBeNumber": "Provisions-Mehrwertsteuersatz muss eine Zahl sein",
       "zoneRequired": "Zone ist erforderlich",
       "storeRequired": "Store ist erforderlich"
     },
@@ -6184,6 +6196,13 @@
   },
   "withdrawalRequests": {
     "title": "Auszahlungsanfragen",
+    "wallet": {
+      "summaryLabel": "Wallet-Übersicht des Stores",
+      "balance": "Wallet-Guthaben",
+      "available": "Zur Auszahlung verfügbar",
+      "pending": "Ausstehende Auszahlung",
+      "pendingNotice": "Eine Auszahlungsanfrage ist ausstehend. Nach der Bearbeitung können Sie eine weitere Anfrage erstellen."
+    },
     "tabs": {
       "all": "Alle",
       "pending": "Ausstehend",
@@ -7610,7 +7629,12 @@
         "adminCommissionLabel": "Admin-Provision:",
         "totalAmountLabel": "Gesamtbetrag",
         "commissionBreakdownTitle": "Provisionsaufschlüsselung",
-        "commissionBreakdownHint": "(bei mehreren Anbietern)",
+        "commissionBreakdownHint": "Die Provision wird vom Geschäftserlös abgezogen, nicht zum Kundengesamtbetrag addiert.",
+        "commissionNetLabel": "SIPP-Provision",
+        "vatOnCommissionLabel": "MwSt. auf Provision",
+        "vatOnCommissionNotChargedLabel": "MwSt. auf Provision (nicht berechnet)",
+        "totalCommissionDebitLabel": "Gesamter Provisionsabzug",
+        "sippAbsorbedVatLabel": "Von SIPP übernommene MwSt.",
         "storeEarningsLabel": "Geschäftsverdienst:",
         "notAvailable": "---"
       },

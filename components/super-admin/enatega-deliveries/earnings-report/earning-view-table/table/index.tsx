@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useCurrency } from '@/hooks/use-currency';
+import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -46,10 +47,12 @@ export function EarningViewTable({
   pagination: EarningReportPagination;
 }) {
   const tTable = useTranslations('lumiFood.earningsReports.table');
+  const tCommission = useTranslations('orders.orderDetail.paymentInformation');
   const tHeaders = useTranslations('lumiFood.earningsReports.table.headers');
   const tDownload = useTranslations('lumiFood.earningsReports.table.download');
   const tToasts = useTranslations('lumiFood.earningsReports.table.toasts');
   const { currencySymbol } = useCurrency();
+  const commissionCurrency = resolveCurrencySymbol(currencySymbol);
   const router = useRouter();
   const pathname = usePathname();
   const notAvailable = tTable('notAvailable');
@@ -82,6 +85,12 @@ export function EarningViewTable({
       formatter: (item: EarningReportItem) =>
         `${currencySymbol} ${item.deliveryFee}`,
     },
+    ...(['commissionNet', 'vatOnCommission', 'totalCommissionDebit', 'sippAbsorbedVat'] as const).map((field) => ({
+      header: tCommission(`${field}Label`),
+      dataKey: field,
+      formatter: (item: EarningReportItem) => item.commissionSnapshotAvailable && item[field] != null
+        ? formatCurrency(item[field], commissionCurrency) : '',
+    })),
     { header: tDownload('paymentMethod'), dataKey: 'paymentMethod' },
     { header: tDownload('dateTime'), dataKey: 'dateTime' },
     { header: tDownload('status'), dataKey: 'status' },
@@ -270,7 +279,22 @@ export function EarningViewTable({
                       </TableCell>
                       <TableCell>{item?.storeName || notAvailable}</TableCell>
                       <TableCell>
-                        {item?.commissionValue != null ? (
+                        {item.commissionSnapshotAvailable ? (
+                          <div className="space-y-1 text-sm tabular-nums">
+                            {(['commissionNet', 'vatOnCommission', 'totalCommissionDebit'] as const).map((field) => (
+                              <div key={field} className="flex justify-between items-start gap-4">
+                                <span className="min-w-0">{tCommission(`${field}Label`)}</span>
+                                <span className="shrink-0">{formatCurrency(item[field] ?? 0, commissionCurrency)}</span>
+                              </div>
+                            ))}
+                            {item.sippAbsorbedVat != null && item.sippAbsorbedVat > 0 && (
+                              <div className="flex justify-between items-start gap-4">
+                                <span className="min-w-0">{tCommission('sippAbsorbedVatLabel')}</span>
+                                <span className="shrink-0">{formatCurrency(item.sippAbsorbedVat, commissionCurrency)}</span>
+                              </div>
+                            )}
+                          </div>
+                        ) : item?.commissionValue != null ? (
                           <span>
                             {currencySymbol ?? 'QR'} {item?.commissionValue}
                           </span>

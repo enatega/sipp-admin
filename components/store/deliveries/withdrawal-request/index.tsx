@@ -4,8 +4,11 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+import { Wallet } from 'lucide-react';
 import { ApiErrorResponse, StorePayoutRequest } from '@/types';
-import { useGetStoreWithdrawRequests } from '@/hooks/api/store/deliveries/wallet/withdrawal-request';
+import { useGetStoreWalletSummary, useGetStoreWithdrawRequests } from '@/hooks/api/store/deliveries/wallet/withdrawal-request';
+import { useCurrency } from '@/hooks/use-currency';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useSyncedTab, type TabDef } from '@/hooks/use-synced-tabs';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import ScrollableTabsNav from '@/components/shared/ScrollableTabsNav';
@@ -46,6 +49,8 @@ export function StoreWithdrawalRequest() {
   const tTabs = useTranslations('withdrawalRequests.tabs');
   const tCommon = useTranslations('common');
   const tTable = useTranslations('withdrawalRequests.table');
+  const tWallet = useTranslations('withdrawalRequests.wallet');
+  const { currencySymbol } = useCurrency();
   const [open, setOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] =
     useState<UniversalWithdrawalRequest | null>(null);
@@ -56,13 +61,19 @@ export function StoreWithdrawalRequest() {
   };
 
   const { storeId } = useParams();
+  const storeIdStr = storeId as string;
+
+  const {
+    data: walletSummary,
+    isLoading: isWalletLoading,
+  } = useGetStoreWalletSummary(storeIdStr);
 
   const {
     data: storeWithdrawRequestData,
     isLoading,
     isError,
     error,
-  } = useGetStoreWithdrawRequests(storeId as string);
+  } = useGetStoreWithdrawRequests(storeIdStr);
 
   const TAB_DEFS: TabDef[] = [
     { value: 'all', label: tTabs('all') },
@@ -80,7 +91,48 @@ export function StoreWithdrawalRequest() {
 
   return (
     <div className="space-y-7">
-      <Header />
+      <Header
+        walletSummary={walletSummary}
+        isWalletLoading={isWalletLoading}
+      />
+      {isWalletLoading ? (
+        <Skeleton className="h-28 w-full rounded-lg" />
+      ) : (
+        <section className="rounded-lg border bg-white p-4" aria-label={tWallet('summaryLabel')}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="rounded-lg bg-gray-100 p-2.5">
+                <Wallet className="size-5" aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">{tWallet('balance')}</p>
+                <p className="text-2xl font-bold">
+                  {currencySymbol} {(walletSummary?.current_balance ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+              <div>
+                <p className="text-muted-foreground">{tWallet('available')}</p>
+                <p className="font-semibold">
+                  {currencySymbol} {(walletSummary?.available_to_withdraw ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">{tWallet('pending')}</p>
+                <p className="font-semibold">
+                  {currencySymbol} {(walletSummary?.pending_withdrawal_amount ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </p>
+              </div>
+            </div>
+          </div>
+          {walletSummary?.has_pending_request && (
+            <p className="mt-3 text-sm text-muted-foreground">
+              {tWallet('pendingNotice')}
+            </p>
+          )}
+        </section>
+      )}
       <div>
         <Tabs value={active} onValueChange={setActive}>
           <ScrollableTabsNav

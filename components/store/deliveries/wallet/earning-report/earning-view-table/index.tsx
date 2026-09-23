@@ -43,6 +43,7 @@ export function EarningViewTable({
 }) {
   const t = useTranslations('storeWalletEarningReports.table');
   const tColumns = useTranslations('storeWalletEarningReports.table.columns');
+  const tCommission = useTranslations('orders.orderDetail.paymentInformation');
   const tErrors = useTranslations('storeWalletEarningReports.table.errors');
   const tNoData = useTranslations('storeWalletEarningReports.table.noData');
   const { currencySymbol } = useCurrency();
@@ -75,11 +76,17 @@ export function EarningViewTable({
         formatter: (item: StoreEarningViewItem) =>
           formatCurrency(item.deliveryFee, resolvedCurrencySymbol),
       },
+      ...(['commissionNet', 'vatOnCommission', 'totalCommissionDebit'] as const).map((field) => ({
+        header: tCommission(`${field}Label`),
+        dataKey: field,
+        formatter: (item: StoreEarningViewItem) => item.commissionSnapshotAvailable
+          ? formatCurrency(item[field] ?? 0, resolvedCurrencySymbol) : '',
+      })),
       { header: tColumns('paymentMethod'), dataKey: 'paymentMethod' },
       { header: tColumns('dateTime'), dataKey: 'dateTime' },
       { header: tColumns('status'), dataKey: 'status' },
     ],
-    [resolvedCurrencySymbol, tColumns],
+    [resolvedCurrencySymbol, tColumns, tCommission],
   );
 
   const handleCopy = (text: string) => {
@@ -237,7 +244,18 @@ export function EarningViewTable({
                       <TableCell>{item.vendorName || t('notAvailable')}</TableCell>
                       <TableCell>{formatCurrency(item.orderAmount, resolvedCurrencySymbol)}</TableCell>
                       <TableCell>{item.storeName || t('notAvailable')}</TableCell>
-                      <TableCell>{formatCurrency(item.commissionValue, resolvedCurrencySymbol)}</TableCell>
+                      <TableCell>
+                        {item.commissionSnapshotAvailable ? (
+                          <div className="space-y-1 text-sm tabular-nums">
+                            {(['commissionNet', 'vatOnCommission', 'totalCommissionDebit'] as const).map((field) => (
+                              <div key={field} className="flex justify-between items-start gap-4">
+                                <span className="min-w-0">{tCommission(`${field}Label`)}</span>
+                                <span className="shrink-0">{formatCurrency(item[field] ?? 0, resolvedCurrencySymbol)}</span>
+                              </div>
+                            ))}
+                          </div>
+                        ) : formatCurrency(item.commissionValue, resolvedCurrencySymbol)}
+                      </TableCell>
                       <TableCell>{formatCurrency(item.deliveryFee, resolvedCurrencySymbol)}</TableCell>
                       <TableCell>{item.paymentMethod || t('notAvailable')}</TableCell>
                       <TableCell>

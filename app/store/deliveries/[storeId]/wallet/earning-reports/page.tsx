@@ -30,8 +30,8 @@ const StoreEarningReports = () => {
   } = useGetStoreEarningView(storeId);
 
   const statsData = buildStoreStatsData(data?.cards, {
-    totalEarnings: tStats('totalEarnings'),
-    totalCommission: tStats('totalCommission'),
+    netEarnings: tStats('netEarnings'),
+    commissionAndVat: tStats('commissionAndVat'),
     pendingWithdrawals: tStats('pendingWithdrawals'),
   });
 

@@ -5,6 +5,7 @@ import { ApiErrorResponse } from '@/types';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { commissionPercentageToRate } from '@/lib/commission-rate';
 import { handleApiError } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import { useUpdateZoneCommissionRate } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
@@ -44,7 +45,7 @@ export const EditZoneCommissionForm = ({
         await updateZoneCommissionRate({
           zoneId: row.id,
           payload: {
-            commission_rate: Number(values.commissionRate),
+            commission_rate: commissionPercentageToRate(values.commissionRate),
             status: values.status === 'Active' ? 'active' : 'deactive',
           },
         });
@@ -78,6 +79,10 @@ export const EditZoneCommissionForm = ({
             name="commissionRate"
             placeholder={t('commissionPlaceholder')}
             type="number"
+            min={0}
+            max={100}
+            step={1}
+            postfix="%"
           />
 
           <div className="flex flex-col gap-3">

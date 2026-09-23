@@ -41,3 +41,11 @@ export interface GetStoreBankDetailsResponse {
     user_id: string;
     bank_details: StoreBankDetails[];
 }
+
+export interface GetStoreWalletSummaryResponse {
+    store_id: string;
+    current_balance: number;
+    pending_withdrawal_amount: number;
+    available_to_withdraw: number;
+    has_pending_request: boolean;
+}

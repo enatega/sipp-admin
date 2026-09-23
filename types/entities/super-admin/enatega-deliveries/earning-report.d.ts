@@ -91,6 +91,11 @@ export interface EarningReportItem {
     orderAmount: number;
     storeName: string;
     commissionValue: number;
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
+    sippAbsorbedVat?: number;
     deliveryFee: number;
     paymentMethod: string;
     dateTime: string; // ISO string

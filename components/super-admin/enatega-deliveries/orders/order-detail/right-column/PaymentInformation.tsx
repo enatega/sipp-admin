@@ -21,6 +21,8 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
   const tPaymentStatuses = useTranslations('orders.paymentStatuses');
   const { currencySymbol } = useCurrency();
   const currency = currencySymbol || '₡';
+  const payment = order.payment as PaymentInfo | null | undefined;
+  const hasCommissionSnapshot = payment?.commissionSnapshotAvailable === true;
   const paymentStatus =
     (order?.payment && (order.payment as PaymentInfo).paymentStatus) ||
     order?.paymentMethod ||
@@ -86,10 +88,6 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
               {order?.riderTip != null ? formatCurrency(order.riderTip, currency) : t('notAvailable')}
             </span>
           </div>
-          <div className="flex justify-between items-center text-[16px]">
-            <span className="text-black font-semibold">{t('adminCommissionLabel')}</span>
-            <span className="text-mute font-normal">{formatCurrency(order?.adminCommission || 0, currency)}</span>
-          </div>
         </div>
 
         <div className="border-t border-sidebar-border my-4" />
@@ -106,16 +104,39 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
         <div className="space-y-4">
           <div>
             <div className="text-black font-bold text-[16px]">{t('commissionBreakdownTitle')}</div>
-            <div className="text-mute text-xs font-normal mt-1">{t('commissionBreakdownHint')}</div>
+            <div className="text-mute text-sm font-normal mt-1">{t('commissionBreakdownHint')}</div>
           </div>
           <div className="flex justify-between items-center text-[16px]">
             <span className="text-black font-semibold">{t('storeEarningsLabel')}</span>
             <span className="text-mute font-normal">{formatCurrency(order?.storeEarnings || 0, currency)}</span>
           </div>
-          <div className="flex justify-between items-center text-[16px]">
-            <span className="text-black font-semibold">{t('adminCommissionLabel')}</span>
-            <span className="text-mute font-normal">{formatCurrency(order?.adminCommission || 0, currency)}</span>
-          </div>
+          {hasCommissionSnapshot ? (
+            <>
+              <div className="flex justify-between items-start gap-4 text-[16px]">
+                <span className="min-w-0 text-black font-semibold">{t('commissionNetLabel')}</span>
+                <span className="shrink-0 text-mute font-normal tabular-nums">{formatCurrency(payment?.commissionNet ?? 0, currency)}</span>
+              </div>
+              <div className="flex justify-between items-start gap-4 text-[16px]">
+                <span className="min-w-0 text-black font-semibold">{t(payment?.vatOnCommission === 0 ? 'vatOnCommissionNotChargedLabel' : 'vatOnCommissionLabel')}</span>
+                <span className="shrink-0 text-mute font-normal tabular-nums">{formatCurrency(payment?.vatOnCommission ?? 0, currency)}</span>
+              </div>
+              <div className="flex justify-between items-start gap-4 text-[16px]">
+                <span className="min-w-0 text-black font-semibold">{t('totalCommissionDebitLabel')}</span>
+                <span className="shrink-0 text-mute font-semibold tabular-nums">{formatCurrency(payment?.totalCommissionDebit ?? order.adminCommission ?? 0, currency)}</span>
+              </div>
+              {payment?.sippAbsorbedVat != null && payment.sippAbsorbedVat > 0 && (
+                <div className="flex justify-between items-start gap-4 text-[16px]">
+                  <span className="min-w-0 text-black font-semibold">{t('sippAbsorbedVatLabel')}</span>
+                  <span className="shrink-0 text-mute font-normal tabular-nums">{formatCurrency(payment.sippAbsorbedVat, currency)}</span>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="flex justify-between items-start gap-4 text-[16px]">
+              <span className="min-w-0 text-black font-semibold">{t('adminCommissionLabel')}</span>
+              <span className="shrink-0 text-mute font-normal tabular-nums">{formatCurrency(order?.adminCommission ?? 0, currency)}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

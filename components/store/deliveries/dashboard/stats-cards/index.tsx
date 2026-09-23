@@ -1,6 +1,6 @@
 'use client';
 
-import { DollarSign, Package, Star, XCircle } from 'lucide-react';
+import { DollarSign, Package, Star, Wallet } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCurrency } from '@/hooks/use-currency';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -13,7 +13,7 @@ const StoreDashboardStatsCards = ({ data, isLoading }: IStoreDashboardStats) => 
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {[...Array(4)].map((_, index) => (
           <Skeleton className="h-28" key={index} />
         ))}
@@ -22,7 +22,7 @@ const StoreDashboardStatsCards = ({ data, isLoading }: IStoreDashboardStats) => 
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <StatCard
         title={t('totalSalesTitle')}
         value={`${currencySymbol} ${(Number(data?.totalSales?.value) || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
@@ -45,11 +45,12 @@ const StoreDashboardStatsCards = ({ data, isLoading }: IStoreDashboardStats) => 
         change={Number(data?.storeRating?.change)}
       />
       <StatCard
-        title={t('cancelledOrdersTitle')}
-        value={`${Number(data?.cancelledOrders?.value) || 0}`}
-        isPositive={Number(data?.cancelledOrders?.change) >= 0}
-        icon={XCircle}
-        change={Number(data?.cancelledOrders?.change)}
+        title={t('walletBalanceTitle')}
+        value={`${currencySymbol} ${(Number(data?.walletBalance?.value) || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+        isPositive
+        icon={Wallet}
+        change={0}
+        showChange={false}
       />
     </div>
   );

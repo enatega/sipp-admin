@@ -73,6 +73,8 @@ export interface StoreEarningViewItem {
     vatOnCommission?: number;
     totalCommissionDebit?: number;
     deliveryFee: number;
+    riderTip?: number;
+    netIncome?: number;
     paymentMethod: string;
     dateTime: string;
     status: string;

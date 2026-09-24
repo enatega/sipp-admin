@@ -11,6 +11,7 @@ import {
   LogOut,
   MoreVertical,
   UserRoundCog,
+  Wallet,
   XCircle,
 } from 'lucide-react';
 import moment from 'moment';
@@ -59,6 +60,7 @@ export function UsersTable() {
   const { data, isLoading, isError, error } = useGetUserManagement();
   const createImpersonationToken = useCreateImpersonationToken();
   const canImpersonate = hasNamedPermission('impersonate_users');
+  const tWallet = useTranslations('wallet.actions');
 
   const {
     items: sortedUsers,
@@ -297,6 +299,18 @@ export function UsersTable() {
                           <Eye className="size-[18px]" />
                           <span className="text-sm">
                             {t('actions.viewDetails')}
+                          </span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/general/users/${user.id}/wallet`);
+                          }}
+                        >
+                          <Wallet className="size-[18px]" />
+                          <span className="text-sm">
+                            {tWallet('walletTransaction')}
                           </span>
                         </DropdownMenuItem>
                         {canImpersonate &&

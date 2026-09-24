@@ -849,6 +849,7 @@
     "marketing": "Marketing",
     "wallet": "Brieftasche",
     "earningReports": "Einnahmenberichte",
+    "walletTransactions": "Wallet-Transaktionen",
     "withdrawalRequests": "Auszahlungsanfragen",
     "backToAdmin": "Zurück zum Admin",
     "backToVendorStores": "Zurück zu den Vendor-Stores"
@@ -3413,6 +3414,7 @@
         "storeName": "Store-Name",
         "commissionValue": "Provisionswert",
         "deliveryFee": "Liefergebühr",
+        "netIncome": "Einnahmen des Geschäfts",
         "paymentMethod": "Zahlungsmethode",
         "dateTime": "Datum & Uhrzeit",
         "status": "Status"
@@ -10417,5 +10419,87 @@
     "withdrawalRequests": "Auszahlungsanträge",
     "payrolls": "Gehaltsabrechnungen",
     "back": "Zurück zu Service-Centern"
+  },
+  "wallet": {
+    "title": "Wallet & Zahlungen",
+    "subtitle": "Wallet-Guthaben und aktuelle Kontoaktivitäten anzeigen",
+    "owners": {
+      "customer": "Kunde",
+      "rider": "Fahrer",
+      "store": "Geschäft"
+    },
+    "actions": {
+      "walletTransaction": "Wallet-Transaktion"
+    },
+    "balanceCard": {
+      "availableBalance": "Verfügbares Guthaben",
+      "walletLabel": "Wallet",
+      "walletOf": "Wallet ({owner})",
+      "lastUpdated": "Zuletzt aktualisiert {date}",
+      "noWallet": "Noch keine Wallet-Aktivität",
+      "fetchFailed": "Wallet-Guthaben konnte nicht geladen werden"
+    },
+    "transactions": {
+      "title": "Transaktionsverlauf",
+      "subtitle": "Alle Gutschriften und Belastungen dieser Wallet, neueste zuerst.",
+      "addButton": "Transaktion hinzufügen",
+      "columns": {
+        "description": "Transaktionsbeschreibung",
+        "transaction": "Transaktion"
+      },
+      "incoming": "Eingang",
+      "outgoing": "Ausgang",
+      "balanceAfter": "Saldo: {amount}",
+      "emptyTitle": "Noch keine Transaktionen",
+      "emptySubtitle": "Gutschriften und Belastungen dieser Wallet erscheinen hier.",
+      "fetchFailed": "Transaktionen konnten nicht geladen werden",
+      "tryAgain": "Bitte versuchen Sie es später erneut."
+    },
+    "entryTypes": {
+      "order_sale": "Bestellverkauf",
+      "store_commission": "SIPP-Provision",
+      "store_commission_vat": "MwSt. auf SIPP-Provision",
+      "reversal_order_sale": "Stornierung Bestellverkauf",
+      "reversal_store_commission": "Erstattung SIPP-Provision",
+      "reversal_store_commission_vat": "Erstattung MwSt. auf SIPP-Provision",
+      "legacy_order_earning": "Bestelleinnahmen",
+      "rider_order_earning": "Liefereinnahme",
+      "order_refund": "Erstattung für stornierte Bestellung",
+      "order_payment": "Bestellzahlung",
+      "admin_adjustment": "Manuelle Anpassung"
+    },
+    "types": {
+      "deposit": "Wallet-Aufladung",
+      "credit": "Wallet-Gutschrift",
+      "debit": "Wallet-Belastung",
+      "migration_opening": "Migrierter Anfangssaldo"
+    },
+    "form": {
+      "title": "Transaktion hinzufügen",
+      "description": "Diese Wallet gutschreiben oder belasten. Der Eintrag erscheint sofort im Transaktionsverlauf.",
+      "descriptionLabel": "Beschreibung",
+      "descriptionPlaceholder": "z. B. Entschädigung für eine verspätete Auszahlung",
+      "descriptionHelper": "Wird dem Kontoinhaber im Transaktionsverlauf angezeigt.",
+      "amountLabel": "Betrag",
+      "amountPlaceholder": "z. B. 25.00 oder -25.00",
+      "amountHelper": "Positiver Betrag fügt Guthaben hinzu, negativer Betrag zieht Guthaben ab.",
+      "creditPreview": "Fügt der Wallet {amount} hinzu",
+      "debitPreview": "Zieht {amount} von der Wallet ab",
+      "balanceAfterPreview": "Neuer Saldo: {amount}",
+      "cancel": "Abbrechen",
+      "submit": "Transaktion hinzufügen",
+      "success": "Transaktion erfolgreich hinzugefügt"
+    },
+    "validation": {
+      "descriptionRequired": "Beschreibung ist erforderlich",
+      "descriptionMin": "Die Beschreibung muss mindestens 3 Zeichen lang sein",
+      "descriptionMax": "Die Beschreibung darf höchstens 500 Zeichen lang sein",
+      "amountRequired": "Betrag ist erforderlich",
+      "amountInvalid": "Geben Sie einen gültigen Betrag ein",
+      "amountNonZero": "Der Betrag darf nicht null sein",
+      "amountDecimals": "Der Betrag darf höchstens 2 Nachkommastellen haben",
+      "amountRange": "Der Betrag muss zwischen -1.000.000 und 1.000.000 liegen",
+      "insufficientBalance": "Die Belastung übersteigt das verfügbare Guthaben von {amount}"
+    }
   }
 }

@@ -13,6 +13,7 @@ import {
   MoreVertical,
   PenIcon,
   TrashIcon,
+  Wallet,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
@@ -43,6 +44,7 @@ type ActionType = 'delete' | 'approve' | 'reject' | 'block' | null;
 export default function StoreActions({ store }: StoreActionsProps) {
   const t = useTranslations('lumiFood.stores');
   const tLogin = useTranslations('storeLogin');
+  const tWallet = useTranslations('wallet.actions');
   const [loginOpen, setLoginOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -76,6 +78,15 @@ export default function StoreActions({ store }: StoreActionsProps) {
       buildScopedDeliveriesAdminPathFromCurrent(
         pathname,
         `/enatega-deliveries/stores/edit-store/${store.id}`,
+      ),
+    );
+  };
+
+  const handleWallet = () => {
+    router.push(
+      buildScopedDeliveriesAdminPathFromCurrent(
+        pathname,
+        `/enatega-deliveries/stores/${store.id}/wallet`,
       ),
     );
   };
@@ -212,7 +223,7 @@ export default function StoreActions({ store }: StoreActionsProps) {
         <DropdownMenuContent
           align="end"
           sideOffset={8}
-          className="w-[180px] p-0 rounded-xl overflow-hidden shadow-lg"
+          className="w-[200px] p-0 rounded-xl overflow-hidden shadow-lg"
         >
           <DropdownMenuItem
             className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
@@ -227,6 +238,14 @@ export default function StoreActions({ store }: StoreActionsProps) {
           >
             <PenIcon className="size-[18px]" />
             <span className="text-sm">{t('editStoreLabel')}</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+            onClick={() => handleWallet()}
+          >
+            <Wallet className="size-[18px]" />
+            <span className="text-sm">{tWallet('walletTransaction')}</span>
           </DropdownMenuItem>
 
           {store.isLegacyMigrated === true && store.storeLoginEnabled === false && (

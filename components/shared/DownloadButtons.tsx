@@ -2,9 +2,10 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { FileSpreadsheet } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { downloadExcel, downloadPdf } from '@/lib/download';
+import { downloadCsv, downloadExcel, downloadPdf } from '@/lib/download';
 import { toAbsoluteUrl } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 import { AppButton } from './AppButton';
@@ -21,6 +22,7 @@ interface DownloadButtonsProps<T> {
   columns: Column<T>[];
   className?: string;
   fetchAll?: () => Promise<T[]>;
+  formats?: Array<'pdf' | 'csv' | 'excel'>;
 }
 
 export function DownloadButtons<T extends object>({
@@ -29,12 +31,15 @@ export function DownloadButtons<T extends object>({
   columns,
   className,
   fetchAll,
+  formats = ['pdf', 'excel'],
 }: DownloadButtonsProps<T>) {
   const t = useTranslations('common');
-  const [downloading, setDownloading] = useState<'pdf' | 'excel' | null>(null);
+  const [downloading, setDownloading] = useState<
+    'pdf' | 'csv' | 'excel' | null
+  >(null);
   const inProgress = useRef(false);
 
-  const handleDownload = async (format: 'pdf' | 'excel') => {
+  const handleDownload = async (format: 'pdf' | 'csv' | 'excel') => {
     if (inProgress.current) return;
     inProgress.current = true;
     setDownloading(format);
@@ -44,6 +49,9 @@ export function DownloadButtons<T extends object>({
       if (format === 'pdf') {
         downloadPdf(fileName, columns as never, normalizedRows);
         toast.success(t('pdfDownloadSuccess'));
+      } else if (format === 'csv') {
+        downloadCsv(fileName, columns as never, normalizedRows);
+        toast.success(t('csvDownloadSuccess'));
       } else {
         downloadExcel(fileName, columns as never, normalizedRows);
         toast.success(t('excelDownloadSuccess'));
@@ -62,40 +70,53 @@ export function DownloadButtons<T extends object>({
     <div
       className={cn('flex flex-wrap gap-2 items-end justify-start ', className)}
     >
-      <AppButton
-        variant="mute"
-        disabled={downloading !== null || (!fetchAll && !data.length)}
-        isLoading={downloading === 'pdf'}
-        leftIcon={
-          <Image
-            src={toAbsoluteUrl('/svgs/pdf.svg')}
-            width={20}
-            height={20}
-            alt={t('downloadPdf')}
-            className=""
-          />
-        }
-        onClick={() => void handleDownload('pdf')}
-      >
-        <span>{t('downloadPdf')}</span>
-      </AppButton>
-      <AppButton
-        variant="mute"
-        disabled={downloading !== null || (!fetchAll && !data.length)}
-        isLoading={downloading === 'excel'}
-        leftIcon={
-          <Image
-            src={toAbsoluteUrl('/images/excel.png')}
-            width={20}
-            height={20}
-            alt={t('downloadExcel')}
-            className=""
-          />
-        }
-        onClick={() => void handleDownload('excel')}
-      >
-        <span>{t('downloadExcel')}</span>
-      </AppButton>
+      {formats.includes('pdf') ? (
+        <AppButton
+          variant="mute"
+          disabled={downloading !== null || (!fetchAll && !data.length)}
+          isLoading={downloading === 'pdf'}
+          leftIcon={
+            <Image
+              src={toAbsoluteUrl('/svgs/pdf.svg')}
+              width={20}
+              height={20}
+              alt={t('downloadPdf')}
+            />
+          }
+          onClick={() => void handleDownload('pdf')}
+        >
+          <span>{t('downloadPdf')}</span>
+        </AppButton>
+      ) : null}
+      {formats.includes('csv') ? (
+        <AppButton
+          variant="mute"
+          disabled={downloading !== null || (!fetchAll && !data.length)}
+          isLoading={downloading === 'csv'}
+          leftIcon={<FileSpreadsheet className="h-5 w-5 text-emerald-700" />}
+          onClick={() => void handleDownload('csv')}
+        >
+          <span>{t('downloadCsv')}</span>
+        </AppButton>
+      ) : null}
+      {formats.includes('excel') ? (
+        <AppButton
+          variant="mute"
+          disabled={downloading !== null || (!fetchAll && !data.length)}
+          isLoading={downloading === 'excel'}
+          leftIcon={
+            <Image
+              src={toAbsoluteUrl('/images/excel.png')}
+              width={20}
+              height={20}
+              alt={t('downloadExcel')}
+            />
+          }
+          onClick={() => void handleDownload('excel')}
+        >
+          <span>{t('downloadExcel')}</span>
+        </AppButton>
+      ) : null}
     </div>
   );
 }

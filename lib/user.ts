@@ -368,6 +368,7 @@ const routePermissionMap: Record<string, string | null> = {
   [adminRoutes.deliveries.taxRates]: 'general-delivery.tax_rates',
   [adminRoutes.deliveries.commissionRate]: 'general-delivery.store_commissions',
   [adminRoutes.deliveries.earningsReports]: 'general-delivery.earning',
+  [adminRoutes.deliveries.reporting.base]: 'general-delivery.earning',
   [adminRoutes.deliveries.withdrawalRequests]:
     'general-delivery.withdraw_requests',
   [adminRoutes.deliveries.customerLoyaltyAndReferrals]:

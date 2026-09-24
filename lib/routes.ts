@@ -26,6 +26,14 @@ export const adminRoutes = {
     banners: withSuffix('/banners'),
     liveTracking: withSuffix('/live-tracking'),
     refundAndResponsibilities: withSuffix('/refund-and-responsibilities'),
+    reporting: {
+      base: withSuffix('/reporting'),
+      salesOrders: withSuffix('/reporting/sales-orders'),
+      taxCommission: withSuffix('/reporting/tax-commission'),
+      cancellations: withSuffix('/reporting/cancellations'),
+      financialPayouts: withSuffix('/reporting/financial-payouts'),
+      customersPromotions: withSuffix('/reporting/customers-promotions'),
+    },
     settings: withSuffix('/settings'),
   },
 } as const;

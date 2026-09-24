@@ -21,13 +21,11 @@ interface FixedDeliveryFeeFormProps {
   feeData: DeliveryFeeSettings | undefined;
   isLoading: boolean;
   error: ApiErrorResponse | null;
-  isDistanceFeeActive: boolean;
 }
 export const FixedDeliveryFeeForm = ({
   feeData,
   isLoading,
   error,
-  isDistanceFeeActive,
 }: FixedDeliveryFeeFormProps) => {
   const t = useTranslations('lumiFood.deliveryFee.fixed');
   const tButtons = useTranslations('lumiFood.deliveryFee.buttons');
@@ -95,7 +93,7 @@ export const FixedDeliveryFeeForm = ({
                   <Switch
                     checked={fixedFeeActive}
                     onCheckedChange={setFixedFeeActive}
-                    disabled={isPending || isDistanceFeeActive}
+                    disabled={isPending}
                   />
                 </div>
               </div>
@@ -107,7 +105,8 @@ export const FixedDeliveryFeeForm = ({
                 name="fixed_delivery_fee"
                 type="number"
                 placeholder={t('placeholder')}
-                disabled={isLoading || isPending || isDistanceFeeActive}
+                disabled={isLoading || isPending}
+                helperText={t('fallbackHint')}
               />
 
               <div className="flex justify-end mt-4">
@@ -115,7 +114,7 @@ export const FixedDeliveryFeeForm = ({
                   type="submit"
                   className="px-14 bg-primary text-white"
                   isLoading={isLoading || isPending || isSubmitting}
-                  disabled={isLoading || isPending || isSubmitting || isDistanceFeeActive}
+                  disabled={isLoading || isPending || isSubmitting}
                 >
                   {hasExistingFixedFee ? tButtons('update') : tButtons('save')}
                 </AppButton>

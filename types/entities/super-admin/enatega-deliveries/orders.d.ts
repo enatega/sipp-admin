@@ -113,6 +113,9 @@ export interface OrderSummary {
     storeName?: string;
     orderAmount?: number;
     riderEarnings?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     orderType?: string;
     paymentMethod?: string;
     storeCommission?: number;
@@ -133,6 +136,9 @@ export interface PaymentInfo {
     discounts?: number;
     deliveryFee?: number;
     riderTip?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     adminCommission?: number;
     totalAmount?: number;
     storeEarnings?: number;
@@ -218,6 +224,9 @@ export interface OrderDetail {
     deliveryFee?: number;
     riderTip?: number;
     riderEarnings?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     adminCommission?: number;
     storeEarnings?: number;
     dateTime?: string;

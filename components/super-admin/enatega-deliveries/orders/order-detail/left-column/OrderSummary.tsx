@@ -63,6 +63,12 @@ export function OrderSummary({ order }: IOrderSummaryProps) {
       ),
     },
     {
+      label: t('riderPlatformCommissionLabel', {
+        rate: order?.riderCommissionPercentage ?? 0,
+      }),
+      value: formatCurrency(order?.riderPlatformCommission ?? 0, currency),
+    },
+    {
       label: t('orderTypeLabel'),
       value: formatOrderTypeLabel(
         order?.orderType,

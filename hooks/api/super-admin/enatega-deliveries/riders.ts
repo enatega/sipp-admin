@@ -460,6 +460,12 @@ export const useUpdateDeliveryRider = (
           String(payload.cod_allow_online_payments_when_blocked),
         );
       }
+      if (payload.platformCommissionPercentage !== undefined) {
+        formData.append(
+          'platformCommissionPercentage',
+          String(payload.platformCommissionPercentage),
+        );
+      }
 
       // Add file fields
       if (payload.driver_license_front instanceof File) formData.append('driver_license_front', payload.driver_license_front);
@@ -613,6 +619,12 @@ export const useCreateDeliveryRider = (
         formData.append(
           'cod_allow_online_payments_when_blocked',
           String(payload.cod_allow_online_payments_when_blocked),
+        );
+      }
+      if (payload.platformCommissionPercentage !== undefined) {
+        formData.append(
+          'platformCommissionPercentage',
+          String(payload.platformCommissionPercentage),
         );
       }
 

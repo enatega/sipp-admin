@@ -24,13 +24,13 @@ import { CodLimitSettingsSection } from './CodLimitSettingsSection';
 import { DocumentsSection } from './DocumentsSection';
 import { EditRiderFormShimmer } from './EditRiderFormShimmer';
 import { PersonalInformationSection } from './PersonalInformationSection';
+import { RiderCommissionSection } from './RiderCommissionSection';
 import { VehicleRequirementsSection } from './VehicleRequirementSection';
 
 export const EditRiderForm = () => {
   const router = useRouter();
   const params = useParams();
   const riderId = params.id as string;
-  const tSchema = useTranslations();
   const tEdit = useTranslations('driverManagement.editDriver');
   const tTable = useTranslations('driverManagement.driversTable');
   const [apiError, setApiError] = useState<string | null>(null);
@@ -98,6 +98,8 @@ export const EditRiderForm = () => {
         codAllowOnlinePaymentsRaw === null
           ? true
           : Boolean(codAllowOnlinePaymentsRaw),
+      platform_commission_percentage:
+        100 - Number(rider?.deliveryEarningPercentage ?? 85),
       profile_picture: null,
       driver_license_front: null,
       driver_license_back: null,
@@ -120,8 +122,8 @@ export const EditRiderForm = () => {
   }, [riderData]);
 
   const validationSchema = useMemo(
-    () => EditRiderFormSchema(tSchema),
-    [tSchema],
+    () => EditRiderFormSchema(tEdit),
+    [tEdit],
   );
 
   const handleSubmit = async (values: EditRiderFormValues) => {
@@ -168,6 +170,9 @@ export const EditRiderForm = () => {
         cod_allow_online_payments_when_blocked: values.cod_limit_enabled
           ? values.cod_allow_online_payments_when_blocked
           : undefined,
+        platformCommissionPercentage: Number(
+          values.platform_commission_percentage,
+        ),
         driver_license_front: values.driver_license_front || undefined,
         driver_license_back: values.driver_license_back || undefined,
         national_id_passport_front: values.national_id_front || undefined,
@@ -232,6 +237,9 @@ export const EditRiderForm = () => {
 
           {/* Vehicle Information Section */}
           <VehicleRequirementsSection vehicleTypes={vehicleTypesData} />
+
+          {/* Rider Commission Section */}
+          <RiderCommissionSection />
 
           {/* COD Limit Settings Section */}
           <CodLimitSettingsSection />

@@ -12,6 +12,11 @@ export const distanceBaseFeeSchema = Yup.object({
     base_distance_fee: Yup.number().min(0, 'Cannot be negative').nullable(),
     distance_greater_than: Yup.number()
         .min(0, 'Must be positive')
+        .test(
+            'half-kilometre-step',
+            'Distance must use 0.5 km increments',
+            (value) => value === undefined || Number.isInteger(value * 2),
+        )
         .required('Distance is required'),
     per_km_charges: Yup.number()
         .min(0, 'Cannot be negative')

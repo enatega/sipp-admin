@@ -21,6 +21,7 @@ import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppSwitch } from '@/components/shared/form/AppSwitch';
 
 const EMPTY_STEP4: RiderStep4Data = {
+  platform_commission_percentage: 15,
   cod_limit_enabled: false,
   cod_limit_amount: '',
   cod_warning_threshold: '80',
@@ -168,6 +169,9 @@ export const Step4Form: React.FC = () => {
         cod_allow_online_payments_when_blocked: values.cod_limit_enabled
           ? values.cod_allow_online_payments_when_blocked
           : undefined,
+        platformCommissionPercentage: Number(
+          values.platform_commission_percentage,
+        ),
       });
 
       toast.success(tStep3('riderCreatedSuccess'));
@@ -190,11 +194,24 @@ export const Step4Form: React.FC = () => {
       <Formik
         initialValues={initialValues}
         enableReinitialize
-        validationSchema={RiderFormStep4Schema}
+        validationSchema={RiderFormStep4Schema(t)}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, values }) => (
           <Form className="space-y-6">
+            <div className="rounded-lg border p-4">
+              <AppInputField
+                label={t('platformCommissionLabel')}
+                name="platform_commission_percentage"
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                postfix="%"
+                requiredAsterisk
+                helperText={t('platformCommissionHelper')}
+              />
+            </div>
             <div className="rounded-lg border p-4">
               <AppSwitch
                 name="cod_limit_enabled"

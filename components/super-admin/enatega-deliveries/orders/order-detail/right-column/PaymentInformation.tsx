@@ -88,6 +88,27 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
               {order?.riderTip != null ? formatCurrency(order.riderTip, currency) : t('notAvailable')}
             </span>
           </div>
+          <div className="rounded-lg border border-sidebar-border bg-gray-50 p-4 space-y-3">
+            <div className="text-sm font-semibold text-black">
+              {t('riderDeliverySplitTitle')}
+            </div>
+            <div className="flex justify-between items-start gap-4 text-[15px]">
+              <span className="min-w-0 text-mute">{t('riderDeliveryEarningLabel')}</span>
+              <span className="shrink-0 font-medium tabular-nums text-black">
+                {formatCurrency(order?.riderDeliveryEarning ?? 0, currency)}
+              </span>
+            </div>
+            <div className="flex justify-between items-start gap-4 text-[15px]">
+              <span className="min-w-0 text-mute">
+                {t('riderPlatformCommissionLabel', {
+                  rate: order?.riderCommissionPercentage ?? 0,
+                })}
+              </span>
+              <span className="shrink-0 font-medium tabular-nums text-black">
+                {formatCurrency(order?.riderPlatformCommission ?? 0, currency)}
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="border-t border-sidebar-border my-4" />

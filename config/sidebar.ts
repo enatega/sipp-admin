@@ -1,7 +1,13 @@
 import { deployment } from '@/config/deployment';
 import { adminRoutes } from '@/lib/routes';
 import { getRoleAndPermissions, hasPermission } from '@/lib/user';
-import { LayoutDashboard, LucideIcon, Settings, Utensils } from 'lucide-react';
+import {
+  ChartNoAxesCombined,
+  LayoutDashboard,
+  LucideIcon,
+  Settings,
+  Utensils,
+} from 'lucide-react';
 
 export interface SidebarMenu {
   id: string | number;
@@ -193,10 +199,55 @@ export const sidebarMenus: SidebarMenu[] = [
         permission: 'general-delivery.refund_responsibilities',
       },
       {
-        id: 3.17,
+        id: 3.18,
         name: 'Settings',
         translationKey: 'navigation.settings',
         path: adminRoutes.deliveries.settings,
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Reporting',
+    translationKey: 'sidebar.reporting',
+    path: '#',
+    icon: ChartNoAxesCombined,
+    permission: 'general-delivery.earning',
+    subMenus: [
+      {
+        id: 4.1,
+        name: 'Sales & Orders',
+        translationKey: 'sidebar.reportingSalesOrders',
+        path: adminRoutes.deliveries.reporting.salesOrders,
+        permission: 'general-delivery.earning',
+      },
+      {
+        id: 4.2,
+        name: 'Tax & Commission',
+        translationKey: 'sidebar.reportingTaxCommission',
+        path: adminRoutes.deliveries.reporting.taxCommission,
+        permission: 'general-delivery.earning',
+      },
+      {
+        id: 4.3,
+        name: 'Cancellations',
+        translationKey: 'sidebar.reportingCancellations',
+        path: adminRoutes.deliveries.reporting.cancellations,
+        permission: 'general-delivery.earning',
+      },
+      {
+        id: 4.4,
+        name: 'Financial & Payouts',
+        translationKey: 'sidebar.reportingFinancialPayouts',
+        path: adminRoutes.deliveries.reporting.financialPayouts,
+        permission: 'general-delivery.earning',
+      },
+      {
+        id: 4.5,
+        name: 'Customers & Promotions',
+        translationKey: 'sidebar.reportingCustomersPromotions',
+        path: adminRoutes.deliveries.reporting.customersPromotions,
+        permission: 'general-delivery.earning',
       },
     ],
   },
@@ -211,25 +262,29 @@ export type SidebarSearchItem = {
 
 const buildSidebarSearchItems = (
   menus: readonly SidebarMenu[],
+  parentTranslationKey?: string,
+  respectPermissions = true,
 ): SidebarSearchItem[] =>
   menus.flatMap((item) => {
     const items: SidebarSearchItem[] = [];
-    if (item.path && item.path !== '#' && hasPermission(item.permission)) {
+    const canAccess = !respectPermissions || hasPermission(item.permission);
+    if (item.path && item.path !== '#' && canAccess) {
       items.push({
         id: item.id,
         path: item.path,
         translationKey: item.translationKey,
+        parentTranslationKey,
       });
     }
-    item.subMenus?.forEach((subItem) => {
-      if (!hasPermission(subItem.permission)) return;
-      items.push({
-        id: subItem.id,
-        path: subItem.path,
-        translationKey: subItem.translationKey,
-        parentTranslationKey: item.translationKey,
-      });
-    });
+    if (item.subMenus?.length && canAccess) {
+      items.push(
+        ...buildSidebarSearchItems(
+          item.subMenus,
+          item.translationKey,
+          respectPermissions,
+        ),
+      );
+    }
     return items;
   });
 
@@ -256,25 +311,10 @@ export const getFirstAccessibleRoute = (): string => {
   return '/';
 };
 
-export const sidebarSearchItems: SidebarSearchItem[] = sidebarMenus.flatMap(
-  (item) => {
-    const items: SidebarSearchItem[] = [];
-    if (item.path && item.path !== '#')
-      items.push({
-        id: item.id,
-        path: item.path,
-        translationKey: item.translationKey,
-      });
-    item.subMenus?.forEach((subItem) =>
-      items.push({
-        id: subItem.id,
-        path: subItem.path,
-        translationKey: subItem.translationKey,
-        parentTranslationKey: item.translationKey,
-      }),
-    );
-    return items;
-  },
+export const sidebarSearchItems: SidebarSearchItem[] = buildSidebarSearchItems(
+  sidebarMenus,
+  undefined,
+  false,
 );
 
 export const getFilteredSidebarSearchItems = (): SidebarSearchItem[] =>

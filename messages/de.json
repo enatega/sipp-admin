@@ -103,8 +103,10 @@
     "success": "Erfolg",
     "notAvailable": "k.A.",
     "downloadPdf": "PDF herunterladen",
+    "downloadCsv": "CSV herunterladen",
     "downloadExcel": "Excel herunterladen",
     "pdfDownloadSuccess": "PDF-Bericht erfolgreich heruntergeladen!",
+    "csvDownloadSuccess": "CSV-Bericht erfolgreich heruntergeladen!",
     "excelDownloadSuccess": "Excel-Bericht erfolgreich heruntergeladen!",
     "rowsSelected": "{selectedRows} von {totalData} Zeile(n) ausgewählt.",
     "rowsPerPage": "Zeilen pro Seite",
@@ -335,7 +337,85 @@
     "loyaltyAndReferrals": "loyaliteitEnVerwijzingen",
     "deliveryFee": "Bezorgkosten",
     "earningsReports": "Einnahmenberichte",
+    "reporting": "Berichte",
+    "reportingSalesOrders": "Verkäufe & Bestellungen",
+    "reportingTaxCommission": "Steuern & Provisionen",
+    "reportingCancellations": "Stornierungen",
+    "reportingFinancialPayouts": "Finanzen & Auszahlungen",
+    "reportingCustomersPromotions": "Kunden & Aktionen",
     "customerLoyaltyAndReferrals": "Kundentreue und Empfehlungen"
+  },
+  "reporting": {
+    "title": "Berichte",
+    "pages": {
+      "salesOrders": { "title": "Verkäufe & Bestellungen", "description": "Detaillierte Berichte zu Bestellungen, Restaurantumsätzen und Produktleistung." },
+      "taxCommission": { "title": "Steuern & Provisionen", "description": "Aufschlüsselung von Produktsteuer und Plattformprovision." },
+      "cancellations": { "title": "Stornierungen", "description": "Stornierte und abgelehnte Bestellungen mit Gründen und verantwortlichen Konten." },
+      "financialPayouts": { "title": "Finanzen & Auszahlungen", "description": "Finanzposition der Restaurants sowie Kurierverdienste und Auszahlungen." },
+      "customersPromotions": { "title": "Kunden & Aktionen", "description": "Kundenwert seit Plattformstart und Leistung von Aktionen." }
+    },
+    "tabs": {
+      "sales_orders": { "label": "Detaillierte Bestellungen", "description": "Finanz- und Lieferdetails für jede passende Bestellung." },
+      "sales_restaurants": { "label": "Restaurantumsätze", "description": "Umsatz und Nettoverdienst nach Restaurant." },
+      "sales_products": { "label": "Produktverkäufe & Bestseller", "description": "Produkte nach gelieferter Menge und Bruttoumsatz." },
+      "tax_product": { "label": "MwSt. / Produktsteuer", "description": "Inklusive Produktsteuer für gelieferte Bestellungen." },
+      "tax_commission": { "label": "Provision", "description": "Provisionsbasis, Satz, MwSt. und Gesamtabzug pro Bestellung." },
+      "cancellations": { "label": "Stornierungsbericht", "description": "Stornierte und abgelehnte Bestellungen für die gewählten Filter." },
+      "restaurants_financial-summary": { "label": "Restaurant-Finanzübersicht", "description": "Umsätze, Abzüge, Auszahlungen und aktueller Wallet-Saldo." },
+      "couriers_earnings": { "label": "Kurierverdienst & Auszahlungen", "description": "Kurierverdienst, Provision, Auszahlungen und Wallet-Saldo." },
+      "customers_lifetime": { "label": "Kundenlebenszeitwert", "description": "Bestellhistorie und Wert seit Plattformstart pro Kunde." },
+      "promotions": { "label": "Gutscheine & Rabatte", "description": "Nutzung und Umsatzwirkung von Gutscheinen und Rabatten." }
+    },
+    "filters": {
+      "ariaLabel": "Berichtsfilter", "search": "Bericht durchsuchen", "allCities": "Alle Städte / Zonen", "allRestaurants": "Alle Restaurants",
+      "searchRestaurants": "Restaurants durchsuchen...", "noRestaurantsFound": "Keine Restaurants gefunden.", "loadingRestaurants": "Restaurants werden geladen...",
+      "restaurantLoadError": "Restaurants konnten nicht geladen werden.", "allPaymentMethods": "Alle Zahlungsmethoden", "allOrderStatuses": "Alle Bestellstatus",
+      "payment": { "cash": "Bargeld", "card": "Karte", "wallet": "Wallet" },
+      "status": {
+        "pending": "Ausstehend", "scheduled": "Geplant", "accepted": "Akzeptiert", "preparing": "In Vorbereitung", "ready": "Bereit",
+        "rider_assigned": "Kurier zugewiesen", "picked_up": "Abgeholt", "out_for_delivery": "Unterwegs", "arrived": "Angekommen",
+        "delivered": "Geliefert", "rejected": "Abgelehnt", "failed": "Fehlgeschlagen", "cancelled": "Storniert"
+      }
+    },
+    "summary": {
+      "ariaLabel": "Verkaufsübersicht", "grossSales": "Bruttoumsatz", "deliveredOrders": "Gelieferte Bestellungen", "productTax": "Produktsteuer",
+      "discounts": "Rabatte", "deliveryFees": "Liefergebühren", "packingCharges": "Verpackungsgebühren", "loadError": "Verkaufsübersicht konnte nicht geladen werden"
+    },
+    "taxSummary": {
+      "ariaLabel": "Steuer- und Provisionsübersicht",
+      "deliveredOrders": "Gelieferte Bestellungen",
+      "grossProductAmount": "Brutto-Produktbetrag",
+      "netProductAmount": "Netto-Produktbetrag",
+      "totalProductTax": "Produkt-MwSt. / Steuer gesamt",
+      "commissionBase": "Provisionsbasis",
+      "commissionNet": "Nettoprovision",
+      "commissionVat": "MwSt. auf Provision",
+      "totalCommissionDeduction": "Gesamter Provisionsabzug",
+      "absorbedVat": "Übernommene MwSt.",
+      "loadError": "Steuer- und Provisionsübersicht konnte nicht geladen werden"
+    },
+    "table": {
+      "records": "{count, plural, one {# Datensatz} other {# Datensätze}}", "loadError": "Bericht konnte nicht geladen werden",
+      "emptyTitle": "Keine passenden Berichtsdaten", "emptySubtitle": "Ändern Sie den Zeitraum oder andere Filter.", "dateBasis": "Datumsbasis",
+      "timezone": "Zeitzone", "yes": "Ja", "no": "Nein"
+    },
+    "columns": {
+      "orderId": "Bestell-ID", "deliveredAt": "Geliefert am", "customer": "Kunde", "restaurant": "Restaurant", "cityZone": "Stadt / Zone",
+      "paymentMethod": "Zahlungsmethode", "paymentStatus": "Zahlungsstatus", "orderStatus": "Bestellstatus", "subtotal": "Zwischensumme", "discount": "Rabatt",
+      "productTax": "Produktsteuer", "deliveryFee": "Liefergebühr", "packingCharges": "Verpackungsgebühren", "riderTip": "Kurier-Trinkgeld", "totalAmount": "Gesamtbetrag",
+      "deliveredOrders": "Gelieferte Bestellungen", "grossSales": "Bruttoumsatz", "discounts": "Rabatte", "commission": "Provision", "netStoreEarnings": "Nettoverdienst Restaurant",
+      "product": "Produkt", "quantitySold": "Verkaufte Menge", "grossProductSales": "Brutto-Produktumsatz", "taxMode": "Steuermodus",
+      "grossProductAmount": "Brutto-Produktbetrag", "netProductAmount": "Netto-Produktbetrag", "taxSnapshot": "Steuer-Snapshot", "commissionBase": "Provisionsbasis",
+      "commissionRate": "Provisionssatz", "commissionNet": "Nettoprovision", "commissionVatRate": "Provisions-MwSt.-Satz", "vatOnCommission": "MwSt. auf Provision",
+      "totalDeduction": "Gesamtabzug", "absorbedVat": "Übernommene MwSt.", "snapshot": "Snapshot", "cancelledAt": "Storniert am", "createdAt": "Erstellt am",
+      "status": "Status", "cancellationReason": "Stornierungsgrund", "cancelledBy": "Storniert von", "orderAmount": "Bestellbetrag", "totalSales": "Gesamtumsatz",
+      "commissionVat": "Provisions-MwSt.", "totalCommissionDeduction": "Gesamter Provisionsabzug", "storeNetEarnings": "Nettoverdienst Restaurant",
+      "approvedWithdrawals": "Genehmigte Auszahlungen", "pendingWithdrawals": "Ausstehende Auszahlungen", "currentWalletBalance": "Aktueller Wallet-Saldo",
+      "courier": "Kurier", "deliveries": "Lieferungen", "deliveryFees": "Liefergebühren", "courierDeliveryEarnings": "Kurier-Lieferverdienst", "tips": "Trinkgeld",
+      "platformDeliveryCommission": "Plattform-Lieferprovision", "approvedPayouts": "Genehmigte Auszahlungen", "pendingPayouts": "Ausstehende Auszahlungen", "email": "E-Mail", "phone": "Telefon",
+      "firstOrder": "Erste Bestellung", "lastOrder": "Letzte Bestellung", "totalOrders": "Bestellungen gesamt", "cancelledOrders": "Stornierte Bestellungen", "lifetimeValue": "Kundenwert",
+      "averageOrderValue": "Durchschnittlicher Bestellwert", "promotionType": "Aktionstyp", "promotionCode": "Aktionscode", "orders": "Bestellungen", "totalDiscount": "Gesamtrabatt"
+    }
   },
   "noPermission": {
     "title": "Zugriff",

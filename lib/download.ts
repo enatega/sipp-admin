@@ -228,3 +228,24 @@ export const downloadExcel = <T extends Record<string, unknown>>(
   const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
   saveAs(blob, `${fileName}.xlsx`);
 };
+
+export const downloadCsv = <T extends Record<string, unknown>>(
+  fileName: string,
+  columns: Column[],
+  data: T[],
+) => {
+  columns = withoutImageColumns(columns);
+  const escapeCsvCell = (value: string) =>
+    /[",\r\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+  const rows = [
+    columns.map((column) => column.header),
+    ...data.map((item) => columns.map((column) => cellValue(item, column))),
+  ];
+  const content = rows
+    .map((row) => row.map((cell) => escapeCsvCell(String(cell))).join(','))
+    .join('\r\n');
+  const blob = new Blob([`\uFEFF${content}`], {
+    type: 'text/csv;charset=utf-8',
+  });
+  saveAs(blob, `${fileName}.csv`);
+};

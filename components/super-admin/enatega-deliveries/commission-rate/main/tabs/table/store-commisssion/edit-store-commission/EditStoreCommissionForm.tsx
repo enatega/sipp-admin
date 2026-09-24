@@ -5,6 +5,7 @@ import { ApiErrorResponse } from '@/types';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { commissionPercentageToRate } from '@/lib/commission-rate';
 import { handleApiError } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import { useUpdateStoreCommissionRate } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
@@ -32,9 +33,11 @@ export const EditStoreCommissionForm = ({
     useUpdateStoreCommissionRate();
 
   const initialCommission = row?.defaultCommission?.replace('%', '') || '';
+  const initialCommissionVat = row?.commissionVatRate?.replace('%', '') || '13';
   const initialValues = {
     storeName: row?.storeName || '',
     commissionRate: initialCommission,
+    commissionVatRate: initialCommissionVat,
     status: row?.status || 'Active',
   };
 
@@ -44,7 +47,8 @@ export const EditStoreCommissionForm = ({
         await updateStoreCommissionRate({
           storeId: row.id,
           payload: {
-            commission_rate: Number(values.commissionRate),
+            commission_rate: commissionPercentageToRate(values.commissionRate),
+            commission_vat_rate: Number(values.commissionVatRate),
             status: values.status === 'Active' ? 'active' : 'deactive',
           },
         });
@@ -78,8 +82,29 @@ export const EditStoreCommissionForm = ({
             name="commissionRate"
             placeholder={t('commissionPlaceholder')}
             type="number"
+            min={0}
+            max={100}
+            step={1}
+            postfix="%"
             disabled={isPending}
           />
+
+          <div className="space-y-2">
+            <AppInput
+              label={t('commissionVatLabel')}
+              name="commissionVatRate"
+              placeholder={t('commissionVatPlaceholder')}
+              type="number"
+              min={0}
+              max={100}
+              step={0.01}
+              postfix="%"
+              disabled={isPending}
+            />
+            <p className="text-sm text-muted-foreground">
+              {t('commissionVatHelp')}
+            </p>
+          </div>
 
           <Label>{t('statusLabel')}</Label>
           <div className="flex items-center gap-2">

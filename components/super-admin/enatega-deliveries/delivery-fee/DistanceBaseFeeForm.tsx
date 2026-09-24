@@ -14,29 +14,26 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AppButton } from '@/components/shared/AppButton';
 import CardShimmer from '@/components/shared/CardShimmer';
 import DisplayError from '@/components/shared/DisplayError';
-import { AppCheckBox } from '@/components/shared/form/AppCheckBox';
 import { AppInputField as AppInput } from '@/components/shared/form/AppInput';
 import { Switch } from '@/components/ui/switch';
 
-interface FixedDeliveryFeeFormProps {
+interface DistanceBaseFeeFormProps {
   feeData: DeliveryFeeSettings | undefined;
   isLoading: boolean;
   error: ApiErrorResponse | null;
-  isFixedFeeActive: boolean;
 }
 export const DistanceBaseFeeForm = ({
   feeData,
   isLoading,
   error,
-  isFixedFeeActive,
-}: FixedDeliveryFeeFormProps) => {
+}: DistanceBaseFeeFormProps) => {
   const t = useTranslations('lumiFood.deliveryFee.distance');
   const tButtons = useTranslations('lumiFood.deliveryFee.buttons');
   const initialValues: UpdateDistanceDeliveryFeePayload = {
     base_distance_fee: feeData ? Number(feeData.base_distance_fee) : 0,
     distance_greater_than: feeData ? Number(feeData.distance_greater_than) : 0,
     per_km_charges: feeData ? Number(feeData.per_km_charges) : 0,
-    apply_base_fee_up_per_km: feeData ? feeData.apply_base_fee_up_per_km : true,
+    apply_base_fee_up_per_km: false,
   };
   const isDistanceFeeActive = Boolean(feeData?.is_distance_delivery_fee_active);
   const [distanceFeeActive, setDistanceFeeActive] = useState(isDistanceFeeActive);
@@ -97,7 +94,7 @@ export const DistanceBaseFeeForm = ({
                   <Switch
                     checked={distanceFeeActive}
                     onCheckedChange={setDistanceFeeActive}
-                    disabled={isPending || isFixedFeeActive}
+                    disabled={isPending}
                   />
                 </div>
               </div>
@@ -106,41 +103,39 @@ export const DistanceBaseFeeForm = ({
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <AppInput
-                  disabled={isPending || isFixedFeeActive}
+                  disabled={isPending}
                   label={t('baseFeeLabel')}
                   name="base_distance_fee"
                   type="number"
                 />
 
                 <AppInput
-                  disabled={isPending || isFixedFeeActive}
                   label={t('distanceGreaterThanLabel')}
                   name="distance_greater_than"
                   type="number"
+                  step="0.5"
+                  helperText={t('distanceStepHint')}
+                  disabled={isPending}
                 />
 
                 <AppInput
-                  disabled={isPending || isFixedFeeActive}
+                  disabled={isPending}
                   label={t('perKmChargesLabel')}
                   name="per_km_charges"
                   type="number"
                 />
               </div>
 
-              <div className="mt-4">
-                <AppCheckBox
-                  name="apply_base_fee_up_per_km"
-                  label={t('applyBaseFeeLabel')}
-                  disabled={isPending || isFixedFeeActive}
-                />
-              </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                {t('calculationHint')}
+              </p>
 
               <div className="flex justify-end mt-4">
                 <AppButton
                   type="submit"
                   className="px-14 bg-primary text-white"
                   isLoading={isLoading || isPending || isSubmitting}
-                  disabled={isLoading || isPending || isSubmitting || isFixedFeeActive}
+                  disabled={isLoading || isPending || isSubmitting}
                 >
                   {hasExistingDistanceFee
                     ? tButtons('update')

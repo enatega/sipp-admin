@@ -100,6 +100,11 @@ export interface OrderLog {
 }
 
 export interface OrderSummary {
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
+    sippAbsorbedVat?: number;
     // backend sometimes uses `id` instead of `orderId`
     id?: string | number;
     orderId?: string;
@@ -108,6 +113,9 @@ export interface OrderSummary {
     storeName?: string;
     orderAmount?: number;
     riderEarnings?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     orderType?: string;
     paymentMethod?: string;
     storeCommission?: number;
@@ -116,6 +124,11 @@ export interface OrderSummary {
 }
 
 export interface PaymentInfo {
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
+    sippAbsorbedVat?: number;
     paymentMethod?: string;
     paymentStatus?: string;
     subtotal?: number;
@@ -123,6 +136,9 @@ export interface PaymentInfo {
     discounts?: number;
     deliveryFee?: number;
     riderTip?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     adminCommission?: number;
     totalAmount?: number;
     storeEarnings?: number;
@@ -208,6 +224,9 @@ export interface OrderDetail {
     deliveryFee?: number;
     riderTip?: number;
     riderEarnings?: number;
+    riderDeliveryEarning?: number;
+    riderPlatformCommission?: number;
+    riderCommissionPercentage?: number;
     adminCommission?: number;
     storeEarnings?: number;
     dateTime?: string;

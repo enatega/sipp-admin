@@ -4,23 +4,28 @@ import { useGetDeliveryFees } from '@/hooks/api/super-admin/enatega-deliveries/d
 import { DistanceBaseFeeForm } from './DistanceBaseFeeForm';
 import { FixedDeliveryFeeForm } from './FixedDeliveryFeeForm';
 import { OrderValueBaseFeeForm } from './OrderValueBaseFeeForm';
+import { DeliveryFeeCalculatorSheet } from './DeliveryFeeCalculatorSheet';
 
 export const DeliveryFeeSettings = () => {
   const { data, error, isLoading } = useGetDeliveryFees();
 
   return (
     <div className="space-y-8 my-2">
+      <div className="flex justify-end">
+        <DeliveryFeeCalculatorSheet
+          feeData={data}
+          disabled={isLoading || Boolean(error) || !data}
+        />
+      </div>
       <FixedDeliveryFeeForm
         feeData={data}
         isLoading={isLoading}
         error={error}
-        isDistanceFeeActive={Boolean(data?.is_distance_delivery_fee_active)}
       />
       <DistanceBaseFeeForm
         feeData={data}
         isLoading={isLoading}
         error={error}
-        isFixedFeeActive={Boolean(data?.is_fixed_delivery_fee_active)}
       />
       <OrderValueBaseFeeForm
         feeData={data}

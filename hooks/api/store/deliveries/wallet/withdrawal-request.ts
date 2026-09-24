@@ -1,6 +1,6 @@
 import Axios from "@/config/axios";
 import { useQueryParams } from "@/hooks/use-query-params";
-import { ApiErrorResponse, CreateStoreWithdrawalRequestPayload, CreateStoreWithdrawalRequestResponse, GetStoreBankDetailsResponse, GetStoreWithdrawRequestsQueryParams, GetStoreWithdrawRequestsResponse } from "@/types";
+import { ApiErrorResponse, CreateStoreWithdrawalRequestPayload, CreateStoreWithdrawalRequestResponse, GetStoreBankDetailsResponse, GetStoreWalletSummaryResponse, GetStoreWithdrawRequestsQueryParams, GetStoreWithdrawRequestsResponse } from "@/types";
 import { useMutation, UseMutationOptions, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 
 export const useGetStoreWithdrawRequests = (storeId: string, options?: Omit<UseQueryOptions<GetStoreWithdrawRequestsResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>) => {
@@ -53,6 +53,19 @@ export const useGetStoreBankDetails = (storeId: string, options?: Omit<UseQueryO
     });
 };
 
+export const useGetStoreWalletSummary = (storeId: string, options?: Omit<UseQueryOptions<GetStoreWalletSummaryResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>) => {
+    return useQuery<GetStoreWalletSummaryResponse, ApiErrorResponse>({
+        queryKey: ["get-store-wallet-summary", storeId],
+        queryFn: async () => {
+            const res = await Axios.get<GetStoreWalletSummaryResponse>(`/apps/store/withdraws/${storeId}/wallet-balance`);
+            return res.data;
+        },
+        enabled: Boolean(storeId),
+        retry: false,
+        ...options,
+    });
+};
+
 export const useCreateStoreWithdrawalRequest = (storeId: string, options?: UseMutationOptions<CreateStoreWithdrawalRequestResponse, ApiErrorResponse, CreateStoreWithdrawalRequestPayload>) => {
 
     const queryClient = useQueryClient();
@@ -72,6 +85,10 @@ export const useCreateStoreWithdrawalRequest = (storeId: string, options?: UseMu
             queryClient.invalidateQueries({
                 queryKey: ['get-store-withdraw-requests'],
                 exact: false,
+                refetchType: 'all',
+            });
+            queryClient.invalidateQueries({
+                queryKey: ['get-store-wallet-summary', storeId],
                 refetchType: 'all',
             });
             options?.onSuccess?.(...args);

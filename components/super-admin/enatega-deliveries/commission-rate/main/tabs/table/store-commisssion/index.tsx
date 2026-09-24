@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ApiErrorResponse } from '@/types';
 import { MoreVertical, PenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { formatCommissionRate } from '@/lib/commission-rate';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetStoreCommissionRates } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
 import { useQueryParams } from '@/hooks/use-query-params';
@@ -70,7 +71,11 @@ export const StoreCommissionTable = ({
     storeName: item.store_name,
     vendor: item.vendor_name,
     zone: item.zone_name,
-    defaultCommission: item.default_commission,
+    defaultCommission: formatCommissionRate(item.default_commission),
+    commissionVatRate: `${Number(
+      item.commission_vat_rate ??
+        (item.commission_vat_treatment === 'covered_by_sipp' ? 0 : 13),
+    ).toFixed(2)}%`,
     status: item.status === 'active' ? 'Active' : 'Inactive',
   }));
 
@@ -91,7 +96,7 @@ export const StoreCommissionTable = ({
   return (
     <div className="space-y-4 w-full">
       <div className="rounded-md border overflow-auto mb-4">
-        <Table className="min-w-[1000px] w-full">
+        <Table className="min-w-[1120px] w-full">
           <TableHeader className="bg-accent rounded-t-md">
             <TableRow>
               <TableHeaderCell
@@ -119,16 +124,22 @@ export const StoreCommissionTable = ({
                 requestSort={requestSort}
                 sortConfig={sortConfig}
               />
+              <TableHeaderCell
+                label={tTable('commissionVat')}
+                sortKey="commissionVatRate"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
               <TableHead>{tTable('status')}</TableHead>
               <TableHead>{tTable('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {showTableLoading ? (
-              <TableShimmer limit={limit as TLimitType} columns={6} />
+              <TableShimmer limit={limit as TLimitType} columns={7} />
             ) : isError ? (
               <TableRow>
-                <TableCell colSpan={6} className="p-4">
+                <TableCell colSpan={7} className="p-4">
                   <DisplayError
                     title={tTable('loadFailedTitle')}
                     message={returnErrorMessage(error as ApiErrorResponse)}
@@ -137,7 +148,7 @@ export const StoreCommissionTable = ({
               </TableRow>
             ) : paginatedData.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center">
+                <TableCell colSpan={7} className="text-center">
                   <NoDataFound title={tTable('noDataTitle')} />
                 </TableCell>
               </TableRow>
@@ -150,6 +161,9 @@ export const StoreCommissionTable = ({
                   <TableCell>{row?.vendor}</TableCell>
                   <TableCell>{row?.zone}</TableCell>
                   <TableCell>{row?.defaultCommission}</TableCell>
+                  <TableCell className="tabular-nums">
+                    {row.commissionVatRate}
+                  </TableCell>
                   <TableCell>
                     <Status status={row?.status} />
                   </TableCell>

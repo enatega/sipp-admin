@@ -150,8 +150,15 @@ export const RiderFormStep3Schema = () =>
 
     });
 
-export const RiderFormStep4Schema = () =>
+export const RiderFormStep4Schema = (
+    t: ReturnType<typeof useTranslations>,
+) =>
     Yup.object().shape({
+        platform_commission_percentage: Yup.number()
+            .typeError(t('platformCommissionNumberError'))
+            .min(0, t('platformCommissionMinError'))
+            .max(100, t('platformCommissionMaxError'))
+            .required(t('platformCommissionRequiredError')),
         cod_limit_enabled: Yup.boolean().required(),
         cod_limit_amount: Yup.number()
             .nullable()
@@ -266,6 +273,11 @@ export const EditRiderFormSchema = (
             otherwise: (schema) => schema.notRequired(),
         }),
         cod_allow_online_payments_when_blocked: Yup.boolean().required(),
+        platform_commission_percentage: Yup.number()
+            .typeError(t('platformCommissionNumberError'))
+            .min(0, t('platformCommissionMinError'))
+            .max(100, t('platformCommissionMaxError'))
+            .required(t('platformCommissionRequiredError')),
 
         profile_picture: Yup.mixed<File>()
             .nullable()
@@ -409,5 +421,6 @@ export interface EditRiderFormValues {
     cod_warning_threshold: string;
     cod_auto_settlement_cycle: string;
     cod_allow_online_payments_when_blocked: boolean;
+    platform_commission_percentage: number | string;
 
 }

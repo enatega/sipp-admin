@@ -37,6 +37,7 @@ export interface RiderStep3Data {
 }
 
 export interface RiderStep4Data {
+  platform_commission_percentage: number | string;
   cod_limit_enabled: boolean;
   cod_limit_amount: number | string | null;
   cod_warning_threshold: string;

@@ -7,6 +7,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'KFC',
     zone: 'Islamabad',
     defaultCommission: '15%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -15,6 +16,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'KFC',
     zone: 'Islamabad',
     defaultCommission: '13%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -23,6 +25,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'KFC',
     zone: 'Lahore',
     defaultCommission: '15%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -31,6 +34,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Grocery',
     zone: 'Karachi',
     defaultCommission: '12%',
+    commissionVatRate: '0.00%',
     status: 'Inactive',
   },
   {
@@ -39,6 +43,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Pizza Max',
     zone: 'Islamabad',
     defaultCommission: '15%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -47,6 +52,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Pizza Max',
     zone: 'Lahore',
     defaultCommission: '15%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -55,6 +61,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Burger King',
     zone: 'Islamabad',
     defaultCommission: '15%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -63,6 +70,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Subway',
     zone: 'Islamabad',
     defaultCommission: '10%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -71,6 +79,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Subway',
     zone: 'Karachi',
     defaultCommission: '10%',
+    commissionVatRate: '0.00%',
     status: 'Inactive',
   },
   {
@@ -79,6 +88,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Cheezious',
     zone: 'Islamabad',
     defaultCommission: '20%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -87,6 +97,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: 'Cheezious',
     zone: 'Islamabad',
     defaultCommission: '20%',
+    commissionVatRate: '13.00%',
     status: 'Active',
   },
   {
@@ -95,6 +106,7 @@ export const storeCommissionData: StoreCommissionData[] = [
     vendor: "Gloria Jean's",
     zone: 'Islamabad',
     defaultCommission: '15%',
+    commissionVatRate: '0.00%',
     status: 'Inactive',
   },
 ];

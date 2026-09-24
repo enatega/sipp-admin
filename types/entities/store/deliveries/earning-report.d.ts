@@ -68,6 +68,10 @@ export interface StoreEarningViewItem {
     orderAmount: number;
     storeName: string;
     commissionValue: number;
+    commissionSnapshotAvailable?: boolean;
+    commissionNet?: number;
+    vatOnCommission?: number;
+    totalCommissionDebit?: number;
     deliveryFee: number;
     paymentMethod: string;
     dateTime: string;

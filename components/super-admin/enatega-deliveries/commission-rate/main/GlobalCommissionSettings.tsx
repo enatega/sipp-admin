@@ -11,6 +11,10 @@ import { Form, Formik } from 'formik';
 import { Edit } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import {
+  commissionPercentageToRate,
+  commissionRateToPercentage,
+} from '@/lib/commission-rate';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import { useUpdateCommissionRate } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
@@ -66,7 +70,7 @@ export function GlobalCommissionSettings({
 
   const initialValues = {
     currency: data?.currency ?? '',
-    commissionRate: Number(data?.commission_rate ?? 0),
+    commissionRate: commissionRateToPercentage(data?.commission_rate),
   };
 
   const handleSubmit = async (values: {
@@ -80,7 +84,9 @@ export function GlobalCommissionSettings({
 
     try {
       const payload: UpdateCommissionRatePayload = {
-        commission_percentage: Number(values.commissionRate),
+        commission_percentage: commissionPercentageToRate(
+          values.commissionRate,
+        ),
       };
 
       await updateCommissionRate({
@@ -141,6 +147,10 @@ export function GlobalCommissionSettings({
                   name="commissionRate"
                   placeholder={t('commissionPlaceholder')}
                   type="number"
+                  min={0}
+                  max={100}
+                  step={1}
+                  postfix="%"
                   disabled={!isEditing}
                 />
               </div>

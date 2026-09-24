@@ -4,10 +4,10 @@ import { useParams } from 'next/navigation';
 import { useField, useFormikContext } from 'formik';
 import { useTranslations } from 'next-intl';
 import { TaxRate } from '@/types/tax';
+import { inclusiveTaxBreakdown } from '@/lib/tax-inclusive';
 import { useTaxRates } from '@/hooks/api/deliveries/tax-rates';
 import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 import { Button } from '@/components/ui/button';
-import { inclusiveTaxBreakdown } from '@/lib/tax-inclusive';
 
 export default function ProductTaxField({
   currentRate,
@@ -27,11 +27,12 @@ export default function ProductTaxField({
   const rates = query.data || [];
   const selected = productLevel
     ? rates.find((rate) => rate.id === values.taxRateId) ||
-      (values.taxRateId ? currentRate : rates.find((rate) => rate.isDefault))
+      (values.taxRateId ? currentRate : configuration?.productDefaultTaxRate)
     : configuration?.taxRate;
   const gross = Number(values.price);
   const percentage = selected ? Number(selected.rate) : null;
-  const breakdown = percentage === null ? null : inclusiveTaxBreakdown(gross, percentage);
+  const breakdown =
+    percentage === null ? null : inclusiveTaxBreakdown(gross, percentage);
   const net = breakdown?.net ?? null;
   const [, taxMeta, taxHelpers] = useField({
     name: 'taxRateId',

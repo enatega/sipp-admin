@@ -23,6 +23,7 @@ const EMPTY_CARDS: StoreDashboardCards = {
   totalOrders: { value: 0, change: 0 },
   storeRating: { value: 0, change: 0 },
   cancelledOrders: { value: 0, change: 0 },
+  walletBalance: { value: 0, change: 0 },
 };
 
 const EMPTY_CUSTOMER_GROWTH: StoreCustomerGrowth = {

@@ -10,6 +10,7 @@ export interface StatCardItem {
   change: number;
   isPositive: boolean;
   icon: React.ElementType;
+  showChange?: boolean;
 }
 
 export function StatCard({
@@ -18,6 +19,7 @@ export function StatCard({
   change,
   isPositive,
   icon: Icon,
+  showChange = true,
 }: StatCardItem) {
   const t = useTranslations('statCard');
   return (
@@ -42,21 +44,23 @@ export function StatCard({
           </p>
         </div>
         
-        <div className="flex items-center gap-1 text-xs sm:text-sm flex-wrap">
-          {isPositive ? (
-            <TrendingUp className="size-3 sm:size-4 text-help-green flex-shrink-0" />
-          ) : (
-            <TrendingDown className="size-3 sm:size-4 text-destructive flex-shrink-0" />
-          )}
-          <span
-            className={`flex-shrink-0 ${isPositive ? 'text-help-green' : 'text-destructive'}`}
-          >
-            {change}%
-          </span>
-          <span className="text-muted-foreground text-[10px] sm:text-xs whitespace-nowrap">
-            {isPositive ? t('upFromYesterday') : t('downFromYesterday')}
-          </span>
-        </div>
+        {showChange && (
+          <div className="flex items-center gap-1 text-xs sm:text-sm flex-wrap">
+            {isPositive ? (
+              <TrendingUp className="size-3 sm:size-4 text-help-green flex-shrink-0" />
+            ) : (
+              <TrendingDown className="size-3 sm:size-4 text-destructive flex-shrink-0" />
+            )}
+            <span
+              className={`flex-shrink-0 ${isPositive ? 'text-help-green' : 'text-destructive'}`}
+            >
+              {change}%
+            </span>
+            <span className="text-muted-foreground text-[10px] sm:text-xs whitespace-nowrap">
+              {isPositive ? t('upFromYesterday') : t('downFromYesterday')}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

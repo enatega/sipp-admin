@@ -65,6 +65,7 @@ export interface DeliveryRider extends Record<string, unknown> {
   cod_warning_threshold?: number;
   cod_auto_settlement_cycle?: string;
   cod_allow_online_payments_when_blocked?: boolean;
+  deliveryEarningPercentage?: number;
   cod_limit_settings?: {
     enabled?: boolean;
     amount?: number;

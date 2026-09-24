@@ -11,8 +11,14 @@ import {
 import { AppButton } from '@/components/shared/AppButton';
 import { Heading } from '@/components/shared/Heading';
 import { CreateWithdrawalRequest } from '@/components/vendor/deliveries/withdrawal-request/create-withdrawal-request';
+import { GetStoreWalletSummaryResponse } from '@/types';
 
-export function Header() {
+interface HeaderProps {
+  walletSummary?: GetStoreWalletSummaryResponse;
+  isWalletLoading: boolean;
+}
+
+export function Header({ walletSummary, isWalletLoading }: HeaderProps) {
   const t = useTranslations('withdrawalRequests');
   const tVendor = useTranslations('vendorWithdrawalRequest');
   const tTable = useTranslations('withdrawalRequests.table');
@@ -54,6 +60,11 @@ export function Header() {
         variant="primary"
         leftIcon={<PlusIcon />}
         onClick={() => setIsCreateOpen(true)}
+        disabled={
+          isWalletLoading ||
+          !walletSummary ||
+          walletSummary.available_to_withdraw <= 0
+        }
       >
         {tVendor('createButton')}
       </AppButton>
@@ -62,7 +73,7 @@ export function Header() {
         open={isCreateOpen}
         onOpenChange={setIsCreateOpen}
         showStoreSelection={false}
-        maxWithdrawalAmount={800}
+        maxWithdrawalAmount={walletSummary?.available_to_withdraw ?? 0}
         storeLabel={tTable('storeName')}
         storeUserId={storeIdStr}
         externalBankDetails={mappedBankDetail}

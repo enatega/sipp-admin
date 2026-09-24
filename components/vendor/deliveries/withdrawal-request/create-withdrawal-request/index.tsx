@@ -207,6 +207,18 @@ export const CreateWithdrawalRequest = ({
                 />
               )}
 
+              <div className="rounded-lg border bg-muted/40 p-3">
+                <p className="text-sm text-muted-foreground">
+                  {t('availableBalanceLabel')}
+                </p>
+                <p className="mt-1 text-xl font-semibold">
+                  {currencySymbol} {maxAmount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </p>
+              </div>
+
               {/* Withdrawal Amount */}
               <div>
                 <AppInputField
@@ -298,7 +310,8 @@ export const CreateWithdrawalRequest = ({
                     isSubmitting ||
                     isCreating ||
                     (isStoreSelected &&
-                      (isBankDetailsLoading || !isBankDetailsReady))
+                      (isBankDetailsLoading || !isBankDetailsReady)) ||
+                    maxAmount <= 0
                   }
                 >
                   {t('submitButton')}

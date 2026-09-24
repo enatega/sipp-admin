@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ApiErrorResponse } from '@/types';
 import { MoreVertical, PenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { formatCommissionRate } from '@/lib/commission-rate';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetZoneCommissionRates } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
 import { useQueryParams } from '@/hooks/use-query-params';
@@ -68,7 +69,7 @@ export const ZoneCommissionTable = ({
   ).map((item) => ({
     id: item.zone_id,
     zone: item.zone_name,
-    defaultCommission: item.commission_rate,
+    defaultCommission: formatCommissionRate(item.commission_rate),
     shopTypeCommission: '',
     minimumPayout: '',
     status: item.status === 'active' ? 'Active' : 'Inactive',

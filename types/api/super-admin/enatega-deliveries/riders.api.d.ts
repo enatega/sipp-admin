@@ -117,6 +117,7 @@ export interface UpdateDeliveryRiderPayload {
   cod_warning_threshold?: number;
   cod_auto_settlement_cycle?: string;
   cod_allow_online_payments_when_blocked?: boolean;
+  platformCommissionPercentage?: number;
   driver_license_front?: File | string;
   driver_license_back?: File | string;
   national_id_passport_front?: File | string;
@@ -189,6 +190,7 @@ export interface CreateDeliveryRiderPayload {
   cod_warning_threshold?: number;
   cod_auto_settlement_cycle?: string;
   cod_allow_online_payments_when_blocked?: boolean;
+  platformCommissionPercentage?: number;
 }
 
 /**

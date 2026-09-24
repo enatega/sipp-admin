@@ -200,6 +200,12 @@ export const useGetOrderDetail = (
                 deliveryFee: payment?.deliveryFee ?? 0,
                 riderTip: payment?.riderTip ?? 0,
                 riderEarnings: summary.riderEarnings ?? 0,
+                riderDeliveryEarning:
+                    payment?.riderDeliveryEarning ?? summary.riderDeliveryEarning ?? 0,
+                riderPlatformCommission:
+                    payment?.riderPlatformCommission ?? summary.riderPlatformCommission ?? 0,
+                riderCommissionPercentage:
+                    payment?.riderCommissionPercentage ?? summary.riderCommissionPercentage ?? 0,
                 adminCommission: summary.adminCommission ?? payment?.adminCommission ?? 0,
                 storeEarnings: payment?.storeEarnings ?? 0,
                 riderAssigned: !!rider?.name,

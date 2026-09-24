@@ -1,5 +1,6 @@
 export interface IGetStoreLocationResponse {
   store_id: string;
+  zone_id: string | null;
 
   lat?: number | string | null;
   lng?: number | string | null;

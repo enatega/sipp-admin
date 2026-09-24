@@ -1,6 +1,6 @@
 import Axios from "@/config/axios";
 import { useQueryParams } from "@/hooks/use-query-params";
-import { ApiErrorResponse, DeleteZoneResponse, GetZonesQueryParams, GetZonesResponse, GetZonesSimpleResponse, PostZonePayload, PostZoneResponse, PutZonePayload, Zone, ZoneType } from "@/types";
+import { ApiErrorResponse, DeleteZoneResponse, GetZonesQueryParams, GetZonesResponse, GetZonesSimpleResponse, PostZonePayload, PostZoneResponse, PutZonePayload, Zone, ZoneBoundsResponse, ZoneType } from "@/types";
 import { useMutation, UseMutationOptions, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 
 export const usePostZone = (
@@ -113,6 +113,22 @@ export function useGetZonesSimple(
         gcTime: 1000 * 60 * 60 * 24,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        retry: false,
+        ...options,
+    });
+}
+
+export function useGetZoneBounds(
+    id: string,
+    options?: Omit<UseQueryOptions<ZoneBoundsResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>,
+) {
+    return useQuery<ZoneBoundsResponse, ApiErrorResponse>({
+        queryKey: ['zone-bounds', id],
+        queryFn: async () => {
+            const { data } = await Axios.get<ZoneBoundsResponse>(`/zones/${id}/bounds`);
+            return data;
+        },
+        enabled: !!id,
         retry: false,
         ...options,
     });

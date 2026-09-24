@@ -120,6 +120,7 @@ interface InteractiveMapProps {
   exactStoreLocationDescription?: string;
   exactStoreLocationLatitudeLabel?: string;
   exactStoreLocationLongitudeLabel?: string;
+  betweenMapAndExactLocation?: React.ReactNode;
 }
 
 type GoogleMapOverlay =
@@ -235,6 +236,7 @@ export default function InteractiveMap({
   exactStoreLocationDescription,
   exactStoreLocationLatitudeLabel,
   exactStoreLocationLongitudeLabel,
+  betweenMapAndExactLocation,
 }: InteractiveMapProps) {
   const t = useTranslations('zones.map');
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -541,11 +543,7 @@ export default function InteractiveMap({
         onChangeRef.current(null);
       }
     },
-    [
-      clearDraftPolyline,
-      clearOverlayListeners,
-      clearPolylineFill,
-    ],
+    [clearDraftPolyline, clearOverlayListeners, clearPolylineFill],
   );
 
   const completeOverlay = useCallback(
@@ -596,7 +594,9 @@ export default function InteractiveMap({
           .getArray()
           .map((point: google.maps.LatLng) => point.toJSON());
         const bounds = new google.maps.LatLngBounds();
-        polyline.getPath().forEach((latLng: google.maps.LatLng) => bounds.extend(latLng));
+        polyline
+          .getPath()
+          .forEach((latLng: google.maps.LatLng) => bounds.extend(latLng));
         centroid = bounds.getCenter();
         zoneData = { type: 'polyline', path };
         syncPolylineFill(path, mapInstance);
@@ -1647,6 +1647,7 @@ export default function InteractiveMap({
         }}
         mapContainerClassName="rounded-md"
       />
+      {betweenMapAndExactLocation}
       {onExactStoreLocationChange && (
         <div className="space-y-3">
           <div>

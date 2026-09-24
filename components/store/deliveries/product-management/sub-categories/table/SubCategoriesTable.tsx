@@ -98,7 +98,6 @@ export default function SubCategoriesTable() {
   };
 
   const subCategoryDownloadColumns = [
-    { header: t('table.image'), dataKey: 'imageURL' },
     { header: t('download.name'), dataKey: 'categoryName' },
     {
       header: t('download.category'),

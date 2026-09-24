@@ -82,6 +82,13 @@ const mapApiRole = (role: ApiRole): Role => ({
   createdAt: '',
 });
 
+// e.g. "delivery_approve_withdraw_requests" -> "approve withdraw requests"
+const formatPermissionName = (name: string) =>
+  name
+    .replace(/^deliver(y|ies)_/i, '')
+    .replace(/_/g, ' ')
+    .trim();
+
 export default function RolesTable() {
   const router = useRouter();
   const t = useTranslations('roleAndPermissions.dialogs');
@@ -192,7 +199,8 @@ export default function RolesTable() {
     {
       header: tDownload('rolePermissions'),
       dataKey: 'rolePermissions',
-      formatter: (item: Role) => item.rolePermissions.join(', '),
+      formatter: (item: Role) =>
+        item.rolePermissions.map(formatPermissionName).join(', '),
     },
     {
       header: tDownload('status'),

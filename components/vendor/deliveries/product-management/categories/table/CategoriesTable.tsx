@@ -91,7 +91,6 @@ export default function CategoriesTable() {
   };
 
   const categoryDownloadColumns = [
-    { header: t('table.image'), dataKey: 'imageURL' },
     { header: t('download.name'), dataKey: 'categoryName' },
     {
       header: t('download.status'),

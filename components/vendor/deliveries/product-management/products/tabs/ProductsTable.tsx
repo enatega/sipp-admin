@@ -5,15 +5,18 @@ import { useParams, useRouter } from 'next/navigation';
 import {
   useDeleteProduct,
   useGetProducts,
+  resolveStockFilter,
   useToggleProductInStock,
 } from '@/hooks/api/vendor/deliveries/product-management/products';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import { useCurrency } from '@/hooks/use-currency';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { formatCurrency } from '@/lib/formatCurrency';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { getVendorPath } from '@/lib/vendor';
 import type { ApiErrorResponse } from '@/types';
+import type { GetProductsResponse } from '@/types/api/store/deliveries/products.api';
 import type { Product } from '@/types/entities/store/deliveries/product';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
@@ -29,6 +32,7 @@ import {
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
+import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, type TLimitType } from '@/components/shared/TableShimmer';
@@ -100,10 +104,58 @@ export function ProductsTable() {
   const getInitial = (value?: string | null) =>
     value?.trim().charAt(0).toUpperCase() || '?';
 
+  const productDownloadColumns = [
+    { header: t('download.name'), dataKey: 'name' },
+    {
+      header: t('download.category'),
+      dataKey: 'category',
+      formatter: (item: Product) =>
+        item.category?.categoryName ||
+        item.category?.name ||
+        t('table.notAvailable'),
+    },
+    {
+      header: `${t('download.price')} (${resolvedCurrencySymbol})`,
+      dataKey: 'price',
+      formatter: (item: Product) => formatPrice(item.price),
+    },
+    { header: t('download.unitOfMeasure'), dataKey: 'unitOfMeasure' },
+    {
+      header: t('download.stockQuantity'),
+      dataKey: 'stockQuantity',
+      formatter: (item: Product) => String(item.stockQuantity ?? 0),
+    },
+    {
+      header: t('download.stockAvailability'),
+      dataKey: 'inStock',
+      formatter: (item: Product) =>
+        item.inStock ? t('table.inStock') : t('table.outOfStock'),
+    },
+  ];
+
   return (
     <div className="space-y-4">
-      <div className="mb-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
         <Filters />
+        <DownloadButtons<Product>
+          fileName="products_report"
+          data={items}
+          columns={productDownloadColumns}
+          fetchAll={() =>
+            fetchAllReport<Product>('/apps/deliveries/chain-menus/vendor/chain-products', {
+              params: {
+                vendorId: storeId,
+                stock: resolveStockFilter(getParam('tab') || undefined),
+                tab: undefined,
+              },
+              select: (response) => {
+                const result = response as GetProductsResponse;
+                return { data: result.data, total: result.meta.total };
+              },
+            })
+          }
+          className="mb-0"
+        />
       </div>
 
       <div className="rounded-md border overflow-auto mt-4">

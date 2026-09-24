@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import type { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import type { GetProductsResponse } from '@/types/api/store/deliveries/products.api';
 import type { Product } from '@/types/entities/store/deliveries/product';
 import {
   buildDealSummaryIndex,
@@ -13,6 +14,7 @@ import {
   getProductAppliedDealRef,
   resolveAppliedDealSummary,
 } from '@/lib/deal-pricing';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { formatCurrency } from '@/lib/formatCurrency';
 import { getProductCoverImage } from '@/lib/product-images';
 import { getStorePath } from '@/lib/store';
@@ -21,6 +23,7 @@ import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-manageme
 import {
   useDeleteProduct,
   useGetProducts,
+  resolveStockFilter,
   useToggleProductInStock,
 } from '@/hooks/api/store/deliveries/product-management/products';
 import { useCurrency } from '@/hooks/use-currency';
@@ -38,6 +41,7 @@ import {
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
+import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import {
@@ -128,10 +132,76 @@ export function ProductsTable() {
 
   const dealSummaryIndex = buildDealSummaryIndex(activeDeals?.data);
 
+  const productDownloadColumns = [
+    { header: t('download.name'), dataKey: 'name' },
+    {
+      header: t('download.category'),
+      dataKey: 'category',
+      formatter: (item: Product) =>
+        item.category?.categoryName ||
+        item.category?.name ||
+        t('table.notAvailable'),
+    },
+    {
+      header: `${t('download.price')} (${resolvedCurrencySymbol})`,
+      dataKey: 'price',
+      formatter: (item: Product) => formatPrice(item.price),
+    },
+    {
+      header: `${t('table.priceAfterDeal')} (${resolvedCurrencySymbol})`,
+      dataKey: 'priceAfterDeal',
+      formatter: (item: Product) => {
+        const dealSummary = resolveAppliedDealSummary(
+          getProductAppliedDealRef(
+            extractAppliedDealsFromProduct(item as Record<string, unknown>),
+          ),
+          dealSummaryIndex,
+        );
+        const discountedPrice = dealSummary
+          ? calculatePriceAfterDeal(Number(item.price), dealSummary)
+          : null;
+        return discountedPrice === null
+          ? t('table.notAvailable')
+          : formatCurrency(discountedPrice, resolvedCurrencySymbol);
+      },
+    },
+    { header: t('download.unitOfMeasure'), dataKey: 'unitOfMeasure' },
+    {
+      header: t('download.stockQuantity'),
+      dataKey: 'stockQuantity',
+      formatter: (item: Product) => formatStockQuantity(item.stockQuantity),
+    },
+    {
+      header: t('download.stockAvailability'),
+      dataKey: 'inStock',
+      formatter: (item: Product) =>
+        item.inStock ? t('table.inStock') : t('table.outOfStock'),
+    },
+  ];
+
   return (
     <div className="space-y-4">
-      <div className="mb-4">
+      <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
         <Filters />
+        <DownloadButtons<Product>
+          fileName="products_report"
+          data={items}
+          columns={productDownloadColumns}
+          fetchAll={() =>
+            fetchAllReport<Product>('/apps/deliveries/products', {
+              params: {
+                store_id: storeId,
+                stock: resolveStockFilter(getParam('tab') || undefined),
+                tab: undefined,
+              },
+              select: (response) => {
+                const result = response as GetProductsResponse;
+                return { data: result.data, total: result.meta.total };
+              },
+            })
+          }
+          className="mb-0"
+        />
       </div>
 
       <div className="rounded-md border overflow-auto mt-4">

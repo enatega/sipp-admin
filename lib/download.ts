@@ -22,6 +22,40 @@ const resolveNestedKey = (
     );
 };
 
+// Image/URL columns are meaningless in exported reports, so they are dropped
+// for every module regardless of what the caller passes.
+const IMAGE_KEY_PATTERN = /(image|logo|thumbnail|avatar|banner|photo)/i;
+
+const withoutImageColumns = (columns: Column[]): Column[] =>
+  columns.filter(
+    (column) => !IMAGE_KEY_PATTERN.test(column.dataKey.split('.').pop() ?? ''),
+  );
+
+const PDF_MAX_CELL_LINES = 5;
+const PDF_FONT_SIZE = 9;
+const PDF_CELL_PADDING = 2.5;
+
+// Wraps text to the cell width and caps it at PDF_MAX_CELL_LINES, ending the
+// last visible line with an ellipsis when content is cut off.
+const clampCellText = (
+  doc: jsPDF,
+  text: string,
+  maxWidth: number,
+): string[] => {
+  const options = { fontSize: PDF_FONT_SIZE };
+  const lines = doc.splitTextToSize(text, maxWidth, options) as string[];
+  if (lines.length <= PDF_MAX_CELL_LINES) return lines;
+  const visible = lines.slice(0, PDF_MAX_CELL_LINES);
+  let last = visible[PDF_MAX_CELL_LINES - 1].trimEnd();
+  const fits = (value: string) =>
+    doc.getStringUnitWidth(`${value}...`) * PDF_FONT_SIZE /
+      doc.internal.scaleFactor <=
+    maxWidth;
+  while (last.length && !fits(last)) last = last.slice(0, -1).trimEnd();
+  visible[PDF_MAX_CELL_LINES - 1] = `${last}...`;
+  return visible;
+};
+
 const normalizeCurrencySymbol = (value: string): string =>
   value.replace(/(^|\s)(?:CRC|¡)(?=\s|\d)/g, '$1₡');
 
@@ -78,6 +112,7 @@ export const downloadPdf = <T extends Record<string, unknown>>(
   columns: Column[],
   data: T[],
 ) => {
+  columns = withoutImageColumns(columns);
   // Give each column room to remain legible even in wide reports.
   const pageWidth = Math.max(297, columns.length * 36 + 20);
   const doc = new jsPDF({
@@ -85,6 +120,9 @@ export const downloadPdf = <T extends Record<string, unknown>>(
     unit: 'mm',
     format: [pageWidth, 210],
   });
+  const columnWidth = (pageWidth - 20) / columns.length;
+  // Small tolerance so autoTable never re-wraps a pre-clamped line.
+  const textWidth = columnWidth - PDF_CELL_PADDING * 2 - 0.5;
   const tableColumn = columns.map((col) => col.header);
   const tableRows: (string | number)[][] = [];
 
@@ -106,15 +144,15 @@ export const downloadPdf = <T extends Record<string, unknown>>(
     },
     styles: {
       overflow: 'linebreak',
-      fontSize: 9,
-      cellPadding: 2.5,
+      fontSize: PDF_FONT_SIZE,
+      cellPadding: PDF_CELL_PADDING,
       valign: 'top',
       minCellHeight: 8,
     },
     columnStyles: Object.fromEntries(
       columns.map((_, index) => [
         index,
-        { cellWidth: (pageWidth - 20) / columns.length },
+        { cellWidth: columnWidth },
       ]),
     ),
     margin: { top: 10, left: 10, right: 10 },
@@ -122,9 +160,16 @@ export const downloadPdf = <T extends Record<string, unknown>>(
     rowPageBreak: 'avoid',
     didParseCell: (hookData) => {
       if (hookData.section !== 'body') return;
-      const text = hookData.cell.text.join(' ');
-      if (!text.startsWith('₡')) return;
-      hookData.cell.text = [`    ${text.slice(1).trimStart()}`];
+      const text = hookData.cell.text.join('\n');
+      if (!text.startsWith('₡')) {
+        hookData.cell.text = clampCellText(doc, text, textWidth);
+        return;
+      }
+      hookData.cell.text = clampCellText(
+        doc,
+        `    ${text.slice(1).trimStart()}`,
+        textWidth,
+      );
       (
         hookData.cell as typeof hookData.cell & { hasColonSymbol?: boolean }
       ).hasColonSymbol = true;
@@ -152,6 +197,7 @@ export const downloadExcel = <T extends Record<string, unknown>>(
   columns: Column[],
   data: T[],
 ) => {
+  columns = withoutImageColumns(columns);
   const rows = data.map((item) =>
     columns.map((column) => cellValue(item, column)),
   );

@@ -173,6 +173,12 @@ export const getStoreSidebarMenus = (
           path: withBackTo(getStorePath(storeId, '/wallet/earning-reports')),
         },
         {
+          id: 's7.3',
+          name: 'Wallet Transactions',
+          translationKey: 'storeSidebar.walletTransactions',
+          path: withBackTo(getStorePath(storeId, '/wallet/transactions')),
+        },
+        {
           id: 's7.2',
           name: 'Withdrawal Requests',
           translationKey: 'storeSidebar.withdrawalRequests',

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { ApiErrorResponse } from '@/types';
-import { Ban, Check, Edit, Eye, MoreVertical, Trash, X } from 'lucide-react';
+import { Ban, Check, Edit, Eye, MoreVertical, Trash, Wallet, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
@@ -42,6 +42,7 @@ export function RiderActionsDropdown({
   onViewProfile,
 }: RiderActionsDropdownProps) {
   const t = useTranslations('driverManagement.driversTable');
+  const tWallet = useTranslations('wallet.actions');
   const router = useRouter();
   const pathname = usePathname();
   const { mutateAsync: deleteRider, isPending: isDeleting } =
@@ -73,6 +74,16 @@ export function RiderActionsDropdown({
     );
   };
 
+  const handleWallet = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(
+      buildScopedDeliveriesAdminPathFromCurrent(
+        pathname,
+        `/enatega-deliveries/riders/${rider.id}/wallet`,
+      ),
+    );
+  };
+
   const handleAction = (e: React.MouseEvent, type: ActionDialogType) => {
     e.stopPropagation();
     setActionDialog({ type, rider });
@@ -94,7 +105,7 @@ export function RiderActionsDropdown({
         <DropdownMenuContent
           align="end"
           sideOffset={8}
-          className="w-[150px] p-0 rounded-xl overflow-hidden shadow-lg"
+          className="w-[200px] p-0 rounded-xl overflow-hidden shadow-lg"
         >
           <DropdownMenuItem
             className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
@@ -113,6 +124,14 @@ export function RiderActionsDropdown({
               <span className="text-sm">{t('editDriver')}</span>
             </DropdownMenuItem>
           )}
+
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+            onClick={handleWallet}
+          >
+            <Wallet className="size-[18px]" />
+            <span className="text-sm">{tWallet('walletTransaction')}</span>
+          </DropdownMenuItem>
 
           {rider.userProfile?.user?.block_status === false && (
             <DropdownMenuItem

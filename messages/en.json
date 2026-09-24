@@ -850,6 +850,7 @@
     "marketing": "Marketing",
     "wallet": "Wallet",
     "earningReports": "Earning Reports",
+    "walletTransactions": "Wallet Transactions",
     "withdrawalRequests": "Withdrawal Requests",
     "backToAdmin": "Back to Admin",
     "backToVendorStores": "Back to Vendor Stores"
@@ -3416,6 +3417,7 @@
         "storeName": "Store Name",
         "commissionValue": "Commission Value",
         "deliveryFee": "Delivery Fee",
+        "netIncome": "Store Income",
         "paymentMethod": "Payment Method",
         "dateTime": "Date & Time",
         "status": "Status"
@@ -10097,5 +10099,87 @@
     "withdrawalRequests": "Withdrawal Requests",
     "payrolls": "Payrolls",
     "back": "Back to Service Centers"
+  },
+  "wallet": {
+    "title": "Wallet & Payments",
+    "subtitle": "View your wallet balance and recent account activity",
+    "owners": {
+      "customer": "Customer",
+      "rider": "Rider",
+      "store": "Store"
+    },
+    "actions": {
+      "walletTransaction": "Wallet Transaction"
+    },
+    "balanceCard": {
+      "availableBalance": "Available balance",
+      "walletLabel": "Wallet",
+      "walletOf": "{owner} wallet",
+      "lastUpdated": "Last updated {date}",
+      "noWallet": "No wallet activity yet",
+      "fetchFailed": "Could not load wallet balance"
+    },
+    "transactions": {
+      "title": "Transaction history",
+      "subtitle": "Every credit and debit recorded on this wallet, newest first.",
+      "addButton": "Add transaction",
+      "columns": {
+        "description": "Transaction description",
+        "transaction": "Transaction"
+      },
+      "incoming": "Incoming",
+      "outgoing": "Outgoing",
+      "balanceAfter": "Balance: {amount}",
+      "emptyTitle": "No transactions yet",
+      "emptySubtitle": "Credits and debits on this wallet will appear here.",
+      "fetchFailed": "Could not load transactions",
+      "tryAgain": "Please try again later."
+    },
+    "entryTypes": {
+      "order_sale": "Order sale",
+      "store_commission": "SIPP commission",
+      "store_commission_vat": "VAT on SIPP commission",
+      "reversal_order_sale": "Order sale reversal",
+      "reversal_store_commission": "SIPP commission refund",
+      "reversal_store_commission_vat": "VAT on SIPP commission refund",
+      "legacy_order_earning": "Order earnings",
+      "rider_order_earning": "Delivery earning",
+      "order_refund": "Order cancellation refund",
+      "order_payment": "Order payment",
+      "admin_adjustment": "Manual adjustment"
+    },
+    "types": {
+      "deposit": "Wallet top up",
+      "credit": "Wallet credit",
+      "debit": "Wallet debit",
+      "migration_opening": "Migrated opening balance"
+    },
+    "form": {
+      "title": "Add transaction",
+      "description": "Credit or debit this wallet. The entry appears in the transaction history immediately.",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "e.g. Compensation for a delayed payout",
+      "descriptionHelper": "Shown to the account holder in their transaction history.",
+      "amountLabel": "Amount",
+      "amountPlaceholder": "e.g. 25.00 or -25.00",
+      "amountHelper": "Enter a positive amount to add funds or a negative amount to deduct funds.",
+      "creditPreview": "Adds {amount} to the wallet",
+      "debitPreview": "Deducts {amount} from the wallet",
+      "balanceAfterPreview": "New balance: {amount}",
+      "cancel": "Cancel",
+      "submit": "Add transaction",
+      "success": "Transaction added successfully"
+    },
+    "validation": {
+      "descriptionRequired": "Description is required",
+      "descriptionMin": "Description must be at least 3 characters",
+      "descriptionMax": "Description must not exceed 500 characters",
+      "amountRequired": "Amount is required",
+      "amountInvalid": "Enter a valid amount",
+      "amountNonZero": "Amount cannot be zero",
+      "amountDecimals": "Amount can have at most 2 decimal places",
+      "amountRange": "Amount must be between -1,000,000 and 1,000,000",
+      "insufficientBalance": "Deduction exceeds the available balance of {amount}"
+    }
   }
 }

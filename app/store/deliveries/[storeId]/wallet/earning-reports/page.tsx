@@ -2,9 +2,7 @@
 
 import { useMemo } from 'react';
 import { StatsCardCarousel } from '@/components/shared/carousel/StatsCardCarousel';
-import { EarningsPerZoneChart } from '@/components/shared/charts/EarningsPerZoneChart';
 import { Heading } from '@/components/shared/Heading';
-import PaymentMethodDistributionChart from '@/components/store/deliveries/wallet/earning-report/charts/payment-method-chart';
 import TotalEarningAndCommissionLineChart from '@/components/store/deliveries/wallet/earning-report/charts/total-earning-commission-chart';
 import { EarningViewTable } from '@/components/store/deliveries/wallet/earning-report/earning-view-table';
 import { EarningReportPageFilters } from '@/components/store/deliveries/wallet/earning-report/PageFilters';
@@ -46,13 +44,6 @@ const StoreEarningReports = () => {
     [],
   );
 
-  const zoneChartData = (data?.zoneWiseEarnings ?? []).map((z) => ({
-    zoneId: z.name,
-    zoneTitle: z.name,
-    orderCount: z.orders,
-    revenue: z.revenue,
-  }));
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
@@ -61,13 +52,6 @@ const StoreEarningReports = () => {
       </div>
       <StatsCardCarousel statsData={statsData} isLoading={isLoading} />
       <TotalEarningAndCommissionLineChart graph={data?.graph} isLoading={isLoading} />
-      <div className="grid lg:grid-cols-[3fr_1fr] grid-cols-1 gap-4">
-        <EarningsPerZoneChart data={zoneChartData} isLoading={isLoading} />
-        <PaymentMethodDistributionChart
-          data={data?.paymentMethod ?? []}
-          isLoading={isLoading}
-        />
-      </div>
       <EarningViewTable
         earningData={tableData?.data ?? []}
         isLoading={isTableLoading}

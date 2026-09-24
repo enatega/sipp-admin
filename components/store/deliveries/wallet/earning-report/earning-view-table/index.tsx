@@ -24,6 +24,7 @@ import { useCurrency } from '@/hooks/use-currency';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { returnErrorMessage } from '@/lib/toast-error';
+import { cn } from '@/lib/utils';
 import { ApiErrorResponse, StoreEarningViewItem, StoreEarningViewPagination } from '@/types';
 import { Copy } from 'lucide-react';
 import moment from 'moment';
@@ -85,6 +86,12 @@ export function EarningViewTable({
         formatter: (item: StoreEarningViewItem) => item.commissionSnapshotAvailable
           ? formatCurrency(item[field] ?? 0, resolvedCurrencySymbol) : '',
       })),
+      {
+        header: tColumns('netIncome'),
+        dataKey: 'netIncome',
+        formatter: (item: StoreEarningViewItem) =>
+          formatCurrency(item.netIncome ?? 0, resolvedCurrencySymbol),
+      },
       { header: tColumns('paymentMethod'), dataKey: 'paymentMethod' },
       { header: tColumns('dateTime'), dataKey: 'dateTime' },
       { header: tColumns('status'), dataKey: 'status' },
@@ -118,7 +125,7 @@ export function EarningViewTable({
 
         <div className="mb-4">
           <div className="rounded-md border overflow-auto">
-            <Table className="min-w-[800px]">
+            <Table className="min-w-[900px]">
               <TableHeader className="bg-accent rounded-t-md">
                 <TableRow>
                   <TableHeaderCell
@@ -178,6 +185,13 @@ export function EarningViewTable({
                     containerClass="pl-3"
                   />
                   <TableHeaderCell
+                    label={tColumns('netIncome')}
+                    sortKey={'netIncome'}
+                    requestSort={requestSort}
+                    sortConfig={sortConfig}
+                    containerClass="pl-3"
+                  />
+                  <TableHeaderCell
                     label={tColumns('paymentMethod')}
                     sortKey={'paymentMethod'}
                     requestSort={requestSort}
@@ -197,10 +211,10 @@ export function EarningViewTable({
 
               <TableBody>
                 {isLoading ? (
-                  <TableShimmer limit={(pagination?.limit as 10 | 25 | 50 | 100) ?? 10} columns={11} />
+                  <TableShimmer limit={(pagination?.limit as 10 | 25 | 50 | 100) ?? 10} columns={12} />
                 ) : isError ? (
                   <TableRow>
-                    <TableCell colSpan={11}>
+                    <TableCell colSpan={12}>
                       <DisplayError
                         title={tErrors('fetchFailedTitle')}
                         message={returnErrorMessage(error as ApiErrorResponse)}
@@ -210,7 +224,7 @@ export function EarningViewTable({
                   </TableRow>
                 ) : items.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={11}>
+                    <TableCell colSpan={12}>
                       <NoDataFound
                         title={tNoData('title')}
                         subtitle={tNoData('subtitle')}
@@ -261,6 +275,14 @@ export function EarningViewTable({
                         ) : formatCurrency(item.commissionValue, resolvedCurrencySymbol)}
                       </TableCell>
                       <TableCell>{formatCurrency(item.deliveryFee, resolvedCurrencySymbol)}</TableCell>
+                      <TableCell
+                        className={cn(
+                          'font-semibold tabular-nums whitespace-nowrap',
+                          (item.netIncome ?? 0) < 0 ? 'text-help-red' : 'text-help-green',
+                        )}
+                      >
+                        {formatCurrency(item.netIncome ?? 0, resolvedCurrencySymbol)}
+                      </TableCell>
                       <TableCell>{item.paymentMethod || t('notAvailable')}</TableCell>
                       <TableCell>
                         {item.dateTime

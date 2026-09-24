@@ -6,6 +6,8 @@ import type { Option as StoreOption } from '@/types';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import { SearchInput } from '@/components/shared/SearchInput';
 import { useQueryParams } from '@/hooks/use-query-params';
+import { useParams } from 'next/navigation';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 
 interface FiltersProps {
   data: StoreOption[];
@@ -18,6 +20,7 @@ interface FiltersProps {
 
 export default function Filters({ data, columns }: FiltersProps) {
   const t = useTranslations('storeOptions');
+  const { storeId } = useParams() as { storeId: string };
   const { getParam, setParams } = useQueryParams();
   const [searchTerm, setSearchTerm] = useState<string>(
     getParam('search') || '',
@@ -47,6 +50,7 @@ export default function Filters({ data, columns }: FiltersProps) {
         fileName="options"
         data={data}
         columns={columns as never}
+        fetchAll={() => fetchAllReport<StoreOption>('/apps/deliveries/products/options', { params: { store_id: storeId } })}
         className="mb-0"
       />
     </div>

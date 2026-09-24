@@ -10,6 +10,8 @@ import { useCurrency } from '@/hooks/use-currency';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { AppButton } from '@/components/shared/AppButton';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { DateRangePicker } from '@/components/shared/form/DateRangePicker';
 import { Heading } from '@/components/shared/Heading';
 import { SearchInput } from '@/components/shared/SearchInput';
@@ -29,6 +31,7 @@ export function OrdersHeader({ data, hideStore }: IOrdersHeaderProps) {
   const { getParam, setParams, getAllParams } = useQueryParams();
   const allParams = getAllParams() as Record<string, string>;
   const currency = useCurrency();
+  const modeScope = useDeliveriesAdminModeScope();
   // Local state for search input
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isAdvanceFiltersOpen, setIsAdvanceFiltersOpen] = useState(false);
@@ -212,6 +215,7 @@ export function OrdersHeader({ data, hideStore }: IOrdersHeaderProps) {
               fileName="orders_report"
               data={data}
               columns={orderDownloadColumns}
+              fetchAll={() => fetchAllReport<Order>('/apps/deliveries/super-admin/orders', { params: { modeScope, vendorId: getParam('vendorId') || undefined, start_date: getParam('start_date') || undefined, end_date: getParam('end_date') || undefined } })}
             />
           </div>
         </div>

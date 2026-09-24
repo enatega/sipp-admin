@@ -24,6 +24,7 @@ import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
 import { getDownloadColumns } from './download-columns';
@@ -124,6 +125,7 @@ export default function VendorMenuTemplateTable() {
           fileName="menu_template_report"
           data={menuTemplates}
           columns={getDownloadColumns(tTable)}
+          fetchAll={() => fetchAllReport<VendorMenuTemplateItem>('/apps/deliveries/chain-menus', { params: { vendorId, filter: getParam('tabStatus') && getParam('tabStatus') !== 'all' ? getParam('tabStatus')! : undefined, isActive: getParam('isActive') || undefined } })}
         />
       </div>
 

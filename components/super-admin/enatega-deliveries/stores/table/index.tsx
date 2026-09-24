@@ -3,6 +3,8 @@
 import { ApiErrorResponse, DeliveryStore } from '@/types';
 import { useTranslations } from 'next-intl';
 import { returnErrorMessage } from '@/lib/toast-error';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useGetAllDeliveryStores } from '@/hooks/api/super-admin/enatega-deliveries/stores';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import {
@@ -25,6 +27,7 @@ import StoreRow from './StoreRow';
 export default function StoresTable() {
   const t = useTranslations('lumiFood.stores');
   const tErrors = useTranslations('lumiFood.stores.errors');
+  const modeScope = useDeliveriesAdminModeScope();
 
   const {
     data: storesResponse,
@@ -58,6 +61,7 @@ export default function StoresTable() {
           fileName="stores_report"
           data={stores}
           columns={downloadColumns}
+          fetchAll={() => fetchAllReport<DeliveryStore>('/apps/deliveries/stores', { params: { modeScope } })}
         />
       </div>
 

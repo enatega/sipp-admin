@@ -26,6 +26,8 @@ import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useParams } from 'next/navigation';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -35,6 +37,7 @@ import Filters from './Filters';
 
 export default function CategoriesTable() {
   const t = useTranslations('categories');
+  const { vendorId } = useParams() as { vendorId: string };
   const { getParam } = useQueryParams();
   const limit = Number(getParam('limit')) || 10;
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
@@ -88,6 +91,7 @@ export default function CategoriesTable() {
   };
 
   const categoryDownloadColumns = [
+    { header: t('table.image'), dataKey: 'imageURL' },
     { header: t('download.name'), dataKey: 'categoryName' },
     {
       header: t('download.status'),
@@ -111,6 +115,7 @@ export default function CategoriesTable() {
           fileName="categories_report"
           data={categories}
           columns={categoryDownloadColumns}
+          fetchAll={() => fetchAllReport<Category>('/apps/deliveries/categories/vendor', { params: { vendorId, storeId: getParam('storeId') || vendorId }, select: (response) => { const result = response as { categories: Category[]; total: number }; return { data: result.categories, total: result.total }; } })}
         />
       </div>
       <div className="mb-4">
@@ -254,4 +259,3 @@ export default function CategoriesTable() {
     </div>
   );
 }
-

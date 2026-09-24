@@ -2,10 +2,12 @@
 
 import { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { formatDateTime } from '@/lib/formatDateTime';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetAllDeliveryVendors } from '@/hooks/api/super-admin/enatega-deliveries/vendors';
 import { useCurrency } from '@/hooks/use-currency';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import {
   Table,
@@ -33,6 +35,7 @@ export function VendorTable({ activeTab }: VendorTableProps) {
   const t = useTranslations('lumiFood.vendors.table');
   const tErrors = useTranslations('lumiFood.vendors.table.errors');
   const { currencySymbol } = useCurrency();
+  const modeScope = useDeliveriesAdminModeScope();
 
   const {
     data: vendorsResponse,
@@ -74,12 +77,29 @@ export function VendorTable({ activeTab }: VendorTableProps) {
               { dataKey: 'zonename', header: t('zone') },
               { dataKey: 'totalStores', header: t('totalStores') },
               { dataKey: 'totalOrders', header: t('totalOrders') },
-              { dataKey: 'totalSales', header: t('totalSales') },
+              {
+                dataKey: 'totalSales',
+                header: t('totalSales'),
+                formatter: (vendor: (typeof vendors)[number]) =>
+                  `₡ ${vendor.totalSales ?? 0}`,
+              },
               { dataKey: `status`, header: t('status') },
               { dataKey: `blockstatus`, header: t('blockStatus') },
             ]}
             data={vendors}
             fileName="vendors"
+            fetchAll={() =>
+              fetchAllReport<(typeof vendors)[number]>(
+                '/apps/deliveries/vendors/getAllVendors/admin',
+                {
+                  params: {
+                    tab: undefined,
+                    modeScope,
+                    statusFilter: activeTab === 'all' ? undefined : activeTab,
+                  },
+                },
+              )
+            }
           />
         </div>
       </div>

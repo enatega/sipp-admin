@@ -4,7 +4,9 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { ApiErrorResponse } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { handleApiError } from '@/lib/toast-error';
 import {
   useDeleteRole,
@@ -19,7 +21,6 @@ import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import { TLimitType } from '@/components/shared/TableShimmer';
 import Filters from './Filters';
 import { RoleAndPermissionsTable } from './RoleAndPermissionsTable';
-import { useTranslations } from 'next-intl';
 
 // User type for assigned users (matching AnimatedTooltip format)
 interface User {
@@ -42,6 +43,44 @@ interface Role extends Record<string, unknown> {
   status: boolean;
   createdAt: string;
 }
+
+interface ApiRole extends Record<string, unknown> {
+  id: string;
+  name: string;
+  description: string;
+  active_status: boolean;
+  permissions?: Array<{ name: string }>;
+  users?: Array<{
+    id: string;
+    name: string;
+    email?: string | null;
+    phone?: string | null;
+    profile?: string | null;
+  }>;
+}
+
+const mapApiRole = (role: ApiRole): Role => ({
+  id: role.id,
+  roleName: role.name,
+  description: role.description,
+  assignedUsers: role.users?.length ?? 0,
+  assignedUsersList: role.users?.map((user) => ({
+    id: user.id,
+    name: user.name,
+    designation: '',
+    email: user.email || user.phone || '',
+    image: user.profile || '',
+    fallback: user.name
+      ?.split(' ')
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2),
+  })),
+  rolePermissions: role.permissions?.map((permission) => permission.name) ?? [],
+  status: role.active_status,
+  createdAt: '',
+});
 
 export default function RolesTable() {
   const router = useRouter();
@@ -83,28 +122,7 @@ export default function RolesTable() {
       };
     }
 
-    const transformedRoles: Role[] = rolesData.data?.map((role) => ({
-      id: role.id,
-      roleName: role.name,
-      description: role.description,
-      assignedUsers: role.users.length,
-      assignedUsersList: role.users?.map((user) => ({
-        id: user.id,
-        name: user.name,
-        designation: '', // API doesn't provide designation
-        email: user.email || user.phone,
-        image: user.profile,
-        fallback: user?.name
-          ?.split(' ')
-          .map((n) => n[0])
-          .join('')
-          .toUpperCase()
-          .slice(0, 2),
-      })),
-      rolePermissions: role.permissions?.map((p) => p.name),
-      status: role.active_status,
-      createdAt: new Date().toISOString(), // API doesn't provide createdAt
-    }));
+    const transformedRoles: Role[] = rolesData.data?.map(mapApiRole);
 
     return {
       roles: transformedRoles,
@@ -122,10 +140,7 @@ export default function RolesTable() {
 
     try {
       const response = await deleteRole({ roleId: deletingRole.id });
-      toast.success(
-        response.message ||
-          t('deleteSuccess'),
-      );
+      toast.success(response.message || t('deleteSuccess'));
       // Invalidate roles query to refetch the updated data
       queryClient.invalidateQueries({ queryKey: ['get-roles'] });
       setDeletingRole(null);
@@ -153,7 +168,9 @@ export default function RolesTable() {
       const response = await toggleRoleStatus({ roleId: togglingRole.id });
       toast.success(
         response.message ||
-          t('toggleSuccess', { status: response.status ? t('activated') : t('deactivated') }),
+          t('toggleSuccess', {
+            status: response.status ? t('activated') : t('deactivated'),
+          }),
       );
       // Invalidate roles query to refetch the updated data
       queryClient.invalidateQueries({ queryKey: ['get-roles'] });
@@ -166,7 +183,12 @@ export default function RolesTable() {
   const roleDownloadColumns = [
     { header: tDownload('roleName'), dataKey: 'roleName' },
     { header: tDownload('description'), dataKey: 'description' },
-    { header: tDownload('assignedUsers'), dataKey: 'assignedUsers' },
+    {
+      header: tDownload('assignedUsers'),
+      dataKey: 'assignedUsersList',
+      formatter: (item: Role) =>
+        item.assignedUsersList?.map((user) => user.name).join(', ') || 'N/A',
+    },
     {
       header: tDownload('rolePermissions'),
       dataKey: 'rolePermissions',
@@ -175,7 +197,8 @@ export default function RolesTable() {
     {
       header: tDownload('status'),
       dataKey: 'status',
-      formatter: (item: Role) => (item.status ? tDownload('active') : tDownload('inactive')),
+      formatter: (item: Role) =>
+        item.status ? tDownload('active') : tDownload('inactive'),
     },
   ];
 
@@ -188,6 +211,29 @@ export default function RolesTable() {
             fileName="roles_report"
             data={roles}
             columns={roleDownloadColumns}
+            fetchAll={() =>
+              fetchAllReport<Role>('/roles', {
+                params: {
+                  status: undefined,
+                  activeStatus:
+                    getParam('status') === 'active'
+                      ? 'true'
+                      : getParam('status') === 'inactive'
+                        ? 'false'
+                        : undefined,
+                },
+                select: (response) => {
+                  const result = response as {
+                    data: ApiRole[];
+                    pagination: { total: number };
+                  };
+                  return {
+                    data: result.data.map(mapApiRole),
+                    total: result.pagination.total,
+                  };
+                },
+              })
+            }
             className="mb-0"
           />
         </div>
@@ -220,13 +266,23 @@ export default function RolesTable() {
       {togglingRole && (
         <AppAlertDialog
           className="!w-[850px]"
-          title={togglingRole.status ? t('deactivateTitle') : t('activateTitle')}
-          subTitle={togglingRole.status ? t('deactivateSubtitle', { roleName: togglingRole.roleName }) : t('activateSubtitle', { roleName: togglingRole.roleName })}
-          description={togglingRole.status ? t('deactivateConfirm') : t('activateConfirm')}
+          title={
+            togglingRole.status ? t('deactivateTitle') : t('activateTitle')
+          }
+          subTitle={
+            togglingRole.status
+              ? t('deactivateSubtitle', { roleName: togglingRole.roleName })
+              : t('activateSubtitle', { roleName: togglingRole.roleName })
+          }
+          description={
+            togglingRole.status ? t('deactivateConfirm') : t('activateConfirm')
+          }
           open={!!togglingRole}
           onOpenChange={() => setTogglingRole(null)}
           variant="primary"
-          confirmLabel={togglingRole.status ? t('confirmDeactivate') : t('confirmActivate')}
+          confirmLabel={
+            togglingRole.status ? t('confirmDeactivate') : t('confirmActivate')
+          }
           onConfirm={handleConfirmToggle}
           loading={isTogglingStatus}
         />

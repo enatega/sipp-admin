@@ -19,6 +19,9 @@ import {
 import { AppButton } from '@/components/shared/AppButton';
 import AppPagination from '@/components/shared/AppPagination';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useParams } from 'next/navigation';
+import type { VendorStoreWithdrawalRequest } from '@/types';
 import NoDataFound from '@/components/shared/NoDataFound';
 import Status from '@/components/shared/Status';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
@@ -46,6 +49,7 @@ const VendorWithdrawalRequestsTable = ({
   const tFallback = useTranslations('vendorWithdrawalRequest.table.fallback');
   const { currencySymbol } = useCurrency();
   const { getParam } = useQueryParams();
+  const { vendorId } = useParams() as { vendorId: string };
   const limit = Number(getParam('limit')) || 10;
 
   // Get download columns
@@ -74,6 +78,23 @@ const VendorWithdrawalRequestsTable = ({
               fileName="vendor_withdrawal_requests"
               data={requests}
               columns={downloadColumns}
+              fetchAll={async () => (await fetchAllReport<VendorStoreWithdrawalRequest>('/apps/deliveries/admin/vendor-store-withdraw-requests/requests', { params: { vendorId } })).map((item) => ({
+                requestId: item.request_id,
+                storeId: item.bank_details?.bank_id ?? '',
+                name: item.store_name,
+                amount: item.amount,
+                status: item.status,
+                date: item.date_time,
+                notes: item.notes || undefined,
+                paymentProof: item.payment_proof || undefined,
+                bankDetails: {
+                  accountHolder: item.bank_details?.account_title ?? '',
+                  bankName: item.bank_details?.bank_name ?? '',
+                  accountNumber: item.bank_details?.account_number ?? '',
+                  iban: item.bank_details?.iban ?? '',
+                  branchCode: item.bank_details?.account_code ?? '',
+                },
+              }))}
               className="mb-0"
             />
             <AppButton

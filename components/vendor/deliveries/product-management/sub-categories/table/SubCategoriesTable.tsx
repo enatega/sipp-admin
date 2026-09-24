@@ -26,6 +26,8 @@ import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useParams } from 'next/navigation';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -35,6 +37,7 @@ import SubCategoryActions from './SubCategoryActions';
 
 export default function SubCategoriesTable() {
   const t = useTranslations('subCategories');
+  const { vendorId } = useParams() as { vendorId: string };
   const { getParam } = useQueryParams();
   const limit = Number(getParam('limit')) || 10;
   const [editingSubCategory, setEditingSubCategory] =
@@ -95,6 +98,7 @@ export default function SubCategoriesTable() {
   };
 
   const subCategoryDownloadColumns = [
+    { header: t('table.image'), dataKey: 'imageURL' },
     { header: t('download.name'), dataKey: 'categoryName' },
     {
       header: t('download.category'),
@@ -124,6 +128,7 @@ export default function SubCategoriesTable() {
           fileName="sub-categories_report"
           data={items}
           columns={subCategoryDownloadColumns}
+          fetchAll={() => fetchAllReport<SubCategory>('/apps/deliveries/categories/vendor/sub-categories', { params: { vendorId }, select: (response) => { const result = response as { subCategories: SubCategory[]; total: number }; return { data: result.subCategories, total: result.total }; } })}
         />
       </div>
 
@@ -290,4 +295,3 @@ export default function SubCategoriesTable() {
     </div>
   );
 }
-

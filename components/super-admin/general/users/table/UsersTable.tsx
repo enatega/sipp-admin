@@ -16,6 +16,7 @@ import {
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { hasNamedPermission } from '@/lib/user';
 import {
@@ -128,6 +129,25 @@ export function UsersTable() {
             fileName="users-data"
             data={sortedUsers}
             columns={downloadColumns}
+            fetchAll={() =>
+              fetchAllReport<(typeof sortedUsers)[number]>(
+                '/user-management/all',
+                {
+                  params: {
+                    status: undefined,
+                    registrationMethod: undefined,
+                    AccountStatus: new URLSearchParams(window.location.search)
+                      .getAll('status')
+                      .filter(Boolean),
+                    RegistrationMethod: new URLSearchParams(
+                      window.location.search,
+                    )
+                      .getAll('registrationMethod')
+                      .filter(Boolean),
+                  },
+                },
+              )
+            }
             className="mb-0"
           />
         )}

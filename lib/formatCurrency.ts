@@ -1,4 +1,10 @@
-export const resolveCurrencySymbol = (symbol?: string) => symbol || '₡';
+export const resolveCurrencySymbol = (symbol?: string) => {
+  const normalized = symbol?.trim();
+  if (!normalized || normalized.toUpperCase() === 'CRC' || normalized === '¡') {
+    return '₡';
+  }
+  return normalized;
+};
 
 // Helper function to format currency
 export const formatCurrency = (

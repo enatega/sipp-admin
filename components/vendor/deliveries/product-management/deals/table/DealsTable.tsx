@@ -27,6 +27,7 @@ import { getDiscountDisplayValue } from './dealDrawer.utils';
 
 interface DealsTableProps {
   deals: Deal[];
+  fetchAll: () => Promise<Deal[]>;
   onEditDeal: (deal: Deal) => void;
   onDeleteDeal: (deal: Deal) => void;
   onToggleDealStatus?: (deal: Deal, isActive: boolean) => void;
@@ -43,6 +44,7 @@ const DEAL_DATE_FORMAT = 'DD MMM YYYY, hh:mm A';
 
 const DealsTable = ({
   deals,
+  fetchAll,
   onEditDeal,
   onDeleteDeal,
   onToggleDealStatus,
@@ -133,6 +135,7 @@ const DealsTable = ({
           fileName="deals_report"
           columns={dealDownloadColumns}
           data={deals}
+          fetchAll={fetchAll}
         />
       </div>
 

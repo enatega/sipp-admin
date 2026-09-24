@@ -5,6 +5,8 @@ import { useTranslations } from 'next-intl';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useParams } from 'next/navigation';
 import NoDataFound from '@/components/shared/NoDataFound';
 import Status from '@/components/shared/Status';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
@@ -42,6 +44,7 @@ export function EarningViewTable({
   pagination: StoreEarningViewPagination;
 }) {
   const t = useTranslations('storeWalletEarningReports.table');
+  const { storeId } = useParams() as { storeId: string };
   const tColumns = useTranslations('storeWalletEarningReports.table.columns');
   const tCommission = useTranslations('orders.orderDetail.paymentInformation');
   const tErrors = useTranslations('storeWalletEarningReports.table.errors');
@@ -107,6 +110,7 @@ export function EarningViewTable({
               fileName="earnings_report"
               data={items}
               columns={earningsDownloadColumns}
+              fetchAll={() => fetchAllReport<StoreEarningViewItem>(`/apps/deliveries/store/earning-reports/${storeId}/view`, { select: (response) => { const result = response as { data: StoreEarningViewItem[]; pagination: { total: number } }; return { data: result.data, total: result.pagination.total }; } })}
               className="mb-0"
             />
           </div>

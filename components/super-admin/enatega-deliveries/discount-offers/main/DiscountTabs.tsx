@@ -4,6 +4,9 @@ import * as React from 'react';
 import { Coupon } from '@/types';
 import { useTranslations } from 'next-intl';
 import { ApiErrorResponse } from '@/types/api/common';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
+import { useQueryParams } from '@/hooks/use-query-params';
 import { useSyncedTab, type TabDef } from '@/hooks/use-synced-tabs';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
@@ -47,6 +50,8 @@ export function DiscountTabs({
   const tTabs = useTranslations('lumiFood.discountsOffers.tabs');
   const tTable = useTranslations('lumiFood.discountsOffers.table');
   const tCommon = useTranslations('common');
+  const modeScope = useDeliveriesAdminModeScope();
+  const { getParam } = useQueryParams();
   const TAB_DEFS: TabDef[] = [
     { value: 'all', label: tTabs('all') },
     { value: 'active', label: tTabs('active') },
@@ -76,6 +81,25 @@ export function DiscountTabs({
             fileName="coupons_report"
             data={coupons}
             columns={downloadColumns}
+            fetchAll={() =>
+              fetchAllReport<Coupon>('/apps/deliveries/coupons/get-all', {
+                params: {
+                  tab: undefined,
+                  couponType: undefined,
+                  startDate: undefined,
+                  endDate: undefined,
+                  status: active === 'all' ? undefined : active,
+                  modeScope,
+                  discount_type: getParam('couponType') || undefined,
+                  start_date: getParam('startDate')
+                    ? new Date(getParam('startDate')!).toISOString()
+                    : undefined,
+                  end_date: getParam('endDate')
+                    ? new Date(getParam('endDate')!).toISOString()
+                    : undefined,
+                },
+              })
+            }
           />
         </div>
         <TabsContent value={active}>

@@ -4,16 +4,26 @@ import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ApiErrorResponse } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
+import { AlertCircle, MapPinned } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { UpdateStoreDataPayload } from '@/types/api/store/deliveries/profile';
-import { mapStoreLocationToZoneData } from '@/lib/store-location-to-zone-mapper';
+import {
+  mapStoreLocationToZoneData,
+  mapZoneBoundsToZoneData,
+} from '@/lib/store-location-to-zone-mapper';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import { zoneContainsStoreLocation } from '@/lib/zone-contains-location';
 import { useUpdateStoreData } from '@/hooks/api/store/deliveries/profile';
 import { useGetStoreLocation } from '@/hooks/api/store/deliveries/store-location';
+import {
+  useGetZoneBounds,
+  useGetZonesSimple,
+} from '@/hooks/api/super-admin/general/zones';
 import { AppButton } from '@/components/shared/AppButton';
 import CardShimmer from '@/components/shared/CardShimmer';
 import DisplayError from '@/components/shared/DisplayError';
+import { AppSelect } from '@/components/shared/form/AppSelect';
 import { Heading } from '@/components/shared/Heading';
 import InteractiveMap, {
   AddressZoneShape,
@@ -34,8 +44,11 @@ export default function StoreLocation() {
     },
   });
   const { data, isLoading, error, isError } = useGetStoreLocation(storeId);
-
-
+  const {
+    data: zones = [],
+    isLoading: isLoadingZones,
+    error: zonesError,
+  } = useGetZonesSimple();
 
   // Compute derived location data from API
   const initialLocationData = useMemo(() => {
@@ -66,6 +79,11 @@ export default function StoreLocation() {
   const [exactStoreLocationDraft, setExactStoreLocationDraft] = useState<
     ExactStoreLocation | null | undefined
   >(undefined);
+  const [selectedZoneDraft, setSelectedZoneDraft] = useState<
+    string | undefined
+  >(undefined);
+  const [zoneBoundsApplied, setZoneBoundsApplied] = useState(false);
+  const [zoneLocationError, setZoneLocationError] = useState(false);
 
   const locationData =
     locationDraft === undefined ? initialLocationData : locationDraft;
@@ -73,13 +91,71 @@ export default function StoreLocation() {
     exactStoreLocationDraft === undefined
       ? initialExactStoreLocation
       : exactStoreLocationDraft;
+  const selectedZoneId =
+    selectedZoneDraft === undefined ? data?.zone_id || '' : selectedZoneDraft;
+  const { refetch: fetchSelectedZoneBounds, isFetching: isFetchingZoneBounds } =
+    useGetZoneBounds(selectedZoneId, { enabled: false });
+
+  const zoneOptions = useMemo(
+    () => zones.map((zone) => ({ key: zone.title, value: zone.id })),
+    [zones],
+  );
+
+  const getValidatedSelectedZone = async () => {
+    if (!selectedZoneId) {
+      toast.error(t('zoneRequired'));
+      return null;
+    }
+    if (!exactStoreLocation) {
+      toast.error(t('exactStoreLocationRequired'));
+      return null;
+    }
+
+    const result = await fetchSelectedZoneBounds();
+    if (result.error) {
+      toast.error(returnErrorMessage(result.error));
+      return null;
+    }
+
+    const zoneBounds = result.data
+      ? mapZoneBoundsToZoneData(result.data)
+      : null;
+
+    if (!result.data || !zoneBounds) {
+      toast.error(t('zoneBoundsUnavailable'));
+      return null;
+    }
+
+    if (!zoneContainsStoreLocation(result.data, exactStoreLocation)) {
+      setZoneLocationError(true);
+      toast.error(t('storeOutsideZone'));
+      return null;
+    }
+
+    setZoneLocationError(false);
+    return zoneBounds;
+  };
+
+  const handleUseZoneBounds = async () => {
+    const zoneBounds = await getValidatedSelectedZone();
+    if (!zoneBounds) return;
+
+    setLocationDraft(zoneBounds);
+    setZoneBoundsApplied(true);
+    toast.success(t('zoneBoundsApplied'));
+  };
 
   const handleSave = async () => {
     if (!locationData) return;
+    if (!selectedZoneId) {
+      toast.error(t('zoneRequired'));
+      return;
+    }
     if (!exactStoreLocation) {
       toast.error(t('exactStoreLocationRequired'));
       return;
     }
+    if (!(await getValidatedSelectedZone())) return;
 
     let shape: AddressZoneShape | null = null;
 
@@ -142,6 +218,7 @@ export default function StoreLocation() {
       address_zone: JSON.stringify({ shape }),
       latitude: exactStoreLocation.latitude,
       longitude: exactStoreLocation.longitude,
+      zoneId: selectedZoneId,
     };
 
     try {
@@ -155,6 +232,9 @@ export default function StoreLocation() {
   const handleCancel = () => {
     setLocationDraft(undefined);
     setExactStoreLocationDraft(undefined);
+    setSelectedZoneDraft(undefined);
+    setZoneBoundsApplied(false);
+    setZoneLocationError(false);
   };
 
   return (
@@ -177,9 +257,15 @@ export default function StoreLocation() {
             <div className="p-6">
               <InteractiveMap
                 value={locationData}
-                onChange={setLocationDraft}
+                onChange={(value) => {
+                  setLocationDraft(value);
+                  setZoneBoundsApplied(false);
+                }}
                 exactStoreLocation={exactStoreLocation}
-                onExactStoreLocationChange={setExactStoreLocationDraft}
+                onExactStoreLocationChange={(value) => {
+                  setExactStoreLocationDraft(value);
+                  setZoneLocationError(false);
+                }}
                 exactStoreLocationLabel={t('exactStoreLocationLabel')}
                 exactStoreLocationDescription={t(
                   'exactStoreLocationDescription',
@@ -192,17 +278,101 @@ export default function StoreLocation() {
                 )}
                 hideZoomControls
                 searchSelectsMarker
+                betweenMapAndExactLocation={
+                  <section
+                    aria-labelledby="store-zone-heading"
+                    className="border-y border-gray-200 bg-white py-5"
+                  >
+                    <div className="mb-4">
+                      <h2
+                        id="store-zone-heading"
+                        className="text-base font-semibold text-gray-950"
+                      >
+                        {t('zoneSectionTitle')}
+                      </h2>
+                      <p className="mt-1 max-w-3xl text-sm leading-6 text-gray-600">
+                        {t('zoneSectionDescription')}
+                      </p>
+                    </div>
+
+                    <div className="grid items-end gap-3 md:grid-cols-[minmax(0,1fr)_auto]">
+                      <AppSelect
+                        name="storeZone"
+                        label={t('zoneLabel')}
+                        placeholder={t('zonePlaceholder')}
+                        loadingText={t('loadingZones')}
+                        emptyText={t('noZones')}
+                        options={zoneOptions}
+                        value={selectedZoneId}
+                        onValueChange={(value) => {
+                          setSelectedZoneDraft(value);
+                          setZoneBoundsApplied(false);
+                          setZoneLocationError(false);
+                        }}
+                        loading={isLoadingZones}
+                        disabled={isPending || isFetchingZoneBounds}
+                        error={zonesError ? t('zoneFetchFailed') : undefined}
+                        required
+                      />
+
+                      <AppButton
+                        variant="secondary"
+                        className="md:mb-px"
+                        leftIcon={<MapPinned className="size-4" />}
+                        disabled={
+                          !selectedZoneId || isLoadingZones || isPending
+                        }
+                        isLoading={isFetchingZoneBounds}
+                        onClick={handleUseZoneBounds}
+                      >
+                        {isFetchingZoneBounds
+                          ? t('applyingZoneBounds')
+                          : t('useZoneBounds')}
+                      </AppButton>
+                    </div>
+
+                    <p className="mt-3 text-sm leading-5 text-gray-600">
+                      {zoneBoundsApplied
+                        ? t('zoneBoundsAppliedHint')
+                        : t('zoneBoundsHint')}
+                    </p>
+
+                    {zoneLocationError && (
+                      <div
+                        role="alert"
+                        className="mt-3 flex items-start gap-2 text-sm font-medium text-red-600"
+                      >
+                        <AlertCircle
+                          aria-hidden
+                          className="mt-0.5 size-4 shrink-0"
+                        />
+                        <span>{t('storeOutsideZone')}</span>
+                      </div>
+                    )}
+                  </section>
+                }
               />
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 mt-6">
-            <AppButton variant="secondary" onClick={handleCancel}>
+            <AppButton
+              variant="secondary"
+              disabled={isPending || isFetchingZoneBounds}
+              onClick={handleCancel}
+            >
               {t('cancel')}
             </AppButton>
 
             <AppButton
-              disabled={!locationData || !exactStoreLocation || isPending}
+              isLoading={isPending}
+              disabled={
+                !selectedZoneId ||
+                !locationData ||
+                !exactStoreLocation ||
+                isFetchingZoneBounds ||
+                isPending
+              }
               onClick={handleSave}
             >
               {t('save')}

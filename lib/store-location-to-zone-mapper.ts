@@ -1,5 +1,11 @@
 import { ZoneData } from '@/components/shared/maps/InteractiveMap';
 import { IGetStoreLocationResponse } from '@/types/api/store/deliveries/store-location';
+import { ZoneBoundsResponse } from '@/types';
+
+const toMapPoint = (coordinate: number[]) => ({
+  lat: coordinate[1],
+  lng: coordinate[0],
+});
 
 export const mapStoreLocationToZoneData = (
   data: IGetStoreLocationResponse,
@@ -58,6 +64,45 @@ export const mapStoreLocationToZoneData = (
       type: 'polyline',
       path,
     };
+  }
+
+  return null;
+};
+
+export const mapZoneBoundsToZoneData = (
+  zone: ZoneBoundsResponse,
+): ZoneData | null => {
+  if (zone.zoneShape === 'Circle' && zone.circleData) {
+    return {
+      type: 'circle',
+      center: zone.circleData.center,
+      radius: zone.circleData.radius,
+    };
+  }
+
+  if (!zone.zonePolygon) return null;
+
+  if (zone.zonePolygon.type === 'Point') {
+    const coordinates = zone.zonePolygon.coordinates as number[];
+    if (coordinates.length < 2) return null;
+
+    return { type: 'marker', center: toMapPoint(coordinates) };
+  }
+
+  if (zone.zonePolygon.type === 'Polygon') {
+    const coordinates = zone.zonePolygon.coordinates as number[][][];
+    const path = coordinates[0]?.map(toMapPoint);
+    if (!path || path.length < 3) return null;
+
+    return { type: 'polygon', path };
+  }
+
+  if (zone.zonePolygon.type === 'LineString') {
+    const coordinates = zone.zonePolygon.coordinates as number[][];
+    const path = coordinates.map(toMapPoint);
+    if (path.length < 2) return null;
+
+    return { type: 'polyline', path };
   }
 
   return null;

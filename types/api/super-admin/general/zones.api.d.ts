@@ -66,3 +66,16 @@ export interface ZoneSimpleItem {
 }
 
 export type GetZonesSimpleResponse = ZoneSimpleItem[];
+
+export interface ZoneBoundsResponse {
+    id: string;
+    title: string;
+    description: string;
+    zoneType: ZoneType[];
+    zoneShape: TZoneShapes;
+    circleData: CustomCircle | null;
+    zonePolygon: {
+        type: Exclude<TZoneShapes, 'Circle'>;
+        coordinates: ZoneGeoJsonPolygon;
+    } | null;
+}

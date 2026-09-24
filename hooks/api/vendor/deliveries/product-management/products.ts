@@ -30,7 +30,7 @@ import {
 import { useParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 
-const resolveStockFilter = (tab?: string): ProductStockFilter => {
+export const resolveStockFilter = (tab?: string): ProductStockFilter => {
   if (tab === 'instock' || tab === 'in_stock') {
     return 'instock';
   }

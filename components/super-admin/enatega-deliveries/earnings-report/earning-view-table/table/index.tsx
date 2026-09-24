@@ -10,10 +10,12 @@ import { Copy } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useCurrency } from '@/hooks/use-currency';
-import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useSortableData } from '@/hooks/use-sortable-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -52,6 +54,7 @@ export function EarningViewTable({
   const tDownload = useTranslations('lumiFood.earningsReports.table.download');
   const tToasts = useTranslations('lumiFood.earningsReports.table.toasts');
   const { currencySymbol } = useCurrency();
+  const modeScope = useDeliveriesAdminModeScope();
   const commissionCurrency = resolveCurrencySymbol(currencySymbol);
   const router = useRouter();
   const pathname = usePathname();
@@ -70,26 +73,35 @@ export function EarningViewTable({
       header: tDownload('orderAmount'),
       dataKey: 'orderAmount',
       formatter: (item: EarningReportItem) =>
-        `${currencySymbol} ${item.orderAmount}`,
+        `${commissionCurrency} ${item.orderAmount}`,
     },
     { header: tDownload('storeName'), dataKey: 'storeName' },
     {
       header: tDownload('commissionValue'),
       dataKey: 'commissionValue',
       formatter: (item: EarningReportItem) =>
-        `${currencySymbol} ${item.commissionValue}`,
+        `${commissionCurrency} ${item.commissionValue}`,
     },
     {
       header: tDownload('deliveryFee'),
       dataKey: 'deliveryFee',
       formatter: (item: EarningReportItem) =>
-        `${currencySymbol} ${item.deliveryFee}`,
+        `${commissionCurrency} ${item.deliveryFee}`,
     },
-    ...(['commissionNet', 'vatOnCommission', 'totalCommissionDebit', 'sippAbsorbedVat'] as const).map((field) => ({
+    ...(
+      [
+        'commissionNet',
+        'vatOnCommission',
+        'totalCommissionDebit',
+        'sippAbsorbedVat',
+      ] as const
+    ).map((field) => ({
       header: tCommission(`${field}Label`),
       dataKey: field,
-      formatter: (item: EarningReportItem) => item.commissionSnapshotAvailable && item[field] != null
-        ? formatCurrency(item[field], commissionCurrency) : '',
+      formatter: (item: EarningReportItem) =>
+        item.commissionSnapshotAvailable && item[field] != null
+          ? formatCurrency(item[field], commissionCurrency)
+          : '',
     })),
     { header: tDownload('paymentMethod'), dataKey: 'paymentMethod' },
     { header: tDownload('dateTime'), dataKey: 'dateTime' },
@@ -114,6 +126,24 @@ export function EarningViewTable({
               fileName="earnings_report"
               data={items}
               columns={earningsDownloadColumns}
+              fetchAll={() =>
+                fetchAllReport<EarningReportItem>(
+                  '/apps/deliveries/admin/earning-reports/view',
+                  {
+                    params: { modeScope },
+                    select: (response) => {
+                      const result = response as {
+                        data: EarningReportItem[];
+                        pagination: { total: number };
+                      };
+                      return {
+                        data: result.data,
+                        total: result.pagination.total,
+                      };
+                    },
+                  },
+                )
+              }
               className="mb-0"
             />
           </div>
@@ -281,18 +311,42 @@ export function EarningViewTable({
                       <TableCell>
                         {item.commissionSnapshotAvailable ? (
                           <div className="space-y-1 text-sm tabular-nums">
-                            {(['commissionNet', 'vatOnCommission', 'totalCommissionDebit'] as const).map((field) => (
-                              <div key={field} className="flex justify-between items-start gap-4">
-                                <span className="min-w-0">{tCommission(`${field}Label`)}</span>
-                                <span className="shrink-0">{formatCurrency(item[field] ?? 0, commissionCurrency)}</span>
+                            {(
+                              [
+                                'commissionNet',
+                                'vatOnCommission',
+                                'totalCommissionDebit',
+                              ] as const
+                            ).map((field) => (
+                              <div
+                                key={field}
+                                className="flex justify-between items-start gap-4"
+                              >
+                                <span className="min-w-0">
+                                  {tCommission(`${field}Label`)}
+                                </span>
+                                <span className="shrink-0">
+                                  {formatCurrency(
+                                    item[field] ?? 0,
+                                    commissionCurrency,
+                                  )}
+                                </span>
                               </div>
                             ))}
-                            {item.sippAbsorbedVat != null && item.sippAbsorbedVat > 0 && (
-                              <div className="flex justify-between items-start gap-4">
-                                <span className="min-w-0">{tCommission('sippAbsorbedVatLabel')}</span>
-                                <span className="shrink-0">{formatCurrency(item.sippAbsorbedVat, commissionCurrency)}</span>
-                              </div>
-                            )}
+                            {item.sippAbsorbedVat != null &&
+                              item.sippAbsorbedVat > 0 && (
+                                <div className="flex justify-between items-start gap-4">
+                                  <span className="min-w-0">
+                                    {tCommission('sippAbsorbedVatLabel')}
+                                  </span>
+                                  <span className="shrink-0">
+                                    {formatCurrency(
+                                      item.sippAbsorbedVat,
+                                      commissionCurrency,
+                                    )}
+                                  </span>
+                                </div>
+                              )}
                           </div>
                         ) : item?.commissionValue != null ? (
                           <span>

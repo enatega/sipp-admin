@@ -31,6 +31,7 @@ import {
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -93,6 +94,7 @@ export default function NotificationsTable() {
       header: tDownload('sentTo'),
       dataKey: 'type',
     },
+    { header: tTable('zones'), dataKey: 'zoneNames', formatter: (item: GetNotification) => item.zoneNames?.join(', ') || 'N/A' },
     {
       header: tDownload('createdDate'),
       dataKey: 'created_at',
@@ -109,6 +111,7 @@ export default function NotificationsTable() {
           fileName="notifications_report"
           data={notifications}
           columns={notificationDownloadColumns}
+          fetchAll={() => fetchAllReport<GetNotification>('/admin/notifications', { params: { sentTo: getParam('sentTo')?.split(',').filter(Boolean) }, select: (response) => { const result = response as { notifications: GetNotification[]; total: number }; return { data: result.notifications, total: result.total }; } })}
         />
         <div className="rounded-md border overflow-auto mt-4">
           <Table className="min-w-[900px]">

@@ -8,19 +8,21 @@ import {
   ApproveRefundRequest,
   RefundRequest,
 } from '@/types/api/super-admin/enatega-deliveries/refunds-and-responsibilities';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import {
   useApproveRefundRequest,
   useGetRefundAndResponsibilitiesList,
   useRejectRefundRequest,
 } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import { ClearFiltersButton } from '@/components/shared/filters/ClearFiltersButton';
 import { DateRangeFilter } from '@/components/shared/filters/DateRangeFilter';
 import { Heading } from '@/components/shared/Heading';
 import { SearchInput } from '@/components/shared/SearchInput';
-import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { RefundActionDialog } from './RefundActionDialog';
 import { RefundResponsibilitiesTable } from './RefundResponsibilitiesTable';
 
@@ -33,6 +35,7 @@ export function RefundResponsibilitiesPage() {
   const router = useRouter();
   const pathname = usePathname();
   const { getParam, setParams } = useQueryParams();
+  const modeScope = useDeliveriesAdminModeScope();
 
   const { data, isLoading, isError, error } =
     useGetRefundAndResponsibilitiesList();
@@ -125,7 +128,7 @@ export function RefundResponsibilitiesPage() {
     {
       header: 'Amount',
       dataKey: 'amountUsd',
-      formatter: (item: RefundRequest) => `$${item.amount.toFixed(2)}`,
+      formatter: (item: RefundRequest) => `₡ ${item.amount.toFixed(2)}`,
     },
     { header: 'Request Date', dataKey: 'requestDate' },
     {
@@ -209,6 +212,12 @@ export function RefundResponsibilitiesPage() {
             fileName="refund-responsibilities"
             data={filteredRequests}
             columns={downloadColumns}
+            fetchAll={() =>
+              fetchAllReport<RefundRequest>(
+                '/apps/deliveries/admin/refund-responsibilities/requests',
+                { params: { modeScope } },
+              )
+            }
             className="h-11"
           />
         </div>

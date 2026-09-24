@@ -20,6 +20,7 @@ import {
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import Status from '@/components/shared/Status';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
@@ -70,6 +71,7 @@ const VendorEarningsTable = () => {
                 fileName="vendor_earnings_report"
                 data={earnings}
                 columns={downloadColumns}
+                fetchAll={() => fetchAllReport<VendorEarningItem>('/apps/deliveries/admin/vendor-earning-reports/view', { params: { vendorId } })}
                 className="mb-0 "
               />
             </div>

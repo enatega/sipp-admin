@@ -5,7 +5,7 @@ import { useGetVendorStores } from '@/hooks/api/vendor/deliveries/stores';
 import { DeliveryStore } from '@/types/entities/super-admin/enatega-deliveries/stores';
 import { VendorStoreTableItem } from './types';
 
-const mapVendorStoreToRow = (store: DeliveryStore): VendorStoreTableItem => ({
+export const mapVendorStoreToRow = (store: DeliveryStore): VendorStoreTableItem => ({
   id: store.id,
   name: store.storename,
   email: store.storeemail,

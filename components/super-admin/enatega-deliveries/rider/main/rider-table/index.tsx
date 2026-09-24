@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { ApiErrorResponse } from '@/types';
 import moment from 'moment';
-import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
 import { useTranslations } from 'next-intl';
+import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetDeliveryRiders } from '@/hooks/api/super-admin/enatega-deliveries/riders';
 import { useCapitalize } from '@/hooks/use-capitalize';
@@ -32,7 +33,9 @@ import { RiderActionsDropdown } from './RiderActionsDropdown';
 
 export function RiderTable() {
   const t = useTranslations('driverManagement.driversTable');
-  const tHeaders = useTranslations('driverManagement.driversTable.tableHeaders');
+  const tHeaders = useTranslations(
+    'driverManagement.driversTable.tableHeaders',
+  );
   const { getParam } = useQueryParams();
   const limit = Number(getParam('limit')) || 10;
   const { capitalizeFirstLetter } = useCapitalize();
@@ -86,6 +89,8 @@ export function RiderTable() {
               {
                 dataKey: 'totalEarnings',
                 header: tHeaders('totalEarnings'),
+                formatter: (rider: DeliveryRider) =>
+                  `₡ ${rider.totalEarnings ?? 0}`,
               },
               {
                 dataKey: 'averageRating',
@@ -106,6 +111,30 @@ export function RiderTable() {
             ]}
             data={riders}
             fileName="riders"
+            fetchAll={() =>
+              fetchAllReport<DeliveryRider>('/apps/deliveries/admin/riders', {
+                params: {
+                  tab: undefined,
+                  status:
+                    getParam('tab') === 'all'
+                      ? undefined
+                      : getParam('tab') || undefined,
+                  kyc_status: getParam('status') || undefined,
+                  vehicleType: undefined,
+                  vehicle_type: getParam('vehicleType') || undefined,
+                  zoneId: undefined,
+                  zoneIds: getParam('zoneId') || undefined,
+                },
+                offsetPagination: true,
+                select: (response) => {
+                  const result = response as {
+                    riders: DeliveryRider[];
+                    total: number;
+                  };
+                  return { data: result.riders, total: result.total };
+                },
+              })
+            }
           />
         </div>
       </div>
@@ -228,14 +257,18 @@ export function RiderTable() {
                   <TableCell>
                     {capitalizeFirstLetter(rider.zone?.title ?? '')}
                   </TableCell>
-                  <TableCell>{rider.totalDeliveries ?? t('notAvailable')}</TableCell>
+                  <TableCell>
+                    {rider.totalDeliveries ?? t('notAvailable')}
+                  </TableCell>
                   <TableCell>
                     {rider.totalEarnings !== null &&
                     rider.totalEarnings !== undefined
                       ? `${currencySymbol}${rider.totalEarnings}`
                       : t('notAvailable')}
                   </TableCell>
-                  <TableCell>{rider.averageRating ?? t('notAvailable')}</TableCell>
+                  <TableCell>
+                    {rider.averageRating ?? t('notAvailable')}
+                  </TableCell>
 
                   <TableCell>
                     <Status status={rider.status.toLowerCase()} />

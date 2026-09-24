@@ -32,7 +32,7 @@ import {
 import Axios from '@/config/axios';
 import { useQueryParams } from '@/hooks/use-query-params';
 
-const resolveStockFilter = (tab?: string): ProductStockFilter => {
+export const resolveStockFilter = (tab?: string): ProductStockFilter => {
   if (tab === 'instock' || tab === 'in_stock') {
     return 'instock';
   }

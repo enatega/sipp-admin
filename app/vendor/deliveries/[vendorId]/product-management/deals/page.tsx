@@ -1,12 +1,13 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import type { ApiErrorResponse, Deal, RawDeal } from '@/types';
 import { CirclePlus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import {
   useDeleteDeal,
   useGetDeals,
@@ -55,9 +56,7 @@ const Deals = () => {
     },
   });
 
-  const apiDeals = useMemo(
-    () =>
-      (data?.data || []).map((deal: RawDeal): Deal => {
+  const mapDeal = (deal: RawDeal): Deal => {
         const selectedVariation = resolveSelectedVariation(deal);
         const isProductLevelDeal = !deal.variationId;
         const productPrice = toNumberOrNull(deal.product?.price);
@@ -94,9 +93,8 @@ const Deals = () => {
           endDate: deal.endDate,
           status,
         };
-      }),
-    [data, t, tDealType],
-  );
+  };
+  const apiDeals = (data?.data || []).map(mapDeal);
   const deals = data ? apiDeals : [];
 
   const handleOpenAdd = () => {
@@ -138,6 +136,7 @@ const Deals = () => {
 
       <DealsTable
         deals={deals}
+        fetchAll={() => fetchAllReport<RawDeal>(`/apps/deliveries/vendor/deals/vendor/${vendorId}`).then((rows) => rows.map(mapDeal))}
         onEditDeal={handleOpenEdit}
         onDeleteDeal={handleDeleteDeal}
         onToggleDealStatus={handleToggleDealStatus}
@@ -177,4 +176,3 @@ const Deals = () => {
 };
 
 export default Deals;
-

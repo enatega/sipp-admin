@@ -30,6 +30,7 @@ import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -85,6 +86,7 @@ export default function DeliveriesZonesTable() {
           fileName="deliveries_zone_management"
           data={zones}
           columns={zoneDownloadColumns}
+          fetchAll={() => fetchAllReport<DeliveriesZone>('/zones', { params: { search: getParam('deliveriesSearch') || undefined, startDate: getParam('deliveriesStartDate') || undefined, endDate: getParam('deliveriesEndDate') || undefined }, select: (response) => { const result = response as { zones: DeliveriesZone[]; total: number }; return { data: result.zones, total: result.total }; } })}
         />
       </div>
 

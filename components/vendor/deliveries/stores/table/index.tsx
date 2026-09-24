@@ -25,6 +25,7 @@ import {
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -32,7 +33,8 @@ import { getDownloadColumns } from './download-columns';
 import Filters from './Filters';
 import StoreRow from './StoreRow';
 import { VendorStoreTableItem } from './types';
-import { useVendorStoresData } from './useVendorStoresData';
+import { mapVendorStoreToRow, useVendorStoresData } from './useVendorStoresData';
+import type { DeliveryStore } from '@/types';
 
 type ActionState = { store: VendorStoreTableItem; loading: boolean } | null;
 
@@ -130,6 +132,7 @@ export default function VendorStoresTable() {
           fileName="stores_report"
           data={items}
           columns={downloadColumns}
+          fetchAll={async () => (await fetchAllReport<DeliveryStore>('/apps/deliveries/stores/vendors/stores', { params: { vendorId, status: [getParam('status'), getParam('tabStatus')].find((value) => value && value !== 'all') || undefined } })).map(mapVendorStoreToRow)}
         />
       </div>
 

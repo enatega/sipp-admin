@@ -28,6 +28,7 @@ import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import AppPagination from '@/components/shared/AppPagination';
 import DisplayError from '@/components/shared/DisplayError';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import { fetchAllReport } from '@/lib/fetch-all-report';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
@@ -87,6 +88,7 @@ export default function ZonesTable() {
           fileName="zones_report"
           data={zones}
           columns={zoneDownloadColumns}
+          fetchAll={() => fetchAllReport<Zone>('/zones', { select: (response) => { const result = response as { zones: Zone[]; total: number }; return { data: result.zones, total: result.total }; } })}
         />
       </div>
       <div className=" mb-4">

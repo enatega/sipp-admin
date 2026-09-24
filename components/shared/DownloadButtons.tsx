@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
@@ -19,6 +20,7 @@ interface DownloadButtonsProps<T> {
   data: T[];
   columns: Column<T>[];
   className?: string;
+  fetchAll?: () => Promise<T[]>;
 }
 
 export function DownloadButtons<T extends object>({
@@ -26,18 +28,34 @@ export function DownloadButtons<T extends object>({
   data,
   columns,
   className,
+  fetchAll,
 }: DownloadButtonsProps<T>) {
   const t = useTranslations('common');
-  const normalizedData = data as unknown as Record<string, unknown>[];
+  const [downloading, setDownloading] = useState<'pdf' | 'excel' | null>(null);
+  const inProgress = useRef(false);
 
-  const handleDownloadPdf = () => {
-    downloadPdf(fileName, columns as never, normalizedData);
-    toast.success(t('pdfDownloadSuccess'));
-  };
-
-  const handleDownloadExcel = () => {
-    downloadExcel(fileName, columns as never, normalizedData);
-    toast.success(t('excelDownloadSuccess'));
+  const handleDownload = async (format: 'pdf' | 'excel') => {
+    if (inProgress.current) return;
+    inProgress.current = true;
+    setDownloading(format);
+    try {
+      const rows = fetchAll ? await fetchAll() : data;
+      const normalizedRows = rows as unknown as Record<string, unknown>[];
+      if (format === 'pdf') {
+        downloadPdf(fileName, columns as never, normalizedRows);
+        toast.success(t('pdfDownloadSuccess'));
+      } else {
+        downloadExcel(fileName, columns as never, normalizedRows);
+        toast.success(t('excelDownloadSuccess'));
+      }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Could not download report',
+      );
+    } finally {
+      inProgress.current = false;
+      setDownloading(null);
+    }
   };
 
   return (
@@ -46,7 +64,8 @@ export function DownloadButtons<T extends object>({
     >
       <AppButton
         variant="mute"
-        disabled={!data.length}
+        disabled={downloading !== null || (!fetchAll && !data.length)}
+        isLoading={downloading === 'pdf'}
         leftIcon={
           <Image
             src={toAbsoluteUrl('/svgs/pdf.svg')}
@@ -56,13 +75,14 @@ export function DownloadButtons<T extends object>({
             className=""
           />
         }
-        onClick={handleDownloadPdf}
+        onClick={() => void handleDownload('pdf')}
       >
         <span>{t('downloadPdf')}</span>
       </AppButton>
       <AppButton
         variant="mute"
-        disabled={!data.length}
+        disabled={downloading !== null || (!fetchAll && !data.length)}
+        isLoading={downloading === 'excel'}
         leftIcon={
           <Image
             src={toAbsoluteUrl('/images/excel.png')}
@@ -72,7 +92,7 @@ export function DownloadButtons<T extends object>({
             className=""
           />
         }
-        onClick={handleDownloadExcel}
+        onClick={() => void handleDownload('excel')}
       >
         <span>{t('downloadExcel')}</span>
       </AppButton>

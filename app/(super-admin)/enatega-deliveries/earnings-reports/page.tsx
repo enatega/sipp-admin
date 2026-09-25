@@ -6,10 +6,7 @@ import {
   useGetEarningView,
 } from '@/hooks/api/super-admin/enatega-deliveries/earning-report';
 import { StatsCardCarousel } from '@/components/shared/carousel/StatsCardCarousel';
-import { EarningsPerStoreTypeChart } from '@/components/super-admin/enatega-deliveries/earnings-report/charts/earning-per-store-chart';
-import { EarningsPerZoneChart } from '@/components/super-admin/enatega-deliveries/earnings-report/charts/earning-per-zone-chart/EarningPerZoneChart';
 import OrderTrendChart from '@/components/super-admin/enatega-deliveries/earnings-report/charts/order-trend-chart';
-import PaymentMethodDistributionChart from '@/components/super-admin/enatega-deliveries/earnings-report/charts/payment-method-chart';
 import { EarningViewTable } from '@/components/super-admin/enatega-deliveries/earnings-report/earning-view-table/table';
 import { buildStatsData } from '@/components/super-admin/enatega-deliveries/earnings-report/stats-card-data/data';
 import { EnategaDeliveriesEarningsReportFilters } from '@/components/super-admin/enatega-deliveries/earnings-report/filters';
@@ -39,20 +36,6 @@ const EarningReports = () => {
       <OrderTrendChart
         meta={data?.graph?.meta}
         series={data?.graph?.series}
-        isLoading={isLoading}
-      />
-      <div className="grid lg:grid-cols-[3fr_1fr] grid-cols-1 gap-4">
-        <EarningsPerZoneChart
-          data={data?.zoneWiseEarnings ?? []}
-          isLoading={isLoading}
-        />
-        <PaymentMethodDistributionChart
-          data={data?.paymentMethod ?? []}
-          isLoading={isLoading}
-        />
-      </div>
-      <EarningsPerStoreTypeChart
-        data={data?.storeTypeEarning ?? []}
         isLoading={isLoading}
       />
       <EarningViewTable

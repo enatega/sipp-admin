@@ -305,6 +305,7 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "general": "General",
+    "wallet": "Wallet",
     "users": "Users",
     "zones": "Zones",
     "rolesAndPermissions": "Roles and Permissions",
@@ -348,23 +349,68 @@
   "reporting": {
     "title": "Reporting",
     "pages": {
-      "salesOrders": { "title": "Sales & Orders", "description": "Detailed order, restaurant sales and product performance reporting." },
-      "taxCommission": { "title": "Tax & Commission", "description": "Product VAT/tax and platform commission breakdowns." },
-      "cancellations": { "title": "Cancellations", "description": "Cancelled and rejected orders, reasons and responsible accounts." },
-      "financialPayouts": { "title": "Financial & Payouts", "description": "Restaurant financial position and courier earnings and payouts." },
-      "customersPromotions": { "title": "Customers & Promotions", "description": "Post-launch customer value and promotion performance." }
+      "salesOrders": {
+        "title": "Sales & Orders",
+        "description": "Detailed order, restaurant sales and product performance reporting."
+      },
+      "taxCommission": {
+        "title": "Tax & Commission",
+        "description": "Product VAT/tax and platform commission breakdowns."
+      },
+      "cancellations": {
+        "title": "Cancellations",
+        "description": "Cancelled and rejected orders, reasons and responsible accounts."
+      },
+      "financialPayouts": {
+        "title": "Financial & Payouts",
+        "description": "Restaurant financial position and courier earnings and payouts."
+      },
+      "customersPromotions": {
+        "title": "Customers & Promotions",
+        "description": "Post-launch customer value and promotion performance."
+      }
     },
     "tabs": {
-      "sales_orders": { "label": "Detailed Orders", "description": "Financial and fulfilment details for every matching order." },
-      "sales_restaurants": { "label": "Restaurant Sales", "description": "Sales and net earnings grouped by restaurant." },
-      "sales_products": { "label": "Product Sales & Best Sellers", "description": "Products ranked by delivered quantity and gross product sales." },
-      "tax_product": { "label": "VAT / Product Tax", "description": "Inclusive product tax recorded on delivered orders." },
-      "tax_commission": { "label": "Commission", "description": "Commission base, rate, VAT and total deduction per delivered order." },
-      "cancellations": { "label": "Cancellation Report", "description": "Cancelled and rejected orders matching the selected filters." },
-      "restaurants_financial-summary": { "label": "Restaurant Financial Summary", "description": "Sales, deductions, withdrawals and current wallet balance by restaurant." },
-      "couriers_earnings": { "label": "Courier Earnings & Payouts", "description": "Courier delivery earnings, commission, payouts and wallet balances." },
-      "customers_lifetime": { "label": "Customer Lifetime Value", "description": "Post-launch order history and value grouped by customer." },
-      "promotions": { "label": "Coupons & Discounts", "description": "Coupon and other discount usage and sales impact." }
+      "sales_orders": {
+        "label": "Detailed Orders",
+        "description": "Financial and fulfilment details for every matching order."
+      },
+      "sales_restaurants": {
+        "label": "Restaurant Sales",
+        "description": "Sales and net earnings grouped by restaurant."
+      },
+      "sales_products": {
+        "label": "Product Sales & Best Sellers",
+        "description": "Products ranked by delivered quantity and gross product sales."
+      },
+      "tax_product": {
+        "label": "VAT / Product Tax",
+        "description": "Inclusive product tax recorded on delivered orders."
+      },
+      "tax_commission": {
+        "label": "Commission",
+        "description": "Commission base, rate, VAT and total deduction per delivered order."
+      },
+      "cancellations": {
+        "label": "Cancellation Report",
+        "description": "Cancelled and rejected orders matching the selected filters."
+      },
+      "restaurants_financial-summary": {
+        "label": "Restaurant Financial Summary",
+        "description": "Sales, deductions, withdrawals and current wallet balance by restaurant."
+      },
+      "couriers_earnings": {
+        "label": "Courier Earnings & Payouts",
+        "description": "Courier delivery earnings, commission, payouts and wallet balances."
+      },
+      "customers_lifetime": {
+        "label": "Customer Lifetime Value",
+        "description": "Post-launch order history and value grouped by customer."
+      },
+      "promotions": {
+        "label": "Coupons & Discounts",
+        "description": "Coupon and other discount usage and sales impact."
+      }
     },
     "filters": {
       "ariaLabel": "Report filters",
@@ -379,9 +425,19 @@
       "allOrderStatuses": "All order statuses",
       "payment": { "cash": "Cash", "card": "Card", "wallet": "Wallet" },
       "status": {
-        "pending": "Pending", "scheduled": "Scheduled", "accepted": "Accepted", "preparing": "Preparing", "ready": "Ready",
-        "rider_assigned": "Rider assigned", "picked_up": "Picked up", "out_for_delivery": "Out for delivery", "arrived": "Arrived",
-        "delivered": "Delivered", "rejected": "Rejected", "failed": "Failed", "cancelled": "Cancelled"
+        "pending": "Pending",
+        "scheduled": "Scheduled",
+        "accepted": "Accepted",
+        "preparing": "Preparing",
+        "ready": "Ready",
+        "rider_assigned": "Rider assigned",
+        "picked_up": "Picked up",
+        "out_for_delivery": "Out for delivery",
+        "arrived": "Arrived",
+        "delivered": "Delivered",
+        "rejected": "Rejected",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
       }
     },
     "summary": {
@@ -418,21 +474,74 @@
       "no": "No"
     },
     "columns": {
-      "orderId": "Order ID", "deliveredAt": "Delivered at", "customer": "Customer", "restaurant": "Restaurant", "cityZone": "City / Zone",
-      "paymentMethod": "Payment method", "paymentStatus": "Payment status", "orderStatus": "Order status", "subtotal": "Subtotal", "discount": "Discount",
-      "productTax": "Product tax", "deliveryFee": "Delivery fee", "packingCharges": "Packing charges", "riderTip": "Rider tip", "totalAmount": "Total amount",
-      "deliveredOrders": "Delivered orders", "grossSales": "Gross sales", "discounts": "Discounts", "commission": "Commission", "netStoreEarnings": "Net store earnings",
-      "product": "Product", "quantitySold": "Quantity sold", "grossProductSales": "Gross product sales", "taxMode": "Tax mode",
-      "grossProductAmount": "Gross product amount", "netProductAmount": "Net product amount", "taxSnapshot": "Tax snapshot", "commissionBase": "Commission base",
-      "commissionRate": "Commission rate", "commissionNet": "Commission net", "commissionVatRate": "Commission VAT rate", "vatOnCommission": "VAT on commission",
-      "totalDeduction": "Total deduction", "absorbedVat": "Absorbed VAT", "snapshot": "Snapshot", "cancelledAt": "Cancelled at", "createdAt": "Created at",
-      "status": "Status", "cancellationReason": "Cancellation reason", "cancelledBy": "Cancelled by", "orderAmount": "Order amount", "totalSales": "Total sales",
-      "commissionVat": "Commission VAT", "totalCommissionDeduction": "Total commission deduction", "storeNetEarnings": "Store net earnings",
-      "approvedWithdrawals": "Approved withdrawals", "pendingWithdrawals": "Pending withdrawals", "currentWalletBalance": "Current wallet balance",
-      "courier": "Courier", "deliveries": "Deliveries", "deliveryFees": "Delivery fees", "courierDeliveryEarnings": "Courier delivery earnings", "tips": "Tips",
-      "platformDeliveryCommission": "Platform delivery commission", "approvedPayouts": "Approved payouts", "pendingPayouts": "Pending payouts", "email": "Email", "phone": "Phone",
-      "firstOrder": "First order", "lastOrder": "Last order", "totalOrders": "Total orders", "cancelledOrders": "Cancelled orders", "lifetimeValue": "Lifetime value",
-      "averageOrderValue": "Average order value", "promotionType": "Promotion type", "promotionCode": "Promotion code", "orders": "Orders", "totalDiscount": "Total discount"
+      "orderId": "Order ID",
+      "deliveredAt": "Delivered at",
+      "customer": "Customer",
+      "restaurant": "Restaurant",
+      "cityZone": "City / Zone",
+      "paymentMethod": "Payment method",
+      "paymentStatus": "Payment status",
+      "orderStatus": "Order status",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "productTax": "Product tax",
+      "deliveryFee": "Delivery fee",
+      "packingCharges": "Packing charges",
+      "riderTip": "Rider tip",
+      "totalAmount": "Total amount",
+      "deliveredOrders": "Delivered orders",
+      "grossSales": "Gross sales",
+      "discounts": "Discounts",
+      "commission": "Commission",
+      "netStoreEarnings": "Net store earnings",
+      "product": "Product",
+      "quantitySold": "Quantity sold",
+      "grossProductSales": "Gross product sales",
+      "taxMode": "Tax mode",
+      "grossProductAmount": "Gross product amount",
+      "netProductAmount": "Net product amount",
+      "taxSnapshot": "Tax snapshot",
+      "commissionBase": "Commission base",
+      "commissionRate": "Commission rate",
+      "commissionNet": "Commission net",
+      "commissionVatRate": "Commission VAT rate",
+      "vatOnCommission": "VAT on commission",
+      "totalDeduction": "Total deduction",
+      "absorbedVat": "Absorbed VAT",
+      "snapshot": "Snapshot",
+      "cancelledAt": "Cancelled at",
+      "createdAt": "Created at",
+      "status": "Status",
+      "cancellationReason": "Cancellation reason",
+      "cancelledBy": "Cancelled by",
+      "orderAmount": "Order amount",
+      "totalSales": "Total sales",
+      "commissionVat": "Commission VAT",
+      "totalCommissionDeduction": "Total commission deduction",
+      "storeNetEarnings": "Store net earnings",
+      "approvedWithdrawals": "Approved withdrawals",
+      "pendingWithdrawals": "Pending withdrawals",
+      "currentWalletBalance": "Current wallet balance",
+      "courier": "Courier",
+      "deliveries": "Deliveries",
+      "deliveryFees": "Delivery fees",
+      "courierDeliveryEarnings": "Courier delivery earnings",
+      "tips": "Tips",
+      "platformDeliveryCommission": "Platform delivery commission",
+      "approvedPayouts": "Approved payouts",
+      "pendingPayouts": "Pending payouts",
+      "email": "Email",
+      "phone": "Phone",
+      "firstOrder": "First order",
+      "lastOrder": "Last order",
+      "totalOrders": "Total orders",
+      "cancelledOrders": "Cancelled orders",
+      "lifetimeValue": "Lifetime value",
+      "averageOrderValue": "Average order value",
+      "promotionType": "Promotion type",
+      "promotionCode": "Promotion code",
+      "orders": "Orders",
+      "totalDiscount": "Total discount"
     }
   },
   "noPermission": {
@@ -4709,6 +4818,7 @@
           "storeName": "Store Name",
           "commissionValue": "Commission Value",
           "deliveryFee": "Delivery Fee",
+          "storeIncome": "Store Income",
           "paymentMethod": "Payment Method",
           "dateTime": "Date & Time",
           "status": "Status"
@@ -4722,6 +4832,7 @@
           "storeName": "Store Name",
           "commissionValue": "Commission Value",
           "deliveryFee": "Delivery Fee",
+          "storeIncome": "Store Income",
           "paymentMethod": "Payment Method",
           "dateTime": "Date & Time",
           "status": "Status"
@@ -6820,6 +6931,28 @@
       "documentCardFront": "Front",
       "documentCardBack": "Back",
       "riderDetailsNotFound": "Rider details not found.",
+      "backToRiders": "Back to riders",
+      "riderProfileAndOrders": "Rider profile and delivered orders",
+      "walletAction": "Wallet",
+      "editAction": "Edit rider",
+      "ratings": "Rating",
+      "reviewsCount": "Reviews",
+      "riderInformation": "Rider information",
+      "licenseNumberLabel": "License number",
+      "availabilityLabel": "Availability",
+      "registrationLabel": "Registered at",
+      "deliveredOrdersTitle": "Delivered orders",
+      "deliveredOrdersSubtitle": "All completed deliveries assigned to this rider.",
+      "orderIdLabel": "Order ID",
+      "customerLabel": "Customer",
+      "storeLabel": "Store",
+      "orderAmountLabel": "Order amount",
+      "deliveryFeeLabel": "Delivery fee",
+      "riderTipLabel": "Rider tip",
+      "riderIncomeLabel": "Rider income",
+      "sippDeliveryCommissionLabel": "SIPP delivery commission",
+      "deliveredAtLabel": "Delivered at",
+      "noDeliveredOrders": "No delivered orders found.",
       "allDriversTab": "All Drivers",
       "pendingTab": "Pending",
       "approvedTab": "Approved",

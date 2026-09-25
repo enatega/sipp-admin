@@ -97,6 +97,8 @@ export interface EarningReportItem {
     totalCommissionDebit?: number;
     sippAbsorbedVat?: number;
     deliveryFee: number;
+    riderTip: number;
+    netIncome: number;
     paymentMethod: string;
     dateTime: string; // ISO string
     status: OrderStatus;

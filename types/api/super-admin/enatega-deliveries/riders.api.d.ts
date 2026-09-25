@@ -84,6 +84,20 @@ export interface GetDeliveryRiderResponse {
   rider: DeliveryRider;
   averageRatings: number | null;
   noOfReviews: number;
+  totalDeliveries: number;
+  totalEarnings: number;
+  deliveredOrders: Array<{
+    orderId: string;
+    orderAmount: number;
+    deliveryFee: number;
+    riderTip: number;
+    riderIncome: number;
+    sippDeliveryCommission: number;
+    paymentMethod: string;
+    deliveredAt: string;
+    storeName: string;
+    customerName: string;
+  }>;
 }
 
 /**

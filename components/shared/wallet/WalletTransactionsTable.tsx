@@ -1,6 +1,13 @@
 'use client';
 
-import { ArrowDownLeft, ArrowUpRight, Minus, Plus } from 'lucide-react';
+import Link from 'next/link';
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  ExternalLink,
+  Minus,
+  Plus,
+} from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import {
@@ -29,6 +36,7 @@ interface WalletTransactionsTableProps {
   isLoading: boolean;
   isError: boolean;
   error: ApiErrorResponse | null;
+  getOrderHref: (orderId: string) => string;
 }
 
 export function WalletTransactionsTable({
@@ -36,6 +44,7 @@ export function WalletTransactionsTable({
   isLoading,
   isError,
   error,
+  getOrderHref,
 }: WalletTransactionsTableProps) {
   const t = useTranslations('wallet.transactions');
   const tColumns = useTranslations('wallet.transactions.columns');
@@ -125,6 +134,16 @@ export function WalletTransactionsTable({
                             'DD MMM YYYY, hh:mm A',
                           )}
                         </p>
+                        {transaction.entry_type === 'order_sale' &&
+                          transaction.order_id && (
+                            <Link
+                              href={getOrderHref(transaction.order_id)}
+                              className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            >
+                              {t('viewOrder')}
+                              <ExternalLink className="size-3.5" aria-hidden="true" />
+                            </Link>
+                          )}
                       </div>
                     </div>
                   </TableCell>

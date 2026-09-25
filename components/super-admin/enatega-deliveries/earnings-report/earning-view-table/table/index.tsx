@@ -88,6 +88,12 @@ export function EarningViewTable({
       formatter: (item: EarningReportItem) =>
         `${commissionCurrency} ${item.deliveryFee}`,
     },
+    {
+      header: tDownload('storeIncome'),
+      dataKey: 'netIncome',
+      formatter: (item: EarningReportItem) =>
+        formatCurrency(item.netIncome, commissionCurrency),
+    },
     ...(
       [
         'commissionNet',
@@ -211,6 +217,13 @@ export function EarningViewTable({
                     containerClass="pl-3"
                   />
                   <TableHeaderCell
+                    label={tHeaders('storeIncome')}
+                    sortKey={'netIncome'}
+                    requestSort={requestSort}
+                    sortConfig={sortConfig}
+                    containerClass="pl-3"
+                  />
+                  <TableHeaderCell
                     label={tHeaders('paymentMethod')}
                     sortKey={'paymentMethod'}
                     requestSort={requestSort}
@@ -230,10 +243,10 @@ export function EarningViewTable({
 
               <TableBody>
                 {isLoading ? (
-                  <TableShimmer limit={pagination?.limit} columns={11} />
+                  <TableShimmer limit={pagination?.limit} columns={12} />
                 ) : isError ? (
                   <TableRow>
-                    <TableCell colSpan={11}>
+                    <TableCell colSpan={12}>
                       <DisplayError
                         title={tTable('loadError')}
                         message={returnErrorMessage(error as ApiErrorResponse)}
@@ -243,7 +256,7 @@ export function EarningViewTable({
                   </TableRow>
                 ) : loData.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={11}>
+                    <TableCell colSpan={12}>
                       <NoDataFound
                         title={tTable('noData')}
                         subtitle={tTable('noDataSubtitle')}
@@ -364,6 +377,11 @@ export function EarningViewTable({
                         ) : (
                           <span>{notAvailable}</span>
                         )}
+                      </TableCell>
+                      <TableCell className="font-medium tabular-nums">
+                        {item?.netIncome != null
+                          ? formatCurrency(item.netIncome, commissionCurrency)
+                          : notAvailable}
                       </TableCell>
                       <TableCell>
                         {item?.paymentMethod || notAvailable}

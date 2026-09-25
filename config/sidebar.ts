@@ -7,6 +7,7 @@ import {
   LucideIcon,
   Settings,
   Utensils,
+  WalletCards,
 } from 'lucide-react';
 
 export interface SidebarMenu {
@@ -151,20 +152,6 @@ export const sidebarMenus: SidebarMenu[] = [
         permission: 'general-delivery.store_commissions',
       },
       {
-        id: 3.1,
-        name: 'Earnings Reports',
-        translationKey: 'sidebar.earningsReports',
-        path: adminRoutes.deliveries.earningsReports,
-        permission: 'general-delivery.earning',
-      },
-      {
-        id: 3.11,
-        name: 'Withdrawal Requests',
-        translationKey: 'sidebar.withdrawalRequests',
-        path: adminRoutes.deliveries.withdrawalRequests,
-        permission: 'general-delivery.withdrawal_requests',
-      },
-      {
         id: 3.12,
         name: 'Customer Loyalty and Referrals',
         translationKey: 'sidebar.customerLoyaltyAndReferrals',
@@ -190,13 +177,6 @@ export const sidebarMenus: SidebarMenu[] = [
         translationKey: 'sidebar.liveTracking',
         path: adminRoutes.deliveries.liveTracking,
         permission: 'general-delivery.live_tracking',
-      },
-      {
-        id: 3.16,
-        name: 'Refund & Responsibilities',
-        translationKey: 'sidebar.refundAndResponsibilities',
-        path: adminRoutes.deliveries.refundAndResponsibilities,
-        permission: 'general-delivery.refund_responsibilities',
       },
       {
         id: 3.18,
@@ -248,6 +228,36 @@ export const sidebarMenus: SidebarMenu[] = [
         translationKey: 'sidebar.reportingCustomersPromotions',
         path: adminRoutes.deliveries.reporting.customersPromotions,
         permission: 'general-delivery.earning',
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Wallet',
+    translationKey: 'sidebar.wallet',
+    path: '#',
+    icon: WalletCards,
+    subMenus: [
+      {
+        id: 5.1,
+        name: 'Withdrawal Requests',
+        translationKey: 'sidebar.withdrawalRequests',
+        path: adminRoutes.deliveries.withdrawalRequests,
+        permission: 'general-delivery.withdrawal_requests',
+      },
+      {
+        id: 5.2,
+        name: 'Earnings Reports',
+        translationKey: 'sidebar.earningsReports',
+        path: adminRoutes.deliveries.earningsReports,
+        permission: 'general-delivery.earning',
+      },
+      {
+        id: 5.3,
+        name: 'Refund & Responsibilities',
+        translationKey: 'sidebar.refundAndResponsibilities',
+        path: adminRoutes.deliveries.refundAndResponsibilities,
+        permission: 'general-delivery.refund_responsibilities',
       },
     ],
   },

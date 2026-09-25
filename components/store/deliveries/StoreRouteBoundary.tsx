@@ -21,7 +21,7 @@ function StoreRouteBoundary({ children }: { children: React.ReactNode }) {
     : pathname.includes('/wallet/earning-reports')
       ? 'general-delivery.earning'
       : pathname.includes('/wallet/withdrawal-requests')
-        ? 'general-delivery.withdraw_requests'
+        ? 'general-delivery.withdrawal_requests'
         : undefined;
 
   return (

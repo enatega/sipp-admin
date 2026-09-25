@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { ApiErrorResponse } from '@/types';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
 import { fetchAllReport } from '@/lib/fetch-all-report';
 import { returnErrorMessage } from '@/lib/toast-error';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { useGetDeliveryRiders } from '@/hooks/api/super-admin/enatega-deliveries/riders';
 import { useCapitalize } from '@/hooks/use-capitalize';
 import { useCurrency } from '@/hooks/use-currency';
@@ -37,6 +39,8 @@ export function RiderTable() {
     'driverManagement.driversTable.tableHeaders',
   );
   const { getParam } = useQueryParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const limit = Number(getParam('limit')) || 10;
   const { capitalizeFirstLetter } = useCapitalize();
 
@@ -54,6 +58,20 @@ export function RiderTable() {
   const riders = (data?.riders || []) as unknown as DeliveryRider[];
   const { items, requestSort, sortConfig } =
     useSortableData<DeliveryRider>(riders);
+
+  const handleViewRider = (rider: DeliveryRider) => {
+    if (rider.status === 'approved') {
+      router.push(
+        buildScopedDeliveriesAdminPathFromCurrent(
+          pathname,
+          `/enatega-deliveries/riders/${rider.id}`,
+        ),
+      );
+      return;
+    }
+
+    setSelectedRider(rider);
+  };
 
   return (
     <div className="space-y-4">
@@ -226,13 +244,11 @@ export function RiderTable() {
             ) : (
               items.map((rider) => (
                 <TableRow
-                  className={`!h-[55px]  ${rider.status === 'approved' && 'cursor-pointer'}`}
+                  className="!h-[55px] cursor-pointer"
                   key={rider.id}
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (rider.status === 'approved') {
-                      setSelectedRider(rider);
-                    }
+                    handleViewRider(rider);
                   }}
                 >
                   <TableCell>
@@ -285,7 +301,7 @@ export function RiderTable() {
                   <TableCell>
                     <RiderActionsDropdown
                       rider={rider}
-                      onViewProfile={(rider) => setSelectedRider(rider)}
+                      onViewProfile={handleViewRider}
                     />
                   </TableCell>
                 </TableRow>

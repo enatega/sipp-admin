@@ -16,9 +16,14 @@ import { GetStoreWalletSummaryResponse } from '@/types';
 interface HeaderProps {
   walletSummary?: GetStoreWalletSummaryResponse;
   isWalletLoading: boolean;
+  canCreate: boolean;
 }
 
-export function Header({ walletSummary, isWalletLoading }: HeaderProps) {
+export function Header({
+  walletSummary,
+  isWalletLoading,
+  canCreate,
+}: HeaderProps) {
   const t = useTranslations('withdrawalRequests');
   const tVendor = useTranslations('vendorWithdrawalRequest');
   const tTable = useTranslations('withdrawalRequests.table');
@@ -28,7 +33,7 @@ export function Header({ walletSummary, isWalletLoading }: HeaderProps) {
 
   const { data: bankDetailsResponse, isLoading: isBankDetailsLoading } =
     useGetStoreBankDetails(storeIdStr, {
-      enabled: isCreateOpen && Boolean(storeIdStr),
+      enabled: canCreate && isCreateOpen && Boolean(storeIdStr),
     });
 
   const { mutateAsync: createStoreWithdrawRequest, isPending: isCreating } =
@@ -56,31 +61,35 @@ export function Header({ walletSummary, isWalletLoading }: HeaderProps) {
   return (
     <div className="flex items-center justify-between">
       <Heading title={t('title')} showBackBtn />
-      <AppButton
-        variant="primary"
-        leftIcon={<PlusIcon />}
-        onClick={() => setIsCreateOpen(true)}
-        disabled={
-          isWalletLoading ||
-          !walletSummary ||
-          walletSummary.available_to_withdraw <= 0
-        }
-      >
-        {tVendor('createButton')}
-      </AppButton>
+      {canCreate && (
+        <>
+          <AppButton
+            variant="primary"
+            leftIcon={<PlusIcon />}
+            onClick={() => setIsCreateOpen(true)}
+            disabled={
+              isWalletLoading ||
+              !walletSummary ||
+              walletSummary.available_to_withdraw <= 0
+            }
+          >
+            {tVendor('createButton')}
+          </AppButton>
 
-      <CreateWithdrawalRequest
-        open={isCreateOpen}
-        onOpenChange={setIsCreateOpen}
-        showStoreSelection={false}
-        maxWithdrawalAmount={walletSummary?.available_to_withdraw ?? 0}
-        storeLabel={tTable('storeName')}
-        storeUserId={storeIdStr}
-        externalBankDetails={mappedBankDetail}
-        externalBankDetailsLoading={isBankDetailsLoading}
-        externalCreateRequest={handleCreateRequest}
-        externalIsCreating={isCreating}
-      />
+          <CreateWithdrawalRequest
+            open={isCreateOpen}
+            onOpenChange={setIsCreateOpen}
+            showStoreSelection={false}
+            maxWithdrawalAmount={walletSummary?.available_to_withdraw ?? 0}
+            storeLabel={tTable('storeName')}
+            storeUserId={storeIdStr}
+            externalBankDetails={mappedBankDetail}
+            externalBankDetailsLoading={isBankDetailsLoading}
+            externalCreateRequest={handleCreateRequest}
+            externalIsCreating={isCreating}
+          />
+        </>
+      )}
     </div>
   );
 }

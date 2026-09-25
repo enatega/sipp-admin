@@ -1,13 +1,14 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { Wallet } from 'lucide-react';
 import { ApiErrorResponse, StorePayoutRequest } from '@/types';
 import { useGetStoreWalletSummary, useGetStoreWithdrawRequests } from '@/hooks/api/store/deliveries/wallet/withdrawal-request';
 import { useCurrency } from '@/hooks/use-currency';
+import { hasAdminProfile } from '@/lib/user';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useSyncedTab, type TabDef } from '@/hooks/use-synced-tabs';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
@@ -54,6 +55,11 @@ export function StoreWithdrawalRequest() {
   const [open, setOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] =
     useState<UniversalWithdrawalRequest | null>(null);
+  const isAdmin = useSyncExternalStore(
+    () => () => {},
+    () => hasAdminProfile(),
+    () => false,
+  );
 
   const handleViewDetails = (request: StorePayoutRequest) => {
     setSelectedRequest(toUniversalRequest(request));
@@ -94,6 +100,7 @@ export function StoreWithdrawalRequest() {
       <Header
         walletSummary={walletSummary}
         isWalletLoading={isWalletLoading}
+        canCreate={!isAdmin}
       />
       {isWalletLoading ? (
         <Skeleton className="h-28 w-full rounded-lg" />

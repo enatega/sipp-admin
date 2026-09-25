@@ -2,7 +2,7 @@ import Axios from '@/config/axios';
 import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { ApiErrorResponse } from '@/types';
-import { ApproveRefundRequestPayload, CreateRefundRequest, CreateRefundRequestResponse, GetRefundAndResponsibilitiesQueryParams, RefundOrderOption, RefundRequestActivityLog, RefundRequestDetailResponse, RefundRequestsResponse, RejectRefundRequestPayload } from '@/types/api/super-admin/enatega-deliveries/refunds-and-responsibilities';
+import { ApproveRefundRequestPayload, CreateRefundRequest, CreateRefundRequestResponse, GetRefundAndResponsibilitiesQueryParams, RefundableAmount, RefundOrderOption, RefundRequestActivityLog, RefundRequestDetailResponse, RefundRequestsResponse, RejectRefundRequestPayload } from '@/types/api/super-admin/enatega-deliveries/refunds-and-responsibilities';
 import {
     useMutation,
     UseMutationOptions,
@@ -98,6 +98,18 @@ export const useGetDeliveredRefundOrders = (
         },
     });
 };
+
+export const useGetRefundableAmount = (orderId?: string, enabled = true) =>
+    useQuery<RefundableAmount, ApiErrorResponse>({
+        queryKey: ['refund-remaining-amount', orderId ?? null],
+        enabled: enabled && !!orderId,
+        queryFn: async () => {
+            const { data } = await Axios.get<RefundableAmount>(
+                `/apps/deliveries/admin/refund-responsibilities/orders/${orderId}/refundable`,
+            );
+            return data;
+        },
+    });
 
 export function useGetRefundRequestActivityLogById(
     requestId: string,

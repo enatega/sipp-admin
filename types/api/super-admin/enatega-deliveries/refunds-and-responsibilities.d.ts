@@ -3,7 +3,7 @@
 type RefundType = "full" | "partial";
 
 // Define the status as a union of string literals
-type Status = "approved" | "rejected" | "pending";
+type Status = "automatic" | "approved" | "rejected" | "pending";
 
 // Define the structure for a single refund request item
 interface RefundRequest {
@@ -148,4 +148,10 @@ export interface RefundOrderOption {
     customerName?: string;
     amount: number;
     status: string;
+}
+
+export interface RefundableAmount {
+    orderTotal: number;
+    refundedOrReservedAmount: number;
+    remainingRefundableAmount: number;
 }

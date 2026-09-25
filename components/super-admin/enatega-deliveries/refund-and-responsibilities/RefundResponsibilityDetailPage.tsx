@@ -123,23 +123,18 @@ export function RefundResponsibilityDetailPage() {
       ),
     );
     setStoreDeductionPoints(
-      String(request?.admin_actions?.store_deduction_points ?? 0),
+      String(request?.admin_actions?.store_deduction_points || request?.refund_request_details?.requested_amount || 0),
     );
     setRiderDeductionPoints(
       String(request?.admin_actions?.rider_deduction_points ?? 0),
     );
   }, [request]);
 
-  const customerPoints = useMemo(() => {
-    const rate = Number(pointsPerUsd) || 0;
-    const requestedAmount = Number(approvedAmount) || 0;
-
-    return Math.round(requestedAmount * rate);
-  }, [approvedAmount, pointsPerUsd]);
+  const customerCredit = Number(approvedAmount) || 0;
 
   const storePoints = Number(storeDeductionPoints) || 0;
   const riderPoints = Number(riderDeductionPoints) || 0;
-  const netSystemImpact = customerPoints - storePoints - riderPoints;
+  const netSystemImpact = customerCredit - storePoints - riderPoints;
   const isRejectDisabled = !internalNotes?.trim();
   // confirm handler
 
@@ -234,6 +229,7 @@ export function RefundResponsibilityDetailPage() {
             className={cn(
               'rounded-full px-2.5 py-1 text-xs font-medium',
               request.status === 'approved' && 'bg-green-100 text-green-700',
+              request.status === 'automatic' && 'bg-emerald-100 text-emerald-700',
               request.status === 'rejected' && 'bg-red-100 text-red-700',
               request.status === 'pending' && 'bg-blue-100 text-blue-700',
             )}
@@ -509,34 +505,33 @@ export function RefundResponsibilityDetailPage() {
 
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between rounded-md bg-emerald-50 px-3 py-2 text-emerald-700">
-                <span>Customer loyalty points credit</span>
-                <span className="font-semibold">+{customerPoints}</span>
+                <span>Customer wallet credit</span>
+                <span className="font-semibold">+${customerCredit.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Store Deduction</span>
-                <span className="font-semibold">-{storePoints}</span>
+                <span className="font-semibold">-${storePoints.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Rider Deduction</span>
-                <span className="font-semibold">-{riderPoints}</span>
+                <span className="font-semibold">-${riderPoints.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-accent px-3 py-2 font-semibold">
                 <span>Net System Impact</span>
                 <span>
                   {netSystemImpact > 0
-                    ? `+${netSystemImpact}`
-                    : netSystemImpact}
+                    ? `+$${netSystemImpact.toFixed(2)}`
+                    : `$${netSystemImpact.toFixed(2)}`}
                 </span>
               </div>
             </div>
 
             <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
               <CircleAlert className="mt-0.5 h-4 w-4" />
-              Order amount is converted to customer loyalty points using your
-              points-per-USD value.
+              The approved amount is credited to the customer wallet. Store and rider responsibility deductions are recorded in their wallet histories.
             </p>
           </section>
 

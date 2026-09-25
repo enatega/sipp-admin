@@ -7,7 +7,7 @@ import { AppDialog } from '@/components/shared/AppDialog';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { Textarea } from '@/components/ui/textarea';
 import { useGetSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/orders';
-import { useGetDeliveredRefundOrders } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import { useGetDeliveredRefundOrders, useGetRefundableAmount } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
 
 interface CreateRefundDialogProps {
   open: boolean;
@@ -40,7 +40,10 @@ export function CreateRefundDialog({
   const stores = useGetSimpleStores({ enabled: open && !order });
   const deliveredOrders = useGetDeliveredRefundOrders(storeId, open && !order);
   const selectedOrder = deliveredOrders.data?.find((item) => item.orderId === orderId);
-  const total = order ? presetTotal : Number(selectedOrder?.amount ?? 0);
+  const selectedOrderId = order?.orderId ?? orderId;
+  const refundable = useGetRefundableAmount(selectedOrderId, open && !!selectedOrderId);
+  const originalTotal = order ? presetTotal : Number(selectedOrder?.amount ?? 0);
+  const total = refundable.data?.remainingRefundableAmount ?? originalTotal;
 
   useEffect(() => {
     if (!open) return;
@@ -59,9 +62,15 @@ export function CreateRefundDialog({
     setError('');
   }, [order, selectedOrder]);
 
+  useEffect(() => {
+    if (!open || !refundable.data) return;
+    setRefundType('full');
+    setAmount(String(refundable.data.remainingRefundableAmount || ''));
+    setError('');
+  }, [open, refundable.data]);
+
   const submit = async () => {
     const requestedAmount = Number(amount);
-    const selectedOrderId = order?.orderId ?? orderId;
     if (!selectedOrderId) {
       setError('Select a delivered order.');
       return;
@@ -122,6 +131,7 @@ export function CreateRefundDialog({
             </select>
           )}
           <span className="mt-1 block text-xs text-muted-foreground">{order ? 'Order and store are preselected from the order detail page.' : 'Search by the order ID, customer name, phone number, or amount.'}</span>
+          {refundable.data ? <span className="mt-1 block text-xs font-medium text-emerald-700">Original ${refundable.data.orderTotal.toFixed(2)} · Already refunded/reserved ${refundable.data.refundedOrReservedAmount.toFixed(2)} · Remaining ${refundable.data.remainingRefundableAmount.toFixed(2)}</span> : null}
         </label>
         <div className="grid gap-3 sm:grid-cols-2">
           <AppInputField

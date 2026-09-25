@@ -673,6 +673,11 @@
         "currencySymbol": {
           "label": "Währungssymbol",
           "placeholder": "Wird aus der ausgewählten Währung übernommen"
+        },
+        "usdConversionRate": {
+          "label": "USD-Umrechnungskurs",
+          "placeholder": "z. B. 510",
+          "helper": "Geben Sie ein, wie viele {currencyCode} 1 USD entsprechen. Dieser Kurs wird nur verwendet, wenn Stripe eine Bestellung in USD belastet."
         }
       },
       "submitButton": "Konfiguration speichern",
@@ -684,7 +689,11 @@
         "currencyCodeMax": "Der Währungswert darf maximal 10 Zeichen lang sein",
         "currencyNameMax": "Der Währungsname darf maximal 100 Zeichen lang sein",
         "currencySymbolRequired": "Währungssymbol ist erforderlich",
-        "currencySymbolMax": "Das Währungssymbol darf maximal 10 Zeichen lang sein"
+        "currencySymbolMax": "Das Währungssymbol darf maximal 10 Zeichen lang sein",
+        "usdConversionRateNumber": "Geben Sie einen gültigen USD-Umrechnungskurs ein",
+        "usdConversionRateRequired": "Der USD-Umrechnungskurs ist erforderlich",
+        "usdConversionRatePositive": "Der USD-Umrechnungskurs muss größer als null sein",
+        "usdConversionRateMax": "Der USD-Umrechnungskurs ist zu groß"
       }
     },
     "profileAccount": {
@@ -7264,6 +7273,11 @@
       "registrationLabel": "Registriert am",
       "deliveredOrdersTitle": "Zugestellte Bestellungen",
       "deliveredOrdersSubtitle": "Alle diesem Kurier zugewiesenen abgeschlossenen Lieferungen.",
+      "filterByDeliveryDate": "Lieferzeitraum auswählen",
+      "applyDateFilter": "Filter anwenden",
+      "clearDateFilter": "Filter löschen",
+      "loadingDeliveredOrders": "Zugestellte Bestellungen werden geladen...",
+      "failedToFetchDeliveredOrders": "Zugestellte Bestellungen konnten nicht geladen werden",
       "orderIdLabel": "Bestell-ID",
       "customerLabel": "Kunde",
       "storeLabel": "Geschäft",
@@ -7947,6 +7961,7 @@
         "riderPlatformCommissionLabel": "Plattformprovision ({rate}%)",
         "adminCommissionLabel": "Admin-Provision:",
         "totalAmountLabel": "Gesamtbetrag",
+        "stripeChargeLabel": "Stripe-Belastung ({currency})",
         "commissionBreakdownTitle": "Provisionsaufschlüsselung",
         "commissionBreakdownHint": "Die Provision wird vom Geschäftserlös abgezogen, nicht zum Kundengesamtbetrag addiert.",
         "commissionNetLabel": "SIPP-Provision",

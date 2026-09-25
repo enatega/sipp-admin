@@ -86,18 +86,38 @@ export interface GetDeliveryRiderResponse {
   noOfReviews: number;
   totalDeliveries: number;
   totalEarnings: number;
-  deliveredOrders: Array<{
-    orderId: string;
-    orderAmount: number;
-    deliveryFee: number;
-    riderTip: number;
-    riderIncome: number;
-    sippDeliveryCommission: number;
-    paymentMethod: string;
-    deliveredAt: string;
-    storeName: string;
-    customerName: string;
-  }>;
+  deliveredOrders: DeliveryRiderDeliveredOrder[];
+}
+
+export interface DeliveryRiderDeliveredOrder {
+  orderId: string;
+  orderAmount: number;
+  deliveryFee: number;
+  riderTip: number;
+  riderIncome: number;
+  sippDeliveryCommission: number;
+  paymentMethod: string;
+  deliveredAt: string;
+  storeName: string;
+  customerName: string;
+}
+
+export interface GetRiderDeliveredOrdersQueryParams {
+  page?: number;
+  limit?: number;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface GetRiderDeliveredOrdersResponse {
+  data: DeliveryRiderDeliveredOrder[];
+  total: number;
+  totalEarnings: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }
 
 /**

@@ -46,6 +46,7 @@ export interface UpsertCurrencyPayload {
     code: string;
     name: string;
     symbol: string;
+    usdConversionRate: number;
 }
 
 export const useSaveCurrency = (

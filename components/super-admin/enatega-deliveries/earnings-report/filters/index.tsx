@@ -1,15 +1,29 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { Heading } from '@/components/shared/Heading';
-import { DateRangeFilter } from '@/components/shared/filters/DateRangeFilter';
-import { useQueryParams } from '@/hooks/use-query-params';
 import { format } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import { useGetAllSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/stores';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { DateRangeFilter } from '@/components/shared/filters/DateRangeFilter';
+import { AppSearchableSelect } from '@/components/shared/form/AppSearchableSelect';
+import { Heading } from '@/components/shared/Heading';
 
 export const EnategaDeliveriesEarningsReportFilters = () => {
   const tPage = useTranslations('lumiFood.earningsReports.page');
   const t = useTranslations('lumiFood.dashboard.filters');
+  const tReporting = useTranslations('reporting.filters');
   const { getParam, setParams } = useQueryParams();
+  const {
+    data: stores,
+    isLoading,
+    isError,
+  } = useGetAllSimpleStores({
+    refetchOnWindowFocus: false,
+  });
+
+  const storeOptions = (stores ?? [])
+    .map((store) => ({ key: store.storename, value: store.id }))
+    .sort((first, second) => first.key.localeCompare(second.key));
 
   const tabs = [
     { label: t('daily'), value: 'today' },
@@ -26,6 +40,21 @@ export const EnategaDeliveriesEarningsReportFilters = () => {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <Heading title={tPage('title')} />
         <div className="flex items-center gap-2 flex-wrap justify-end">
+          <AppSearchableSelect
+            name="storeId"
+            placeholder={tReporting('allRestaurants')}
+            searchPlaceholder={tReporting('searchRestaurants')}
+            emptyText={tReporting('noRestaurantsFound')}
+            options={storeOptions}
+            value={getParam('storeId') || ''}
+            onValueChange={(value) =>
+              setParams({ storeId: value || null, page: '1' })
+            }
+            loading={isLoading}
+            error={isError ? tReporting('restaurantLoadError') : undefined}
+            loadingText={tReporting('loadingRestaurants')}
+            containerClassName="min-w-[220px]"
+          />
           <div className="flex items-center gap-2 bg-accent/50 p-2 rounded-lg w-fit min-w-min border">
             {tabs.map((item) => (
               <button

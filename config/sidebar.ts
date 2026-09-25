@@ -68,7 +68,7 @@ export const sidebarMenus: SidebarMenu[] = [
         name: 'Customer Support',
         translationKey: 'sidebar.customerSupport',
         path: '/general/customer-support',
-        permission: 'general.custom_support',
+        permission: 'general.customer_support',
       },
     ],
   },
@@ -162,7 +162,7 @@ export const sidebarMenus: SidebarMenu[] = [
         name: 'Withdrawal Requests',
         translationKey: 'sidebar.withdrawalRequests',
         path: adminRoutes.deliveries.withdrawalRequests,
-        permission: 'general-delivery.withdraw_requests',
+        permission: 'general-delivery.withdrawal_requests',
       },
       {
         id: 3.12,

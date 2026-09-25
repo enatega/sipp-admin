@@ -350,7 +350,7 @@ const routePermissionMap: Record<string, string | null> = {
   '/general/zones': 'general.zones',
   '/general/role-and-permissions': 'general.role_permissions',
   '/general/notifications': 'general.notifications',
-  '/general/customer-support': 'general.custom_support',
+  '/general/customer-support': 'general.customer_support',
   '/general/customer-loyalty-and-referrals': 'general.loyalty_referral',
   [adminRoutes.deliveries.base]: 'general-delivery.dashboard',
   [adminRoutes.deliveries.dashboard]: 'general-delivery.dashboard',
@@ -370,7 +370,7 @@ const routePermissionMap: Record<string, string | null> = {
   [adminRoutes.deliveries.earningsReports]: 'general-delivery.earning',
   [adminRoutes.deliveries.reporting.base]: 'general-delivery.earning',
   [adminRoutes.deliveries.withdrawalRequests]:
-    'general-delivery.withdraw_requests',
+    'general-delivery.withdrawal_requests',
   [adminRoutes.deliveries.customerLoyaltyAndReferrals]:
     'general-delivery.loyalty_referral',
   [adminRoutes.deliveries.subscriptionPlans]:

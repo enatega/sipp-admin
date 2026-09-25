@@ -1,5 +1,4 @@
-import Axios from '@/config/axios';
-import { useQueryParams } from '@/hooks/use-query-params';
+import { useCallback, useMemo } from 'react';
 import {
   ApiErrorResponse,
   CreateDeliveryRiderPayload,
@@ -7,6 +6,8 @@ import {
   DeleteDeliveryRiderResponse,
   GetDeliveryRiderResponse,
   GetDeliveryRidersResponse,
+  GetRiderDeliveredOrdersQueryParams,
+  GetRiderDeliveredOrdersResponse,
   GetRidersQueryParams,
   GetVehicleTypesResponse,
   UpdateDeliveryRiderPayload,
@@ -25,14 +26,23 @@ import {
   useQueryClient,
   UseQueryOptions,
 } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import Axios from '@/config/axios';
+import { useQueryParams } from '@/hooks/use-query-params';
 
 /**
  * Hook to fetch all riders with pagination and filters
  * @param options - React Query options
  */
 export const useGetDeliveryRiders = (
-  options?: Omit<UseQueryOptions<GetDeliveryRidersResponse, ApiErrorResponse, GetDeliveryRidersResponse, readonly unknown[]>, 'queryKey' | 'queryFn'>
+  options?: Omit<
+    UseQueryOptions<
+      GetDeliveryRidersResponse,
+      ApiErrorResponse,
+      GetDeliveryRidersResponse,
+      readonly unknown[]
+    >,
+    'queryKey' | 'queryFn'
+  >,
 ) => {
   const { getParam } = useQueryParams();
 
@@ -49,42 +59,69 @@ export const useGetDeliveryRiders = (
   const endDate = getParam('end_date') || undefined;
   const zoneId = getParam('zoneId') || undefined;
 
-  const params: GetRidersQueryParams = useMemo(() => ({
-    page,
-    limit,
-    offset,
-    search,
-    status: tab,
-    kyc_status: status,
-    vehicle_type: vehicleType,
-    rating,
-    start_date: startDate,
-    end_date: endDate,
-    zoneIds: zoneId,
-  }), [endDate, limit, offset, page, rating, search, startDate, status, tab, vehicleType, zoneId]);
+  const params: GetRidersQueryParams = useMemo(
+    () => ({
+      page,
+      limit,
+      offset,
+      search,
+      status: tab,
+      kyc_status: status,
+      vehicle_type: vehicleType,
+      rating,
+      start_date: startDate,
+      end_date: endDate,
+      zoneIds: zoneId,
+    }),
+    [
+      endDate,
+      limit,
+      offset,
+      page,
+      rating,
+      search,
+      startDate,
+      status,
+      tab,
+      vehicleType,
+      zoneId,
+    ],
+  );
 
   const queryKey = ['get-riders', params];
 
-  const fetchRiders = useCallback(async (
-    requestParams: GetRidersQueryParams
-  ): Promise<GetDeliveryRidersResponse> => {
-    const query = new URLSearchParams();
-    if (requestParams.offset !== undefined) query.append('offset', String(requestParams.offset));
-    if (requestParams.page !== undefined) query.append('page', String(requestParams.page));
-    if (requestParams.limit !== undefined) query.append('limit', String(requestParams.limit));
-    if (requestParams.search) query.append('search', requestParams.search);
-    if (requestParams.status && requestParams.status !== "all") query.append('status', requestParams.status);
-    if (requestParams.kyc_status) query.append('kyc_status', requestParams.kyc_status);
-    if (requestParams.vehicle_type) query.append('vehicle_type', requestParams.vehicle_type);
-    if (requestParams.rating !== undefined) query.append('rating', String(requestParams.rating));
-    if (requestParams.start_date) query.append('start_date', requestParams.start_date);
-    if (requestParams.end_date) query.append('end_date', requestParams.end_date);
-    if (requestParams.zoneIds) query.append('zoneIds', requestParams.zoneIds);
+  const fetchRiders = useCallback(
+    async (
+      requestParams: GetRidersQueryParams,
+    ): Promise<GetDeliveryRidersResponse> => {
+      const query = new URLSearchParams();
+      if (requestParams.offset !== undefined)
+        query.append('offset', String(requestParams.offset));
+      if (requestParams.page !== undefined)
+        query.append('page', String(requestParams.page));
+      if (requestParams.limit !== undefined)
+        query.append('limit', String(requestParams.limit));
+      if (requestParams.search) query.append('search', requestParams.search);
+      if (requestParams.status && requestParams.status !== 'all')
+        query.append('status', requestParams.status);
+      if (requestParams.kyc_status)
+        query.append('kyc_status', requestParams.kyc_status);
+      if (requestParams.vehicle_type)
+        query.append('vehicle_type', requestParams.vehicle_type);
+      if (requestParams.rating !== undefined)
+        query.append('rating', String(requestParams.rating));
+      if (requestParams.start_date)
+        query.append('start_date', requestParams.start_date);
+      if (requestParams.end_date)
+        query.append('end_date', requestParams.end_date);
+      if (requestParams.zoneIds) query.append('zoneIds', requestParams.zoneIds);
 
-    const apiUrl = `/apps/deliveries/admin/riders?${query.toString()}`;
-    const res = await Axios.get<GetDeliveryRidersResponse>(apiUrl);
-    return res.data;
-  }, []);
+      const apiUrl = `/apps/deliveries/admin/riders?${query.toString()}`;
+      const res = await Axios.get<GetDeliveryRidersResponse>(apiUrl);
+      return res.data;
+    },
+    [],
+  );
 
   return useQuery<GetDeliveryRidersResponse, ApiErrorResponse>({
     queryKey,
@@ -99,13 +136,16 @@ export const useGetDeliveryRiders = (
  * @param options - React Query options
  */
 export function useGetVehicleTypes(
-  options?: Omit<UseQueryOptions<GetVehicleTypesResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>
+  options?: Omit<
+    UseQueryOptions<GetVehicleTypesResponse, ApiErrorResponse>,
+    'queryKey' | 'queryFn'
+  >,
 ) {
   return useQuery<GetVehicleTypesResponse, ApiErrorResponse>({
     queryKey: ['vehicle-types'],
     queryFn: async () => {
       const { data } = await Axios.get<GetVehicleTypesResponse>(
-        '/apps/deliveries/admin/riders/filters/vehicle-types'
+        '/apps/deliveries/admin/riders/filters/vehicle-types',
       );
       return data;
     },
@@ -122,17 +162,21 @@ export const useUpdateRiderStatus = (
     UpdateRiderStatusResponse,
     ApiErrorResponse,
     UpdateRiderStatusPayload
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<UpdateRiderStatusResponse, ApiErrorResponse, UpdateRiderStatusPayload>({
+  return useMutation<
+    UpdateRiderStatusResponse,
+    ApiErrorResponse,
+    UpdateRiderStatusPayload
+  >({
     mutationFn: async (payload) => {
       const res = await Axios.patch<UpdateRiderStatusResponse>(
         `/apps/deliveries/admin/riders/riders/${payload.riderId}/status`,
         {
           status: payload.status,
           rejection_reason: payload.rejection_reason || '',
-        }
+        },
       );
       return res.data;
     },
@@ -141,9 +185,11 @@ export const useUpdateRiderStatus = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -162,7 +208,7 @@ export const useApproveDeliveryRider = (
       { riderId: string }
     >,
     'mutationFn'
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<
@@ -176,7 +222,7 @@ export const useApproveDeliveryRider = (
         {
           status: 'approved',
           rejection_reason: '',
-        }
+        },
       );
       return res.data;
     },
@@ -184,9 +230,11 @@ export const useApproveDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -205,7 +253,7 @@ export const useRejectDeliveryRider = (
       { riderId: string; rejectionReason: string }
     >,
     'mutationFn'
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<
@@ -219,7 +267,7 @@ export const useRejectDeliveryRider = (
         {
           status: 'rejected',
           rejection_reason: rejectionReason,
-        }
+        },
       );
       return res.data;
     },
@@ -227,9 +275,11 @@ export const useRejectDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -241,13 +291,17 @@ export const useRejectDeliveryRider = (
  * @param options - React Query mutation options
  */
 export const useDeleteDeliveryRider = (
-  options?: UseMutationOptions<DeleteDeliveryRiderResponse, ApiErrorResponse, string>
+  options?: UseMutationOptions<
+    DeleteDeliveryRiderResponse,
+    ApiErrorResponse,
+    string
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<DeleteDeliveryRiderResponse, ApiErrorResponse, string>({
     mutationFn: async (riderId) => {
       const res = await Axios.delete<DeleteDeliveryRiderResponse>(
-        `/apps/deliveries/admin/riders/riders/${riderId}`
+        `/apps/deliveries/admin/riders/riders/${riderId}`,
       );
       return res.data;
     },
@@ -256,7 +310,7 @@ export const useDeleteDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
       options?.onSuccess?.(...args);
     },
@@ -273,17 +327,21 @@ export const useUpdateRiderBlockStatus = (
     UpdateRiderBlockStatusResponse,
     ApiErrorResponse,
     UpdateRiderBlockStatusPayload
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<UpdateRiderBlockStatusResponse, ApiErrorResponse, UpdateRiderBlockStatusPayload>({
+  return useMutation<
+    UpdateRiderBlockStatusResponse,
+    ApiErrorResponse,
+    UpdateRiderBlockStatusPayload
+  >({
     mutationFn: async (payload) => {
       const res = await Axios.patch<UpdateRiderBlockStatusResponse>(
         '/apps/deliveries/admin/riders/riders/block-status',
         {
           riderId: payload.riderId,
           blockStatus: payload.blockStatus,
-        }
+        },
       );
       return res.data;
     },
@@ -292,9 +350,11 @@ export const useUpdateRiderBlockStatus = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -313,7 +373,7 @@ export const useBlockDeliveryRider = (
       { riderId: string }
     >,
     'mutationFn'
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<
@@ -327,7 +387,7 @@ export const useBlockDeliveryRider = (
         {
           riderId,
           blockStatus: true,
-        }
+        },
       );
       return res.data;
     },
@@ -335,9 +395,11 @@ export const useBlockDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -356,7 +418,7 @@ export const useUnblockDeliveryRider = (
       { riderId: string }
     >,
     'mutationFn'
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<
@@ -370,7 +432,7 @@ export const useUnblockDeliveryRider = (
         {
           riderId,
           blockStatus: false,
-        }
+        },
       );
       return res.data;
     },
@@ -378,9 +440,11 @@ export const useUnblockDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
-      queryClient.invalidateQueries({ queryKey: ['get-rider', variables.riderId] });
+      queryClient.invalidateQueries({
+        queryKey: ['get-rider', variables.riderId],
+      });
       options?.onSuccess?.(data, variables, context, meta);
     },
     ...options,
@@ -394,17 +458,49 @@ export const useUnblockDeliveryRider = (
  */
 export const useGetDeliveryRider = (
   riderId: string,
-  options?: Omit<UseQueryOptions<GetDeliveryRiderResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>
+  options?: Omit<
+    UseQueryOptions<GetDeliveryRiderResponse, ApiErrorResponse>,
+    'queryKey' | 'queryFn'
+  >,
 ) => {
   return useQuery<GetDeliveryRiderResponse, ApiErrorResponse>({
     queryKey: ['get-rider', riderId],
     queryFn: async () => {
       const { data } = await Axios.get<GetDeliveryRiderResponse>(
-        `/apps/deliveries/admin/riders/riders/${riderId}`
+        `/apps/deliveries/admin/riders/riders/${riderId}`,
+        { params: { includeDeliveredOrders: false } },
       );
       return data;
     },
     enabled: !!riderId,
+    ...options,
+  });
+};
+
+export async function fetchRiderDeliveredOrders(
+  riderId: string,
+  params: GetRiderDeliveredOrdersQueryParams,
+): Promise<GetRiderDeliveredOrdersResponse> {
+  const { data } = await Axios.get<GetRiderDeliveredOrdersResponse>(
+    `/apps/deliveries/admin/riders/riders/${riderId}/delivered-orders`,
+    { params },
+  );
+  return data;
+}
+
+export const useGetRiderDeliveredOrders = (
+  riderId: string,
+  params: GetRiderDeliveredOrdersQueryParams,
+  options?: Omit<
+    UseQueryOptions<GetRiderDeliveredOrdersResponse, ApiErrorResponse>,
+    'queryKey' | 'queryFn'
+  >,
+) => {
+  return useQuery<GetRiderDeliveredOrdersResponse, ApiErrorResponse>({
+    queryKey: ['get-rider-delivered-orders', riderId, params],
+    queryFn: () => fetchRiderDeliveredOrders(riderId, params),
+    enabled: !!riderId,
+    placeholderData: (previous) => previous,
     ...options,
   });
 };
@@ -418,10 +514,14 @@ export const useUpdateDeliveryRider = (
     UpdateDeliveryRiderResponse,
     ApiErrorResponse,
     UpdateDeliveryRiderPayload
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
-  return useMutation<UpdateDeliveryRiderResponse, ApiErrorResponse, UpdateDeliveryRiderPayload>({
+  return useMutation<
+    UpdateDeliveryRiderResponse,
+    ApiErrorResponse,
+    UpdateDeliveryRiderPayload
+  >({
     mutationFn: async (payload) => {
       const formData = new FormData();
 
@@ -435,25 +535,52 @@ export const useUpdateDeliveryRider = (
       if (payload.phone) formData.append('phone', payload.phone);
       if (payload.zone_id) formData.append('zone_id', payload.zone_id);
       if (payload.city) formData.append('city', payload.city);
-      if (payload.licenseNumber) formData.append('licenseNumber', payload.licenseNumber);
-      if (payload.vehicle_name) formData.append('vehicle_name', payload.vehicle_name);
-      if (payload.vehicle_colour) formData.append('vehicle_colour', payload.vehicle_colour);
+      if (payload.licenseNumber)
+        formData.append('licenseNumber', payload.licenseNumber);
+      if (payload.vehicle_name)
+        formData.append('vehicle_name', payload.vehicle_name);
+      if (payload.vehicle_colour)
+        formData.append('vehicle_colour', payload.vehicle_colour);
       if (payload.vehicle_no) formData.append('vehicle_no', payload.vehicle_no);
-      if (payload.model_year_limit !== undefined) formData.append('model_year_limit', String(payload.model_year_limit));
-      if (payload.is_four_wheeler !== undefined) formData.append('is_four_wheeler', String(payload.is_four_wheeler));
-      if (payload.air_conditioning !== undefined) formData.append('air_conditioning', String(payload.air_conditioning));
-      if (payload.no_cosmetic_damage !== undefined) formData.append('no_cosmetic_damage', String(payload.no_cosmetic_damage));
-      if (payload.helmet !== undefined) formData.append('helmet', String(payload.helmet));
-      if (payload.availabilityStatus) formData.append('availabilityStatus', payload.availabilityStatus);
+      if (payload.model_year_limit !== undefined)
+        formData.append('model_year_limit', String(payload.model_year_limit));
+      if (payload.is_four_wheeler !== undefined)
+        formData.append('is_four_wheeler', String(payload.is_four_wheeler));
+      if (payload.air_conditioning !== undefined)
+        formData.append('air_conditioning', String(payload.air_conditioning));
+      if (payload.no_cosmetic_damage !== undefined)
+        formData.append(
+          'no_cosmetic_damage',
+          String(payload.no_cosmetic_damage),
+        );
+      if (payload.helmet !== undefined)
+        formData.append('helmet', String(payload.helmet));
+      if (payload.availabilityStatus)
+        formData.append('availabilityStatus', payload.availabilityStatus);
       if (payload.type) formData.append('type', payload.type);
-      if (payload.is_approved !== undefined) formData.append('is_approved', String(payload.is_approved));
+      if (payload.is_approved !== undefined)
+        formData.append('is_approved', String(payload.is_approved));
       if (payload.status) formData.append('status', payload.status);
       if (payload.tier_id) formData.append('tier_id', payload.tier_id);
-      if (payload.is_onboarding_completed !== undefined) formData.append('is_onboarding_completed', String(payload.is_onboarding_completed));
-      if (payload.cod_limit_enabled !== undefined) formData.append('cod_limit_enabled', String(payload.cod_limit_enabled));
-      if (payload.cod_limit_amount !== undefined) formData.append('cod_limit_amount', String(payload.cod_limit_amount));
-      if (payload.cod_warning_threshold !== undefined) formData.append('cod_warning_threshold', String(payload.cod_warning_threshold));
-      if (payload.cod_auto_settlement_cycle) formData.append('cod_auto_settlement_cycle', payload.cod_auto_settlement_cycle);
+      if (payload.is_onboarding_completed !== undefined)
+        formData.append(
+          'is_onboarding_completed',
+          String(payload.is_onboarding_completed),
+        );
+      if (payload.cod_limit_enabled !== undefined)
+        formData.append('cod_limit_enabled', String(payload.cod_limit_enabled));
+      if (payload.cod_limit_amount !== undefined)
+        formData.append('cod_limit_amount', String(payload.cod_limit_amount));
+      if (payload.cod_warning_threshold !== undefined)
+        formData.append(
+          'cod_warning_threshold',
+          String(payload.cod_warning_threshold),
+        );
+      if (payload.cod_auto_settlement_cycle)
+        formData.append(
+          'cod_auto_settlement_cycle',
+          payload.cod_auto_settlement_cycle,
+        );
       if (payload.cod_allow_online_payments_when_blocked !== undefined) {
         formData.append(
           'cod_allow_online_payments_when_blocked',
@@ -468,14 +595,37 @@ export const useUpdateDeliveryRider = (
       }
 
       // Add file fields
-      if (payload.driver_license_front instanceof File) formData.append('driver_license_front', payload.driver_license_front);
-      if (payload.driver_license_back instanceof File) formData.append('driver_license_back', payload.driver_license_back);
-      if (payload.national_id_passport_front instanceof File) formData.append('national_id_passport_front', payload.national_id_passport_front);
-      if (payload.national_id_passport_back instanceof File) formData.append('national_id_passport_back', payload.national_id_passport_back);
-      if (payload.vehicle_registration_front instanceof File) formData.append('vehicle_registration_front', payload.vehicle_registration_front);
-      if (payload.vehicle_registration_back instanceof File) formData.append('vehicle_registration_back', payload.vehicle_registration_back);
-      if (payload.company_commercial_registration instanceof File) formData.append('company_commercial_registration', payload.company_commercial_registration);
-      if (payload.profile_image instanceof File) formData.append('profile_image', payload.profile_image);
+      if (payload.driver_license_front instanceof File)
+        formData.append('driver_license_front', payload.driver_license_front);
+      if (payload.driver_license_back instanceof File)
+        formData.append('driver_license_back', payload.driver_license_back);
+      if (payload.national_id_passport_front instanceof File)
+        formData.append(
+          'national_id_passport_front',
+          payload.national_id_passport_front,
+        );
+      if (payload.national_id_passport_back instanceof File)
+        formData.append(
+          'national_id_passport_back',
+          payload.national_id_passport_back,
+        );
+      if (payload.vehicle_registration_front instanceof File)
+        formData.append(
+          'vehicle_registration_front',
+          payload.vehicle_registration_front,
+        );
+      if (payload.vehicle_registration_back instanceof File)
+        formData.append(
+          'vehicle_registration_back',
+          payload.vehicle_registration_back,
+        );
+      if (payload.company_commercial_registration instanceof File)
+        formData.append(
+          'company_commercial_registration',
+          payload.company_commercial_registration,
+        );
+      if (payload.profile_image instanceof File)
+        formData.append('profile_image', payload.profile_image);
 
       const res = await Axios.put<UpdateDeliveryRiderResponse>(
         '/apps/deliveries/admin/riders/update',
@@ -484,7 +634,7 @@ export const useUpdateDeliveryRider = (
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        }
+        },
       );
       return res.data;
     },
@@ -493,12 +643,12 @@ export const useUpdateDeliveryRider = (
       queryClient.invalidateQueries({
         queryKey: ['get-rider'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
       queryClient.invalidateQueries({
         queryKey: ['get-riders'],
         exact: false,
-        refetchType: 'active'
+        refetchType: 'active',
       });
       options?.onSuccess?.(...args);
     },
@@ -515,7 +665,7 @@ export const useValidateRiderBasicInfo = (
     ValidateRiderBasicInfoResponse,
     ApiErrorResponse,
     ValidateRiderBasicInfoPayload
-  >
+  >,
 ) => {
   return useMutation<
     ValidateRiderBasicInfoResponse,
@@ -525,7 +675,7 @@ export const useValidateRiderBasicInfo = (
     mutationFn: async (payload) => {
       const res = await Axios.post<ValidateRiderBasicInfoResponse>(
         '/apps/deliveries/admin/riders/validate/basic-information',
-        payload
+        payload,
       );
       return res.data;
     },
@@ -543,7 +693,7 @@ export const useCreateDeliveryRider = (
     CreateDeliveryRiderResponse,
     ApiErrorResponse,
     CreateDeliveryRiderPayload
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
   return useMutation<
@@ -563,12 +713,27 @@ export const useCreateDeliveryRider = (
       formData.append('vehicle_type', payload.vehicle_type);
       formData.append('driver_license_front', payload.driver_license_front);
       formData.append('driver_license_back', payload.driver_license_back);
-      formData.append('national_id_passport_front', payload.national_id_passport_front);
-      formData.append('national_id_passport_back', payload.national_id_passport_back);
-      formData.append('vehicle_registration_front', payload.vehicle_registration_front);
-      formData.append('vehicle_registration_back', payload.vehicle_registration_back);
+      formData.append(
+        'national_id_passport_front',
+        payload.national_id_passport_front,
+      );
+      formData.append(
+        'national_id_passport_back',
+        payload.national_id_passport_back,
+      );
+      formData.append(
+        'vehicle_registration_front',
+        payload.vehicle_registration_front,
+      );
+      formData.append(
+        'vehicle_registration_back',
+        payload.vehicle_registration_back,
+      );
       formData.append('model_year_limit', String(payload.model_year_limit));
-      formData.append('insulated_delivery_bag', String(payload.insulated_delivery_bag));
+      formData.append(
+        'insulated_delivery_bag',
+        String(payload.insulated_delivery_bag),
+      );
       formData.append('zone_id', payload.zone_id);
       formData.append('licenseNumber', payload.licenseNumber);
       formData.append('vehicle_name', payload.vehicle_name);
@@ -577,7 +742,10 @@ export const useCreateDeliveryRider = (
 
       // Add optional fields
       if (payload.company_commercial_registration) {
-        formData.append('company_commercial_registration', payload.company_commercial_registration);
+        formData.append(
+          'company_commercial_registration',
+          payload.company_commercial_registration,
+        );
       }
       if (payload.profile_image) {
         formData.append('profile_image', payload.profile_image);
@@ -589,10 +757,16 @@ export const useCreateDeliveryRider = (
         formData.append('air_conditioning', String(payload.air_conditioning));
       }
       if (payload.change_password_allowed !== undefined) {
-        formData.append('change_password_allowed', String(payload.change_password_allowed));
+        formData.append(
+          'change_password_allowed',
+          String(payload.change_password_allowed),
+        );
       }
       if (payload.bike_good_condition !== undefined) {
-        formData.append('bike_good_condition', String(payload.bike_good_condition));
+        formData.append(
+          'bike_good_condition',
+          String(payload.bike_good_condition),
+        );
       }
       if (payload.helmet !== undefined) {
         formData.append('helmet', String(payload.helmet));
@@ -635,7 +809,7 @@ export const useCreateDeliveryRider = (
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        }
+        },
       );
       return res.data;
     },

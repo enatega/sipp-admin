@@ -34,8 +34,8 @@ interface RefundRequestsResponse {
 
 export interface GetRefundAndResponsibilitiesQueryParams {
     search?: string;
-    startDate?: string;
-    endDate?: string;
+    start_date?: string;
+    end_date?: string;
     page?: number;
     limit?: number;
     modeScope?: string;
@@ -128,4 +128,24 @@ interface RefundRequestActivityLog {
 
 interface RefundRequestActivityLogResponse {
     data: RefundRequestActivityLog[];
+}
+
+export interface CreateRefundRequest {
+    order_id: string;
+    requested_amount: number;
+    refund_type: RefundType;
+    reason?: string;
+}
+
+export interface CreateRefundRequestResponse {
+    message: string;
+    data: RefundRequest;
+}
+
+export interface RefundOrderOption {
+    orderId: string;
+    storeName?: string;
+    customerName?: string;
+    amount: number;
+    status: string;
 }

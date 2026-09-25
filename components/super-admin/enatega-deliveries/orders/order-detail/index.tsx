@@ -4,7 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useParams } from 'next/navigation';
 import { ApiErrorResponse } from '@/types';
-import { MapPin } from 'lucide-react';
+import { MapPin, ReceiptText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { handleApiError } from '@/lib/toast-error';
@@ -21,6 +21,8 @@ import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
 import { OrderDetailMain } from './order-detail-main';
 import { OrderDetailShimmer } from './OrderDetailShimmer';
+import { CreateRefundDialog } from '../../refund-and-responsibilities/CreateRefundDialog';
+import { useCreateRefundRequest } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
 
 // Lazy load MapTrackingModal for better performance
 const MapTrackingModal = dynamic(() => import('./MapTrackingModal'), {
@@ -43,6 +45,7 @@ export function OrderDetailPage() {
   const [isTrackModalOpen, setIsTrackModalOpen] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectionReason, setRejectionReason] = useState('');
+  const [isRefundDialogOpen, setIsRefundDialogOpen] = useState(false);
 
   const storeIdParam = params.storeId;
   const storeId = Array.isArray(storeIdParam) ? storeIdParam[0] : storeIdParam;
@@ -50,6 +53,8 @@ export function OrderDetailPage() {
     useAcceptStoreOrder();
   const { mutateAsync: rejectOrder, isPending: isRejecting } =
     useRejectStoreOrder();
+  const { mutateAsync: createRefund, isPending: isCreatingRefund } =
+    useCreateRefundRequest();
 
   // Always call both hooks (Rules of Hooks). Gate each with `enabled` so only
   // the relevant one actually fires a network request.
@@ -156,6 +161,17 @@ export function OrderDetailPage() {
           >
             {tTable('liveTracking')}
           </AppButton>
+          {!storeId ? (
+            <AppButton
+              variant="secondary"
+              onClick={() => setIsRefundDialogOpen(true)}
+              className="h-10 px-6 w-full sm:w-auto"
+              leftIcon={<ReceiptText size={18} />}
+              title="Create refund"
+            >
+              Refund
+            </AppButton>
+          ) : null}
         </div>
       </div>
       <OrderDetailMain order={order} />
@@ -163,6 +179,21 @@ export function OrderDetailPage() {
         open={isTrackModalOpen}
         onClose={() => setIsTrackModalOpen(false)}
         order={order}
+      />
+      <CreateRefundDialog
+        open={isRefundDialogOpen}
+        order={order}
+        isLoading={isCreatingRefund}
+        onClose={() => setIsRefundDialogOpen(false)}
+        onCreate={async (payload) => {
+          try {
+            const response = await createRefund(payload);
+            toast.success(response.message || 'Refund request created successfully');
+            setIsRefundDialogOpen(false);
+          } catch (actionError) {
+            handleApiError(actionError as ApiErrorResponse);
+          }
+        }}
       />
       {showRejectDialog && (
         <AppAlertDialog

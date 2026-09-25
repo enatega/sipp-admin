@@ -28,6 +28,7 @@ const statusClassMap: { [key: string]: string } = {
   delivered: 'bg-green-500/30 text-green-500',
   closed: 'bg-green-500/30 text-green-500',
   approved: 'bg-green-500/30 text-green-500',
+  automatic: 'bg-emerald-100 text-emerald-700',
   approved_by_admin: 'bg-blue-500/30 text-blue-500',
   refunded: 'bg-green-500/30 text-green-500',
   claimed: 'bg-green-500/30 text-green-500',

@@ -115,25 +115,26 @@ export function RefundResponsibilityDetailPage() {
       request?.refund_request_details?.refund_type === 'partial',
     );
     setPointsPerUsd(String(request?.admin_actions?.points_per_usd ?? 10));
+    setSetApprovedAmount(
+      Number(
+        request?.refund_request_details?.approved_amount ??
+          request?.refund_request_details?.requested_amount ??
+          0,
+      ),
+    );
     setStoreDeductionPoints(
-      String(request?.admin_actions?.store_deduction_points ?? 0),
+      String(request?.admin_actions?.store_deduction_points || request?.refund_request_details?.requested_amount || 0),
     );
     setRiderDeductionPoints(
       String(request?.admin_actions?.rider_deduction_points ?? 0),
     );
   }, [request]);
 
-  const customerPoints = useMemo(() => {
-    const rate = Number(pointsPerUsd) || 0;
-    const requestedAmount =
-      Number(request?.refund_request_details?.requested_amount) || 0;
-
-    return Math.round(requestedAmount * rate);
-  }, [pointsPerUsd, request]);
+  const customerCredit = Number(approvedAmount) || 0;
 
   const storePoints = Number(storeDeductionPoints) || 0;
   const riderPoints = Number(riderDeductionPoints) || 0;
-  const netSystemImpact = customerPoints - storePoints - riderPoints;
+  const netSystemImpact = customerCredit - storePoints - riderPoints;
   const isRejectDisabled = !internalNotes?.trim();
   // confirm handler
 
@@ -147,7 +148,7 @@ export function RefundResponsibilityDetailPage() {
           ApproveRefundRequest: {
             internal_notes: internalNotes,
             partial_refund: isPartialRefund,
-            points_per_usd: customerPoints,
+            points_per_usd: Number(pointsPerUsd) || 10,
             rider_deduction_points: riderPoints,
             store_deduction_points: storePoints,
             approved_amount: approvedAmount,
@@ -228,6 +229,7 @@ export function RefundResponsibilityDetailPage() {
             className={cn(
               'rounded-full px-2.5 py-1 text-xs font-medium',
               request.status === 'approved' && 'bg-green-100 text-green-700',
+              request.status === 'automatic' && 'bg-emerald-100 text-emerald-700',
               request.status === 'rejected' && 'bg-red-100 text-red-700',
               request.status === 'pending' && 'bg-blue-100 text-blue-700',
             )}
@@ -317,7 +319,7 @@ export function RefundResponsibilityDetailPage() {
                 </p>
 
                 <p className="rounded-lg border bg-amber-50 px-3 py-2 text-sm">
-                  {request?.refund_request_details?.reason_for_refund}
+                  {request?.refund_request_details?.reason_for_refund || 'No reason provided'}
                 </p>
               </div>
 
@@ -420,7 +422,14 @@ export function RefundResponsibilityDetailPage() {
 
                 <Switch
                   checked={isPartialRefund}
-                  onCheckedChange={setIsPartialRefund}
+                  onCheckedChange={(checked) => {
+                    setIsPartialRefund(checked);
+                    if (!checked) {
+                      setSetApprovedAmount(
+                        Number(request.refund_request_details.requested_amount),
+                      );
+                    }
+                  }}
                 />
               </div>
 
@@ -437,17 +446,8 @@ export function RefundResponsibilityDetailPage() {
                 />
                 <AppInputField
                   type="number"
-                  name="pointsPerUsd"
-                  label="Points per 1 USD"
-                  value={pointsPerUsd}
-                  onChange={(e) => setPointsPerUsd(e.target.value)}
-                  min={0}
-                />
-
-                <AppInputField
-                  type="number"
                   name="storeDeductionPoints"
-                  label="Store Deduction (Points)"
+                  label="Store wallet deduction (optional)"
                   value={storeDeductionPoints}
                   onChange={(e) => setStoreDeductionPoints(e.target.value)}
                   min={0}
@@ -456,7 +456,7 @@ export function RefundResponsibilityDetailPage() {
                 <AppInputField
                   type="number"
                   name="riderDeductionPoints"
-                  label="Rider Deduction (Points)"
+                  label="Rider wallet deduction (optional)"
                   value={riderDeductionPoints}
                   onChange={(e) => setRiderDeductionPoints(e.target.value)}
                   min={0}
@@ -499,40 +499,39 @@ export function RefundResponsibilityDetailPage() {
             </section>
           )}
 
-          {/* Points Adjustment */}
+          {/* Wallet settlement */}
           <section className="rounded-xl border bg-white p-4 sm:p-5">
-            <h3 className="mb-3 text-base font-semibold">Points Adjustment</h3>
+            <h3 className="mb-3 text-base font-semibold">Wallet settlement</h3>
 
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between rounded-md bg-emerald-50 px-3 py-2 text-emerald-700">
-                <span>Customer Points Added</span>
-                <span className="font-semibold">+{customerPoints}</span>
+                <span>Customer wallet credit</span>
+                <span className="font-semibold">+${customerCredit.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Store Deduction</span>
-                <span className="font-semibold">-{storePoints}</span>
+                <span className="font-semibold">-${storePoints.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Rider Deduction</span>
-                <span className="font-semibold">-{riderPoints}</span>
+                <span className="font-semibold">-${riderPoints.toFixed(2)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-accent px-3 py-2 font-semibold">
                 <span>Net System Impact</span>
                 <span>
                   {netSystemImpact > 0
-                    ? `+${netSystemImpact}`
-                    : netSystemImpact}
+                    ? `+$${netSystemImpact.toFixed(2)}`
+                    : `$${netSystemImpact.toFixed(2)}`}
                 </span>
               </div>
             </div>
 
             <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
               <CircleAlert className="mt-0.5 h-4 w-4" />
-              Order amount is converted to customer loyalty points using your
-              points-per-USD value.
+              The approved amount is credited to the customer wallet. Store and rider responsibility deductions are recorded in their wallet histories.
             </p>
           </section>
 

@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { WalletSummary } from '@/types';
 import { useCurrency } from '@/hooks/use-currency';
+import { resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { cn } from '@/lib/utils';
 
 interface WalletBalanceCardProps {
@@ -20,7 +21,7 @@ export function WalletBalanceCard({
 }: WalletBalanceCardProps) {
   const t = useTranslations('wallet.balanceCard');
   const tOwners = useTranslations('wallet.owners');
-  const { formatCurrency, currencyCode } = useCurrency();
+  const { currencyCode, currencySymbol } = useCurrency();
 
   return (
     <section
@@ -64,7 +65,11 @@ export function WalletBalanceCard({
               <div className="mt-2 h-10 w-48 animate-pulse rounded-lg bg-white/20" />
             ) : (
               <p className="mt-1 text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl">
-                {formatCurrency(summary?.balance ?? 0)}
+                {resolveCurrencySymbol(currencySymbol)}{' '}
+                {Number(summary?.balance ?? 0).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </p>
             )}
           </div>

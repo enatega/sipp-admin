@@ -11,6 +11,8 @@ import TicketDetailsSkeleton from '../skeleton/TicketDetailsSkeleton';
 import Messages from './Messages';
 import { StatusDetails } from './status/StatusDetails';
 import UserInformation from './UserInformation';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 const TicketDetails = () => {
   const t = useTranslations('customerSupport.details');
@@ -47,8 +49,24 @@ const TicketDetails = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-6">
-        <Heading title={t('title')} showBackBtn />
+      <div className="mb-6 rounded-lg border bg-white p-4 shadow-xs">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <Heading title={t('title')} showBackBtn />
+          {data?.ticket?.reason === 'order_related_issue' && data.ticket.orderId ? (
+            <Link href={`/enatega-deliveries/orders/${data.ticket.orderId}`} className="inline-flex min-h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-white">
+              Check order detail - Order #{data.ticket.orderId.slice(0, 8).toUpperCase()} <ExternalLink size={16} />
+            </Link>
+          ) : null}
+        </div>
+        {data?.ticket ? (
+          <div className="mt-4 grid gap-3 border-t pt-4 md:grid-cols-[auto_1fr]">
+            <div className="flex flex-wrap gap-2">
+              <span className="h-fit rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold capitalize text-sky-700">{data.ticket.category?.replaceAll('_', ' ')}</span>
+              <span className="h-fit rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold capitalize text-amber-700">{data.ticket.reason?.replaceAll('_', ' ')}</span>
+            </div>
+            <p className="whitespace-pre-wrap break-words text-sm leading-6 text-slate-700">{data.ticket.description || 'No description provided.'}</p>
+          </div>
+        ) : null}
       </div>
       <div className="my-6">
         <StatusDetails data={data} isLoading={isLoading} />

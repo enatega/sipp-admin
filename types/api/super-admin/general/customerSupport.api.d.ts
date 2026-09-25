@@ -91,6 +91,14 @@ export interface GetCustomerSupportTicketMessagesByIdResponse {
   messages: Message[];
   assignedAdminId?: string | null;
   assignedAdminName?: string | null;
+  ticket?: {
+    id: string;
+    description?: string | null;
+    category?: string;
+    reason?: string;
+    attachmentUrls?: string[];
+    orderId?: string | null;
+  } | null;
 }
 
 export interface SupportAdmin { id: string; name: string; image?: string | null }
@@ -141,6 +149,7 @@ export interface Message {
   updatedAt?: string
   senderType?: 'customer' | 'admin';
   senderName?: string | null;
+  attachmentUrls?: string[];
 }
 // GetCustomerSupportTicketMessagesById End
 

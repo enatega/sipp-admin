@@ -14,6 +14,7 @@ import { getUser } from '@/lib/user';
 import { useSendSupportChatMessage } from '@/hooks/api/super-admin/general/customerSupport';
 import { useSocket } from '@/hooks/use-socket';
 import RelativeTime from '@/components/shared/RelativeTime';
+import { ImagePreview } from '@/components/shared/ImagePreview';
 
 export default function Messages({
   data,
@@ -157,7 +158,7 @@ export default function Messages({
           return (
             <div
               key={m?.id ?? idx}
-              className={`flex gap-3 ${isAdminMessage ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-3 ${mine ? 'justify-end' : 'justify-start'}`}
             >
               {isCustomerMessage && (
                 <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-sm">
@@ -169,11 +170,7 @@ export default function Messages({
                   isAdminMessage ? 'text-white' : 'text-black'
                 }`}
                 style={{
-                  backgroundColor: mine
-                    ? 'var(--primary,#0ea5e9)'
-                    : isAdminMessage
-                      ? '#dcfce7'
-                      : 'var(--muted,#f3f4f6)',
+                  backgroundColor: mine ? 'var(--primary,#0ea5e9)' : isAdminMessage ? '#dcfce7' : 'var(--muted,#f3f4f6)',
                 }}
               >
                 {!mine && (
@@ -184,6 +181,9 @@ export default function Messages({
                   </div>
                 )}
                 <div className={`text-sm text-black`}>{m.text}</div>
+                {m.attachmentUrls?.map((url, attachmentIndex) => (
+                  <ImagePreview key={url} image={url} label={`Attachment ${attachmentIndex + 1}`} className="mt-2" imageClassName="h-32" />
+                ))}
                 <div
                   className={`mt-1 text-[11px] ${mine ? 'text-white/80' : 'text-mute'}`}
                 >

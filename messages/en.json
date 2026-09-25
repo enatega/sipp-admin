@@ -673,6 +673,11 @@
         "currencySymbol": {
           "label": "Currency Symbol",
           "placeholder": "Auto-filled from selected currency"
+        },
+        "usdConversionRate": {
+          "label": "USD conversion rate",
+          "placeholder": "e.g. 510",
+          "helper": "Enter how many {currencyCode} equal 1 USD. This rate is used only when Stripe charges an order in USD."
         }
       },
       "submitButton": "Save Configuration",
@@ -684,7 +689,11 @@
         "currencyCodeMax": "Currency value must be at most 10 characters",
         "currencyNameMax": "Currency name must be at most 100 characters",
         "currencySymbolRequired": "Currency symbol is required",
-        "currencySymbolMax": "Currency symbol must be at most 10 characters"
+        "currencySymbolMax": "Currency symbol must be at most 10 characters",
+        "usdConversionRateNumber": "Enter a valid USD conversion rate",
+        "usdConversionRateRequired": "USD conversion rate is required",
+        "usdConversionRatePositive": "USD conversion rate must be greater than zero",
+        "usdConversionRateMax": "USD conversion rate is too large"
       }
     },
     "profileAccount": {
@@ -7631,6 +7640,7 @@
         "riderPlatformCommissionLabel": "Platform commission ({rate}%)",
         "adminCommissionLabel": "Admin Commission:",
         "totalAmountLabel": "Total Amount",
+        "stripeChargeLabel": "Stripe charge ({currency})",
         "commissionBreakdownTitle": "Commission Breakdown",
         "commissionBreakdownHint": "Commission is deducted from store earnings, not added to the customer's total.",
         "commissionNetLabel": "SIPP commission",

@@ -27,6 +27,11 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
     (order?.payment && (order.payment as PaymentInfo).paymentStatus) ||
     order?.paymentMethod ||
     '';
+  const hasStripeCharge =
+    payment?.stripeChargedAmount != null &&
+    Number.isFinite(Number(payment.stripeChargedAmount)) &&
+    Number(payment.stripeChargedAmount) > 0;
+  const stripeCurrency = payment?.stripeChargedCurrency || 'USD';
 
   return (
     <div className="border border-sidebar-border p-6 rounded-[12px] bg-white  shadow-sm">
@@ -116,8 +121,18 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
         {/* Total */}
         <div className="flex justify-between items-center text-[18px]">
           <span className="text-black font-bold">{t('totalAmountLabel')}</span>
-          <span className="text-black font-bold">{formatCurrency(order?.amount || 0, currency)}</span>
+          <span className="text-black font-bold tabular-nums">{formatCurrency(order?.amount || 0, currency)}</span>
         </div>
+        {hasStripeCharge && (
+          <div className="flex items-start justify-between gap-4 rounded-lg bg-blue-50 px-4 py-3 text-[16px]">
+            <span className="min-w-0 font-semibold text-black">
+              {t('stripeChargeLabel', { currency: stripeCurrency })}
+            </span>
+            <span className="shrink-0 font-bold tabular-nums text-black">
+              {formatCurrency(payment.stripeChargedAmount, '$')}
+            </span>
+          </div>
+        )}
 
         <div className="border-t border-sidebar-border my-4" />
 

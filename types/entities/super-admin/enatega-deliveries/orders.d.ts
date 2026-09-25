@@ -144,6 +144,8 @@ export interface PaymentInfo {
     storeEarnings?: number;
     couponApplied?: string | null;
     currency?: string;
+    stripeChargedAmount?: number | null;
+    stripeChargedCurrency?: string | null;
 }
 
 export interface CustomerInfo {

@@ -78,7 +78,7 @@ const StoreSidebar = () => {
         ? true
         : subItem.id === 's7.1'
           ? hasPermission('general-delivery.earning')
-          : hasPermission('general-delivery.withdraw_requests'),
+          : hasPermission('general-delivery.withdrawal_requests'),
     );
     return Boolean(item.subMenus?.length);
   });

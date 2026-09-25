@@ -11,6 +11,8 @@ import {
   WalletDataSource,
 } from '@/hooks/api/super-admin/enatega-deliveries/wallets';
 import { returnErrorMessage } from '@/lib/toast-error';
+import { adminRoutes } from '@/lib/routes';
+import { getStorePath } from '@/lib/store';
 import { AppButton } from '@/components/shared/AppButton';
 import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
@@ -47,6 +49,10 @@ export function WalletPage({
     ownerId,
     source,
   );
+  const getOrderHref = (orderId: string) =>
+    source === 'store-dashboard'
+      ? getStorePath(ownerId, `/orders/${orderId}`)
+      : `${adminRoutes.deliveries.orders}/${orderId}`;
 
   return (
     <div className="space-y-6 pb-8">
@@ -97,6 +103,7 @@ export function WalletPage({
           isLoading={transactionsQuery.isLoading}
           isError={transactionsQuery.isError}
           error={transactionsQuery.error}
+          getOrderHref={getOrderHref}
         />
       </section>
 

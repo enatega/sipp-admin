@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { GetCustomerSupportTicketMessagesByIdResponse } from '@/types/api/super-admin/general/customerSupport.api';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ImagePreview } from '@/components/shared/ImagePreview';
 
 const UserInformation = ({
   data,
@@ -142,6 +143,17 @@ const UserInformation = ({
             </div>
           </div>
         </div>
+
+        {data?.ticket?.attachmentUrls?.length ? (
+          <div className="border-t pt-6">
+            <h4 className="mb-4 text-base font-semibold text-black">Supported attachment</h4>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {data.ticket.attachmentUrls.map((attachment, index) => (
+                <ImagePreview key={attachment} image={attachment} label={`Attachment ${index + 1}`} />
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         {/* Security and Audit table */}
         {/* <div>

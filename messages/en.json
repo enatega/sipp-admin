@@ -571,7 +571,24 @@
       "profileAccount": "Profile / Account",
       "appSettings": "App Settings",
       "staticPages": "Static Pages",
-      "configuration": "Configuration"
+      "configuration": "Configuration",
+      "languages": "Languages"
+    },
+    "languages": {
+      "title": "Available languages",
+      "description": "Choose which languages are available in the Admin and Customer Web language menus. English is the permanent default and fallback language.",
+      "loading": "Loading languages",
+      "loadErrorTitle": "Languages could not be loaded",
+      "loadErrorDescription": "Check the server connection and try again.",
+      "retry": "Try again",
+      "defaultBadge": "Default",
+      "englishHelper": "Always enabled to provide a reliable fallback.",
+      "languageHelper": "Available when enabled.",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "toggleLabel": "Toggle {language}",
+      "enabledToast": "Language enabled successfully",
+      "disabledToast": "Language disabled successfully"
     },
     "appTypes": {
       "riderApp": "Rider App",

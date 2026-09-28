@@ -571,7 +571,24 @@
       "profileAccount": "Profil / Konto",
       "appSettings": "App-Einstellungen",
       "staticPages": "Statische Seiten",
-      "configuration": "Konfiguration"
+      "configuration": "Konfiguration",
+      "languages": "Sprachen"
+    },
+    "languages": {
+      "title": "Verfügbare Sprachen",
+      "description": "Wählen Sie aus, welche Sprachen in den Sprachmenüs der Administration und der Kunden-Webseite verfügbar sind. Englisch ist die dauerhafte Standard- und Ausweichsprache.",
+      "loading": "Sprachen werden geladen",
+      "loadErrorTitle": "Sprachen konnten nicht geladen werden",
+      "loadErrorDescription": "Prüfen Sie die Serververbindung und versuchen Sie es erneut.",
+      "retry": "Erneut versuchen",
+      "defaultBadge": "Standard",
+      "englishHelper": "Immer aktiviert, um eine zuverlässige Ausweichsprache bereitzustellen.",
+      "languageHelper": "Nach Aktivierung verfügbar.",
+      "enabled": "Aktiviert",
+      "disabled": "Deaktiviert",
+      "toggleLabel": "{language} umschalten",
+      "enabledToast": "Sprache erfolgreich aktiviert",
+      "disabledToast": "Sprache erfolgreich deaktiviert"
     },
     "appTypes": {
       "riderApp": "Fahrer-App",

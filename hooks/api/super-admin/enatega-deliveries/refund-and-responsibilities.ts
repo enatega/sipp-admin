@@ -198,12 +198,21 @@ export const useApproveRefundRequest = (
             return res.data;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ['get-refunds-and-responsibilities', 'get-refunds-request-details'],
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-and-responsibilities'],
                 exact: false,
                 refetchType: 'active',
             });
-
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-request-details'],
+                exact: false,
+                refetchType: 'active',
+            });
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-request-activity-log'],
+                exact: false,
+                refetchType: 'active',
+            });
         },
         ...options,
     });
@@ -222,12 +231,21 @@ export const useRejectRefundRequest = (
             return res.data;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ['get-refunds-and-responsibilities', 'get-refunds-request-details'],
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-and-responsibilities'],
                 exact: false,
                 refetchType: 'active',
             });
-
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-request-details'],
+                exact: false,
+                refetchType: 'active',
+            });
+            void queryClient.invalidateQueries({
+                queryKey: ['get-refunds-request-activity-log'],
+                exact: false,
+                refetchType: 'active',
+            });
         },
         ...options,
     });

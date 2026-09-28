@@ -50,6 +50,7 @@ const getRowKey = (
     'productId',
     'promotionType',
     'promotionCode',
+    'requestCode',
   ]
     .map((key) => row[key])
     .filter((value) => value !== null && value !== undefined && value !== '')

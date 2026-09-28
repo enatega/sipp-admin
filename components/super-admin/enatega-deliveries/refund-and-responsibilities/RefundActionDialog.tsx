@@ -16,6 +16,7 @@ export interface RefundActionPayload {
   pointsPerUsd: number;
   storeDeductionPoints: number;
   riderDeductionPoints: number;
+  adminDeductionAmount: number;
   internalNotes: string;
 }
 
@@ -43,6 +44,7 @@ export function RefundActionDialog({
   const [approvedAmount, setSetApprovedAmount] = useState(0);
   const [storeDeductionPoints, setStoreDeductionPoints] = useState('0');
   const [riderDeductionPoints, setRiderDeductionPoints] = useState('0');
+  const [adminDeductionAmount, setAdminDeductionAmount] = useState('0');
   const [internalNotes, setInternalNotes] = useState('');
   const [rejectionReason, setRejectionReason] = useState('');
 
@@ -73,6 +75,7 @@ export function RefundActionDialog({
                 points_per_usd: Number(pointsPerUsd) || 0,
                 store_deduction_points: Number(storeDeductionPoints) || 0,
                 rider_deduction_points: Number(riderDeductionPoints) || 0,
+                admin_deduction_amount: Number(adminDeductionAmount) || 0,
                 internal_notes: internalNotes,
                 approved_amount: approvedAmount,
               })
@@ -102,6 +105,14 @@ export function RefundActionDialog({
           label="Approved Amount"
           value={approvedAmount}
           onChange={(event) => setSetApprovedAmount(Number(event.target.value))}
+          min={0}
+        />
+        <AppInput
+          type="number"
+          name="adminDeductionAmount"
+          label="Admin Deduction (optional)"
+          value={adminDeductionAmount}
+          onChange={(event) => setAdminDeductionAmount(event.target.value)}
           min={0}
         />
         <AppInput

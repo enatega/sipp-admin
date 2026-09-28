@@ -113,7 +113,7 @@ export function StoreWithdrawalRequest() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">{tWallet('balance')}</p>
-                <p className="text-2xl font-bold">
+                <p className={`text-2xl font-bold ${(walletSummary?.current_balance ?? 0) < 0 ? 'text-red-600' : ''}`}>
                   {currencySymbol} {(walletSummary?.current_balance ?? 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
               </div>

@@ -341,7 +341,7 @@
     "reporting": "Berichte",
     "reportingSalesOrders": "Verkäufe & Bestellungen",
     "reportingTaxCommission": "Steuern & Provisionen",
-    "reportingCancellations": "Stornierungen",
+    "reportingCancellations": "Stornierungen & Rückerstattungen",
     "reportingFinancialPayouts": "Finanzen & Auszahlungen",
     "reportingCustomersPromotions": "Kunden & Aktionen",
     "customerLoyaltyAndReferrals": "Kundentreue und Empfehlungen"
@@ -358,8 +358,8 @@
         "description": "Aufschlüsselung von Produktsteuer und Plattformprovision."
       },
       "cancellations": {
-        "title": "Stornierungen",
-        "description": "Stornierte und abgelehnte Bestellungen mit Gründen und verantwortlichen Konten."
+        "title": "Stornierungen & Rückerstattungen",
+        "description": "Stornierte und abgelehnte Bestellungen sowie Berichte zu Rückerstattungen."
       },
       "financialPayouts": {
         "title": "Finanzen & Auszahlungen",
@@ -394,6 +394,10 @@
       "cancellations": {
         "label": "Stornierungsbericht",
         "description": "Stornierte und abgelehnte Bestellungen für die gewählten Filter."
+      },
+      "refunds": {
+        "label": "Rückerstattungen",
+        "description": "Rückerstattungsanträge, Ergebnisse und Verantwortungszuordnung."
       },
       "restaurants_financial-summary": {
         "label": "Restaurant-Finanzübersicht",
@@ -515,6 +519,16 @@
       "cancellationReason": "Stornierungsgrund",
       "cancelledBy": "Storniert von",
       "orderAmount": "Bestellbetrag",
+      "requestId": "Anfrage-ID",
+      "requestDate": "Anfragedatum",
+      "rider": "Kurier",
+      "refundType": "Rückerstattungsart",
+      "requestedAmount": "Beantragter Betrag",
+      "approvedAmount": "Genehmigter Betrag",
+      "storeDeduction": "Restaurantabzug",
+      "riderDeduction": "Kurierabzug",
+      "adminDeduction": "Admin-Abzug",
+      "reason": "Grund",
       "totalSales": "Gesamtumsatz",
       "commissionVat": "Provisions-MwSt.",
       "totalCommissionDeduction": "Gesamter Provisionsabzug",

@@ -5,6 +5,7 @@ export type AdminReportKey =
   | 'tax/product'
   | 'tax/commission'
   | 'cancellations'
+  | 'refunds'
   | 'restaurants/financial-summary'
   | 'couriers/earnings'
   | 'customers/lifetime'

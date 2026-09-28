@@ -64,7 +64,14 @@ export function WalletBalanceCard({
             {isLoading ? (
               <div className="mt-2 h-10 w-48 animate-pulse rounded-lg bg-white/20" />
             ) : (
-              <p className="mt-1 text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl">
+              <p
+                className={cn(
+                  'mt-1 text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl',
+                  Number(summary?.balance ?? 0) < 0
+                    ? 'text-red-300'
+                    : 'text-white',
+                )}
+              >
                 {resolveCurrencySymbol(currencySymbol)}{' '}
                 {Number(summary?.balance ?? 0).toLocaleString(undefined, {
                   minimumFractionDigits: 2,

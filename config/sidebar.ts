@@ -210,7 +210,7 @@ export const sidebarMenus: SidebarMenu[] = [
       },
       {
         id: 4.3,
-        name: 'Cancellations',
+        name: 'Cancellations & Refunds',
         translationKey: 'sidebar.reportingCancellations',
         path: adminRoutes.deliveries.reporting.cancellations,
         permission: 'general-delivery.earning',

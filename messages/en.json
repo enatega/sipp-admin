@@ -341,7 +341,7 @@
     "reporting": "Reporting",
     "reportingSalesOrders": "Sales & Orders",
     "reportingTaxCommission": "Tax & Commission",
-    "reportingCancellations": "Cancellations",
+    "reportingCancellations": "Cancellations & Refunds",
     "reportingFinancialPayouts": "Financial & Payouts",
     "reportingCustomersPromotions": "Customers & Promotions",
     "customerLoyaltyAndReferrals": "Customer Loyalty and Referrals"
@@ -358,8 +358,8 @@
         "description": "Product VAT/tax and platform commission breakdowns."
       },
       "cancellations": {
-        "title": "Cancellations",
-        "description": "Cancelled and rejected orders, reasons and responsible accounts."
+        "title": "Cancellations & Refunds",
+        "description": "Cancelled and rejected orders plus refund responsibility reporting."
       },
       "financialPayouts": {
         "title": "Financial & Payouts",
@@ -394,6 +394,10 @@
       "cancellations": {
         "label": "Cancellation Report",
         "description": "Cancelled and rejected orders matching the selected filters."
+      },
+      "refunds": {
+        "label": "Refunds Report",
+        "description": "Refund requests, outcomes and responsibility allocation."
       },
       "restaurants_financial-summary": {
         "label": "Restaurant Financial Summary",
@@ -515,6 +519,16 @@
       "cancellationReason": "Cancellation reason",
       "cancelledBy": "Cancelled by",
       "orderAmount": "Order amount",
+      "requestId": "Request ID",
+      "requestDate": "Request date",
+      "rider": "Rider",
+      "refundType": "Refund type",
+      "requestedAmount": "Requested amount",
+      "approvedAmount": "Approved amount",
+      "storeDeduction": "Store deduction",
+      "riderDeduction": "Rider deduction",
+      "adminDeduction": "Admin deduction",
+      "reason": "Reason",
       "totalSales": "Total sales",
       "commissionVat": "Commission VAT",
       "totalCommissionDeduction": "Total commission deduction",

@@ -66,6 +66,7 @@ export function RefundResponsibilityDetailPage() {
 
   const [storeDeductionPoints, setStoreDeductionPoints] = useState('0');
   const [riderDeductionPoints, setRiderDeductionPoints] = useState('0');
+  const [adminDeductionAmount, setAdminDeductionAmount] = useState('0');
   const [internalNotes, setInternalNotes] = useState('');
 
   const [currentAction, setCurrentAction] = useState<
@@ -128,13 +129,18 @@ export function RefundResponsibilityDetailPage() {
     setRiderDeductionPoints(
       String(request?.admin_actions?.rider_deduction_points ?? 0),
     );
+    setAdminDeductionAmount(
+      String(request?.admin_actions?.admin_deduction_amount ?? 0),
+    );
   }, [request]);
 
   const customerCredit = Number(approvedAmount) || 0;
 
   const storePoints = Number(storeDeductionPoints) || 0;
   const riderPoints = Number(riderDeductionPoints) || 0;
-  const netSystemImpact = customerCredit - storePoints - riderPoints;
+  const adminDeduction = Number(adminDeductionAmount) || 0;
+  const netSystemImpact =
+    customerCredit - storePoints - riderPoints - adminDeduction;
   const isRejectDisabled = !internalNotes?.trim();
   // confirm handler
 
@@ -151,6 +157,7 @@ export function RefundResponsibilityDetailPage() {
             points_per_usd: Number(pointsPerUsd) || 10,
             rider_deduction_points: riderPoints,
             store_deduction_points: storePoints,
+            admin_deduction_amount: adminDeduction,
             approved_amount: approvedAmount,
           },
         });
@@ -444,6 +451,15 @@ export function RefundResponsibilityDetailPage() {
                   }
                   min={0}
                 />
+
+                <AppInputField
+                  type="number"
+                  name="adminDeductionAmount"
+                  label="Admin deduction (optional)"
+                  value={adminDeductionAmount}
+                  onChange={(e) => setAdminDeductionAmount(e.target.value)}
+                  min={0}
+                />
                 <AppInputField
                   type="number"
                   name="storeDeductionPoints"
@@ -519,6 +535,11 @@ export function RefundResponsibilityDetailPage() {
                 <span className="font-semibold">-${riderPoints.toFixed(2)}</span>
               </div>
 
+              <div className="flex items-center justify-between rounded-md bg-amber-50 px-3 py-2 text-amber-700">
+                <span>Admin Deduction</span>
+                <span className="font-semibold">-${adminDeduction.toFixed(2)}</span>
+              </div>
+
               <div className="flex items-center justify-between rounded-md bg-accent px-3 py-2 font-semibold">
                 <span>Net System Impact</span>
                 <span>
@@ -531,7 +552,7 @@ export function RefundResponsibilityDetailPage() {
 
             <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
               <CircleAlert className="mt-0.5 h-4 w-4" />
-              The approved amount is credited to the customer wallet. Store and rider responsibility deductions are recorded in their wallet histories.
+              The approved amount is credited to the customer wallet. Store and rider responsibility deductions are recorded in their wallet histories; admin deduction records SIPP's responsibility share.
             </p>
           </section>
 

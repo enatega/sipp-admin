@@ -13,6 +13,7 @@ import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import {
   useApproveRefundRequest,
+  useCreateRefundRequest,
   useGetRefundAndResponsibilitiesList,
   useRejectRefundRequest,
 } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
@@ -25,6 +26,8 @@ import { Heading } from '@/components/shared/Heading';
 import { SearchInput } from '@/components/shared/SearchInput';
 import { RefundActionDialog } from './RefundActionDialog';
 import { RefundResponsibilitiesTable } from './RefundResponsibilitiesTable';
+import { CreateRefundDialog } from './CreateRefundDialog';
+import { Plus } from 'lucide-react';
 
 export type ActionDialogState = {
   type: 'approve' | 'reject';
@@ -43,10 +46,13 @@ export function RefundResponsibilitiesPage() {
     useApproveRefundRequest();
   const { mutateAsync: rejectRequest, isPending: isRejecting } =
     useRejectRefundRequest();
+  const { mutateAsync: createRefund, isPending: isCreatingRefund } =
+    useCreateRefundRequest();
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState<10 | 25 | 50 | 100>(10);
   const [actionDialog, setActionDialog] = useState<ActionDialogState>(null);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const searchTerm = (getParam('search') || '').trim().toLowerCase();
   const startDate = getParam('startDate');
@@ -185,7 +191,12 @@ export function RefundResponsibilitiesPage() {
 
   return (
     <div className="space-y-6">
-      <Heading title="Refund & Responsibilities" containerClassName="my-4" />
+      <div className="my-4 flex flex-wrap items-center justify-between gap-3">
+        <Heading title="Refund & Responsibilities" />
+        <button type="button" onClick={() => setIsCreateDialogOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-medium text-white hover:bg-primary/90">
+          <Plus size={18} /> Create Refund
+        </button>
+      </div>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex w-full justify-between gap-2 ">
           <div className="flex justify-between gap-2 items-center">
@@ -256,6 +267,20 @@ export function RefundResponsibilitiesPage() {
           isLoading={isApproving || isRejecting}
         />
       ) : null}
+      <CreateRefundDialog
+        open={isCreateDialogOpen}
+        isLoading={isCreatingRefund}
+        onClose={() => setIsCreateDialogOpen(false)}
+        onCreate={async (payload) => {
+          try {
+            const response = await createRefund(payload);
+            toast.success(response.message || 'Refund request created successfully');
+            setIsCreateDialogOpen(false);
+          } catch (createError) {
+            handleApiError(createError as ApiErrorResponse);
+          }
+        }}
+      />
     </div>
   );
 }

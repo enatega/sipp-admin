@@ -1,5 +1,5 @@
 
-export type RefundRequestStatus = 'pending' | 'approved' | 'rejected';
+export type RefundRequestStatus = 'automatic' | 'pending' | 'approved' | 'rejected';
 
 export type RefundType = 'full' | 'partial';
 
@@ -38,5 +38,4 @@ export interface RefundRequestRecord {
   items: RefundOrderItem[];
   activityLogs: RefundActivityLog[];
 }
-
 

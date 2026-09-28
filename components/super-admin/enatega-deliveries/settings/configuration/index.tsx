@@ -24,10 +24,14 @@ import { AppSelect } from '@/components/shared/form/AppSelect';
 const INITIAL_VALUES: ConfigurationFormValues = {
   currencyCode: DEFAULT_CURRENCY.code,
   currencySymbol: DEFAULT_CURRENCY.symbol,
+  usdConversionRate: '',
 };
 
 export function ConfigurationForm() {
   const t = useTranslations('settings.configuration');
+  const tUsdRate = useTranslations(
+    'settings.configuration.fields.usdConversionRate',
+  );
   const tValidation = useTranslations('settings.configuration.validation');
   const { data: activeCurrency } = useGetActiveCurrency();
   const { mutateAsync: saveCurrency, isPending: isSaving } = useSaveCurrency();
@@ -35,6 +39,11 @@ export function ConfigurationForm() {
   const initialValues: ConfigurationFormValues = {
     currencyCode: activeCurrency?.code ?? INITIAL_VALUES.currencyCode,
     currencySymbol: activeCurrency?.symbol ?? INITIAL_VALUES.currencySymbol,
+    usdConversionRate:
+      activeCurrency?.code === 'USD'
+        ? 1
+        : (activeCurrency?.usdConversionRate ??
+          INITIAL_VALUES.usdConversionRate),
   };
 
   return (
@@ -56,6 +65,7 @@ export function ConfigurationForm() {
               code: values.currencyCode,
               name: selectedCurrency?.label || values.currencyCode,
               symbol: values.currencySymbol,
+              usdConversionRate: Number(values.usdConversionRate),
             });
 
             toast.success(t('toasts.submitSuccess'));
@@ -66,7 +76,7 @@ export function ConfigurationForm() {
           }
         }}
       >
-        {({ isSubmitting, dirty, setFieldValue }) => (
+        {({ isSubmitting, dirty, setFieldValue, values }) => (
           <Form>
             <section className="rounded-xl border bg-white p-4">
               <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -86,6 +96,11 @@ export function ConfigurationForm() {
                       'currencySymbol',
                       selectedCurrency?.symbol ?? '',
                     );
+                    if (value === 'USD') {
+                      setFieldValue('usdConversionRate', 1);
+                    } else if (value !== values.currencyCode) {
+                      setFieldValue('usdConversionRate', '');
+                    }
                   }}
                   requiredAsterisk
                 />
@@ -95,6 +110,25 @@ export function ConfigurationForm() {
                   label={t('fields.currencySymbol.label')}
                   placeholder={t('fields.currencySymbol.placeholder')}
                   disabled
+                  requiredAsterisk
+                />
+
+                <AppInputField
+                  name="usdConversionRate"
+                  type="number"
+                  min="0.000001"
+                  max="1000000000"
+                  step="0.000001"
+                  inputMode="decimal"
+                  label={tUsdRate('label', {
+                    currencyCode: values.currencyCode,
+                  })}
+                  placeholder={tUsdRate('placeholder')}
+                  helperText={tUsdRate('helper', {
+                    currencyCode: values.currencyCode,
+                  })}
+                  disabled={values.currencyCode === 'USD'}
+                  postfix={values.currencyCode}
                   requiredAsterisk
                 />
               </div>

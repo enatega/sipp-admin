@@ -4,6 +4,7 @@ export interface Currency extends Record<string, unknown> {
     name: string;
     symbol: string;
     rateToBase: string;
+    usdConversionRate: string | null;
     isActive: boolean;
     createdAt: string;
     updatedAt: string;

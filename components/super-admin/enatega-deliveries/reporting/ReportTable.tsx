@@ -1,10 +1,17 @@
 'use client';
 
-import AppPagination from '@/components/shared/AppPagination';
-import DisplayError from '@/components/shared/DisplayError';
-import { DownloadButtons } from '@/components/shared/DownloadButtons';
-import NoDataFound from '@/components/shared/NoDataFound';
-import { TableShimmer, type TLimitType } from '@/components/shared/TableShimmer';
+import type { ApiErrorResponse } from '@/types';
+import { useTranslations } from 'next-intl';
+import type { AdminReportRow } from '@/types/api/super-admin/enatega-deliveries/reporting/reporting.api';
+import { formatCurrency as formatCurrencyWithSymbol } from '@/lib/formatCurrency';
+import { returnErrorMessage } from '@/lib/toast-error';
+import { cn } from '@/lib/utils';
+import {
+  fetchAdminReportRows,
+  useAdminReportQueryParams,
+  useGetAdminReport,
+} from '@/hooks/api/super-admin/enatega-deliveries/reporting';
+import { useCurrency } from '@/hooks/use-currency';
 import {
   Table,
   TableBody,
@@ -13,22 +20,22 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import AppPagination from '@/components/shared/AppPagination';
+import DisplayError from '@/components/shared/DisplayError';
+import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import NoDataFound from '@/components/shared/NoDataFound';
 import {
-  fetchAdminReportRows,
-  useAdminReportQueryParams,
-  useGetAdminReport,
-} from '@/hooks/api/super-admin/enatega-deliveries/reporting';
-import { useCurrency } from '@/hooks/use-currency';
-import { formatCurrency as formatCurrencyWithSymbol } from '@/lib/formatCurrency';
-import { returnErrorMessage } from '@/lib/toast-error';
-import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
-import type { ApiErrorResponse } from '@/types';
-import type { AdminReportRow } from '@/types/api/super-admin/enatega-deliveries/reporting/reporting.api';
+  TableShimmer,
+  type TLimitType,
+} from '@/components/shared/TableShimmer';
 import type { ReportColumn, ReportTab } from './report-config';
 import { getReportValue, humanize, reportMessageKey } from './report-values';
 
 const VALID_LIMITS: TLimitType[] = [10, 25, 50, 100];
+const RIGHT_ALIGNED_FORMATS = new Set(['currency', 'number', 'percentage']);
+
+const isRightAlignedColumn = (column: ReportColumn) =>
+  RIGHT_ALIGNED_FORMATS.has(column.format ?? '');
 
 const getRowKey = (
   reportKey: string,
@@ -62,7 +69,9 @@ export function ReportTable({ report }: { report: ReportTab }) {
     report.key,
   );
   const rows = data?.data ?? [];
-  const limit = VALID_LIMITS.includes((data?.limit ?? params.limit ?? 10) as TLimitType)
+  const limit = VALID_LIMITS.includes(
+    (data?.limit ?? params.limit ?? 10) as TLimitType,
+  )
     ? ((data?.limit ?? params.limit ?? 10) as TLimitType)
     : 10;
 
@@ -123,7 +132,13 @@ export function ReportTable({ report }: { report: ReportTab }) {
           <TableHeader className="bg-accent">
             <TableRow>
               {report.columns.map((column) => (
-                <TableHead key={`${column.label}-${column.keys[0]}`} className="whitespace-nowrap px-4">
+                <TableHead
+                  key={`${column.label}-${column.keys[0]}`}
+                  className={cn(
+                    'whitespace-nowrap px-4',
+                    isRightAlignedColumn(column) && 'text-right tabular-nums',
+                  )}
+                >
                   {tColumns(reportMessageKey(column.label))}
                 </TableHead>
               ))}
@@ -159,7 +174,7 @@ export function ReportTable({ report }: { report: ReportTab }) {
                       key={`${column.label}-${column.keys[0]}`}
                       className={cn(
                         'whitespace-nowrap px-4',
-                        ['currency', 'number', 'percentage'].includes(column.format ?? '') &&
+                        isRightAlignedColumn(column) &&
                           'text-right tabular-nums',
                       )}
                     >
@@ -181,8 +196,12 @@ export function ReportTable({ report }: { report: ReportTab }) {
 
       {data?.meta ? (
         <div className="flex flex-wrap gap-x-5 gap-y-1 border-t px-5 py-3 text-xs text-muted-foreground">
-          <span>{tTable('dateBasis')}: {humanize(data.meta.dateBasis)}</span>
-          <span>{tTable('timezone')}: {data.meta.timezone}</span>
+          <span>
+            {tTable('dateBasis')}: {humanize(data.meta.dateBasis)}
+          </span>
+          <span>
+            {tTable('timezone')}: {data.meta.timezone}
+          </span>
           {data.meta.knownLimitations?.map((limitation) => (
             <span key={limitation}>{limitation}</span>
           ))}

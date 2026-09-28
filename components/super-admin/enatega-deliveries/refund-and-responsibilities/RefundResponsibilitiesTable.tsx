@@ -35,7 +35,7 @@ interface RefundResponsibilitiesTableProps {
   error: string;
 }
 
-const formatCurrency = (amount: number) => `$${amount.toFixed(0)}`;
+const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
 
 const formatDate = (value: string) => {
   const date = new Date(value);

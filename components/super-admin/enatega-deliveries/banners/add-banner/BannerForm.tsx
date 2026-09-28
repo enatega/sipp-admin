@@ -40,6 +40,7 @@ export function BannerForm({
     { key: t('actionTypes.store'), value: 'store' },
     { key: t('actionTypes.product'), value: 'product' },
     { key: t('actionTypes.shopType'), value: 'shop_type' },
+    { key: t('actionTypes.allRestaurants'), value: 'all_restaurants' },
   ];
 
   const pending = createBanner.isPending || updateBanner.isPending;
@@ -48,8 +49,8 @@ export function BannerForm({
     try {
       if (type === 'add') {
         await createBanner.mutateAsync({
-          title: values.title,
-          description: values.description,
+          title: values.title.trim(),
+          description: values.description.trim(),
           action_type: values.action_type,
           related_store: values.related_store || null,
           related_product: values.related_product || null,
@@ -64,8 +65,8 @@ export function BannerForm({
 
         await updateBanner.mutateAsync({
           id: bannerId,
-          title: values.title,
-          description: values.description,
+          title: values.title.trim(),
+          description: values.description.trim(),
           action_type: values.action_type,
           related_store: values.related_store || null,
           related_product: values.related_product || null,
@@ -100,13 +101,11 @@ export function BannerForm({
                 label={t('bannerTitle')}
                 type="text"
                 placeholder={t('bannerTitlePlaceholder')}
-                requiredAsterisk
               />
               <AppTextarea
                 name="description"
                 label={t('description')}
                 placeholder={t('descriptionPlaceholder')}
-                requiredAsterisk
                 className="min-h-[110px] rounded-[12px]"
               />
 
@@ -130,6 +129,16 @@ export function BannerForm({
                   }
                 }}
               />
+              {values.action_type === 'shop_type' ? (
+                <p className="text-sm text-muted-foreground">
+                  {t('shopTypeActionHint')}
+                </p>
+              ) : null}
+              {values.action_type === 'all_restaurants' ? (
+                <p className="text-sm text-muted-foreground">
+                  {t('allRestaurantsActionHint')}
+                </p>
+              ) : null}
 
               {values.action_type === 'store' && (
                 <BannerRelationAsyncSelect

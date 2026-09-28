@@ -10169,13 +10169,16 @@
         "relatedProductPlaceholder": "Select product",
         "relatedShopType": "Related Shop Type",
         "relatedShopTypePlaceholder": "Select shop type",
+        "shopTypeActionHint": "Choose Restaurant to open the full restaurant listing when this banner is tapped.",
+        "allRestaurantsActionHint": "Opens all restaurants. No related item is needed.",
         "bannerVideo": "Banner Video",
         "mediaHint": "Upload either an image or a video (not both).",
         "actionTypes": {
           "none": "None",
           "store": "Store",
           "product": "Product",
-          "shopType": "Shop Type"
+          "shopType": "Shop Type",
+          "allRestaurants": "All Restaurants"
         }
       },
       "messages": {

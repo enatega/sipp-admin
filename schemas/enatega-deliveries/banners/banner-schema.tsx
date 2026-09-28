@@ -8,11 +8,11 @@ export const bannerSchema = (requireMedia: boolean) =>
   yup
     .object()
     .shape({
-      title: yup.string().trim().required('Banner title is required'),
-      description: yup.string().trim().required('Description is required'),
+      title: yup.string().trim().optional(),
+      description: yup.string().trim().optional(),
       action_type: yup
-        .mixed<'none' | 'store' | 'product' | 'shop_type'>()
-        .oneOf(['none', 'store', 'product', 'shop_type'])
+        .mixed<'none' | 'store' | 'product' | 'shop_type' | 'all_restaurants'>()
+        .oneOf(['none', 'store', 'product', 'shop_type', 'all_restaurants'])
         .required('Action type is required'),
       related_store: yup.string().when('action_type', {
         is: 'store',

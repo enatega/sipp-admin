@@ -11,7 +11,8 @@ export type EnategaBannerActionType =
   | 'none'
   | 'store'
   | 'product'
-  | 'shop_type';
+  | 'shop_type'
+  | 'all_restaurants';
 
 export interface EnategaBannerStoreRef {
   id: string;

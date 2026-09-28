@@ -10,7 +10,7 @@ import { BannerForm } from './BannerForm';
 export interface InitialValues {
   title: string;
   description: string;
-  action_type: 'none' | 'store' | 'product' | 'shop_type';
+  action_type: 'none' | 'store' | 'product' | 'shop_type' | 'all_restaurants';
   related_store: string;
   related_product: string;
   related_shop_type: string;

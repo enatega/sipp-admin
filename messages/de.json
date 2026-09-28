@@ -10489,13 +10489,16 @@
         "relatedProductPlaceholder": "Produkt auswählen",
         "relatedShopType": "Verknüpfter Shop-Typ",
         "relatedShopTypePlaceholder": "Shop-Typ auswählen",
+        "shopTypeActionHint": "Wählen Sie Restaurant, um beim Tippen auf das Banner alle Restaurants zu öffnen.",
+        "allRestaurantsActionHint": "Öffnet alle Restaurants. Keine Verknüpfung erforderlich.",
         "bannerVideo": "Banner-Video",
         "mediaHint": "Laden Sie entweder ein Bild oder ein Video hoch (nicht beides).",
         "actionTypes": {
           "none": "Keine",
           "store": "Shop",
           "product": "Produkt",
-          "shopType": "Shop-Typ"
+          "shopType": "Shop-Typ",
+          "allRestaurants": "Alle Restaurants"
         }
       },
       "messages": {

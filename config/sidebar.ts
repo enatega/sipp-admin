@@ -138,6 +138,13 @@ export const sidebarMenus: SidebarMenu[] = [
         permission: 'general-delivery.shop_types',
       },
       {
+        id: 3.82,
+        name: 'Home Sequence',
+        translationKey: 'sidebar.homeSequence',
+        path: adminRoutes.deliveries.homeSequence,
+        permission: 'general-delivery.shop_types',
+      },
+      {
         id: 3.81,
         name: 'Tax Rates',
         translationKey: 'taxRates.title',

@@ -12,6 +12,7 @@ import { CurrencyCode } from '@/components/shared/CurrencyDisplay';
 import { SearchInput } from '@/components/shared/SearchInput';
 import { LanguageSelector } from './LanguageSelector';
 import { UserDropdownMenu } from './UserDropMenu';
+import { AdminNotificationCenter } from '@/components/super-admin/admin-notifications/AdminNotificationCenter';
 
 interface Props {
   containerClass?: string;
@@ -84,7 +85,7 @@ const AppHeader = ({ containerClass }: Props) => {
             Live Tracking
           </Button>
 
-          <div className="relative">
+          <div className="relative hidden lg:block">
             <SearchInput
               containerClass="w-[350px]"
               text={searchQuery}
@@ -119,7 +120,7 @@ const AppHeader = ({ containerClass }: Props) => {
 
           <CurrencyCode />
           <LanguageSelector />
-          {/* <NotificationPopover /> */}
+          <AdminNotificationCenter compact />
           <UserDropdownMenu />
         </div>
       </div>

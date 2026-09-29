@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import { adminBrowserPush } from '@/lib/admin-operational-notifications';
+import { getSocket } from '@/lib/socket';
 
 export function UserDropdownMenu() {
   const router = useRouter();
@@ -98,8 +100,10 @@ export function UserDropdownMenu() {
         onOpenChange={(val) => setShowLogoutAlert(val)}
         variant="delete"
         confirmLabel={t('logoutDialog.confirmLabel')}
-        onConfirm={() => {
+        onConfirm={async () => {
           setShowLogoutAlert(false);
+          try { await adminBrowserPush.disable(); } catch { /* Logout must still complete. */ }
+          getSocket('deliveries').disconnect();
           removeUser();
           toast.success(t('logoutDialog.logoutSuccess'));
           router.push('/login');

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getUser } from '@/lib/user';
 import { useGetOrders } from '@/hooks/api/super-admin/enatega-deliveries/orders';
@@ -43,6 +43,7 @@ function Page() {
   const ordersQuery = useGetOrders(orderQueryParams);
   const apiRes = ordersQuery.data as GetOrdersResponse | undefined;
   const { isLoading, error, refetch } = ordersQuery;
+  const refreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { socket, connected } = useSocket(undefined, {
     namespace: 'deliveries',
   });
@@ -81,6 +82,9 @@ function Page() {
     const handler = (payload: OrderStatusUpdatedAdminPayload) => {
       if (!payload?.orderId) return;
 
+      if (refreshTimer.current) clearTimeout(refreshTimer.current);
+      refreshTimer.current = setTimeout(() => void refetch(), 600);
+
       setOrders((prev) => {
         const idx = prev.findIndex((o) => o.orderId === payload.orderId);
         if (idx === -1) return prev;
@@ -111,13 +115,27 @@ function Page() {
     socket.on('order-status-updated-admin', handler);
     return () => {
       socket.off('order-status-updated-admin', handler);
+      if (refreshTimer.current) clearTimeout(refreshTimer.current);
     };
-  }, [socket]);
+  }, [socket, refetch]);
+
+  useEffect(() => {
+    const reconcile = () => {
+      if (document.visibilityState === 'visible') void refetch();
+    };
+    window.addEventListener('focus', reconcile);
+    document.addEventListener('visibilitychange', reconcile);
+    return () => {
+      window.removeEventListener('focus', reconcile);
+      document.removeEventListener('visibilitychange', reconcile);
+    };
+  }, [refetch]);
 
   useEffect(() => {
     if (!connected || !userId) return;
     socket.emit('add-user', userId);
-  }, [connected, socket, userId]);
+    void refetch();
+  }, [connected, socket, userId, refetch]);
 
   const toAllowedLimit = (v?: number): 10 | 25 | 50 | 100 | undefined => {
     if (v === 10 || v === 25 || v === 50 || v === 100) return v;

@@ -2248,6 +2248,7 @@
         "addOns": "Complementos"
       },
       "fields": {
+        "sku": "SKU",
         "subcategory": "Subcategoría",
         "inStock": "In Stock",
         "stockQuantity": "Cantidad",

@@ -33,6 +33,7 @@ export interface Product extends Record<string, unknown> {
   taxRateId?: string | null;
   taxRate?: import('@/types/tax').TaxRate | null;
   id: string;
+  sku?: string | null;
   name: string;
   nameTranslations?: Record<string, string>;
   unitOfMeasure: string | null;

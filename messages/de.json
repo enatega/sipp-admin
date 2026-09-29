@@ -2243,6 +2243,7 @@
         "addOns": "Add-ons"
       },
       "fields": {
+        "sku": "Artikelnummer",
         "subcategory": "Unterkategorie",
         "inStock": "Auf Lager",
         "stockQuantity": "Lagerbestand",

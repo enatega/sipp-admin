@@ -2248,6 +2248,7 @@
         "addOns": "Compléments"
       },
       "fields": {
+        "sku": "UGS",
         "subcategory": "Sous-catégorie",
         "inStock": "En stock",
         "stockQuantity": "Quantité",

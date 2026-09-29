@@ -2248,6 +2248,7 @@
         "addOns": "مضافا إليه"
       },
       "fields": {
+        "sku": "رمز المنتج",
         "subcategory": "الفئة الفرعية",
         "inStock": "المخزون",
         "stockQuantity": "كمية المخزون",

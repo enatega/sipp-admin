@@ -70,6 +70,7 @@ export default function EditProductPage() {
         subcategory_id: values.subcategoryId || undefined,
         deal_ids: values.dealId ? [values.dealId] : [],
         name: values.name.trim(),
+        nameTranslations: values.nameTranslations,
         price: Number(values.price),
         taxRateId: values.taxRateId || undefined,
         useDefaultTax: !values.taxRateId,
@@ -121,6 +122,7 @@ export default function EditProductPage() {
 
   const initialValues: EditProductFormValues = {
     name: product.name || '',
+    nameTranslations: product.nameTranslations || {},
     categoryId: product.category_id || product.category?.id || '',
     subcategoryId: product.subcategory_id || product.subcategory?.id || '',
     dealId: extractDealIdFromProduct(product as Record<string, unknown>),

@@ -1,17 +1,13 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { defaultLocale, locales, type Locale } from '@/i18n/config';
+import { defaultLocale, isLocale, type Locale } from '@/i18n/config';
 
 export async function getUserLocale(): Promise<Locale> {
   const cookieStore = await cookies();
   const locale = cookieStore.get('NEXT_LOCALE')?.value;
 
-  if (locale && locales.includes(locale as Locale)) {
-    return locale as Locale;
-  }
-
-  return defaultLocale;
+  return isLocale(locale) ? locale : defaultLocale;
 }
 
 export async function setUserLocale(locale: Locale) {

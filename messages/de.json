@@ -586,7 +586,24 @@
       "profileAccount": "Profil / Konto",
       "appSettings": "App-Einstellungen",
       "staticPages": "Statische Seiten",
-      "configuration": "Konfiguration"
+      "configuration": "Konfiguration",
+      "languages": "Sprachen"
+    },
+    "languages": {
+      "title": "Verfügbare Sprachen",
+      "description": "Wählen Sie aus, welche Sprachen in den Sprachmenüs der Administration und der Kunden-Webseite verfügbar sind. Englisch ist die dauerhafte Standard- und Ausweichsprache.",
+      "loading": "Sprachen werden geladen",
+      "loadErrorTitle": "Sprachen konnten nicht geladen werden",
+      "loadErrorDescription": "Prüfen Sie die Serververbindung und versuchen Sie es erneut.",
+      "retry": "Erneut versuchen",
+      "defaultBadge": "Standard",
+      "englishHelper": "Immer aktiviert, um eine zuverlässige Ausweichsprache bereitzustellen.",
+      "languageHelper": "Nach Aktivierung verfügbar.",
+      "enabled": "Aktiviert",
+      "disabled": "Deaktiviert",
+      "toggleLabel": "{language} umschalten",
+      "enabledToast": "Sprache erfolgreich aktiviert",
+      "disabledToast": "Sprache erfolgreich deaktiviert"
     },
     "appTypes": {
       "riderApp": "Fahrer-App",
@@ -2184,7 +2201,16 @@
         "imageLabel": "Produktbild",
         "imageHelper": "Produktbild hochladen (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "Status",
-        "statusPlaceholder": "Status auswählen"
+        "statusPlaceholder": "Status auswählen",
+        "translations": {
+          "title": "Übersetzte Produktnamen",
+          "description": "Aktivierte Sprachen werden automatisch übersetzt. Sie können jede Übersetzung vor dem Speichern bearbeiten.",
+          "refresh": "Übersetzungen aktualisieren",
+          "translating": "Wird übersetzt...",
+          "error": "Übersetzungen konnten nicht erstellt werden. Versuchen Sie es erneut oder geben Sie sie manuell ein.",
+          "placeholder": "Produktname auf {language} eingeben",
+          "editable": "Vor dem Speichern bearbeitbar"
+        }
       },
       "step2": {
         "title": "Produktvarianten",
@@ -2233,6 +2259,7 @@
         "addOns": "Add-ons"
       },
       "fields": {
+        "sku": "Artikelnummer",
         "subcategory": "Unterkategorie",
         "inStock": "Auf Lager",
         "stockQuantity": "Lagerbestand",

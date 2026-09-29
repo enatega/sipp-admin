@@ -192,6 +192,14 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                   <p className="text-2xl font-semibold">
                     {currentProduct.name}
                   </p>
+                  <dl className="mt-2 flex min-w-0 items-baseline gap-2 text-sm">
+                    <dt className="shrink-0 text-muted-foreground">
+                      {tDetailFields('sku')}:
+                    </dt>
+                    <dd className="min-w-0 break-all font-medium tabular-nums">
+                      {currentProduct.sku || tTable('notAvailable')}
+                    </dd>
+                  </dl>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="rounded-xl border bg-light p-4">

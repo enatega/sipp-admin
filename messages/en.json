@@ -586,7 +586,24 @@
       "profileAccount": "Profile / Account",
       "appSettings": "App Settings",
       "staticPages": "Static Pages",
-      "configuration": "Configuration"
+      "configuration": "Configuration",
+      "languages": "Languages"
+    },
+    "languages": {
+      "title": "Available languages",
+      "description": "Choose which languages are available in the Admin and Customer Web language menus. English is the permanent default and fallback language.",
+      "loading": "Loading languages",
+      "loadErrorTitle": "Languages could not be loaded",
+      "loadErrorDescription": "Check the server connection and try again.",
+      "retry": "Try again",
+      "defaultBadge": "Default",
+      "englishHelper": "Always enabled to provide a reliable fallback.",
+      "languageHelper": "Available when enabled.",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "toggleLabel": "Toggle {language}",
+      "enabledToast": "Language enabled successfully",
+      "disabledToast": "Language disabled successfully"
     },
     "appTypes": {
       "riderApp": "Rider App",
@@ -2185,7 +2202,16 @@
         "imageLabel": "Product Image",
         "imageHelper": "Upload product image (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "Status",
-        "statusPlaceholder": "Select status"
+        "statusPlaceholder": "Select status",
+        "translations": {
+          "title": "Translated product names",
+          "description": "Enabled languages are translated automatically. You can edit every translation before saving.",
+          "refresh": "Refresh translations",
+          "translating": "Translating...",
+          "error": "Translations could not be generated. Try again or enter them manually.",
+          "placeholder": "Enter the {language} product name",
+          "editable": "Editable before saving"
+        }
       },
       "step2": {
         "title": "Product Variants",
@@ -2234,6 +2260,7 @@
         "addOns": "Add-ons"
       },
       "fields": {
+        "sku": "SKU",
         "subcategory": "Subcategory",
         "inStock": "In Stock",
         "stockQuantity": "Stock Quantity",

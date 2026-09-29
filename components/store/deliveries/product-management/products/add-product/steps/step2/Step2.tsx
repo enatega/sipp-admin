@@ -133,6 +133,7 @@ export const Step2Form: React.FC = () => {
         category_id: step1.categoryId,
         subcategory_id: step1.subcategoryId || undefined,
         name: step1.name.trim(),
+        nameTranslations: step1.nameTranslations,
         price: Number(step1.price),
         taxRateId: step1.taxRateId || undefined,
         stock_quantity: Number(step1.stockQuantity),

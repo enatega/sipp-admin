@@ -2190,7 +2190,16 @@
         "imageLabel": "Image produit",
         "imageHelper": "Télécharger l'image du produit (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "État",
-        "statusPlaceholder": "Sélectionner l'état"
+        "statusPlaceholder": "Sélectionner l'état",
+        "translations": {
+          "title": "Noms de produit traduits",
+          "description": "Les langues activées sont traduites automatiquement. Vous pouvez modifier chaque traduction avant l’enregistrement.",
+          "refresh": "Actualiser les traductions",
+          "translating": "Traduction en cours...",
+          "error": "Les traductions n’ont pas pu être générées. Réessayez ou saisissez-les manuellement.",
+          "placeholder": "Saisissez le nom du produit en {language}",
+          "editable": "Modifiable avant l’enregistrement"
+        }
       },
       "step2": {
         "title": "Variantes de produits",

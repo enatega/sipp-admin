@@ -17,6 +17,7 @@ import {
   GetProductSubCategoryOptionsResponse,
   ProductStockFilter,
   ToggleProductInStockResponse,
+  TranslateProductTitleResponse,
   UpdateProductCustomizationGroupPayload,
   UpdateProductCustomizationGroupResponse,
   UpdateProductPayload,
@@ -248,6 +249,12 @@ export const useCreateProduct = (
       }
       formData.append('category_id', payload.category_id);
       formData.append('name', payload.name);
+      if (payload.nameTranslations) {
+        formData.append(
+          'nameTranslations',
+          JSON.stringify(payload.nameTranslations),
+        );
+      }
       formData.append('price', String(payload.price));
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       formData.append('stock_quantity', String(payload.stock_quantity));
@@ -333,6 +340,18 @@ export const useGetProduct = (
   });
 };
 
+export const useTranslateProductTitle = () =>
+  useMutation<TranslateProductTitleResponse, ApiErrorResponse, string>({
+    mutationFn: async (title) => {
+      const { data } = await Axios.post<TranslateProductTitleResponse>(
+        '/apps/deliveries/products/translate-title',
+        { title },
+      );
+      return data;
+    },
+    retry: false,
+  });
+
 export const useUpdateProduct = (
   options?: UseMutationOptions<
     UpdateProductResponse,
@@ -381,6 +400,12 @@ export const useUpdateProduct = (
 
       formData.append('category_id', payload.category_id);
       formData.append('name', payload.name);
+      if (payload.nameTranslations) {
+        formData.append(
+          'nameTranslations',
+          JSON.stringify(payload.nameTranslations),
+        );
+      }
       formData.append('price', String(payload.price));
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       if (payload.useDefaultTax) formData.append('useDefaultTax', 'true');

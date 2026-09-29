@@ -2185,7 +2185,16 @@
         "imageLabel": "Produktbild",
         "imageHelper": "Produktbild hochladen (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "Status",
-        "statusPlaceholder": "Status auswählen"
+        "statusPlaceholder": "Status auswählen",
+        "translations": {
+          "title": "Übersetzte Produktnamen",
+          "description": "Aktivierte Sprachen werden automatisch übersetzt. Sie können jede Übersetzung vor dem Speichern bearbeiten.",
+          "refresh": "Übersetzungen aktualisieren",
+          "translating": "Wird übersetzt...",
+          "error": "Übersetzungen konnten nicht erstellt werden. Versuchen Sie es erneut oder geben Sie sie manuell ein.",
+          "placeholder": "Produktname auf {language} eingeben",
+          "editable": "Vor dem Speichern bearbeitbar"
+        }
       },
       "step2": {
         "title": "Produktvarianten",

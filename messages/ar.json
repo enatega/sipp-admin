@@ -2190,7 +2190,16 @@
         "imageLabel": "الإنتاج",
         "imageHelper": "أعلى صورة لمنتجات (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "الحالة",
-        "statusPlaceholder": "الحالة المختارة"
+        "statusPlaceholder": "الحالة المختارة",
+        "translations": {
+          "title": "أسماء المنتجات المترجمة",
+          "description": "تتم ترجمة اللغات المفعلة تلقائياً، ويمكنك تعديل كل ترجمة قبل الحفظ.",
+          "refresh": "تحديث الترجمات",
+          "translating": "جارٍ الترجمة...",
+          "error": "تعذر إنشاء الترجمات. حاول مرة أخرى أو أدخلها يدوياً.",
+          "placeholder": "أدخل اسم المنتج باللغة {language}",
+          "editable": "قابل للتعديل قبل الحفظ"
+        }
       },
       "step2": {
         "title": "المنتجات",

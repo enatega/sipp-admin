@@ -26,9 +26,11 @@ import CategoryAsyncSelect from '@/components/store/deliveries/product-managemen
 import DealsAsyncMultiSelect from '@/components/store/deliveries/product-management/common/DealsAsyncMultiSelect';
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
 import ProductTaxField from '../../ProductTaxField';
+import { ProductNameTranslationsFields } from '../../ProductNameTranslationsFields';
 
 const EMPTY_STEP1: Step1Data = {
   name: '',
+  nameTranslations: {},
   categoryId: '',
   subcategoryId: '',
   price: '',
@@ -161,6 +163,10 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           storeId={storeId}
           requiredAsterisk
         />
+
+        <div className="md:col-span-2">
+          <ProductNameTranslationsFields />
+        </div>
 
         <SubCategoryAsyncSelect
           label={t('subcategoryLabel')}

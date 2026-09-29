@@ -23,6 +23,7 @@ import CategoryAsyncSelect from '@/components/store/deliveries/product-managemen
 import DealsAsyncMultiSelect from '@/components/store/deliveries/product-management/common/DealsAsyncMultiSelect';
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
 import ProductTaxField from '../ProductTaxField';
+import { ProductNameTranslationsFields } from '../ProductNameTranslationsFields';
 
 interface EditProductBasicInformationFormProps {
   initialValues: EditProductFormValues;
@@ -142,6 +143,10 @@ export function EditProductBasicInformationForm({
                       : null
                   }
                 />
+
+                <div className="md:col-span-2">
+                  <ProductNameTranslationsFields />
+                </div>
 
                 <SubCategoryAsyncSelect
                   label={t('subcategoryLabel')}

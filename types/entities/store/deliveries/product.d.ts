@@ -34,6 +34,7 @@ export interface Product extends Record<string, unknown> {
   taxRate?: import('@/types/tax').TaxRate | null;
   id: string;
   name: string;
+  nameTranslations?: Record<string, string>;
   unitOfMeasure: string | null;
   stockQuantity: number;
   inStock: boolean;
@@ -82,6 +83,7 @@ export interface Product extends Record<string, unknown> {
 export interface CreateProductFormValues {
   taxRateId?: string;
   name: string;
+  nameTranslations?: Record<string, string>;
   menuIds?: string[];
   categoryId: string;
   subcategoryId: string;
@@ -106,6 +108,7 @@ export interface ProductVariationFormValue {
 export interface EditProductFormValues {
   taxRateId?: string;
   name: string;
+  nameTranslations?: Record<string, string>;
   menuIds?: string[];
   categoryId: string;
   subcategoryId: string;

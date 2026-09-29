@@ -2186,7 +2186,16 @@
         "imageLabel": "Product Image",
         "imageHelper": "Upload product image (PNG, JPG, WebP - max 5MB)",
         "statusLabel": "Status",
-        "statusPlaceholder": "Select status"
+        "statusPlaceholder": "Select status",
+        "translations": {
+          "title": "Translated product names",
+          "description": "Enabled languages are translated automatically. You can edit every translation before saving.",
+          "refresh": "Refresh translations",
+          "translating": "Translating...",
+          "error": "Translations could not be generated. Try again or enter them manually.",
+          "placeholder": "Enter the {language} product name",
+          "editable": "Editable before saving"
+        }
       },
       "step2": {
         "title": "Product Variants",

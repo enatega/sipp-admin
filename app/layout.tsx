@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: deployment.brand.titles.admin,
   description: deployment.brand.description,
   icons: '/sipp-favicon.png',
+  manifest: '/admin-manifest.webmanifest',
 };
 
 export default async function RootLayout({

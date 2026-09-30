@@ -14,6 +14,7 @@ import {
   Eye,
   MapPin,
   MoreVertical,
+  ListOrdered,
   ShoppingBag,
   Star,
   Store,
@@ -74,6 +75,7 @@ function StoreActions({ store }: StoreActionsProps) {
   const router = useRouter();
   const pathname = usePathname();
   const tMenu = useTranslations('lumiFood.stores.actions.menu');
+  const tStoreSidebar = useTranslations('storeSidebar');
   const tToasts = useTranslations('lumiFood.stores.actions.toasts');
   const tDeleteDialog = useTranslations(
     'lumiFood.stores.actions.dialogs.delete',
@@ -116,6 +118,10 @@ function StoreActions({ store }: StoreActionsProps) {
         `/enatega-deliveries/stores/edit-store/${store.id}`,
       ),
     );
+  };
+
+  const handleMenuControl = () => {
+    router.push(`/store/deliveries/${store.id}/product-management/menu-control`);
   };
 
   const handleDelete = async () => {
@@ -249,6 +255,10 @@ function StoreActions({ store }: StoreActionsProps) {
           >
             <Edit className="size-4.5" />
             <span className="text-sm">{tMenu('editStore')}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none" onClick={handleMenuControl}>
+            <ListOrdered className="size-4.5" />
+            <span className="text-sm">{tStoreSidebar('menuControl')}</span>
           </DropdownMenuItem>
 
           {showApprove && (

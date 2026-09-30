@@ -47,6 +47,7 @@ const StoreDashboardStatsCards = ({ data, isLoading }: IStoreDashboardStats) => 
       <StatCard
         title={t('walletBalanceTitle')}
         value={`${currencySymbol} ${(Number(data?.walletBalance?.value) || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+        valueClassName={(Number(data?.walletBalance?.value) || 0) < 0 ? 'text-red-600' : undefined}
         isPositive
         icon={Wallet}
         change={0}

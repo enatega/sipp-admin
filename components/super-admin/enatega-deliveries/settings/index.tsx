@@ -8,19 +8,22 @@ import ScrollableTabsNav from '@/components/shared/ScrollableTabsNav';
 import { AppSettingsTabs } from '@/components/super-admin/enatega-deliveries/settings/app-settings';
 import { ConfigurationForm } from '@/components/super-admin/enatega-deliveries/settings/configuration';
 import { ProfileAccount } from '@/components/super-admin/enatega-deliveries/settings/profile-account';
+import { LanguageSettings } from './languages/LanguageSettings';
 import { StaticPagesTable } from './static-pages/StaticPagesTable';
 
 export default function SettingsTabs() {
   const t = useTranslations('settings');
+  const tTabs = useTranslations('settings.tabs');
 
   const TAB_DEFS: TabDef[] = React.useMemo(
     () => [
-      { value: 'profile-account', label: t('tabs.profileAccount') },
-      { value: 'app-settings', label: t('tabs.appSettings') },
-      { value: 'static-pages', label: t('tabs.staticPages') },
-      { value: 'configuration', label: t('tabs.configuration') },
+      { value: 'profile-account', label: tTabs('profileAccount') },
+      { value: 'app-settings', label: tTabs('appSettings') },
+      { value: 'static-pages', label: tTabs('staticPages') },
+      { value: 'configuration', label: tTabs('configuration') },
+      { value: 'languages', label: tTabs('languages') },
     ],
-    [t],
+    [tTabs],
   );
 
   const { active, setActive, tabs } = useSyncedTab(TAB_DEFS, {
@@ -43,6 +46,7 @@ export default function SettingsTabs() {
           {active === 'app-settings' && <AppSettingsTabs />}
           {active === 'static-pages' && <StaticPagesTable />}
           {active === 'configuration' && <ConfigurationForm />}
+          {active === 'languages' && <LanguageSettings />}
         </React.Suspense>
       </TabsContent>
     </Tabs>

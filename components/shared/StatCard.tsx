@@ -11,6 +11,7 @@ export interface StatCardItem {
   isPositive: boolean;
   icon: React.ElementType;
   showChange?: boolean;
+  valueClassName?: string;
 }
 
 export function StatCard({
@@ -20,6 +21,7 @@ export function StatCard({
   isPositive,
   icon: Icon,
   showChange = true,
+  valueClassName,
 }: StatCardItem) {
   const t = useTranslations('statCard');
   return (
@@ -39,7 +41,7 @@ export function StatCard({
         </div>
         
         <div className="flex-1 flex flex-col justify-center">
-          <p className="text-xl sm:text-2xl font-bold mb-1.5 sm:mb-2 truncate">
+          <p className={`text-xl sm:text-2xl font-bold mb-1.5 sm:mb-2 truncate ${valueClassName ?? ''}`}>
             {value}
           </p>
         </div>

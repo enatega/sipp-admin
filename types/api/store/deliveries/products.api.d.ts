@@ -37,6 +37,7 @@ export interface CreateProductPayload {
   category_id: string;
   subcategory_id?: string;
   name: string;
+  nameTranslations?: Record<string, string>;
   price: number;
   stock_quantity: number;
   description?: string;
@@ -80,6 +81,7 @@ export interface UpdateProductPayload {
   category_id: string;
   subcategory_id?: string;
   name: string;
+  nameTranslations?: Record<string, string>;
   price: number;
   stock_quantity: number;
   description?: string;
@@ -96,11 +98,17 @@ export interface UpdateProductResponse {
     id: string;
     store_id: string;
     name: string;
+    nameTranslations?: Record<string, string>;
     imageUrl: string | null;
     images?: string[] | null;
     productImages?: string[] | null;
     price: number;
   };
+}
+
+export interface TranslateProductTitleResponse {
+  sourceLanguage: 'en';
+  translations: Record<string, string>;
 }
 
 export type DeleteProductResponse = MessageResponse;

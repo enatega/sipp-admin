@@ -200,6 +200,12 @@ export const resolvePostLoginPath = (
 export const removeUser = (): void => {
   try {
     if (typeof window === 'undefined') return;
+    if ('serviceWorker' in navigator) {
+      void navigator.serviceWorker.getRegistration('/')
+        .then((registration) => registration?.pushManager.getSubscription())
+        .then((subscription) => subscription?.unsubscribe())
+        .catch(() => undefined);
+    }
     localStorage.removeItem('user');
     localStorage.removeItem(SHOP_MODE_STORAGE_KEY);
     removeAdminProfiles();
@@ -350,6 +356,7 @@ const routePermissionMap: Record<string, string | null> = {
   '/general/zones': 'general.zones',
   '/general/role-and-permissions': 'general.role_permissions',
   '/general/notifications': 'general.notifications',
+  '/general/operational-notifications': null,
   '/general/customer-support': 'general.customer_support',
   '/general/customer-loyalty-and-referrals': 'general.loyalty_referral',
   [adminRoutes.deliveries.base]: 'general-delivery.dashboard',

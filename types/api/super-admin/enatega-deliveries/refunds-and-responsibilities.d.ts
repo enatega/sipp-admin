@@ -47,6 +47,7 @@ export interface ApproveRefundRequest {
     points_per_usd: number;
     store_deduction_points: number;
     rider_deduction_points: number;
+    admin_deduction_amount: number;
     internal_notes: string;
 }
 interface ApproveRefundRequestPayload {
@@ -84,6 +85,7 @@ interface AdminActions {
     points_per_usd: number;
     store_deduction_points: number;
     rider_deduction_points: number;
+    admin_deduction_amount: number;
     customer_points_added: number;
     internal_notes: string;
 }

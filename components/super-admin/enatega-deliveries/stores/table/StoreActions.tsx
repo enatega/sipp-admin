@@ -11,6 +11,7 @@ import {
   Eye,
   KeyRound,
   MoreVertical,
+  ListOrdered,
   PenIcon,
   TrashIcon,
   Wallet,
@@ -49,6 +50,7 @@ export default function StoreActions({ store }: StoreActionsProps) {
   const canManageWallet = hasNamedPermission(
     'delivery_store_wallet_transactions',
   );
+  const tStoreSidebar = useTranslations('storeSidebar');
   const [loginOpen, setLoginOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -93,6 +95,13 @@ export default function StoreActions({ store }: StoreActionsProps) {
         `/enatega-deliveries/stores/${store.id}/wallet`,
       ),
     );
+  };
+
+  const handleMenuControl = () => {
+    router.push(withBackToPath(
+      `/store/deliveries/${store.id}/product-management/menu-control`,
+      buildScopedDeliveriesAdminPathFromCurrent(pathname, '/enatega-deliveries/stores'),
+    ));
   };
 
   const handleDelete = () => {
@@ -242,6 +251,10 @@ export default function StoreActions({ store }: StoreActionsProps) {
           >
             <PenIcon className="size-[18px]" />
             <span className="text-sm">{t('editStoreLabel')}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none" onClick={handleMenuControl}>
+            <ListOrdered className="size-[18px]" />
+            <span className="text-sm">{tStoreSidebar('menuControl')}</span>
           </DropdownMenuItem>
 
           {canManageWallet && (

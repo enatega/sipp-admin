@@ -109,6 +109,12 @@ export const getStoreSidebarMenus = (
           ),
         },
         {
+          id: 's3.menu-control',
+          name: 'Menu control',
+          translationKey: 'storeSidebar.menuControl',
+          path: withBackTo(getStorePath(storeId, '/product-management/menu-control')),
+        },
+        {
           id: 's3.2',
           name: 'Deals',
           translationKey: 'storeSidebar.deals',

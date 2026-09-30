@@ -32,6 +32,15 @@ export type ReportPageConfig = {
 
 const city = { label: 'City / Zone', keys: ['city.name', 'city'], format: 'text' } as const;
 const store = { label: 'Restaurant', keys: ['storeName', 'name'], format: 'text' } as const;
+const couponBorneBy = { label: 'Coupon borne by', keys: ['couponFundedBy'], format: 'status' } as const;
+const couponDiscount = { label: 'Coupon discount', keys: ['couponDiscount'], format: 'currency' } as const;
+const adminCouponCost = { label: 'Admin coupon cost', keys: ['adminCouponCost'], format: 'currency' } as const;
+const storeCouponCost = { label: 'Store coupon cost', keys: ['storeCouponCost'], format: 'currency' } as const;
+const adminCouponExtraPaid = {
+  label: 'Admin coupon extra paid',
+  keys: ['adminCouponExtraPaid'],
+  format: 'currency',
+} as const;
 
 export const REPORT_PAGE_CONFIGS: Record<
   | 'salesOrders'
@@ -67,6 +76,9 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Packing charges', keys: ['packingCharges'], format: 'currency' },
           { label: 'Rider tip', keys: ['riderTip'], format: 'currency' },
           { label: 'Total amount', keys: ['totalAmount'], format: 'currency' },
+          { label: 'Total deduction', keys: ['totalCommissionDebit'], format: 'currency' },
+          adminCouponExtraPaid,
+          { label: 'Store earnings', keys: ['storeEarnings'], format: 'currency' },
         ],
       },
       {
@@ -80,8 +92,11 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Delivered orders', keys: ['deliveredOrders'], format: 'number' },
           { label: 'Gross sales', keys: ['grossSales'], format: 'currency' },
           { label: 'Discounts', keys: ['discounts'], format: 'currency' },
+          adminCouponCost,
+          storeCouponCost,
           { label: 'Product tax', keys: ['productTax'], format: 'currency' },
           { label: 'Commission', keys: ['totalCommission'], format: 'currency' },
+          adminCouponExtraPaid,
           { label: 'Net store earnings', keys: ['netStoreEarnings'], format: 'currency' },
         ],
       },
@@ -118,6 +133,8 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Gross product amount', keys: ['grossProductAmount'], format: 'currency' },
           { label: 'Net product amount', keys: ['netProductAmount'], format: 'currency' },
           { label: 'Product tax', keys: ['productTax'], format: 'currency' },
+          couponDiscount,
+          couponBorneBy,
           { label: 'Tax snapshot', keys: ['taxSnapshotAvailable'], format: 'boolean' },
         ],
       },
@@ -133,6 +150,15 @@ export const REPORT_PAGE_CONFIGS: Record<
           city,
           { label: 'Commission base', keys: ['commissionBase'], format: 'currency' },
           { label: 'Commission rate', keys: ['commissionRate'], format: 'percentage' },
+          { label: 'Commission before coupon', keys: ['grossCommission'], format: 'currency' },
+          couponDiscount,
+          couponBorneBy,
+          {
+            label: 'Admin coupon from commission',
+            keys: ['adminCouponFromCommission'],
+            format: 'currency',
+          },
+          adminCouponExtraPaid,
           { label: 'Commission net', keys: ['commissionNet'], format: 'currency' },
           { label: 'Commission VAT rate', keys: ['commissionVatRate'], format: 'percentage' },
           { label: 'VAT on commission', keys: ['commissionVat'], format: 'currency' },
@@ -185,6 +211,7 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Commission net', keys: ['commissionNet'], format: 'currency' },
           { label: 'Commission VAT', keys: ['commissionVat'], format: 'currency' },
           { label: 'Total commission deduction', keys: ['totalCommissionDeduction'], format: 'currency' },
+          adminCouponExtraPaid,
           { label: 'Store net earnings', keys: ['storeNetEarnings'], format: 'currency' },
           { label: 'Approved withdrawals', keys: ['approvedWithdrawals'], format: 'currency' },
           { label: 'Pending withdrawals', keys: ['pendingWithdrawals'], format: 'currency' },
@@ -241,8 +268,12 @@ export const REPORT_PAGE_CONFIGS: Record<
         columns: [
           { label: 'Promotion type', keys: ['promotionType'], format: 'status' },
           { label: 'Promotion code', keys: ['promotionCode'] },
+          couponBorneBy,
           { label: 'Orders', keys: ['orders'], format: 'number' },
           { label: 'Total discount', keys: ['totalDiscount'], format: 'currency' },
+          adminCouponCost,
+          storeCouponCost,
+          adminCouponExtraPaid,
           { label: 'Gross sales', keys: ['grossSales'], format: 'currency' },
         ],
       },

@@ -70,6 +70,13 @@ export interface ProductTaxReportSummary {
 export interface CommissionTaxReportSummary {
   deliveredOrders: number;
   commissionBase: number;
+  /** Commission before admin coupons were offset against it. */
+  grossCommission: number;
+  /** Coupon amounts borne by the admin (commission forgone plus extra paid). */
+  adminCouponCost: number;
+  /** Admin coupon amounts beyond the commission, paid to stores. */
+  adminCouponExtraPaid: number;
+  storeCouponCost: number;
   commissionNet: number;
   commissionVat: number;
   totalCommissionDebit: number;

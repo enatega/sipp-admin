@@ -12,6 +12,8 @@ import { AppButton } from '@/components/shared/AppButton';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { MultiSelect } from '@/components/shared/form/AppMultiSelect';
 
+const SELECT_ALL_VALUE = '__all__';
+
 export function Step3({
   initialData,
   onSubmit,
@@ -57,6 +59,14 @@ export function Step3({
     );
   }, [storesData]);
 
+  const storeOptionsWithAll = useMemo(
+    () =>
+      storeOptions.length
+        ? [{ key: t('selectAll'), value: SELECT_ALL_VALUE }, ...storeOptions]
+        : storeOptions,
+    [storeOptions, t],
+  );
+
   return (
     <div className="md:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
       <div className="mb-6">
@@ -92,10 +102,20 @@ export function Step3({
               <MultiSelect
                 name="stores"
                 label={t('storesLabel')}
-                options={storeOptions}
+                options={storeOptionsWithAll}
                 selected={values.stores ?? []}
                 onChange={(selectedKeys) => {
-                  setFieldValue('stores', selectedKeys);
+                  const allValues = storeOptions.map((opt) => opt.value);
+
+                  if (selectedKeys.includes(SELECT_ALL_VALUE)) {
+                    const isAllSelected = allValues.every((val) =>
+                      selectedKeys.includes(val),
+                    );
+
+                    setFieldValue('stores', isAllSelected ? [] : allValues);
+                  } else {
+                    setFieldValue('stores', selectedKeys);
+                  }
                 }}
                 placeholder={
                   isLoading ? t('storesLoading') : t('storesPlaceholder')

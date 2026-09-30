@@ -56,7 +56,7 @@ export const discountTypeValues = ['PERCENTAGE', 'FIXED'] as const;
 //     { key: 'Product 3', value: 'product3' },
 // ]
 
-export const paymentMethodValues = ['CARD', 'COD'] as const;
+export const paymentMethodValues = ['CARD', 'WALLET'] as const;
 
 export const paymentMethodOptions = paymentMethodValues.map((value) => ({
   key: value,

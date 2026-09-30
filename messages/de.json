@@ -461,6 +461,10 @@
       "commissionVat": "MwSt. auf Provision",
       "totalCommissionDeduction": "Gesamter Provisionsabzug",
       "absorbedVat": "Übernommene MwSt.",
+      "grossCommission": "Provision vor Gutscheinen",
+      "adminCouponCost": "Gutscheinkosten Admin",
+      "adminCouponExtraPaid": "Zusätzlich vom Admin gezahlt",
+      "storeCouponCost": "Gutscheinkosten Geschäft",
       "loadError": "Steuer- und Provisionsübersicht konnte nicht geladen werden"
     },
     "table": {
@@ -508,6 +512,14 @@
       "vatOnCommission": "MwSt. auf Provision",
       "totalDeduction": "Gesamtabzug",
       "absorbedVat": "Übernommene MwSt.",
+      "couponBorneBy": "Gutschein getragen von",
+      "couponDiscount": "Gutscheinrabatt",
+      "adminCouponCost": "Gutscheinkosten Admin",
+      "storeCouponCost": "Gutscheinkosten Geschäft",
+      "adminCouponExtraPaid": "Zusätzlich vom Admin gezahlt",
+      "storeEarnings": "Geschäftseinnahmen",
+      "commissionBeforeCoupon": "Provision vor Gutschein",
+      "adminCouponFromCommission": "Admin-Gutschein aus Provision",
       "snapshot": "Snapshot",
       "cancelledAt": "Storniert am",
       "createdAt": "Erstellt am",
@@ -4832,7 +4844,8 @@
       "options": {
         "paymentMethod": {
           "card": "Karte",
-          "cod": "Nachnahme"
+          "cod": "Nachnahme",
+          "wallet": "Wallet"
         },
         "deliveryType": {
           "all": "Alle",
@@ -4912,6 +4925,7 @@
           "serviceCentersPlaceholder": "Service Centers auswählen",
           "servicePlaceholder": "Service auswählen",
           "storesPlaceholder": "Stores auswählen",
+          "selectAll": "Alle auswählen",
           "usagePerUserLabel": "Anzahl Nutzungen pro Benutzer",
           "usagePerUserPlaceholder": "Nutzung pro Benutzer",
           "usagePerUserHelper": "Nutzung pro Benutzer darf das Gesamtnutzungslimit nicht überschreiten",
@@ -4942,6 +4956,7 @@
           "selectAll": "Alle auswählen",
           "paymentMethodCard": "Karte",
           "paymentMethodCod": "Nach der Dienstleistung bezahlen",
+          "paymentMethodWallet": "Wallet",
           "deliveryTypeDelivery": "Lieferung",
           "deliveryTypePickup": "Abholung",
           "premiumShopLabel": "Premium-Shops auswählen",
@@ -5031,6 +5046,7 @@
           "forPremiumShopOnlyLabel": "Nur für Premium-Shops",
           "paymentMethodCard": "Karte",
           "paymentMethodCod": "Nach der Dienstleistung bezahlen",
+          "paymentMethodWallet": "Wallet",
           "deliveryTypeDelivery": "Lieferung",
           "deliveryTypePickup": "Abholung",
           "premiumShopLabel": "Premium-Shops auswählen",
@@ -7969,6 +7985,13 @@
         "vatOnCommissionNotChargedLabel": "MwSt. auf Provision (nicht berechnet)",
         "totalCommissionDebitLabel": "Gesamter Provisionsabzug",
         "sippAbsorbedVatLabel": "Von SIPP übernommene MwSt.",
+        "couponTitle": "Gutschein",
+        "couponBorneByAdmin": "Vom Admin getragen",
+        "couponBorneByStore": "Vom Geschäft getragen",
+        "couponDiscountLabel": "Gutscheinrabatt",
+        "commissionBeforeCouponLabel": "Provision vor Gutschein",
+        "adminCouponFromCommissionLabel": "Aus Provision gedeckt",
+        "adminCouponExtraPaidLabel": "Zusätzlich vom Admin an Geschäft gezahlt",
         "storeEarningsLabel": "Geschäftsverdienst:",
         "notAvailable": "---"
       },

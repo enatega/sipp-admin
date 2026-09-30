@@ -22,8 +22,8 @@ export type StoreCouponDiscountType = "PERCENTAGE" | "FIXED";
 export type StoreCouponStatus = "active" | "inactive";
 
 export type CreateCouponPaymentMethod =
-    | "COD"
-    | "CARD";
+    | "CARD"
+    | "WALLET";
 
 export type CreateCouponDeliveryType =
     | "ALL"

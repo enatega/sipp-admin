@@ -461,6 +461,10 @@
       "commissionVat": "VAT on commission",
       "totalCommissionDeduction": "Total commission deduction",
       "absorbedVat": "Absorbed VAT",
+      "grossCommission": "Commission before coupons",
+      "adminCouponCost": "Admin coupon cost",
+      "adminCouponExtraPaid": "Admin coupon extra paid",
+      "storeCouponCost": "Store coupon cost",
       "loadError": "Tax and commission summary could not be loaded"
     },
     "table": {
@@ -508,6 +512,14 @@
       "vatOnCommission": "VAT on commission",
       "totalDeduction": "Total deduction",
       "absorbedVat": "Absorbed VAT",
+      "couponBorneBy": "Coupon borne by",
+      "couponDiscount": "Coupon discount",
+      "adminCouponCost": "Admin coupon cost",
+      "storeCouponCost": "Store coupon cost",
+      "adminCouponExtraPaid": "Admin coupon extra paid",
+      "storeEarnings": "Store earnings",
+      "commissionBeforeCoupon": "Commission before coupon",
+      "adminCouponFromCommission": "Admin coupon from commission",
       "snapshot": "Snapshot",
       "cancelledAt": "Cancelled at",
       "createdAt": "Created at",
@@ -4493,7 +4505,8 @@
       "options": {
         "paymentMethod": {
           "card": "Card",
-          "cod": "Cash on Delivery"
+          "cod": "Cash on Delivery",
+          "wallet": "Wallet"
         },
         "deliveryType": {
           "all": "All",
@@ -4573,6 +4586,7 @@
           "serviceCentersPlaceholder": "Select service centers",
           "servicePlaceholder": "Select service",
           "storesPlaceholder": "Select stores",
+          "selectAll": "Select All",
           "usagePerUserLabel": "Number of Usage Per User",
           "usagePerUserPlaceholder": "Usage per user",
           "usagePerUserHelper": "Usage per user cannot be greater than total usage limit",
@@ -4603,6 +4617,7 @@
           "selectAll": "Select All",
           "paymentMethodCard": "Card",
           "paymentMethodCod": "Pay after service",
+          "paymentMethodWallet": "Wallet",
           "deliveryTypeDelivery": "Delivery",
           "deliveryTypePickup": "Pickup",
           "premiumShopLabel": "Select Premium Shops",
@@ -4691,6 +4706,7 @@
           "forPremiumShopOnlyLabel": "For Premium Shop Only",
           "paymentMethodCard": "Card",
           "paymentMethodCod": "Pay after service",
+          "paymentMethodWallet": "Wallet",
           "deliveryTypeDelivery": "Delivery",
           "deliveryTypePickup": "Pickup",
           "premiumShopLabel": "Select Premium Shops",
@@ -7648,6 +7664,13 @@
         "vatOnCommissionNotChargedLabel": "VAT on commission (not charged)",
         "totalCommissionDebitLabel": "Total commission deduction",
         "sippAbsorbedVatLabel": "VAT covered by SIPP",
+        "couponTitle": "Coupon",
+        "couponBorneByAdmin": "Borne by admin",
+        "couponBorneByStore": "Borne by store",
+        "couponDiscountLabel": "Coupon discount",
+        "commissionBeforeCouponLabel": "Commission before coupon",
+        "adminCouponFromCommissionLabel": "Covered from commission",
+        "adminCouponExtraPaidLabel": "Extra paid to store by admin",
         "storeEarningsLabel": "Store Earnings:",
         "notAvailable": "---"
       },

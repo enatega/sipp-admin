@@ -33,7 +33,9 @@ export function Step5({
   const localizedPaymentMethodOptions = paymentMethodOptions.map((option) => ({
     ...option,
     key:
-      option.value === 'CARD' ? t('paymentMethodCard') : t('paymentMethodCod'),
+      option.value === 'CARD'
+        ? t('paymentMethodCard')
+        : t('paymentMethodWallet'),
   }));
   const localizedDeliveryTypeOptions = deliveryTypeOptions.map((option) => ({
     ...option,

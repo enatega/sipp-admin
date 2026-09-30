@@ -60,6 +60,7 @@ export function UsersTable() {
   const { data, isLoading, isError, error } = useGetUserManagement();
   const createImpersonationToken = useCreateImpersonationToken();
   const canImpersonate = hasNamedPermission('impersonate_users');
+  const canManageWallet = hasNamedPermission('user_wallet_transactions');
   const tWallet = useTranslations('wallet.actions');
 
   const {
@@ -301,18 +302,20 @@ export function UsersTable() {
                             {t('actions.viewDetails')}
                           </span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(`/general/users/${user.id}/wallet`);
-                          }}
-                        >
-                          <Wallet className="size-[18px]" />
-                          <span className="text-sm">
-                            {tWallet('walletTransaction')}
-                          </span>
-                        </DropdownMenuItem>
+                        {canManageWallet && (
+                          <DropdownMenuItem
+                            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(`/general/users/${user.id}/wallet`);
+                            }}
+                          >
+                            <Wallet className="size-[18px]" />
+                            <span className="text-sm">
+                              {tWallet('walletTransaction')}
+                            </span>
+                          </DropdownMenuItem>
+                        )}
                         {canImpersonate &&
                           user.userProfile.user.active_status &&
                           !user.userProfile.user.block_status && (

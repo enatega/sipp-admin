@@ -123,12 +123,26 @@ export interface OrderSummary {
     dateTime?: string;
 }
 
+/** Who bore an order's coupon and how the admin commission was split. */
+export interface CouponFunding {
+    couponDiscount: number;
+    couponFundedBy: 'ADMIN' | 'STORE' | null;
+    commissionBase: number;
+    /** Commission before an admin coupon was offset against it. */
+    grossCommission: number;
+    adminCouponFromCommission: number;
+    /** Admin coupon amount beyond the commission, paid to the store. */
+    adminCouponExtraPaid: number;
+    storeCouponCost: number;
+}
+
 export interface PaymentInfo {
     commissionSnapshotAvailable?: boolean;
     commissionNet?: number;
     vatOnCommission?: number;
     totalCommissionDebit?: number;
     sippAbsorbedVat?: number;
+    couponFunding?: CouponFunding;
     paymentMethod?: string;
     paymentStatus?: string;
     subtotal?: number;

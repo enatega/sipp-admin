@@ -41,9 +41,13 @@ export function TaxCommissionSummary({
     cards = [
       [t('deliveredOrders'), String(summary?.deliveredOrders ?? 0)],
       [t('commissionBase'), money(summary?.commissionBase)],
+      [t('grossCommission'), money(summary?.grossCommission)],
+      [t('adminCouponCost'), money(summary?.adminCouponCost)],
+      [t('adminCouponExtraPaid'), money(summary?.adminCouponExtraPaid)],
       [t('commissionNet'), money(summary?.commissionNet)],
       [t('commissionVat'), money(summary?.commissionVat)],
       [t('totalCommissionDeduction'), money(summary?.totalCommissionDebit)],
+      [t('storeCouponCost'), money(summary?.storeCouponCost)],
       [t('absorbedVat'), money(summary?.absorbedVat)],
     ];
   }
@@ -62,7 +66,7 @@ export function TaxCommissionSummary({
     <section
       aria-label={t('ariaLabel')}
       className={`grid gap-3 sm:grid-cols-2 ${
-        reportKey === 'tax/product' ? 'xl:grid-cols-4' : 'xl:grid-cols-6'
+        reportKey === 'tax/product' ? 'xl:grid-cols-4' : 'xl:grid-cols-5'
       }`}
     >
       {cards.map(([label, value]) => (

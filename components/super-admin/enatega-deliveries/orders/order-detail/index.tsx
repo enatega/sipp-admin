@@ -14,15 +14,15 @@ import {
   useRejectStoreOrder,
 } from '@/hooks/api/store/deliveries/orders';
 import { useGetOrderDetail as useGetSuperOrderDetail } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import { useCreateRefundRequest } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 // Spinner import removed (unused)
 import { AppButton } from '@/components/shared/AppButton';
 import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
+import { CreateRefundDialog } from '../../refund-and-responsibilities/CreateRefundDialog';
 import { OrderDetailMain } from './order-detail-main';
 import { OrderDetailShimmer } from './OrderDetailShimmer';
-import { CreateRefundDialog } from '../../refund-and-responsibilities/CreateRefundDialog';
-import { useCreateRefundRequest } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
 
 // Lazy load MapTrackingModal for better performance
 const MapTrackingModal = dynamic(() => import('./MapTrackingModal'), {
@@ -167,9 +167,9 @@ export function OrderDetailPage() {
               onClick={() => setIsRefundDialogOpen(true)}
               className="h-10 px-6 w-full sm:w-auto"
               leftIcon={<ReceiptText size={18} />}
-              title="Create refund"
+              title="Create Refund"
             >
-              Refund
+              Create Refund
             </AppButton>
           ) : null}
         </div>
@@ -188,7 +188,9 @@ export function OrderDetailPage() {
         onCreate={async (payload) => {
           try {
             const response = await createRefund(payload);
-            toast.success(response.message || 'Refund request created successfully');
+            toast.success(
+              response.message || 'Refund request created successfully',
+            );
             setIsRefundDialogOpen(false);
           } catch (actionError) {
             handleApiError(actionError as ApiErrorResponse);

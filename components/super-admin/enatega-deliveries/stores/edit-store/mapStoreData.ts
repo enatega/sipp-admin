@@ -199,6 +199,7 @@ export function mapStoreApiToForm(apiData: GetStoreDetailResponse): Store {
   return {
     id: apiData.id,
     name: apiData.storename,
+    slug: apiData.slug,
     vendorId: '', // Not provided by API
     phone: apiData.storephone ?? '',
     email: apiData.storeemail ?? '',

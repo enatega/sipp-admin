@@ -89,6 +89,7 @@ export function EditStoreForm({
     if (!pendingValues) return;
 
     const formData = new FormData();
+    formData.append('slug', pendingValues.slug);
     formData.append('address', pendingValues.address);
     formData.append('tag_line', pendingValues.tagLine || '');
     formData.append('description', pendingValues.description || '');

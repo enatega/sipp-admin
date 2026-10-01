@@ -238,12 +238,14 @@ export const useCreateProduct = (
     mutationFn: async (payload) => {
       const formData = new FormData();
 
-      if (payload.images?.length) {
-        payload.images.forEach((image) => {
-          formData.append('images', image);
-        });
+      const primaryImage = payload.image instanceof File
+        ? payload.image
+        : payload.images?.find((image) => image instanceof File);
+
+      if (!(primaryImage instanceof File)) {
+        throw new Error('A product image is required');
       }
-      formData.append('image', payload.images?.[0] ?? payload.image);
+      formData.append('image', primaryImage);
       if (payload.store_id) {
         formData.append('store_id', payload.store_id);
       }

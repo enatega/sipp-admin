@@ -20,6 +20,7 @@ import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { withBackToPath } from '@/lib/store';
 import { handleApiError } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
 import {
   useApproveStore,
   useDeleteStore,
@@ -46,6 +47,9 @@ export default function StoreActions({ store }: StoreActionsProps) {
   const t = useTranslations('lumiFood.stores');
   const tLogin = useTranslations('storeLogin');
   const tWallet = useTranslations('wallet.actions');
+  const canManageWallet = hasNamedPermission(
+    'delivery_store_wallet_transactions',
+  );
   const tStoreSidebar = useTranslations('storeSidebar');
   const [loginOpen, setLoginOpen] = useState(false);
   const router = useRouter();
@@ -253,13 +257,15 @@ export default function StoreActions({ store }: StoreActionsProps) {
             <span className="text-sm">{tStoreSidebar('menuControl')}</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem
-            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
-            onClick={() => handleWallet()}
-          >
-            <Wallet className="size-[18px]" />
-            <span className="text-sm">{tWallet('walletTransaction')}</span>
-          </DropdownMenuItem>
+          {canManageWallet && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={() => handleWallet()}
+            >
+              <Wallet className="size-[18px]" />
+              <span className="text-sm">{tWallet('walletTransaction')}</span>
+            </DropdownMenuItem>
+          )}
 
           {store.isLegacyMigrated === true && store.storeLoginEnabled === false && (
             <DropdownMenuItem onClick={() => setLoginOpen(true)} className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none">

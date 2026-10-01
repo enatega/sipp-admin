@@ -51,7 +51,7 @@ export function VendorEditStoreForm({
   }, [apiStore]);
 
   const validationSchema = useMemo(
-    () => editStoreFormSchema(tSchema, isLegacyMigrated),
+    () => editStoreFormSchema(tSchema, isLegacyMigrated, false),
     [tSchema, isLegacyMigrated],
   );
 

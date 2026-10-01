@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 import { Switch } from '@/components/ui/switch';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppInputField } from '@/components/shared/form/AppInput';
-import { AppMultiFileInput } from '@/components/shared/form/AppMultiFileInput';
+import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import AddonsAsyncMultiSelect from '@/components/store/deliveries/product-management/common/AddonsAsyncMultiSelect';
@@ -32,7 +32,6 @@ const EMPTY_STEP1: Step1Data = {
   unitOfMeasure: '',
   description: '',
   image: undefined,
-  images: null,
 };
 
 const UNLIMITED_STOCK_VALUE = '2147483647';
@@ -203,9 +202,8 @@ const Step1Content: React.FC<Step1ContentProps> = ({
         rows={4}
       />
 
-      <AppMultiFileInput
-        name="images"
-        syncPrimaryFieldName="image"
+      <AppFileInput
+        name="image"
         label={t('imageLabel')}
         helperText={t('imageHelper')}
         requiredAsterisk

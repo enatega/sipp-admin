@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { formatDateTime } from '@/lib/formatDateTime';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import {
@@ -28,10 +29,8 @@ import CardShimmer from '@/components/shared/CardShimmer';
 import DisplayError from '@/components/shared/DisplayError';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { Heading } from '@/components/shared/Heading';
-import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { useCurrency } from '@/hooks/use-currency';
 import RefundResponsibilitiesDetailPageShimmer from './RefundResponsibilitiesDetailPageShimmer';
-
 
 const formatDate = (date?: string | null) => {
   if (!date) return '-';
@@ -42,8 +41,7 @@ export function RefundResponsibilityDetailPage() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
-  const { currencySymbol } = useCurrency();
-  const formatCurrency = (amount?: number | null) => `${currencySymbol} ${Number(amount || 0).toFixed(2)}`;
+  const { formatCurrency } = useCurrency();
 
   const requestIdParam = params.requestId;
 
@@ -84,7 +82,7 @@ export function RefundResponsibilityDetailPage() {
         description:
           'This action will approve the refund request and apply the configured points adjustment.',
         variant: 'green',
-        confirmLabel: 'Approve Refund',
+        confirmLabel: 'Confirm Refund',
       };
     }
 
@@ -125,7 +123,7 @@ export function RefundResponsibilityDetailPage() {
       ),
     );
     setStoreDeductionPoints(
-      String(request?.admin_actions?.store_deduction_points || request?.refund_request_details?.requested_amount || 0),
+      String(request?.admin_actions?.store_deduction_points ?? 0),
     );
     setRiderDeductionPoints(
       String(request?.admin_actions?.rider_deduction_points ?? 0),
@@ -135,14 +133,83 @@ export function RefundResponsibilityDetailPage() {
     );
   }, [request]);
 
-  const customerCredit = Number(approvedAmount) || 0;
+  const isAutomatic = request?.status === 'automatic';
+  const customerCredit = isAutomatic
+    ? Number(
+        request?.refund_request_details?.approved_amount ??
+          request?.refund_request_details?.requested_amount ??
+          0,
+      )
+    : Number(approvedAmount) || 0;
 
-  const storePoints = Number(storeDeductionPoints) || 0;
-  const riderPoints = Number(riderDeductionPoints) || 0;
-  const adminDeduction = Number(adminDeductionAmount) || 0;
+  const storePoints = isAutomatic ? 0 : Number(storeDeductionPoints) || 0;
+  const riderPoints = isAutomatic ? 0 : Number(riderDeductionPoints) || 0;
+  const adminDeduction = isAutomatic ? 0 : Number(adminDeductionAmount) || 0;
+  const storeDeductionLimit =
+    request?.order_payment_information?.store_deduction_available ?? 0;
+  const riderDeductionLimit =
+    request?.order_payment_information?.rider_deduction_available ?? 0;
+  const storeSettledRefundReferences =
+    request?.order_payment_information?.store_settled_refund_references ?? [];
+  const riderSettledRefundReferences =
+    request?.order_payment_information?.rider_settled_refund_references ?? [];
+  const isStoreResponsibilitySettled =
+    (request?.order_payment_information?.store_earned ?? 0) > 0 &&
+    storeDeductionLimit <= 0.005 &&
+    storeSettledRefundReferences.length > 0;
+  const isRiderResponsibilitySettled =
+    (request?.order_payment_information?.rider_earned ?? 0) > 0 &&
+    riderDeductionLimit <= 0.005 &&
+    riderSettledRefundReferences.length > 0;
+  const storeDeductionError =
+    storePoints < 0
+      ? 'Store deduction cannot be negative.'
+      : storePoints > storeDeductionLimit
+        ? `Cannot exceed available store earnings of ${formatCurrency(storeDeductionLimit)}.`
+        : undefined;
+  const riderDeductionError =
+    riderPoints < 0
+      ? 'Rider deduction cannot be negative.'
+      : riderPoints > riderDeductionLimit
+        ? `Cannot exceed available rider earnings of ${formatCurrency(riderDeductionLimit)}.`
+        : undefined;
+  const adminDeductionError =
+    adminDeduction < 0 ? 'Admin deduction cannot be negative.' : undefined;
+  const requestedAmount = Number(
+    request?.refund_request_details?.requested_amount ?? 0,
+  );
+  const approvedAmountError =
+    customerCredit <= 0 || customerCredit > requestedAmount
+      ? `Approved amount must be between ${formatCurrency(0.01)} and ${formatCurrency(requestedAmount)}.`
+      : undefined;
+  const remainingResponsibility =
+    customerCredit - storePoints - riderPoints - adminDeduction;
+  const allocationError =
+    remainingResponsibility < 0
+      ? 'Combined deductions cannot exceed the approved refund amount.'
+      : undefined;
+  const allocationMissingError =
+    !isAutomatic &&
+    customerCredit > 0 &&
+    storePoints + riderPoints + adminDeduction <= 0
+      ? 'Allocate the refunded amount to at least one party before approving.'
+      : undefined;
+  const allocationIncompleteError =
+    !isAutomatic && customerCredit > 0 && remainingResponsibility > 0.005
+      ? `Allocate the remaining ${formatCurrency(remainingResponsibility)} before confirming the refund.`
+      : undefined;
   const netSystemImpact =
     customerCredit - storePoints - riderPoints - adminDeduction;
   const isRejectDisabled = !internalNotes?.trim();
+  const isApproveDisabled = Boolean(
+    storeDeductionError ||
+    riderDeductionError ||
+    adminDeductionError ||
+    approvedAmountError ||
+    allocationError ||
+    allocationMissingError ||
+    allocationIncompleteError,
+  );
   // confirm handler
 
   const handleConfirmAction = async () => {
@@ -237,7 +304,8 @@ export function RefundResponsibilityDetailPage() {
             className={cn(
               'rounded-full px-2.5 py-1 text-xs font-medium',
               request.status === 'approved' && 'bg-green-100 text-green-700',
-              request.status === 'automatic' && 'bg-emerald-100 text-emerald-700',
+              request.status === 'automatic' &&
+                'bg-emerald-100 text-emerald-700',
               request.status === 'rejected' && 'bg-red-100 text-red-700',
               request.status === 'pending' && 'bg-blue-100 text-blue-700',
             )}
@@ -327,7 +395,8 @@ export function RefundResponsibilityDetailPage() {
                 </p>
 
                 <p className="rounded-lg border bg-amber-50 px-3 py-2 text-sm">
-                  {request?.refund_request_details?.reason_for_refund || 'No reason provided'}
+                  {request?.refund_request_details?.reason_for_refund ||
+                    'No reason provided'}
                 </p>
               </div>
 
@@ -346,6 +415,54 @@ export function RefundResponsibilityDetailPage() {
                   {request?.refund_request_details?.refund_type} Refund
                 </span>
               </div>
+            </div>
+          </section>
+
+          {/* Order payment breakdown */}
+          <section className="rounded-xl border bg-white p-4 sm:p-5">
+            <h3 className="mb-1 text-base font-semibold">
+              Order Payment Information
+            </h3>
+            <p className="mb-4 text-xs text-muted-foreground">
+              {request.order_payment_information.is_delivered
+                ? 'Earnings credited when this order was delivered.'
+                : 'This order was not delivered, so store and rider earnings are zero and the payment remained with admin before refund.'}
+            </p>
+
+            <div className="space-y-2 text-sm">
+              {[
+                ['Order amount', request.order_payment_information.order_total],
+                [
+                  'Store Income',
+                  request.order_payment_information.store_earned,
+                ],
+                [
+                  'Rider Income',
+                  request.order_payment_information.rider_earned,
+                ],
+                [
+                  'Admin commission',
+                  request.order_payment_information.admin_commission,
+                ],
+                [
+                  'Admin delivery Commission',
+                  request.order_payment_information.admin_delivery_share,
+                ],
+                [
+                  'Amount held by admin',
+                  request.order_payment_information.admin_held,
+                ],
+              ].map(([label, amount]) => (
+                <div
+                  key={String(label)}
+                  className="flex items-center justify-between rounded-md bg-accent/30 px-3 py-2"
+                >
+                  <span>{label}</span>
+                  <span className="font-semibold tabular-nums">
+                    {formatCurrency(Number(amount))}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -451,6 +568,8 @@ export function RefundResponsibilityDetailPage() {
                     setSetApprovedAmount(Number(event.target.value))
                   }
                   min={0}
+                  max={requestedAmount}
+                  error={approvedAmountError}
                 />
 
                 <AppInputField
@@ -460,6 +579,7 @@ export function RefundResponsibilityDetailPage() {
                   value={adminDeductionAmount}
                   onChange={(e) => setAdminDeductionAmount(e.target.value)}
                   min={0}
+                  error={adminDeductionError}
                 />
                 <AppInputField
                   type="number"
@@ -468,7 +588,15 @@ export function RefundResponsibilityDetailPage() {
                   value={storeDeductionPoints}
                   onChange={(e) => setStoreDeductionPoints(e.target.value)}
                   min={0}
+                  max={storeDeductionLimit}
+                  error={storeDeductionError}
                 />
+                {isStoreResponsibilitySettled ? (
+                  <p className="-mt-2 text-xs text-muted-foreground">
+                    Store responsibility was settled in refund{' '}
+                    {storeSettledRefundReferences.join(', ')}.
+                  </p>
+                ) : null}
 
                 <AppInputField
                   type="number"
@@ -477,7 +605,40 @@ export function RefundResponsibilityDetailPage() {
                   value={riderDeductionPoints}
                   onChange={(e) => setRiderDeductionPoints(e.target.value)}
                   min={0}
+                  max={riderDeductionLimit}
+                  error={riderDeductionError}
                 />
+                {isRiderResponsibilitySettled ? (
+                  <p className="-mt-2 text-xs text-muted-foreground">
+                    Rider responsibility was settled in refund{' '}
+                    {riderSettledRefundReferences.join(', ')}.
+                  </p>
+                ) : null}
+
+                <div
+                  className={cn(
+                    'rounded-lg border px-3 py-2 text-sm',
+                    allocationError
+                      ? 'border-destructive bg-red-50 text-destructive'
+                      : 'border-emerald-200 bg-emerald-50 text-emerald-800',
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span>Remaining amount to allocate</span>
+                    <span className="font-semibold tabular-nums">
+                      {formatCurrency(Math.max(0, remainingResponsibility))}
+                    </span>
+                  </div>
+                  {allocationError ? (
+                    <p className="mt-1 text-xs">{allocationError}</p>
+                  ) : null}
+                  {allocationMissingError ? (
+                    <p className="mt-1 text-xs">{allocationMissingError}</p>
+                  ) : null}
+                  {allocationIncompleteError ? (
+                    <p className="mt-1 text-xs">{allocationIncompleteError}</p>
+                  ) : null}
+                </div>
 
                 <div>
                   <label className="mb-1 block text-sm font-medium">
@@ -501,8 +662,9 @@ export function RefundResponsibilityDetailPage() {
                 <AppButton
                   variant="green"
                   onClick={() => setCurrentAction('approve')}
+                  disabled={isApproveDisabled}
                 >
-                  Approve
+                  Confirm Refund
                 </AppButton>
 
                 <AppButton
@@ -523,22 +685,30 @@ export function RefundResponsibilityDetailPage() {
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between rounded-md bg-emerald-50 px-3 py-2 text-emerald-700">
                 <span>Customer wallet credit</span>
-                <span className="font-semibold">+{formatCurrency(customerCredit)}</span>
+                <span className="font-semibold">
+                  +{formatCurrency(customerCredit)}
+                </span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Store Deduction</span>
-                <span className="font-semibold">-{formatCurrency(storePoints)}</span>
+                <span className="font-semibold">
+                  -{formatCurrency(storePoints)}
+                </span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Rider Deduction</span>
-                <span className="font-semibold">-{formatCurrency(riderPoints)}</span>
+                <span className="font-semibold">
+                  -{formatCurrency(riderPoints)}
+                </span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-amber-50 px-3 py-2 text-amber-700">
                 <span>Admin Deduction</span>
-                <span className="font-semibold">-{formatCurrency(adminDeduction)}</span>
+                <span className="font-semibold">
+                  -{formatCurrency(adminDeduction)}
+                </span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-accent px-3 py-2 font-semibold">
@@ -553,7 +723,10 @@ export function RefundResponsibilityDetailPage() {
 
             <p className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
               <CircleAlert className="mt-0.5 h-4 w-4" />
-              The approved amount is credited to the customer wallet. Store and rider responsibility deductions are recorded in their wallet histories; admin deduction records SIPP's responsibility share.
+              The approved amount is credited to the customer wallet. Store and
+              rider responsibility deductions are recorded in their wallet
+              histories; admin deduction records SIPP&apos;s responsibility
+              share.
             </p>
           </section>
 

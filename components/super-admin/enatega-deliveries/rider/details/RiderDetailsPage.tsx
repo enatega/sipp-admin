@@ -21,6 +21,7 @@ import type { DateRange } from 'react-day-picker';
 import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { returnErrorMessage } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
 import {
   fetchRiderDeliveredOrders,
   useGetDeliveryRider,
@@ -48,6 +49,9 @@ export function RiderDetailsPage({ riderId }: { riderId: string }) {
   const t = useTranslations('driverManagement.driversTable');
   const tHeaders = useTranslations(
     'driverManagement.driversTable.tableHeaders',
+  );
+  const canManageWallet = hasNamedPermission(
+    'delivery_rider_wallet_transactions',
   );
   const router = useRouter();
   const pathname = usePathname();
@@ -275,10 +279,12 @@ export function RiderDetailsPage({ riderId }: { riderId: string }) {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <AppButton variant="secondary" onClick={() => navigate('/wallet')}>
-            <Wallet className="mr-2 h-4 w-4" />
-            {t('walletAction')}
-          </AppButton>
+          {canManageWallet && (
+            <AppButton variant="secondary" onClick={() => navigate('/wallet')}>
+              <Wallet className="mr-2 h-4 w-4" />
+              {t('walletAction')}
+            </AppButton>
+          )}
           <AppButton
             onClick={() =>
               router.push(

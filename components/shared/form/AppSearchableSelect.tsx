@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
-
+import { cn } from '@/lib/utils';
 import {
   Command,
   CommandEmpty,
@@ -16,7 +16,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 
 export type SearchableSelectOption = {
   key: string;
@@ -30,6 +29,7 @@ type AppSearchableSelectProps = {
   onValueChange: (value: string) => void;
   placeholder: string;
   searchPlaceholder: string;
+  onSearchChange?: (value: string) => void;
   emptyText: string;
   loading?: boolean;
   loadingText?: string;
@@ -46,6 +46,7 @@ export function AppSearchableSelect({
   onValueChange,
   placeholder,
   searchPlaceholder,
+  onSearchChange,
   emptyText,
   loading = false,
   loadingText = 'Loading...',
@@ -75,7 +76,7 @@ export function AppSearchableSelect({
             aria-expanded={open}
             aria-controls={listId}
             aria-label={placeholder}
-            disabled={disabled || loading}
+            disabled={disabled}
             className={cn(
               'flex h-11 w-full items-center justify-between gap-2 rounded-md border border-stroke bg-transparent px-3 text-sm font-normal outline-none transition-colors',
               'focus-visible:border-primary focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50',
@@ -102,38 +103,60 @@ export function AppSearchableSelect({
 
         <PopoverContent
           align="start"
-          className="w-[var(--radix-popover-trigger-width)] min-w-[220px] p-0"
+          onWheel={(event) => event.stopPropagation()}
+          className="w-[var(--radix-popover-trigger-width)] min-w-[220px] p-0 overscroll-contain"
         >
           <Command>
-            <CommandInput placeholder={searchPlaceholder} />
-            <CommandList id={listId}>
-              <CommandEmpty>{emptyText}</CommandEmpty>
-              <CommandGroup>
-                <CommandItem
-                  value={placeholder}
-                  onSelect={() => selectValue('')}
-                >
-                  <Check
-                    className={cn('size-4', value ? 'opacity-0' : 'opacity-100')}
-                  />
-                  <span>{placeholder}</span>
-                </CommandItem>
-                {options.map((option) => (
-                  <CommandItem
-                    key={option.value}
-                    value={`${option.key} ${option.value}`}
-                    onSelect={() => selectValue(option.value)}
-                  >
-                    <Check
-                      className={cn(
-                        'size-4',
-                        value === option.value ? 'opacity-100' : 'opacity-0',
-                      )}
-                    />
-                    <span className="truncate">{option.key}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+            <CommandInput
+              placeholder={searchPlaceholder}
+              onValueChange={onSearchChange}
+            />
+            <CommandList
+              id={listId}
+              onWheel={(event) => event.stopPropagation()}
+              className="max-h-72 overscroll-contain"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center gap-2 px-3 py-6 text-sm text-muted-foreground">
+                  <Loader2 className="size-4 animate-spin" />
+                  {loadingText}
+                </div>
+              ) : (
+                <>
+                  <CommandEmpty>{emptyText}</CommandEmpty>
+                  <CommandGroup>
+                    <CommandItem
+                      value={placeholder}
+                      onSelect={() => selectValue('')}
+                    >
+                      <Check
+                        className={cn(
+                          'size-4',
+                          value ? 'opacity-0' : 'opacity-100',
+                        )}
+                      />
+                      <span>{placeholder}</span>
+                    </CommandItem>
+                    {options.map((option) => (
+                      <CommandItem
+                        key={option.value}
+                        value={`${option.key} ${option.value}`}
+                        onSelect={() => selectValue(option.value)}
+                      >
+                        <Check
+                          className={cn(
+                            'size-4',
+                            value === option.value
+                              ? 'opacity-100'
+                              : 'opacity-0',
+                          )}
+                        />
+                        <span className="truncate">{option.key}</span>
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </>
+              )}
             </CommandList>
           </Command>
         </PopoverContent>

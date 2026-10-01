@@ -99,7 +99,7 @@ export const getStep4Schema = (t: SchemaTranslator) =>
 export const getStep5Schema = (t: SchemaTranslator) =>
   Yup.object().shape({
     paymentMethod: Yup.array()
-      .of(Yup.string().oneOf(['COD', 'CARD']))
+      .of(Yup.string().oneOf(['CARD', 'WALLET']))
       .min(1, t('atLeastOnePaymentMethod'))
       .required(t('paymentMethodRequired')),
 

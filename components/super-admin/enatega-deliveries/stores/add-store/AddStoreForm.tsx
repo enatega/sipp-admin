@@ -102,6 +102,7 @@ const AddStoreForm = () => {
       // Step 1 data
       if (formData.step1) {
         formDataToSend.append('storeName', formData.step1.name);
+        formDataToSend.append('slug', formData.step1.slug);
         formDataToSend.append('vendorId', formData.step1.vendorId);
         formDataToSend.append('email', formData.step1.email);
         formDataToSend.append('password', formData.step1.password || '');

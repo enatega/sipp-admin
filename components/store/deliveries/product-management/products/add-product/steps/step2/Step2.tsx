@@ -116,11 +116,7 @@ export const Step2Form: React.FC = () => {
       price: String(variation.price || '').trim(),
     }));
 
-    const productImages = Array.isArray(step1.images)
-      ? step1.images.filter((image): image is File => image instanceof File)
-      : [];
-
-    if (productImages.length === 0 || !(step1.image instanceof File)) {
+    if (!(step1.image instanceof File)) {
       setApiError('Product image is required');
       setSubmitting(false);
       return;
@@ -141,7 +137,6 @@ export const Step2Form: React.FC = () => {
         description: step1.description || undefined,
         unit_of_measure: step1.unitOfMeasure || undefined,
         image: step1.image,
-        images: productImages,
         addOns: step1.addOnIds,
         deal_ids: step1.dealId ? [step1.dealId] : [],
         variations: normalizedVariations.map((variation) => ({

@@ -13,10 +13,6 @@ const imageFile = Yup.mixed<File | string>()
     !file || typeof file === 'string' || file.size <= MAX_BYTES
   );
 
-const imagesArray = Yup.array()
-  .of(imageFile)
-  .nullable();
-
 export const productFormStep1Schema = (t: (key: string) => string) =>
   Yup.object().shape({
     name: Yup.string()
@@ -37,18 +33,5 @@ export const productFormStep1Schema = (t: (key: string) => string) =>
     dealId: Yup.string().optional(),
     unitOfMeasure: Yup.string().optional(),
     description: Yup.string().optional(),
-    image: imageFile.nullable(),
-    images: imagesArray,
-  }).test(
-    'at-least-one-image',
-    t('products.Schemas.product.imageRequired'),
-    (value) => {
-      if (!value) return false;
-
-      const galleryImages = Array.isArray(value.images)
-        ? value.images.filter(Boolean)
-        : [];
-
-      return galleryImages.length > 0 || Boolean(value.image);
-    },
-  );
+    image: imageFile.required(t('products.Schemas.product.imageRequired')),
+  });

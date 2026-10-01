@@ -20,7 +20,7 @@ export function Restriction() {
     key:
       value === 'CARD'
         ? tPaymentMethodOptions('card')
-        : tPaymentMethodOptions('cod'),
+        : tPaymentMethodOptions('wallet'),
     value,
   }));
   const deliveryTypeOptions = deliveryTypeValues.map((value) => ({

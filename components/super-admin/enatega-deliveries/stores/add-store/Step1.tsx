@@ -18,6 +18,7 @@ import { AppPhoneField } from '@/components/shared/form/AppPhoneInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppSwitch } from '@/components/shared/form/AppSwitch';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
+import { StoreSlugField } from '@/components/shared/form/StoreSlugField';
 import { EMPTY_STEP1 } from './data';
 
 interface Step1FormProps {
@@ -100,6 +101,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({
               placeholder={t('storeNamePlaceholder')}
               requiredAsterisk
             />
+            <StoreSlugField label={t('slugLabel')} helperText={t('slugHint')} />
             <AppSelect
               name="vendorId"
               label={t('vendorLabel')}

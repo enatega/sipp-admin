@@ -25,6 +25,9 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
   const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
   const payment = order.payment as PaymentInfo | null | undefined;
   const hasCommissionSnapshot = payment?.commissionSnapshotAvailable === true;
+  const couponFunding = payment?.couponFunding;
+  const couponFundedBy =
+    couponFunding && couponFunding.couponDiscount > 0 ? couponFunding.couponFundedBy : null;
   const paymentStatus =
     (order?.payment && (order.payment as PaymentInfo).paymentStatus) ||
     order?.paymentMethod ||
@@ -79,7 +82,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
             <span className="text-black font-semibold">{t('discountsLabel')}</span>
             <span className="text-mute font-normal">
               {order?.discounts !== null && order?.discounts !== undefined
-                ? `${order.discounts}%`
+                ? formatCurrency(order.discounts, currency)
                 : t('notAvailable')}
             </span>
           </div>
@@ -148,6 +151,46 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
             <span className="text-black font-semibold">{t('storeEarningsLabel')}</span>
             <span className="text-mute font-normal">{formatCurrency(order?.storeEarnings || 0, currency)}</span>
           </div>
+          {hasCommissionSnapshot && couponFunding && couponFundedBy && (
+            <div className="rounded-lg border border-sidebar-border bg-gray-50 p-4 space-y-3">
+              <div className="flex justify-between items-start gap-4 text-[15px]">
+                <span className="min-w-0 text-sm font-semibold text-black">
+                  {t('couponTitle')}
+                </span>
+                <span className="shrink-0 text-sm font-medium text-black">
+                  {t(couponFundedBy === 'ADMIN' ? 'couponBorneByAdmin' : 'couponBorneByStore')}
+                </span>
+              </div>
+              <div className="flex justify-between items-start gap-4 text-[15px]">
+                <span className="min-w-0 text-mute">{t('couponDiscountLabel')}</span>
+                <span className="shrink-0 font-medium tabular-nums text-black">
+                  {formatCurrency(couponFunding.couponDiscount, currency)}
+                </span>
+              </div>
+              {couponFundedBy === 'ADMIN' && (
+                <>
+                  <div className="flex justify-between items-start gap-4 text-[15px]">
+                    <span className="min-w-0 text-mute">{t('commissionBeforeCouponLabel')}</span>
+                    <span className="shrink-0 font-medium tabular-nums text-black">
+                      {formatCurrency(couponFunding.grossCommission, currency)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-start gap-4 text-[15px]">
+                    <span className="min-w-0 text-mute">{t('adminCouponFromCommissionLabel')}</span>
+                    <span className="shrink-0 font-medium tabular-nums text-black">
+                      -{formatCurrency(couponFunding.adminCouponFromCommission, currency)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-start gap-4 text-[15px]">
+                    <span className="min-w-0 text-mute">{t('adminCouponExtraPaidLabel')}</span>
+                    <span className="shrink-0 font-medium tabular-nums text-black">
+                      {formatCurrency(couponFunding.adminCouponExtraPaid, currency)}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
           {hasCommissionSnapshot ? (
             <>
               <div className="flex justify-between items-start gap-4 text-[16px]">

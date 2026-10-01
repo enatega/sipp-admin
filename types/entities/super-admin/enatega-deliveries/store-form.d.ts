@@ -42,6 +42,7 @@ export interface StoreFormData {
 
 export interface Step1Data {
   name: string;
+  slug: string;
   vendorId: string;
   phone: string;
   logo: File | null;

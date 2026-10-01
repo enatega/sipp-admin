@@ -1,13 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useState } from 'react';
 import type { OrderDetail } from '@/types';
+import { useGetSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import {
+  useGetDeliveredRefundOrders,
+  useGetRefundableAmount,
+} from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import { Textarea } from '@/components/ui/textarea';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 import { AppInputField } from '@/components/shared/form/AppInput';
-import { Textarea } from '@/components/ui/textarea';
-import { useGetSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/orders';
-import { useGetDeliveredRefundOrders, useGetRefundableAmount } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import { AppSearchableSelect } from '@/components/shared/form/AppSearchableSelect';
 import { useCurrency } from '@/hooks/use-currency';
 
 interface CreateRefundDialogProps {
@@ -30,21 +34,39 @@ export function CreateRefundDialog({
   onClose,
   onCreate,
 }: CreateRefundDialogProps) {
-  const { currencySymbol } = useCurrency();
-  const presetTotal = Number(order?.amount ?? order?.payment?.totalAmount ?? order?.summary.orderAmount ?? 0);
+  const { formatCurrency } = useCurrency();
+  const presetTotal = Number(
+    order?.amount ??
+      order?.payment?.totalAmount ??
+      order?.summary.orderAmount ??
+      0,
+  );
   const [storeId, setStoreId] = useState('');
   const [orderId, setOrderId] = useState('');
   const [refundType, setRefundType] = useState<'full' | 'partial'>('full');
   const [amount, setAmount] = useState(String(presetTotal));
   const [reason, setReason] = useState('');
   const [error, setError] = useState('');
+  const [orderSearch, setOrderSearch] = useState('');
+  const deferredOrderSearch = useDeferredValue(orderSearch.trim());
 
   const stores = useGetSimpleStores({ enabled: open && !order });
-  const deliveredOrders = useGetDeliveredRefundOrders(storeId, open && !order);
-  const selectedOrder = deliveredOrders.data?.find((item) => item.orderId === orderId);
+  const deliveredOrders = useGetDeliveredRefundOrders(
+    storeId,
+    open && !order,
+    deferredOrderSearch,
+  );
+  const selectedOrder = deliveredOrders.data?.find(
+    (item) => item.orderId === orderId,
+  );
   const selectedOrderId = order?.orderId ?? orderId;
-  const refundable = useGetRefundableAmount(selectedOrderId, open && !!selectedOrderId);
-  const originalTotal = order ? presetTotal : Number(selectedOrder?.amount ?? 0);
+  const refundable = useGetRefundableAmount(
+    selectedOrderId,
+    open && !!selectedOrderId,
+  );
+  const originalTotal = order
+    ? presetTotal
+    : Number(selectedOrder?.amount ?? 0);
   const total = refundable.data?.remainingRefundableAmount ?? originalTotal;
 
   useEffect(() => {
@@ -55,6 +77,7 @@ export function CreateRefundDialog({
     setAmount(String(presetTotal || ''));
     setReason('');
     setError('');
+    setOrderSearch('');
   }, [open, order?.orderId, presetTotal]);
 
   useEffect(() => {
@@ -77,7 +100,11 @@ export function CreateRefundDialog({
       setError('Select a delivered order.');
       return;
     }
-    if (!Number.isFinite(requestedAmount) || requestedAmount <= 0 || requestedAmount > total) {
+    if (
+      !Number.isFinite(requestedAmount) ||
+      requestedAmount <= 0 ||
+      requestedAmount > total
+    ) {
       setError(`Enter an amount between 0.01 and ${total.toFixed(2)}.`);
       return;
     }
@@ -90,6 +117,14 @@ export function CreateRefundDialog({
   };
 
   const orderLabel = order?.summary.orderId || order?.orderId;
+  const storeOptions =
+    stores.data?.map((store) => ({ key: store.storename, value: store.id })) ??
+    [];
+  const orderOptions =
+    deliveredOrders.data?.map((item) => ({
+      key: `#${item.orderId.slice(0, 8).toUpperCase()} · ${item.customerName || 'Customer'} · ${formatCurrency(item.amount)}`,
+      value: item.orderId,
+    })) ?? [];
 
   return (
     <AppDialog
@@ -101,8 +136,16 @@ export function CreateRefundDialog({
       bodyClassName="bg-white"
       footer={
         <div className="flex w-full justify-end gap-2">
-          <AppButton variant="secondary" onClick={onClose} disabled={isLoading}>Cancel</AppButton>
-          <AppButton variant="green" onClick={() => void submit()} isLoading={isLoading}>Create Refund</AppButton>
+          <AppButton variant="secondary" onClick={onClose} disabled={isLoading}>
+            Cancel
+          </AppButton>
+          <AppButton
+            variant="green"
+            onClick={() => void submit()}
+            isLoading={isLoading}
+          >
+            Create Refund
+          </AppButton>
         </div>
       }
     >
@@ -110,30 +153,85 @@ export function CreateRefundDialog({
         <label className="block text-sm font-medium">
           Store
           {order ? (
-            <select disabled value={order.store || order.summary.storeName || ''} className="mt-1.5 h-11 w-full rounded-xl border bg-gray-50 px-3 text-sm text-gray-700 disabled:opacity-100">
-              <option>{order.store || order.summary.storeName || 'Store'}</option>
+            <select
+              disabled
+              value={order.store || order.summary.storeName || ''}
+              className="mt-1.5 h-11 w-full rounded-xl border bg-gray-50 px-3 text-sm text-gray-700 disabled:opacity-100"
+            >
+              <option>
+                {order.store || order.summary.storeName || 'Store'}
+              </option>
             </select>
           ) : (
-            <select value={storeId} onChange={(event) => { setStoreId(event.target.value); setOrderId(''); setAmount(''); setError(''); }} className="mt-1.5 h-11 w-full rounded-xl border bg-white px-3 text-sm">
-              <option value="">{stores.isLoading ? 'Loading stores...' : 'Select a store'}</option>
-              {stores.data?.map((store) => <option key={store.id} value={store.id}>{store.storename}</option>)}
-            </select>
+            <div className="mt-1.5">
+              <AppSearchableSelect
+                name="refundStore"
+                options={storeOptions}
+                value={storeId}
+                onValueChange={(value) => {
+                  setStoreId(value);
+                  setOrderId('');
+                  setAmount('');
+                  setError('');
+                  setOrderSearch('');
+                }}
+                placeholder="Select a store"
+                searchPlaceholder="Search store by name..."
+                emptyText="No stores found."
+                loading={stores.isLoading}
+                loadingText="Loading stores..."
+              />
+            </div>
           )}
         </label>
         <label className="block text-sm font-medium">
           Delivered order
           {order ? (
-            <select disabled value={String(orderLabel)} className="mt-1.5 h-11 w-full rounded-xl border bg-gray-50 px-3 text-sm text-gray-700 disabled:opacity-100">
-              <option value={String(orderLabel)}>#{String(orderLabel).slice(0, 8).toUpperCase()} · {order.customer?.name || 'Customer'} · {currencySymbol}{total.toFixed(2)}</option>
+            <select
+              disabled
+              value={String(orderLabel)}
+              className="mt-1.5 h-11 w-full rounded-xl border bg-gray-50 px-3 text-sm text-gray-700 disabled:opacity-100"
+            >
+              <option value={String(orderLabel)}>
+                #{String(orderLabel).slice(0, 8).toUpperCase()} ·{' '}
+                {order.customer?.name || 'Customer'} · {formatCurrency(total)}
+              </option>
             </select>
           ) : (
-            <select value={orderId} disabled={!storeId || deliveredOrders.isLoading} onChange={(event) => setOrderId(event.target.value)} className="mt-1.5 h-11 w-full rounded-xl border bg-white px-3 text-sm disabled:bg-gray-50">
-              <option value="">{!storeId ? 'Select a store first' : deliveredOrders.isLoading ? 'Loading delivered orders...' : 'Select a delivered order'}</option>
-              {deliveredOrders.data?.map((item) => <option key={item.orderId} value={item.orderId}>#{item.orderId.slice(0, 8).toUpperCase()} · {item.customerName || 'Customer'} · {currencySymbol}{Number(item.amount).toFixed(2)}</option>)}
-            </select>
+            <div className="mt-1.5">
+              <AppSearchableSelect
+                name="refundOrder"
+                options={orderOptions}
+                value={orderId}
+                onValueChange={(value) => {
+                  setOrderId(value);
+                  setError('');
+                }}
+                placeholder={
+                  !storeId ? 'Select a store first' : 'Select a delivered order'
+                }
+                searchPlaceholder="Search customer, order ID, or amount..."
+                onSearchChange={setOrderSearch}
+                emptyText="No delivered orders found."
+                loading={deliveredOrders.isLoading}
+                loadingText="Loading delivered orders..."
+                disabled={!storeId}
+              />
+            </div>
           )}
-          <span className="mt-1 block text-xs text-muted-foreground">{order ? 'Order and store are preselected from the order detail page.' : 'Search by the order ID, customer name, phone number, or amount.'}</span>
-          {refundable.data ? <span className="mt-1 block text-xs font-medium text-emerald-700">Original {currencySymbol}{refundable.data.orderTotal.toFixed(2)} · Already refunded/reserved {currencySymbol}{refundable.data.refundedOrReservedAmount.toFixed(2)} · Remaining {currencySymbol}{refundable.data.remainingRefundableAmount.toFixed(2)}</span> : null}
+          <span className="mt-1 block text-xs text-muted-foreground">
+            {order
+              ? 'Order and store are preselected from the order detail page.'
+              : 'Search by the order ID, customer name, phone number, or amount.'}
+          </span>
+          {refundable.data ? (
+            <span className="mt-1 block text-xs font-medium text-emerald-700">
+              Original {formatCurrency(refundable.data.orderTotal)} · Already
+              refunded/reserved{' '}
+              {formatCurrency(refundable.data.refundedOrReservedAmount)} · Remaining{' '}
+              {formatCurrency(refundable.data.remainingRefundableAmount)}
+            </span>
+          ) : null}
         </label>
         <div className="grid gap-3 sm:grid-cols-2">
           <AppInputField
@@ -166,8 +264,16 @@ export function CreateRefundDialog({
           </label>
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium">Reason (optional)</label>
-          <Textarea value={reason} onChange={(event) => setReason(event.target.value)} maxLength={1000} rows={3} placeholder="Explain why the refund is being created..." />
+          <label className="mb-1.5 block text-sm font-medium">
+            Reason (optional)
+          </label>
+          <Textarea
+            value={reason}
+            onChange={(event) => setReason(event.target.value)}
+            maxLength={1000}
+            rows={3}
+            placeholder="Explain why the refund is being created..."
+          />
         </div>
       </div>
     </AppDialog>

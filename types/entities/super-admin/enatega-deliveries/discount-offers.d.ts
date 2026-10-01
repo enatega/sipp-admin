@@ -40,7 +40,7 @@ export interface Store {
 
 export type DiscountType = "%" | "flat";
 
-export type PaymentMethod = "COD" | "CARD";
+export type PaymentMethod = "CARD" | "WALLET";
 
 export type DeliveryType = "ALL" | "DELIVERY" | "PICKUP";
 

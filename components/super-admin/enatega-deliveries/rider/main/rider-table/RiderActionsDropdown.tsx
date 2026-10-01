@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
 import {
   useApproveDeliveryRider,
   useBlockDeliveryRider,
@@ -43,6 +44,9 @@ export function RiderActionsDropdown({
 }: RiderActionsDropdownProps) {
   const t = useTranslations('driverManagement.driversTable');
   const tWallet = useTranslations('wallet.actions');
+  const canManageWallet = hasNamedPermission(
+    'delivery_rider_wallet_transactions',
+  );
   const router = useRouter();
   const pathname = usePathname();
   const { mutateAsync: deleteRider, isPending: isDeleting } =
@@ -125,13 +129,15 @@ export function RiderActionsDropdown({
             </DropdownMenuItem>
           )}
 
-          <DropdownMenuItem
-            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
-            onClick={handleWallet}
-          >
-            <Wallet className="size-[18px]" />
-            <span className="text-sm">{tWallet('walletTransaction')}</span>
-          </DropdownMenuItem>
+          {canManageWallet && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={handleWallet}
+            >
+              <Wallet className="size-[18px]" />
+              <span className="text-sm">{tWallet('walletTransaction')}</span>
+            </DropdownMenuItem>
+          )}
 
           {rider.userProfile?.user?.block_status === false && (
             <DropdownMenuItem

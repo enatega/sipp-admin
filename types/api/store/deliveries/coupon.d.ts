@@ -5,7 +5,7 @@ import { Coupon } from "@/types/entities/super-admin/coupons";
 
 export type StoreCouponDeliveryType = "ALL" | "PICKUP" | "DELIVERY";
 
-export type StoreCouponPaymentMethod = "COD" | "CARD";
+export type StoreCouponPaymentMethod = "CARD" | "WALLET";
 
 export type StoreCouponDiscountFilterType = "ALL" | "FIXED" | "PERCENTAGE";
 

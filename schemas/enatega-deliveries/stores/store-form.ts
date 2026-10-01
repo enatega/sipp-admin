@@ -137,6 +137,11 @@ export const StoreFormStep1Schema = (t: ReturnType<typeof useTranslations>) =>
       .min(2, t('nameMinLength'))
       .max(100, t('nameMaxLength')),
 
+    slug: Yup.string()
+      .required(t('slugRequired'))
+      .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, t('slugInvalid'))
+      .max(100, t('slugMaxLength')),
+
     vendorId: Yup.string().required(t('vendorRequired')),
 
     phone: Yup.string()
@@ -353,6 +358,7 @@ export const step6Schema = (t: ReturnType<typeof useTranslations>) => {
 export const editStoreFormSchema = (
   t: ReturnType<typeof useTranslations>,
   isLegacyMigrated = false,
+  includeSlug = true,
 ) => {
   const fileOrUrlValidator = createFileOrUrlValidator(t);
   const requiredFileOrUrlValidator = createRequiredFileOrUrlValidator(t);
@@ -362,6 +368,15 @@ export const editStoreFormSchema = (
       .required(t('nameRequired'))
       .min(2, t('nameMinLength'))
       .max(100, t('nameMaxLength')),
+
+    ...(includeSlug
+      ? {
+          slug: Yup.string()
+            .required(t('slugRequired'))
+            .matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, t('slugInvalid'))
+            .max(100, t('slugMaxLength')),
+        }
+      : {}),
 
     vendorId: Yup.string().optional(),
 

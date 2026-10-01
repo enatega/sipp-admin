@@ -15,6 +15,7 @@ export interface Store {
   id?: string;
   // Basic Information
   name: string;
+  slug: string;
   vendorId: string;
   phone: string;
   email: string;

@@ -8,6 +8,7 @@ import type {
 
 export const EMPTY_STEP1: Step1Data = {
   name: '',
+  slug: '',
   vendorId: '',
   phone: '',
   logo: null,

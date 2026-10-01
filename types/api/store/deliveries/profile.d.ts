@@ -10,6 +10,7 @@ export interface StoreProfileResponse {
   profile: {
     image: string;
     name: string;
+    slug: string;
     email: string;
     rating: number;
     totalReviews: number;

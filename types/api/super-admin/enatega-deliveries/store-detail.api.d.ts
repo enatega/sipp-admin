@@ -17,6 +17,7 @@ export interface GetStoreDetailResponse {
   taxRateId?: string | null;
   taxRate?: import('@/types/tax').TaxRate | null;
   id: string;
+  slug: string;
   address: string;
   deliverytime: string;
   minimumorder: string;

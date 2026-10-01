@@ -7,6 +7,7 @@ import { AppInputField } from '@/components/shared/form/AppInput';
 import { AppPhoneField } from '@/components/shared/form/AppPhoneInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
+import { StoreSlugField } from '@/components/shared/form/StoreSlugField';
 import { Store } from './types';
 
 export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacyMigrated?: boolean }) {
@@ -39,6 +40,7 @@ export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacy
         requiredAsterisk
         disabled={isLegacyMigrated}
       />
+      <StoreSlugField label={t('slugLabel')} helperText={t('slugHint')} />
 
       {/* Email - Read Only */}
       <div>

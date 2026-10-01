@@ -8,7 +8,6 @@ import { useProductFormContext } from '@/contexts/vendor/deliveries/product-mana
 import { productFormStep1Schema } from '@/schemas/store/deliveries/product-form';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
-import { useCurrency } from '@/hooks/use-currency';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
@@ -25,7 +24,6 @@ const EMPTY_STEP1: Step1Data = {
   menuIds: [],
   categoryId: '',
   subcategoryId: '',
-  price: '',
   stockQuantity: '',
   addOnIds: [],
   dealId: '',
@@ -39,11 +37,9 @@ export const Step1Form: React.FC = () => {
   const { vendorId: storeId } = useParams() as { vendorId?: string };
   const t = useTranslations('products.addProduct.step1');
   const tSchema = useTranslations();
-  const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
   const validationSchema = React.useMemo(
     () =>
-      productFormStep1Schema(tSchema).shape({
+      productFormStep1Schema(tSchema).omit(['price']).shape({
         menuIds: Yup.array()
           .of(Yup.string().required())
           .min(1, tSchema('products.Schemas.product.menuIdsRequired'))
@@ -108,21 +104,6 @@ export const Step1Form: React.FC = () => {
                 placeholder={t('subcategoryPlaceholder')}
                 vendorId={storeId}
                 parentCategoryId={values.categoryId}
-              />
-
-              <AppInputField
-                label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
-                name="price"
-                type="number"
-                step="0.01"
-                min="0"
-                placeholder={t('pricePlaceholder')}
-                prefix={
-                  <span className="font-semibold text-primary">
-                    {resolvedCurrencySymbol}
-                  </span>
-                }
-                requiredAsterisk
               />
 
               <AppInputField

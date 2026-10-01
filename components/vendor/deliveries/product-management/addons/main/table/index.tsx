@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import { Edit2, Eye, MoreVertical, TrashIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -68,7 +70,7 @@ export function AddonsTable({
   const [deletingAddon, setDeletingAddon] = useState<VendorAddon | null>(null);
   const [isDeletingAddon, setIsDeletingAddon] = useState(false);
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   const handleDeleteAddon = async () => {
     if (!deletingAddon || !onDelete) {

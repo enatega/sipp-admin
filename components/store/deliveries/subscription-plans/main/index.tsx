@@ -20,11 +20,13 @@ import { ApiErrorResponse, SubscriptionPlan } from '@/types';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { EmbeddedCheckoutDialog } from '@/components/vendor/deliveries/stores/subscription-plan/EmbeddedCheckoutDialog';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import { useCurrency } from '@/hooks/use-currency';
 import { BillingCycleToggle } from './BillingCycleToggle';
 import { CurrentPlanCard } from './CurrentPlanCard';
 import { PlanCard } from './PlanCard';
 
 export function SubscriptionPlansPage() {
+  const { currencySymbol } = useCurrency();
   const { storeId } = useParams() as { storeId: string };
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const {
@@ -90,7 +92,7 @@ export function SubscriptionPlansPage() {
     amountValue === undefined || amountValue === null
       ? 'N/A'
       : typeof amountValue === 'number'
-        ? `$${amountValue}`
+        ? `${currencySymbol}${amountValue}`
         : String(amountValue);
 
   const nextRenewal =

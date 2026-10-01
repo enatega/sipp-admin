@@ -81,7 +81,7 @@ export function VendorTable({ activeTab }: VendorTableProps) {
                 dataKey: 'totalSales',
                 header: t('totalSales'),
                 formatter: (vendor: (typeof vendors)[number]) =>
-                  `₡ ${vendor.totalSales ?? 0}`,
+                  `${currencySymbol} ${vendor.totalSales ?? 0}`,
               },
               { dataKey: `status`, header: t('status') },
               { dataKey: `blockstatus`, header: t('blockStatus') },

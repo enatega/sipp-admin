@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import * as React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useProductFormContext } from '@/contexts/store/deliveries/product-management/product-form-context';
@@ -42,7 +44,7 @@ export const Step2Form: React.FC = () => {
     useProductFormContext();
   const t = useTranslations('products.addProduct.step2');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = React.useState<string | null>(null);
   const { mutateAsync: createProduct, isPending } = useCreateProduct();
   const { data: activeDeals } = useGetActiveDeals(
@@ -134,7 +136,6 @@ export const Step2Form: React.FC = () => {
         subcategory_id: step1.subcategoryId || undefined,
         name: step1.name.trim(),
         nameTranslations: step1.nameTranslations,
-        price: Number(step1.price),
         taxRateId: step1.taxRateId || undefined,
         stock_quantity: Number(step1.stockQuantity),
         description: step1.description || undefined,

@@ -8,13 +8,6 @@ import { useProductFormContext } from '@/contexts/store/deliveries/product-manag
 import { productFormStep1Schema } from '@/schemas/store/deliveries/product-form';
 import { Form, Formik, useFormikContext } from 'formik';
 import { useTranslations } from 'next-intl';
-import {
-  calculatePriceAfterDeal,
-  findDealSummaryById,
-} from '@/lib/deal-pricing';
-import { formatCurrency } from '@/lib/formatCurrency';
-import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
-import { useCurrency } from '@/hooks/use-currency';
 import { Switch } from '@/components/ui/switch';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppInputField } from '@/components/shared/form/AppInput';
@@ -33,7 +26,6 @@ const EMPTY_STEP1: Step1Data = {
   nameTranslations: {},
   categoryId: '',
   subcategoryId: '',
-  price: '',
   stockQuantity: '',
   addOnIds: [],
   dealId: '',
@@ -51,8 +43,6 @@ export const Step1Form: React.FC = () => {
   const { storeId } = useParams() as { storeId?: string };
   const t = useTranslations('products.addProduct.step1');
   const tSchema = useTranslations();
-  const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
 
   const initialValues = React.useMemo<Step1Data>(
     () => formData.step1 ?? EMPTY_STEP1,
@@ -83,7 +73,7 @@ export const Step1Form: React.FC = () => {
       <Formik
         initialValues={initialValues}
         enableReinitialize
-        validationSchema={productFormStep1Schema(tSchema)}
+        validationSchema={productFormStep1Schema(tSchema).omit(['price'])}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, values }) => (
@@ -92,7 +82,6 @@ export const Step1Form: React.FC = () => {
             values={values}
             storeId={storeId}
             t={t}
-            resolvedCurrencySymbol={resolvedCurrencySymbol}
             isUnlimitedStock={isUnlimitedStock}
             setIsUnlimitedStock={setIsUnlimitedStock}
           />
@@ -107,7 +96,6 @@ type Step1ContentProps = {
   values: Step1Data;
   storeId?: string;
   t: (key: string, values?: Record<string, string | number>) => string;
-  resolvedCurrencySymbol: string;
   isUnlimitedStock: boolean;
   setIsUnlimitedStock: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -117,33 +105,10 @@ const Step1Content: React.FC<Step1ContentProps> = ({
   values,
   storeId,
   t,
-  resolvedCurrencySymbol,
   isUnlimitedStock,
   setIsUnlimitedStock,
 }) => {
   const { setFieldValue } = useFormikContext<Step1Data>();
-  const { data: activeDeals } = useGetActiveDeals(
-    storeId
-      ? {
-          store_id: storeId,
-          offset: 0,
-          limit: 200,
-        }
-      : null,
-    {
-      enabled: !!storeId,
-    },
-  );
-
-  const selectedDealSummary = findDealSummaryById(
-    activeDeals?.data,
-    values.dealId,
-  );
-  const basePrice = Number(values.price);
-  const priceAfterDeal = calculatePriceAfterDeal(
-    basePrice,
-    selectedDealSummary,
-  );
 
   return (
     <Form className="space-y-5">
@@ -174,21 +139,6 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           placeholder={t('subcategoryPlaceholder')}
           storeId={storeId}
           parentCategoryId={values.categoryId}
-        />
-
-        <AppInputField
-          label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
-          name="price"
-          type="number"
-          step="0.01"
-          min="0"
-          placeholder={t('pricePlaceholder')}
-          prefix={
-            <span className="font-semibold text-primary">
-              {resolvedCurrencySymbol}
-            </span>
-          }
-          requiredAsterisk
         />
 
         <ProductTaxField />
@@ -245,22 +195,6 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           storeId={storeId}
         />
       </div>
-
-      {selectedDealSummary && Number.isFinite(basePrice) ? (
-        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
-          <p className="font-medium text-foreground">
-            {t('priceAfterDealLabel')}:{' '}
-            {priceAfterDeal === null
-              ? t('priceAfterDealNotAvailable')
-              : formatCurrency(priceAfterDeal, resolvedCurrencySymbol)}
-          </p>
-          <p className="text-muted-foreground mt-1">
-            {t('priceAfterDealDescription', {
-              deal: selectedDealSummary.dealName,
-            })}
-          </p>
-        </div>
-      ) : null}
 
       <AppTextarea
         label={t('descriptionLabel')}

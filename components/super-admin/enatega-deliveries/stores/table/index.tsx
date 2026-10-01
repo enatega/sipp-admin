@@ -21,6 +21,7 @@ import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
 import { getDownloadColumns } from './constants';
+import { useCurrency } from '@/hooks/use-currency';
 import Filters from './Filters';
 import StoreRow from './StoreRow';
 
@@ -28,6 +29,7 @@ export default function StoresTable() {
   const t = useTranslations('lumiFood.stores');
   const tErrors = useTranslations('lumiFood.stores.errors');
   const modeScope = useDeliveriesAdminModeScope();
+  const { currencySymbol } = useCurrency();
 
   const {
     data: storesResponse,
@@ -51,7 +53,7 @@ export default function StoresTable() {
     sortConfig,
   } = useSortableData(stores);
 
-  const downloadColumns = getDownloadColumns(t);
+  const downloadColumns = getDownloadColumns(t, currencySymbol);
 
   return (
     <div className="space-y-4">

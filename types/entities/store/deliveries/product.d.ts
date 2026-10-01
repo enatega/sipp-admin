@@ -88,7 +88,6 @@ export interface CreateProductFormValues {
   menuIds?: string[];
   categoryId: string;
   subcategoryId: string;
-  price: string;
   stockQuantity: string;
   unitOfMeasure: string;
   description: string;

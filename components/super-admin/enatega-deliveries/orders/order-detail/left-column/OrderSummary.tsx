@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import CopyButton from '@/components/shared/CopyButton';
 import { Heading } from '@/components/shared/Heading';
 import Status from '@/components/shared/Status';
@@ -23,7 +25,7 @@ export function OrderSummary({ order }: IOrderSummaryProps) {
   const tPaymentStatuses = useTranslations('orders.paymentStatuses');
   const tStatuses = useTranslations('orders.statuses');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || '₡';
+  const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   const summaryItems = [
     {

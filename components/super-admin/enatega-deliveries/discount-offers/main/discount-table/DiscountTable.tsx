@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Coupon } from '@/types';
@@ -74,9 +76,9 @@ export function DiscountTable({
   const tCommon = useTranslations('common');
   const tStoresCell = useTranslations('lumiFood.discountsOffers.storeCell');
   const router = useRouter();
-  const { currencySymbol, currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = resolveCurrencySymbol(
-    currencySymbol || currencyCode || '$',
+    currencySymbol || DEFAULT_CURRENCY.symbol,
   );
   const showStoresColumn = !isStoreCouponsBasePath(basePath);
   const columnsCount = showStoresColumn ? 10 : 9;

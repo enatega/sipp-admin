@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { editOptionValidationSchema } from '@/schemas/store/deliveries/product-management/options/edit-option.schema';
 import { ApiErrorResponse, Option as StoreOption, OptionFormData } from '@/types';
 import { Form, Formik } from 'formik';
@@ -36,7 +38,7 @@ export default function EditOptionSidebar({
   const tSuccess = useTranslations('storeOptions.success');
   const tValidation = useTranslations('storeOptions.validation');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const cancelLabel = tForm.has('cancelButton') ? tForm('cancelButton') : 'Cancel';
   const { mutateAsync: updateOption, isPending: isUpdating } =
     useUpdateOption();

@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import type { Deal } from '@/types';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
@@ -58,9 +60,8 @@ const DealsTable = ({
 }: DealsTableProps) => {
   const tTable = useTranslations('deals.table');
   const tStatus = useTranslations('deals.status');
-  const { currencyCode, currencySymbol } = useCurrency();
-  const resolvedCurrencyCode = currencyCode || 'CRC';
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const { currencySymbol } = useCurrency();
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const { items, requestSort, sortConfig } = useSortableData<Deal>(deals);
   const dealDownloadColumns = [
     { header: tTable('dealName'), dataKey: 'dealName' },
@@ -101,7 +102,7 @@ const DealsTable = ({
         getDiscountDisplayValue(
           item.discountType || 'percentage',
           item.discount,
-          resolvedCurrencyCode,
+          resolvedCurrencySymbol,
         ),
     },
     {
@@ -236,7 +237,7 @@ const DealsTable = ({
                     {getDiscountDisplayValue(
                       deal.discountType || 'percentage',
                       deal.discount,
-                      resolvedCurrencyCode,
+                      resolvedCurrencySymbol,
                     )}
                   </TableCell>
                   <TableCell>

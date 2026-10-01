@@ -1,3 +1,4 @@
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { EnategaDeliveriesDashboardTopVendor } from '@/types/api/super-admin/enatega-deliveries/dashboard.api';
@@ -102,7 +103,7 @@ export default function TopVendorTable({
                   </TableCell>
                   <TableCell>{item.orders ?? 0}</TableCell>
                   <TableCell>
-                    {currencySymbol || '$'}
+                    {currencySymbol || DEFAULT_CURRENCY.symbol}
                     {Number(item.revenue ?? 0).toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,

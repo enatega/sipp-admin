@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useFormikContext } from 'formik';
 import { useTranslations } from 'next-intl';
 import { EditCouponFormData } from '@/types/entities/super-admin/enatega-deliveries/discount-coupons';
@@ -14,9 +16,9 @@ export function DiscountSetting() {
     'lumiFood.discountsOffers.editCoupon.discountSetting',
   );
   const { values } = useFormikContext<EditCouponFormData>();
-  const { currencySymbol, currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = resolveCurrencySymbol(
-    currencySymbol || currencyCode || '$',
+    currencySymbol || DEFAULT_CURRENCY.symbol,
   );
   const discountTypeOptions = discountTypeValues.map((value) => ({
     key:

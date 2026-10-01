@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { AppButton } from '@/components/shared/AppButton';
 import { Heading } from '@/components/shared/Heading';
 import {
@@ -34,7 +36,7 @@ export function ItemsServices({ items }: ItemsServicesProps) {
   const t = useTranslations('orders.orderDetail.itemsServices');
   const tHeaders = useTranslations('orders.orderDetail.itemsServices.headers');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || '₡';
+  const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAddons, setSelectedAddons] = useState<Addon[]>([]);
 

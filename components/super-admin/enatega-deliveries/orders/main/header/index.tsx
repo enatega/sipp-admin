@@ -118,7 +118,7 @@ export function OrdersHeader({ data, hideStore }: IOrdersHeaderProps) {
     {
       header: tTable('amount'),
       dataKey: 'amount',
-      formatter: (item: Order) => `${currency.currencyCode} ${item?.amount}`,
+      formatter: (item: Order) => `${currency.currencySymbol} ${item?.amount}`,
     },
     // Zone and rider assignment columns removed (not required)
     { header: tTable('status'), dataKey: 'status' },

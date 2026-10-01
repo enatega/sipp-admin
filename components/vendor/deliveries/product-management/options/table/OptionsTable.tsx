@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import { ApiErrorResponse, Option as StoreOption } from '@/types';
 import moment from 'moment';
@@ -40,7 +42,7 @@ interface OptionsTableProps {
 const OptionsTable = ({ onEditOption }: OptionsTableProps) => {
   const t = useTranslations('storeOptions');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const { getParam } = useQueryParams();
   const limit = Number(getParam('limit')) || 10;
   const [deleteOption, setDeleteOption] = useState<StoreOption | null>(null);

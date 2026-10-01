@@ -3,6 +3,7 @@
 import { PenLine, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { SubscriptionPlan } from '@/types';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface SubscriptionPlanCardProps {
   plan: SubscriptionPlan;
@@ -20,6 +21,7 @@ export function SubscriptionPlanCard({
   onDelete,
 }: SubscriptionPlanCardProps) {
   const t = useTranslations('enategaDeliveriesPages.subscriptionPlans');
+  const { currencySymbol } = useCurrency();
 
   const selectedFeatureIds = new Set(plan.planFeatures.map((item) => item.id));
   const fallbackGroups =
@@ -76,7 +78,7 @@ export function SubscriptionPlanCard({
       </div>
 
       <div className="mb-4">
-        <p className="text-4xl font-bold text-primary">${price}</p>
+        <p className="text-4xl font-bold text-primary">{currencySymbol}{price}</p>
         <p className="text-sm text-mute">/{periodLabel}</p>
       </div>
 

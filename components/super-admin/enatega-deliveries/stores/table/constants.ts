@@ -1,12 +1,12 @@
 import { DeliveryStore } from '@/types';
 import { formatDateTime } from '@/lib/formatDateTime';
 
-export const getDownloadColumns = (t: (key: string) => string) => [
+export const getDownloadColumns = (t: (key: string) => string, currencySymbol: string) => [
   { header: t('download.name'), dataKey: 'storename' },
   {
     header: t('download.totalSales'),
     dataKey: 'totalSales',
-    formatter: (item: DeliveryStore) => `₡ ${item.totalSales ?? 0}`,
+    formatter: (item: DeliveryStore) => `${currencySymbol} ${item.totalSales ?? 0}`,
   },
   { header: t('download.email'), dataKey: 'storeemail' },
   { header: t('download.shopType'), dataKey: 'shoptypename' },

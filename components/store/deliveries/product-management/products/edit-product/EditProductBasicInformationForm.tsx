@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { UNIT_OF_MEASURE_OPTIONS } from '@/constants/product-form.constants';
 import { productFormStep1Schema } from '@/schemas/store/deliveries/product-form';
 import type { EditProductFormValues } from '@/types';
@@ -48,7 +50,7 @@ export function EditProductBasicInformationForm({
   const tForm = useTranslations('products.form');
   const tSchema = useTranslations();
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const { data: activeDeals } = useGetActiveDeals(
     storeId
       ? {

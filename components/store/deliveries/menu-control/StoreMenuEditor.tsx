@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useDeferredValue, useRef, useState, type DragEvent } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -22,7 +24,7 @@ const PREVIEW_LIMIT = 24;
 export function StoreMenuEditor({ storeId }: { storeId: string }) {
   const t = useTranslations('storeMenuControl');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const client = useQueryClient();
   const base = `/apps/deliveries/stores/${storeId}/menu-control`;
   const draftKey = ['store-menu-control', storeId, 'draft'] as const;

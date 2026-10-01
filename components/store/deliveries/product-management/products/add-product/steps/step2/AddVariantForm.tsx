@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { ADDON_OPTIONS } from '@/constants/product-form.constants';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -22,7 +24,7 @@ export const AddVariantForm: React.FC<AddVariantFormProps> = ({
 }) => {
   const t = useTranslations('products.addProduct.step2');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   return (
     <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 mb-6">

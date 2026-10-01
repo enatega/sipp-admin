@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { Form, Formik } from 'formik';
 import { dealFormValidationSchema } from '@/schemas/store/deliveries/product-management/deals.schema';
 import type {
@@ -43,9 +45,8 @@ export default function EditDealForm({
   const tForm = useTranslations('deals.form');
   const tDealType = useTranslations('deals.dealType');
   const tSchema = useTranslations('Schemas.deals');
-  const { currencyCode, currencySymbol } = useCurrency();
-  const resolvedCurrencyCode = currencyCode || 'CRC';
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const { currencySymbol } = useCurrency();
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const discountTypeOptions = [
     { key: tDealType('percentage'), value: 'percentage' },
     { key: tDealType('fixed'), value: 'fixed' },
@@ -78,7 +79,7 @@ export default function EditDealForm({
               );
 
         const discountPrefix =
-          values.discountType === 'percentage' ? '%' : resolvedCurrencyCode;
+          values.discountType === 'percentage' ? '%' : resolvedCurrencySymbol;
         const discountInputPaddingClass =
           values.discountType === 'fixed' ? '!pl-20' : '!pl-10';
 

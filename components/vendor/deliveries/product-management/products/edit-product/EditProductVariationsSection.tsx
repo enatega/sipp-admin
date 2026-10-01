@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import type { ProductCustomizationGroup } from '@/types';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -34,7 +36,7 @@ export function EditProductVariationsSection({
   const tDetailFields = useTranslations('products.detail.fields');
   const tDetailMessages = useTranslations('products.detail.messages');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   return (
     <div className="rounded-lg border bg-white p-6 space-y-4">

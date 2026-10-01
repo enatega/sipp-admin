@@ -30,13 +30,13 @@ export const zoneOptions = [
 ];
 
 export const minimumOrderOptions = [
-  { key: '$0', value: '0' },
-  { key: '$5', value: '5' },
-  { key: '$10', value: '10' },
-  { key: '$15', value: '15' },
-  { key: '$20', value: '20' },
-  { key: '$25', value: '25' },
-  { key: '$50', value: '50' },
+  { key: '0', value: '0' },
+  { key: '5', value: '5' },
+  { key: '10', value: '10' },
+  { key: '15', value: '15' },
+  { key: '20', value: '20' },
+  { key: '25', value: '25' },
+  { key: '50', value: '50' },
 ];
 
 // step 2 data

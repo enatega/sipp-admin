@@ -1,9 +1,11 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { Heading } from '@/components/shared/Heading';
 import Status from '@/components/shared/Status';
 import { useCurrency } from '@/hooks/use-currency';
-import { formatCurrency } from '@/lib/formatCurrency';
+import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
 import { OrderDetail, PaymentInfo } from '@/types/entities/super-admin/enatega-deliveries/orders';
 import { useTranslations } from 'next-intl';
 import {
@@ -20,7 +22,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
   const tPaymentMethods = useTranslations('orders.paymentMethods');
   const tPaymentStatuses = useTranslations('orders.paymentStatuses');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || '₡';
+  const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
   const payment = order.payment as PaymentInfo | null | undefined;
   const hasCommissionSnapshot = payment?.commissionSnapshotAvailable === true;
   const paymentStatus =
@@ -126,10 +128,10 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
         {hasStripeCharge && (
           <div className="flex items-start justify-between gap-4 rounded-lg bg-blue-50 px-4 py-3 text-[16px]">
             <span className="min-w-0 font-semibold text-black">
-              {t('stripeChargeLabel', { currency: stripeCurrency })}
+              {t('stripeChargeLabel', { currency: resolveCurrencySymbol(undefined, stripeCurrency) })}
             </span>
             <span className="shrink-0 font-bold tabular-nums text-black">
-              {formatCurrency(payment.stripeChargedAmount, '$')}
+              {formatCurrency(payment.stripeChargedAmount, resolveCurrencySymbol(undefined, stripeCurrency))}
             </span>
           </div>
         )}

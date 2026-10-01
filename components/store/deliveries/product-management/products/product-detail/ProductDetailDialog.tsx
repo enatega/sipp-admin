@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useMemo, useState } from 'react';
 import type { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
@@ -44,7 +46,7 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
   const tDetailMessages = useTranslations('products.detail.messages');
   const tDetailValues = useTranslations('products.detail.values');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const productId = product?.id;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 

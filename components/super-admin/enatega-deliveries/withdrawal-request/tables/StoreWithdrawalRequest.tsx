@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import { StoreWithdrawalRequest } from '@/types';
 import { CircleCheckBig, CircleX, Copy, Eye, MoreVertical } from 'lucide-react';
@@ -220,12 +222,12 @@ export default function StoreWithdrawalTable() {
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.store_balance != null
-                  ? `${currencySymbol || '₡'}${withdrawalRequest.store_balance}`
+                  ? `${currencySymbol || DEFAULT_CURRENCY.symbol}${withdrawalRequest.store_balance}`
                   : notAvailable}
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.requested_amount != null
-                  ? `${currencySymbol || '₡'}${withdrawalRequest.requested_amount}`
+                  ? `${currencySymbol || DEFAULT_CURRENCY.symbol}${withdrawalRequest.requested_amount}`
                   : notAvailable}
               </TableCell>
               <TableCell>

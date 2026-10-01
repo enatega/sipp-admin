@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { addOptionValidationSchema } from '@/schemas/store/deliveries/product-management/options/add-option.schema';
 import { ApiErrorResponse, CreateOptionResponse, OptionFormData } from '@/types';
 import { Form, Formik, type FormikHelpers } from 'formik';
@@ -35,7 +37,7 @@ export default function AddOptionSidebar({
   const tRoot = useTranslations('storeOptions');
   const tValidation = useTranslations('storeOptions.validation');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const { storeId } = useParams() as { storeId?: string };
   const cancelLabel = tForm.has('cancelButton') ? tForm('cancelButton') : 'Cancel';
   const { mutateAsync: createOption, isPending: isCreating } = useCreateOption();

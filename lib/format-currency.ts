@@ -1,3 +1,5 @@
+import { resolveCurrencySymbol } from './formatCurrency';
+
 /**
  * Format a currency value according to locale and currency code
  * @param value - The numeric value to format
@@ -14,7 +16,8 @@ export function formatCurrency(
     minimumFractionDigits?: number;
     maximumFractionDigits?: number;
     useGrouping?: boolean;
-  }
+  },
+  configuredSymbol?: string,
 ): string {
   // Handle null/undefined/invalid values
   if (value === null || value === undefined || value === '') {
@@ -29,13 +32,12 @@ export function formatCurrency(
   }
 
   try {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: currencyCode || 'CRC',
+    const formatted = new Intl.NumberFormat(locale, {
       minimumFractionDigits: options?.minimumFractionDigits ?? 2,
       maximumFractionDigits: options?.maximumFractionDigits ?? 2,
       useGrouping: options?.useGrouping ?? true,
     }).format(numValue);
+    return `${resolveCurrencySymbol(configuredSymbol, currencyCode)} ${formatted}`;
   } catch (error) {
     // Fallback to basic formatting if Intl fails
     console.warn('Currency formatting failed, using fallback:', error);
@@ -43,8 +45,7 @@ export function formatCurrency(
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
-    const currencySymbol = currencyCode ? currencyCode.toUpperCase() : 'CRC';
-    return `${formattedNum} ${currencySymbol}`;
+    return `${resolveCurrencySymbol(configuredSymbol, currencyCode)} ${formattedNum}`;
   }
 }
 

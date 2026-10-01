@@ -19,6 +19,7 @@ import {
 } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
 import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useQueryParams } from '@/hooks/use-query-params';
+import { useCurrency } from '@/hooks/use-currency';
 import { DownloadButtons } from '@/components/shared/DownloadButtons';
 import { ClearFiltersButton } from '@/components/shared/filters/ClearFiltersButton';
 import { DateRangeFilter } from '@/components/shared/filters/DateRangeFilter';
@@ -39,6 +40,7 @@ export function RefundResponsibilitiesPage() {
   const pathname = usePathname();
   const { getParam, setParams } = useQueryParams();
   const modeScope = useDeliveriesAdminModeScope();
+  const { currencySymbol } = useCurrency();
 
   const { data, isLoading, isError, error } =
     useGetRefundAndResponsibilitiesList();
@@ -134,7 +136,7 @@ export function RefundResponsibilitiesPage() {
     {
       header: 'Amount',
       dataKey: 'amountUsd',
-      formatter: (item: RefundRequest) => `₡ ${item.amount.toFixed(2)}`,
+      formatter: (item: RefundRequest) => `${currencySymbol} ${item.amount.toFixed(2)}`,
     },
     { header: 'Request Date', dataKey: 'requestDate' },
     {

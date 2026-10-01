@@ -43,7 +43,7 @@ interface EditConversionSheetProps {
 // Preview component that uses Formik context
 const ConversionPreview = () => {
   const t = useTranslations('deliveriesCustomerLoyaltyAndReferrals.editConversion');
-  const { currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const { values } = useFormikContext<PointConversionFormValues>();
 
   return (
@@ -52,7 +52,7 @@ const ConversionPreview = () => {
         {values.pointsEqualsOne || '0'} {t('points')}
       </span>
       <ArrowRight className="size-4 text-muted-foreground" />
-      <span className="font-semibold text-primary">{currencyCode} 1.00</span>
+      <span className="font-semibold text-primary">{currencySymbol} 1.00</span>
     </div>
   );
 };
@@ -60,7 +60,7 @@ const ConversionPreview = () => {
 // Example calculation component that uses Formik context
 const ExampleCalculation = () => {
   const t = useTranslations('deliveriesCustomerLoyaltyAndReferrals.editConversion');
-  const { currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const { values } = useFormikContext<PointConversionFormValues>();
 
   const pointsValue = values.pointsEqualsOne || 0;
@@ -72,14 +72,14 @@ const ExampleCalculation = () => {
         <p>
           {t('exampleLine1', {
             points: pointsValue.toString(),
-            currency: currencyCode,
+            currency: currencySymbol,
             reward: '1.00',
           })}
         </p>
         <p>
           {t('exampleLine2', {
             points: (pointsValue * 2).toString(),
-            currency: currencyCode,
+            currency: currencySymbol,
             reward: '2.00',
           })}
         </p>

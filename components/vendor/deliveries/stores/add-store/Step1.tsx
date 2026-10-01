@@ -6,6 +6,7 @@ import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import type { VendorStep1Data } from '@/types/entities/vendor/store';
 import { useGetZonesSimple } from '@/hooks/api/common/zones';
+import { useCurrency } from '@/hooks/use-currency';
 import { generatePassword } from '@/lib/utils';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppCheckBox } from '@/components/shared/form/AppCheckBox';
@@ -47,6 +48,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({
 }) => {
   const t = useTranslations('vendorDeliveriesStores.addStore.step1');
   const tSchema = useTranslations('Schemas.storeForm');
+  const { currencySymbol } = useCurrency();
   const { data: zones, isLoading: isLoadingZones } = useGetZonesSimple();
 
   const zoneOptions =
@@ -159,7 +161,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({
               name="minimumOrderValue"
               label={t('minimumOrderLabel')}
               placeholder={t('minimumOrderPlaceholder')}
-              options={minimumOrderOptions}
+              options={minimumOrderOptions.map((option) => ({ ...option, key: `${currencySymbol}${option.value}` }))}
               value={values.minimumOrderValue}
               onValueChange={(value) =>
                 setFieldValue('minimumOrderValue', value)

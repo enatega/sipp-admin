@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { Form, Formik } from 'formik';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -41,7 +43,7 @@ export function AddAddonForm({
   const t = useTranslations('storeAddons');
   const { vendorId: routeVendorId } = useParams() as { vendorId?: string };
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const isEditMode = Boolean(editData);
 
   const initialValues: AddonFormValues = {

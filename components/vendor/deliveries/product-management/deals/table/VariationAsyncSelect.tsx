@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 import {
@@ -98,7 +100,7 @@ export default function VariationAsyncSelect({
   currencySymbol,
 }: VariationAsyncSelectProps) {
   const tForm = useTranslations('deals.form');
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState('');
   const [debouncedSearch, setDebouncedSearch] = React.useState('');

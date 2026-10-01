@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
@@ -46,7 +48,7 @@ export function ProductsTable() {
   const { getParam } = useQueryParams();
   const t = useTranslations('products');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);

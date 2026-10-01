@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useEffect, useState } from 'react';
 import { variationGroupValidationSchema } from '@/schemas/store/deliveries/product-management/product-customization.schema';
 import type {
@@ -33,7 +35,7 @@ export function VariationGroupDialog({
   const tProducts = useTranslations('products');
   const tStep2 = useTranslations('products.addProduct.step2');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = useState<string | null>(null);
   const isEditMode = Boolean(initialGroup);
 

@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { getStep2Schema } from '@/schemas/enatega-deliveries/discount-offer/discount-offer-schema';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -22,9 +24,9 @@ export function Step2({
 }) {
   const t = useTranslations('lumiFood.discountsOffers.addCoupon.step2');
   const tSchema = useTranslations('Schemas.discountOffer');
-  const { currencySymbol, currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = resolveCurrencySymbol(
-    currencySymbol || currencyCode || '$',
+    currencySymbol || DEFAULT_CURRENCY.symbol,
   );
   const discountTypeOptions = discountTypeValues.map((value) => ({
     key:

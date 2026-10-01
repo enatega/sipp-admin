@@ -6,6 +6,7 @@ import { AppButton } from '@/components/shared/AppButton';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { useCurrency } from '@/hooks/use-currency';
 
 const reasons = [
   'Too expensive',
@@ -17,6 +18,7 @@ const reasons = [
 ];
 
 export function CancellationReasons() {
+  const { currencySymbol } = useCurrency();
   const [selectedReason, setSelectedReason] = useState<string>('Other');
 
   return (
@@ -37,7 +39,7 @@ export function CancellationReasons() {
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           <div className="rounded-lg border p-3">
             <p className="font-medium mb-1">Switch to a cheaper plan</p>
-            <p className="text-mute">Try Default Plan - $0/mo</p>
+            <p className="text-mute">Try Default Plan - {currencySymbol}0/mo</p>
           </div>
           <div className="rounded-lg border p-3">
             <p className="font-medium mb-1">Pause for 30 days</p>

@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import {
   CategoryScale,
   ChartData,
@@ -150,7 +152,7 @@ export function LineChartCard({
 }: LineChartCardProps) {
   const t = useTranslations('sharedCharts');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const resolvedNoDataMessage = noDataMessage || t('noDataFound');
 
   if (isLoading) {

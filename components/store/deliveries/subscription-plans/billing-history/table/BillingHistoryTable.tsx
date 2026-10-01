@@ -13,12 +13,14 @@ import {
 import AppPagination from '@/components/shared/AppPagination';
 import NoDataFound from '@/components/shared/NoDataFound';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
+import { useCurrency } from '@/hooks/use-currency';
 
 type Props = {
   rows: StoreBillingHistoryItem[];
 };
 
 export function BillingHistoryTable({ rows }: Props) {
+  const { currencySymbol } = useCurrency();
   const { items, requestSort, sortConfig } =
     useSortableData<StoreBillingHistoryItem>(rows);
 
@@ -32,7 +34,7 @@ export function BillingHistoryTable({ rows }: Props) {
     });
   };
 
-  const formatAmount = (value: number) => `$${value.toFixed(2)}`;
+  const formatAmount = (value: number) => `${currencySymbol}${value.toFixed(2)}`;
 
   const formatStatus = (value: string) =>
     value.toLowerCase() === 'paid' ? 'Paid' : 'Failed';

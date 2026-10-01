@@ -12,9 +12,7 @@ import { useMutation, UseMutationOptions, useQuery, UseQueryOptions, useQueryCli
 /**
  * Hook to fetch only the active currency
  * Returns the first active currency found or null
- * This hook includes aggressive caching since currency data rarely changes
- * - staleTime:  5 min (data is considered fresh for  5 min)
- * - cacheTime: 24 hours (data stays in cache for 24 hours)
+ * Refetch on focus so changes made in another admin session become visible.
  */
 export const useGetActiveCurrency = (
     options?: Omit<UseQueryOptions<GetActiveCurrencyResponse, ApiErrorResponse>, 'queryKey' | 'queryFn'>
@@ -33,10 +31,9 @@ export const useGetActiveCurrency = (
 
             return data ?? null;
         },
-        staleTime: Infinity, // Never auto-refetch - data stays fresh forever
+        staleTime: 30_000,
         gcTime: 1000 * 60 * 60 * 24, // 24 hours - data stays in cache for 24 hours (replaces cacheTime in v5)
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
+        refetchOnWindowFocus: 'always',
         retry: false,
         ...options,
     });

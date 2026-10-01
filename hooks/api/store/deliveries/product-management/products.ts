@@ -255,7 +255,7 @@ export const useCreateProduct = (
           JSON.stringify(payload.nameTranslations),
         );
       }
-      formData.append('price', String(payload.price));
+      formData.append('price', String(payload.variations[0].price));
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       formData.append('stock_quantity', String(payload.stock_quantity));
       (payload.menu_ids ?? []).forEach((menuId) => {

@@ -8,6 +8,7 @@ import { AppInputField } from '@/components/shared/form/AppInput';
 import { Textarea } from '@/components/ui/textarea';
 import { useGetSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/orders';
 import { useGetDeliveredRefundOrders, useGetRefundableAmount } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import { useCurrency } from '@/hooks/use-currency';
 
 interface CreateRefundDialogProps {
   open: boolean;
@@ -29,6 +30,7 @@ export function CreateRefundDialog({
   onClose,
   onCreate,
 }: CreateRefundDialogProps) {
+  const { currencySymbol } = useCurrency();
   const presetTotal = Number(order?.amount ?? order?.payment?.totalAmount ?? order?.summary.orderAmount ?? 0);
   const [storeId, setStoreId] = useState('');
   const [orderId, setOrderId] = useState('');
@@ -122,16 +124,16 @@ export function CreateRefundDialog({
           Delivered order
           {order ? (
             <select disabled value={String(orderLabel)} className="mt-1.5 h-11 w-full rounded-xl border bg-gray-50 px-3 text-sm text-gray-700 disabled:opacity-100">
-              <option value={String(orderLabel)}>#{String(orderLabel).slice(0, 8).toUpperCase()} · {order.customer?.name || 'Customer'} · ${total.toFixed(2)}</option>
+              <option value={String(orderLabel)}>#{String(orderLabel).slice(0, 8).toUpperCase()} · {order.customer?.name || 'Customer'} · {currencySymbol}{total.toFixed(2)}</option>
             </select>
           ) : (
             <select value={orderId} disabled={!storeId || deliveredOrders.isLoading} onChange={(event) => setOrderId(event.target.value)} className="mt-1.5 h-11 w-full rounded-xl border bg-white px-3 text-sm disabled:bg-gray-50">
               <option value="">{!storeId ? 'Select a store first' : deliveredOrders.isLoading ? 'Loading delivered orders...' : 'Select a delivered order'}</option>
-              {deliveredOrders.data?.map((item) => <option key={item.orderId} value={item.orderId}>#{item.orderId.slice(0, 8).toUpperCase()} · {item.customerName || 'Customer'} · ${Number(item.amount).toFixed(2)}</option>)}
+              {deliveredOrders.data?.map((item) => <option key={item.orderId} value={item.orderId}>#{item.orderId.slice(0, 8).toUpperCase()} · {item.customerName || 'Customer'} · {currencySymbol}{Number(item.amount).toFixed(2)}</option>)}
             </select>
           )}
           <span className="mt-1 block text-xs text-muted-foreground">{order ? 'Order and store are preselected from the order detail page.' : 'Search by the order ID, customer name, phone number, or amount.'}</span>
-          {refundable.data ? <span className="mt-1 block text-xs font-medium text-emerald-700">Original ${refundable.data.orderTotal.toFixed(2)} · Already refunded/reserved ${refundable.data.refundedOrReservedAmount.toFixed(2)} · Remaining ${refundable.data.remainingRefundableAmount.toFixed(2)}</span> : null}
+          {refundable.data ? <span className="mt-1 block text-xs font-medium text-emerald-700">Original {currencySymbol}{refundable.data.orderTotal.toFixed(2)} · Already refunded/reserved {currencySymbol}{refundable.data.refundedOrReservedAmount.toFixed(2)} · Remaining {currencySymbol}{refundable.data.remainingRefundableAmount.toFixed(2)}</span> : null}
         </label>
         <div className="grid gap-3 sm:grid-cols-2">
           <AppInputField

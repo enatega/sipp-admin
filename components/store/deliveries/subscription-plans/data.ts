@@ -191,7 +191,7 @@ export const billingHistoryRows: BillingHistoryItem[] = [
     plan: 'Basic Plan',
     cycle: 'Monthly',
     method: 'Visa **** 4242',
-    amount: '$108.90',
+    amount: '108.90',
     status: 'Paid',
   },
   {
@@ -201,7 +201,7 @@ export const billingHistoryRows: BillingHistoryItem[] = [
     plan: 'Basic Plan',
     cycle: 'Monthly',
     method: 'Visa **** 4242',
-    amount: '$108.90',
+    amount: '108.90',
     status: 'Failed',
   },
   {
@@ -211,7 +211,7 @@ export const billingHistoryRows: BillingHistoryItem[] = [
     plan: 'Basic Plan',
     cycle: 'Monthly',
     method: 'Visa **** 4242',
-    amount: '$108.90',
+    amount: '108.90',
     status: 'Paid',
   },
   {
@@ -221,7 +221,7 @@ export const billingHistoryRows: BillingHistoryItem[] = [
     plan: 'Default Plan',
     cycle: 'Monthly',
     method: 'Visa **** 4242',
-    amount: '$0.00',
+    amount: '0.00',
     status: 'Paid',
   },
 ];

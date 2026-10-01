@@ -38,7 +38,6 @@ export interface CreateProductPayload {
   subcategory_id?: string;
   name: string;
   nameTranslations?: Record<string, string>;
-  price: number;
   stock_quantity: number;
   description?: string;
   unit_of_measure?: string;

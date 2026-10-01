@@ -5,13 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatToUSD = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'CRC',
-  }).format(amount);
-};
-
 export const generatePassword = (length = 12) => {
   if (length < 4) {
     throw new Error('Password length must be at least 4 characters');

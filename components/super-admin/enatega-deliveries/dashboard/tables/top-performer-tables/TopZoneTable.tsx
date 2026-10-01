@@ -1,3 +1,4 @@
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 import { useTranslations } from 'next-intl';
 import { EnategaDeliveriesDashboardTopZone } from '@/types/api/super-admin/enatega-deliveries/dashboard.api';
 import { useCurrency } from '@/hooks/use-currency';
@@ -94,7 +95,7 @@ export default function TopZoneTable({
                   </TableCell>
                   <TableCell>{item.orders ?? 0}</TableCell>
                   <TableCell>
-                    {currencySymbol || '$'}
+                    {currencySymbol || DEFAULT_CURRENCY.symbol}
                     {Number(item.revenue ?? 0).toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,

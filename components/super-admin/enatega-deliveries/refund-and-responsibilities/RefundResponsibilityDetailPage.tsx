@@ -29,10 +29,9 @@ import DisplayError from '@/components/shared/DisplayError';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { Heading } from '@/components/shared/Heading';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
+import { useCurrency } from '@/hooks/use-currency';
 import RefundResponsibilitiesDetailPageShimmer from './RefundResponsibilitiesDetailPageShimmer';
 
-const formatCurrency = (amount?: number | null) =>
-  `$${Number(amount || 0).toFixed(2)}`;
 
 const formatDate = (date?: string | null) => {
   if (!date) return '-';
@@ -43,6 +42,8 @@ export function RefundResponsibilityDetailPage() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
+  const { currencySymbol } = useCurrency();
+  const formatCurrency = (amount?: number | null) => `${currencySymbol} ${Number(amount || 0).toFixed(2)}`;
 
   const requestIdParam = params.requestId;
 
@@ -274,7 +275,7 @@ export function RefundResponsibilityDetailPage() {
 
               <div>
                 <p className="text-xs text-muted-foreground">
-                  Total Amount (USD)
+                  Total Amount
                 </p>
                 <p className="font-medium">
                   {formatCurrency(request?.order_information?.total_amount)}
@@ -522,30 +523,30 @@ export function RefundResponsibilityDetailPage() {
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between rounded-md bg-emerald-50 px-3 py-2 text-emerald-700">
                 <span>Customer wallet credit</span>
-                <span className="font-semibold">+${customerCredit.toFixed(2)}</span>
+                <span className="font-semibold">+{formatCurrency(customerCredit)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Store Deduction</span>
-                <span className="font-semibold">-${storePoints.toFixed(2)}</span>
+                <span className="font-semibold">-{formatCurrency(storePoints)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-red-50 px-3 py-2 text-red-700">
                 <span>Rider Deduction</span>
-                <span className="font-semibold">-${riderPoints.toFixed(2)}</span>
+                <span className="font-semibold">-{formatCurrency(riderPoints)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-amber-50 px-3 py-2 text-amber-700">
                 <span>Admin Deduction</span>
-                <span className="font-semibold">-${adminDeduction.toFixed(2)}</span>
+                <span className="font-semibold">-{formatCurrency(adminDeduction)}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-md bg-accent px-3 py-2 font-semibold">
                 <span>Net System Impact</span>
                 <span>
                   {netSystemImpact > 0
-                    ? `+$${netSystemImpact.toFixed(2)}`
-                    : `$${netSystemImpact.toFixed(2)}`}
+                    ? `+${formatCurrency(netSystemImpact)}`
+                    : formatCurrency(netSystemImpact)}
                 </span>
               </div>
             </div>

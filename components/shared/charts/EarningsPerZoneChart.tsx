@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import React, { useMemo } from 'react';
 import {
   BarElement,
@@ -35,7 +37,7 @@ export const EarningsPerZoneChart: React.FC<IEarningsPerZone> = ({
 }) => {
   const t = useTranslations('lumiDriveDashboard.earningsPerZoneChart');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   const chartData = useMemo(() => {
     if (!data) return { labels: [], datasets: [] };

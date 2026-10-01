@@ -191,7 +191,7 @@ export const useCreateProduct = (
       }
       formData.append('category_id', payload.category_id);
       formData.append('name', payload.name);
-      formData.append('price', String(payload.price));
+      formData.append('price', String(payload.variations[0].price));
       formData.append('stock_quantity', String(payload.stock_quantity));
       (payload.menu_ids ?? []).forEach((menuId) => {
         formData.append('menu_ids', menuId);

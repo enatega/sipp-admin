@@ -2,8 +2,10 @@
 
 import { Sparkles } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useCurrency } from '@/hooks/use-currency';
 
 export function PlanSummaryCard() {
+  const { currencySymbol } = useCurrency();
   return (
     <div className="h-fit rounded-lg border bg-white p-4">
       <div className="mb-3 flex items-start gap-3 border-b pb-3">
@@ -21,7 +23,7 @@ export function PlanSummaryCard() {
 
       <div className="space-y-2 border-b pb-3">
         <div className="flex justify-between"><span className="text-mute">Billing cycle</span><span>Monthly</span></div>
-        <div className="flex justify-between"><span className="text-mute">Current price</span><span>$99/month</span></div>
+        <div className="flex justify-between"><span className="text-mute">Current price</span><span>{currencySymbol}99/month</span></div>
         <div className="flex justify-between"><span className="text-mute">Commission</span><span className="text-primary">10%</span></div>
       </div>
 

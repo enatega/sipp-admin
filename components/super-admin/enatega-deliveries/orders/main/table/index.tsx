@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
@@ -151,7 +153,7 @@ export function OrdersTable({
   const tStatuses = useTranslations('orders.statuses');
   const tOrderTypes = useTranslations('orders.orderTypes');
   const { currencySymbol } = useCurrency();
-  const currency = currencySymbol || '₡';
+  const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
   useQueryParams();
 
   const { items, requestSort, sortConfig } = useSortableData(data || []);

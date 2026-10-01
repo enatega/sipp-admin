@@ -3,6 +3,7 @@
 import { format } from 'date-fns';
 import { RefundRequest } from '@/types/api/super-admin/enatega-deliveries/refunds-and-responsibilities';
 import { useSortableData } from '@/hooks/use-sortable-data';
+import { useCurrency } from '@/hooks/use-currency';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Table,
@@ -35,7 +36,6 @@ interface RefundResponsibilitiesTableProps {
   error: string;
 }
 
-const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
 
 const formatDate = (value: string) => {
   const date = new Date(value);
@@ -72,6 +72,8 @@ export function RefundResponsibilitiesTable({
   isLoading,
   isError,
 }: RefundResponsibilitiesTableProps) {
+  const { currencySymbol } = useCurrency();
+  const formatCurrency = (amount: number) => `${currencySymbol} ${amount.toFixed(2)}`;
   const totalPages = Math.max(1, Math.ceil(totalData / limit));
   const { items, requestSort, sortConfig } = useSortableData(data || []);
 

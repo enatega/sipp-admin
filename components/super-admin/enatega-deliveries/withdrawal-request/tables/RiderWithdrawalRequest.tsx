@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useState } from 'react';
 import { RiderWithdrawalRequest } from '@/types';
 import { CircleCheckBig, CircleX, Copy, Eye, MoreVertical } from 'lucide-react';
@@ -207,12 +209,12 @@ export default function RiderWithdrawalTable() {
               <TableCell>{withdrawalRequest?.zone_name || notAvailable}</TableCell>
               <TableCell>
                 {withdrawalRequest?.rider_balance != null
-                  ? `${currencySymbol || '₡'}${withdrawalRequest.rider_balance}`
+                  ? `${currencySymbol || DEFAULT_CURRENCY.symbol}${withdrawalRequest.rider_balance}`
                   : notAvailable}
               </TableCell>
               <TableCell>
                 {withdrawalRequest?.requested_amount != null
-                  ? `${currencySymbol || '₡'}${withdrawalRequest.requested_amount}`
+                  ? `${currencySymbol || DEFAULT_CURRENCY.symbol}${withdrawalRequest.requested_amount}`
                   : notAvailable}
               </TableCell>
               <TableCell>

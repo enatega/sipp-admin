@@ -108,7 +108,7 @@ export function RiderTable() {
                 dataKey: 'totalEarnings',
                 header: tHeaders('totalEarnings'),
                 formatter: (rider: DeliveryRider) =>
-                  `₡ ${rider.totalEarnings ?? 0}`,
+                  `${currencySymbol} ${rider.totalEarnings ?? 0}`,
               },
               {
                 dataKey: 'averageRating',

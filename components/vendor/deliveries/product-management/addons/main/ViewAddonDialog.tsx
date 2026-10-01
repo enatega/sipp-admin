@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { formatCurrency } from '@/lib/formatCurrency';
@@ -21,7 +23,7 @@ export default function ViewAddonDialog({
 }: ViewAddonDialogProps) {
   const t = useTranslations('storeAddons');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   if (!addon) {
     return null;

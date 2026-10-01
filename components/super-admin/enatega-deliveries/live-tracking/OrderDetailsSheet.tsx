@@ -3,6 +3,7 @@
 import { CalendarDays, MapPin, Phone, Store, User } from 'lucide-react';
 import type { GetDeliveryLiveTrackingRiderOverviewResponse } from '@/types';
 import type { RiderTrackingItem } from './types';
+import { useCurrency } from '@/hooks/use-currency';
 import {
   Sheet,
   SheetContent,
@@ -37,6 +38,7 @@ export function OrderDetailsSheet({
   open,
   onOpenChange,
 }: OrderDetailsSheetProps) {
+  const { currencySymbol } = useCurrency();
   if (!item) {
     return null;
   }
@@ -107,7 +109,7 @@ export function OrderDetailsSheet({
                 <DetailRow label="Status" value={overview.activeOrder.status} />
                 <DetailRow
                   label="Amount"
-                  value={`${overview.activeOrder.amount}`}
+                  value={`${currencySymbol} ${overview.activeOrder.amount}`}
                 />
                 <DetailRow
                   label="Payment Method"

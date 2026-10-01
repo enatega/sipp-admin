@@ -1,3 +1,4 @@
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 import { ADDON_OPTIONS } from '@/constants/product-form.constants';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -30,7 +31,7 @@ export const VariantList: React.FC<VariantListProps> = ({
 }) => {
   const t = useTranslations('products.addProduct.step2');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   if (variants.length === 0) {
     return null;

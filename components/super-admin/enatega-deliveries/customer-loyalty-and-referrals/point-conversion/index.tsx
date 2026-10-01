@@ -29,7 +29,7 @@ const PointConversion = () => {
   const t = useTranslations(
     'deliveriesCustomerLoyaltyAndReferrals.pointConversion',
   );
-  const { currencyCode } = useCurrency();
+  const { currencySymbol } = useCurrency();
   const { getParam } = useQueryParams();
   const activeTab = (getParam('type') || 'customer') as LoyaltyTabType;
 
@@ -137,7 +137,7 @@ const PointConversion = () => {
               </div>
               <ArrowRight className="size-4 text-muted-foreground" />
               <span className="font-semibold text-primary">
-                {currencyCode} 1.00
+                {currencySymbol} 1.00
               </span>
             </div>
 
@@ -174,7 +174,7 @@ const PointConversion = () => {
                   </label>
                   <div className="h-11 w-full flex items-center px-3 rounded-[12px] border bg-muted/50">
                     <span className="text-lg font-semibold text-primary">
-                      {currencyCode} {calculatedValue.toFixed(2)}
+                      {currencySymbol} {calculatedValue.toFixed(2)}
                     </span>
                   </div>
                 </div>

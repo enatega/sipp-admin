@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useMemo } from 'react';
 import { useGetProduct } from '@/hooks/api/vendor/deliveries/product-management/products';
 import { useCurrency } from '@/hooks/use-currency';
@@ -31,7 +33,7 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
   const tDetailMessages = useTranslations('products.detail.messages');
   const tDetailValues = useTranslations('products.detail.values');
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const productId = product?.id;
 
   const { data, isLoading, isError, error } = useGetProduct(productId, {

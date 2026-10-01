@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import { useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useQueryParams } from '@/hooks/use-query-params';
@@ -37,7 +39,7 @@ export default function AssignedMenuProductsTable({
   const t = useTranslations('products');
   const { getParam, setParams } = useQueryParams();
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
 
   const page = Number(getParam('page')) || 1;
   const limit = Number(getParam('limit')) || 10;

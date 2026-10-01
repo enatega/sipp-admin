@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import * as React from 'react';
 import { UNIT_OF_MEASURE_OPTIONS } from '@/constants/product-form.constants';
 import { productFormStep1Schema } from '@/schemas/store/deliveries/product-form';
@@ -39,7 +41,7 @@ export function EditProductBasicInformationForm({
   const tForm = useTranslations('products.form');
   const tSchema = useTranslations();
   const { currencySymbol } = useCurrency();
-  const resolvedCurrencySymbol = currencySymbol || '$';
+  const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const validationSchema = React.useMemo(
     () =>
       productFormStep1Schema(tSchema).shape({

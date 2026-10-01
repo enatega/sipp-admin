@@ -1,5 +1,7 @@
 'use client';
 
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+
 import React from 'react';
 import {
   RiderWithdrawalRequest,
@@ -113,7 +115,7 @@ export function BankDetailsDialog({
             label={t('withdrawAmount')}
             value={
               withdrawRequest?.requested_amount
-                ? `${currencySymbol || '$'} ${withdrawRequest?.requested_amount}`
+                ? `${currencySymbol || DEFAULT_CURRENCY.symbol} ${withdrawRequest?.requested_amount}`
                 : notAvailable
             }
             showCopy={true}

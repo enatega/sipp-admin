@@ -90,11 +90,11 @@ export const buildApiPayload = (
 export const getDiscountDisplayValue = (
   discountType: 'percentage' | 'fixed',
   discountValue: number,
-  currencyCode: string,
+  currencySymbol: string,
 ) => {
   const numericDiscount = Number.isFinite(discountValue) ? discountValue : 0;
 
   return discountType === 'percentage'
     ? `${numericDiscount}%`
-    : `${currencyCode || 'CRC'} ${numericDiscount.toFixed(2)}`;
+    : `${currencySymbol} ${numericDiscount.toFixed(2)}`;
 };

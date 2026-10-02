@@ -333,6 +333,7 @@
     "loyaltyAndReferrals": "Loyalty and Referral",
     "discountsOffers": "Discounts/Offers",
     "shopTypes": "Shop Types",
+    "favouriteFoods": "Favourite Foods",
     "homeSequence": "Home Sequence",
     "subscriptionPlans": "Subscription Plans",
     "serviceType": "Service Type",
@@ -5857,6 +5858,18 @@
         }
       }
     }
+  },
+  "favouriteFoods": {
+    "title": "Favourite Foods", "subtitle": "Manage discovery tags and assign them to one or more shop types.", "addButton": "Add Favourite Food", "empty": "No Favourite Foods found",
+    "filters": { "search": "Search Favourite Foods", "status": "All statuses", "shopType": "All shop types" },
+    "table": { "image": "Image", "name": "Name", "shopTypes": "Shop types", "order": "Display order", "status": "Status", "actions": "Actions" },
+    "status": { "active": "Active", "inactive": "Inactive" },
+    "actions": { "create": "Create", "save": "Save changes", "cancel": "Cancel", "edit": "Edit", "delete": "Delete", "toggleStatus": "Change status for {name}" },
+    "form": { "createTitle": "Add Favourite Food", "editTitle": "Edit Favourite Food", "description": "Set its name, visibility, order, image, and related shop types.", "name": "English name", "namePlaceholder": "e.g. Pizza", "translations": "Translated names", "translationsDescription": "Add names for enabled languages. Empty values fall back to English.", "translationPlaceholder": "Name in {language}", "shopTypes": "Shop types", "shopTypesPlaceholder": "Select one or more shop types", "displayOrder": "Display order", "displayOrderHelp": "Lower numbers appear first.", "image": "Image", "imageHelp": "PNG, JPG, or WebP up to 5 MB.", "removeImage": "Remove current image", "status": "Customer visibility" },
+    "validation": { "nameRequired": "English name is required", "shopTypeRequired": "Select at least one shop type", "orderInteger": "Display order must be a whole number", "orderMinimum": "Display order cannot be negative" },
+    "messages": { "created": "Favourite Food created", "updated": "Favourite Food updated", "deleted": "Favourite Food deleted", "statusUpdated": "Status updated" },
+    "errors": { "loadTitle": "Could not load Favourite Foods", "loadMessage": "Please try again." },
+    "deleteDialog": { "title": "Delete Favourite Food", "subtitle": "Delete {name}?", "description": "It will be hidden without removing existing product history." }
   },
   "Schemas": {
     "customerLoyalty": {

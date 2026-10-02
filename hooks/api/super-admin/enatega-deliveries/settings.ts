@@ -159,8 +159,8 @@ export function usePatchAdminSettings(
     return useMutation<AppSettings, ApiErrorResponse, { payload: FormData | Record<string, unknown> }>(
         {
             mutationFn: async ({ payload }: { payload: FormData | Record<string, unknown> }) => {
-                const { data } = await Axios.put<{ data: AppSettings }>('apps/deliveries/admin-settings', payload);
-                return data.data;
+                const { data } = await Axios.put<AppSettings>('apps/deliveries/admin-settings', payload);
+                return data;
             },
             onSuccess: () => {
                 queryClient.invalidateQueries({

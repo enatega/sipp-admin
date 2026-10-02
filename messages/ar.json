@@ -333,6 +333,7 @@
     "loyaltyAndReferrals": "الولاء والإحالة",
     "discountsOffers": "الخصومات والعروض",
     "shopTypes": "أنواع المتاجر",
+    "favouriteFoods": "الأطعمة المفضلة",
     "subscriptionPlans": "خطط الاشتراك",
     "serviceType": "الخدمة",
     "contracts": "العقود",
@@ -5829,6 +5830,18 @@
         }
       }
     }
+  },
+  "favouriteFoods": {
+    "title": "الأطعمة المفضلة", "subtitle": "إدارة وسوم الاستكشاف وربطها بنوع متجر واحد أو أكثر.", "addButton": "إضافة طعام مفضل", "empty": "لم يتم العثور على أطعمة مفضلة",
+    "filters": { "search": "البحث في الأطعمة المفضلة", "status": "كل الحالات", "shopType": "كل أنواع المتاجر" },
+    "table": { "image": "الصورة", "name": "الاسم", "shopTypes": "أنواع المتاجر", "order": "ترتيب العرض", "status": "الحالة", "actions": "الإجراءات" },
+    "status": { "active": "نشط", "inactive": "غير نشط" },
+    "actions": { "create": "إنشاء", "save": "حفظ التغييرات", "cancel": "إلغاء", "edit": "تعديل", "delete": "حذف", "toggleStatus": "تغيير حالة {name}" },
+    "form": { "createTitle": "إضافة طعام مفضل", "editTitle": "تعديل الطعام المفضل", "description": "حدد الاسم والظهور والترتيب والصورة وأنواع المتاجر.", "name": "الاسم بالإنجليزية", "namePlaceholder": "مثال: Pizza", "translations": "الأسماء المترجمة", "translationsDescription": "أضف أسماء للغات المفعلة. القيم الفارغة تستخدم الإنجليزية.", "translationPlaceholder": "الاسم باللغة {language}", "shopTypes": "أنواع المتاجر", "shopTypesPlaceholder": "اختر نوعًا واحدًا أو أكثر", "displayOrder": "ترتيب العرض", "displayOrderHelp": "تظهر الأرقام الأصغر أولاً.", "image": "الصورة", "imageHelp": "PNG أو JPG أو WebP بحد أقصى 5 ميغابايت.", "removeImage": "إزالة الصورة الحالية", "status": "الظهور للعملاء" },
+    "validation": { "nameRequired": "الاسم الإنجليزي مطلوب", "shopTypeRequired": "اختر نوع متجر واحدًا على الأقل", "orderInteger": "يجب أن يكون الترتيب عددًا صحيحًا", "orderMinimum": "لا يمكن أن يكون الترتيب سالبًا" },
+    "messages": { "created": "تم إنشاء الطعام المفضل", "updated": "تم تحديث الطعام المفضل", "deleted": "تم حذف الطعام المفضل", "statusUpdated": "تم تحديث الحالة" },
+    "errors": { "loadTitle": "تعذر تحميل الأطعمة المفضلة", "loadMessage": "يرجى المحاولة مرة أخرى." },
+    "deleteDialog": { "title": "حذف الطعام المفضل", "subtitle": "هل تريد حذف {name}؟", "description": "سيتم إخفاؤه دون حذف سجل المنتجات الحالي." }
   },
   "Schemas": {
     "customerLoyalty": {

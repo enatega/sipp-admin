@@ -331,6 +331,7 @@
     "refundAndResponsibilities": "Ruckerstattung & Verantwortlichkeiten",
     "discountsOffers": "Rabatte/Angebote",
     "shopTypes": "Geschäftsarten",
+    "favouriteFoods": "Lieblingsspeisen",
     "homeSequence": "Startseiten-Reihenfolge",
     "subscriptionPlans": "Abonnementpläne",
     "serviceType": "Servicetyp",
@@ -6184,6 +6185,18 @@
         }
       }
     }
+  },
+  "favouriteFoods": {
+    "title": "Lieblingsspeisen", "subtitle": "Entdeckungs-Tags verwalten und Geschäftsarten zuweisen.", "addButton": "Lieblingsspeise hinzufügen", "empty": "Keine Lieblingsspeisen gefunden",
+    "filters": { "search": "Lieblingsspeisen suchen", "status": "Alle Status", "shopType": "Alle Geschäftsarten" },
+    "table": { "image": "Bild", "name": "Name", "shopTypes": "Geschäftsarten", "order": "Anzeigereihenfolge", "status": "Status", "actions": "Aktionen" },
+    "status": { "active": "Aktiv", "inactive": "Inaktiv" },
+    "actions": { "create": "Erstellen", "save": "Speichern", "cancel": "Abbrechen", "edit": "Bearbeiten", "delete": "Löschen", "toggleStatus": "Status für {name} ändern" },
+    "form": { "createTitle": "Lieblingsspeise hinzufügen", "editTitle": "Lieblingsspeise bearbeiten", "description": "Name, Sichtbarkeit, Reihenfolge, Bild und Geschäftsarten festlegen.", "name": "Englischer Name", "namePlaceholder": "z. B. Pizza", "translations": "Übersetzte Namen", "translationsDescription": "Namen für aktivierte Sprachen hinzufügen. Leere Werte verwenden Englisch.", "translationPlaceholder": "Name auf {language}", "shopTypes": "Geschäftsarten", "shopTypesPlaceholder": "Eine oder mehrere auswählen", "displayOrder": "Anzeigereihenfolge", "displayOrderHelp": "Kleinere Zahlen erscheinen zuerst.", "image": "Bild", "imageHelp": "PNG, JPG oder WebP bis 5 MB.", "removeImage": "Aktuelles Bild entfernen", "status": "Kundensichtbarkeit" },
+    "validation": { "nameRequired": "Englischer Name ist erforderlich", "shopTypeRequired": "Mindestens eine Geschäftsart auswählen", "orderInteger": "Die Reihenfolge muss ganzzahlig sein", "orderMinimum": "Die Reihenfolge darf nicht negativ sein" },
+    "messages": { "created": "Lieblingsspeise erstellt", "updated": "Lieblingsspeise aktualisiert", "deleted": "Lieblingsspeise gelöscht", "statusUpdated": "Status aktualisiert" },
+    "errors": { "loadTitle": "Lieblingsspeisen konnten nicht geladen werden", "loadMessage": "Bitte erneut versuchen." },
+    "deleteDialog": { "title": "Lieblingsspeise löschen", "subtitle": "{name} löschen?", "description": "Sie wird ausgeblendet; die Produkthistorie bleibt erhalten." }
   },
   "Schemas": {
     "customerLoyalty": {

@@ -13,12 +13,6 @@ const ReviewsGiven = lazy(() =>
     default: mod.ReviewsGiven,
   })),
 );
-const ReviewsReceived = lazy(() =>
-  import('./ReviewsReceived').then((mod) => ({
-    default: mod.ReviewsReceived,
-  })),
-);
-
 interface ReviewsProps {
   userId: string;
 }
@@ -29,7 +23,6 @@ export function Reviews({ userId }: ReviewsProps) {
   const REVIEW_TAB_DEFS: TabDef[] = useMemo(
     () => [
       { value: 'given', label: t('reviewsGiven') },
-      { value: 'received', label: t('reviewsReceived') },
     ],
     [t],
   );
@@ -64,22 +57,6 @@ export function Reviews({ userId }: ReviewsProps) {
           }
         >
           <ReviewsGiven userId={userId} />
-        </Suspense>
-      </TabsContent>
-
-      <TabsContent value="received">
-        <Suspense
-          fallback={
-            <div className="rounded-md border">
-              <Table>
-                <TableBody>
-                  <TableShimmer limit={10} columns={5} />
-                </TableBody>
-              </Table>
-            </div>
-          }
-        >
-          <ReviewsReceived userId={userId} />
         </Suspense>
       </TabsContent>
     </Tabs>

@@ -14,6 +14,7 @@ export interface EnategaDeliveriesDashboardStatItem {
   isPositive: boolean;
   icon: LucideIcon;
   change: number;
+  useCurrencyPrefix?: boolean;
 }
 
 export const getEnategaDeliveriesDashboardStatsData = (
@@ -33,6 +34,7 @@ export const getEnategaDeliveriesDashboardStatsData = (
       isPositive: (cards?.totalOrders?.change ?? 0) >= 0,
       icon: Wallet,
       change: cards?.totalOrders?.change ?? 0,
+      useCurrencyPrefix: false,
     },
     {
       title: t ? t('totalVendors') : 'Total Vendors',
@@ -40,6 +42,7 @@ export const getEnategaDeliveriesDashboardStatsData = (
       isPositive: (cards?.totalVendors?.change ?? 0) >= 0,
       icon: User,
       change: cards?.totalVendors?.change ?? 0,
+      useCurrencyPrefix: false,
     },
     {
       title: t ? t('totalStores') : 'Total Stores',
@@ -47,6 +50,7 @@ export const getEnategaDeliveriesDashboardStatsData = (
       isPositive: (cards?.totalStores?.change ?? 0) >= 0,
       icon: Store,
       change: cards?.totalStores?.change ?? 0,
+      useCurrencyPrefix: false,
     },
     {
       title: t ? t('activeRiders') : 'Active Riders',
@@ -54,5 +58,6 @@ export const getEnategaDeliveriesDashboardStatsData = (
       isPositive: (cards?.activeRiders?.change ?? 0) >= 0,
       icon: Bike,
       change: cards?.activeRiders?.change ?? 0,
+      useCurrencyPrefix: false,
     },
   ];

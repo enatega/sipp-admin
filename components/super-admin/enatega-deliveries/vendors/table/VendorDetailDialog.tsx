@@ -202,6 +202,11 @@ export default function VendorDetailDialog({
                 imageUrl={vendor.national_id_back}
                 emptyLabel={tVendorDocuments('nationalIdBack')}
               />
+              <DocumentPreviewCard
+                title={tVendorDocuments('businessTrademark')}
+                imageUrl={vendor.business_trademark}
+                emptyLabel={tVendorDocuments('businessTrademark')}
+              />
             </div>
           </section>
         </div>

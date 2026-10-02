@@ -1,6 +1,7 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { SupportModule } from '@/types/api/super-admin/general/customerSupport.api';
 import { returnErrorMessage } from '@/lib/toast-error';
@@ -32,6 +33,15 @@ const TicketDetails = () => {
     supportModule as SupportModule,
     ticketId,
   );
+  const router = useRouter();
+
+  // Older notification links carried the requester id; move to the resolved chat box URL
+  // so replies and live updates use the real chat box id.
+  useEffect(() => {
+    if (data?.chatBoxId && data.chatBoxId !== ticketId) {
+      router.replace(`/general/customer-support/${supportModule}/${data.chatBoxId}`);
+    }
+  }, [data?.chatBoxId, ticketId, supportModule, router]);
 
   if (isLoading) {
     return <TicketDetailsSkeleton />;

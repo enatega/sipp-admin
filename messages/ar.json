@@ -3367,7 +3367,8 @@
         "businessLicenseFront": "License (Front)",
         "businessLicenseBack": "License (Back)",
         "nationalIdFront": "الهوية الوطنية",
-        "nationalIdBack": "الهوية الوطنية"
+        "nationalIdBack": "الهوية الوطنية",
+        "businessTrademark": "العلامة التجارية"
       },
       "reviewsLabel": "({count, plural, one {# مراجعة} other {# مراجعات}})",
       "profileImageAlt": "صورة بيانية عن البائعين",

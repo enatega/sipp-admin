@@ -1,10 +1,7 @@
 'use client';
 
-import { lazy, Suspense, useMemo } from 'react';
-import { useTranslations } from 'next-intl';
-import { useSyncedTab, type TabDef } from '@/hooks/use-synced-tabs';
+import { lazy, Suspense } from 'react';
 import { Table, TableBody } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TableShimmer } from '@/components/shared/TableShimmer';
 
 // Lazy load review components
@@ -18,47 +15,19 @@ interface ReviewsProps {
 }
 
 export function Reviews({ userId }: ReviewsProps) {
-  const t = useTranslations('userDetail.tabs');
-
-  const REVIEW_TAB_DEFS: TabDef[] = useMemo(
-    () => [
-      { value: 'given', label: t('reviewsGiven') },
-    ],
-    [t],
-  );
-
-  const { active, setActive, tabs } = useSyncedTab(REVIEW_TAB_DEFS, {
-    defaultValue: 'given',
-    paramName: 'type',
-    mode: 'url-only',
-    syncParamsOnChange: { page: '1' },
-  });
-
   return (
-    <Tabs value={active} onValueChange={setActive} className="w-full">
-      <TabsList className="mb-6">
-        {tabs.map((tab) => (
-          <TabsTrigger key={tab.value} value={tab.value}>
-            {tab.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-
-      <TabsContent value="given">
-        <Suspense
-          fallback={
-            <div className="rounded-md border">
-              <Table>
-                <TableBody>
-                  <TableShimmer limit={10} columns={6} />
-                </TableBody>
-              </Table>
-            </div>
-          }
-        >
-          <ReviewsGiven userId={userId} />
-        </Suspense>
-      </TabsContent>
-    </Tabs>
+    <Suspense
+      fallback={
+        <div className="rounded-md border">
+          <Table>
+            <TableBody>
+              <TableShimmer limit={10} columns={4} />
+            </TableBody>
+          </Table>
+        </div>
+      }
+    >
+      <ReviewsGiven userId={userId} />
+    </Suspense>
   );
 }

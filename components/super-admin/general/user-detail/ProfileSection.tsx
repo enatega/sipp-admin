@@ -9,7 +9,6 @@ import {
   FileText,
   LogOut,
   RefreshCw,
-  Star,
   XCircle,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -55,19 +54,6 @@ export function ProfileSection({ user }: ProfileSectionProps) {
       return { color: 'bg-orange-500', text: tUsers('statuses.deactivated') };
     }
     return { color: 'bg-green-500', text: tUsers('statuses.active') };
-  };
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }).map((_, index) => (
-      <Star
-        key={index}
-        className={`w-4 h-4 ${
-          index < rating
-            ? 'fill-yellow-400 text-yellow-400'
-            : 'fill-gray-300 text-gray-300'
-        }`}
-      />
-    ));
   };
 
   const statusConfig = getStatusConfig();
@@ -188,25 +174,6 @@ export function ProfileSection({ user }: ProfileSectionProps) {
                   user?.userProfile?.user?.phone}
               </p>
 
-              {/* Rating */}
-
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-semibold text-gray-900">
-                  {user.averageRatingGiven > 0
-                    ? user.averageRatingGiven.toFixed(1)
-                    : 0}
-                </span>
-                <div className="flex items-center gap-0.5">
-                  {renderStars(Math.round(user.averageRatingGiven))}
-                </div>
-                <span className="text-sm text-gray-500">
-                  ({user.totalReviewsGiven || 0}{' '}
-                  {user.totalReviewsGiven !== 1
-                    ? t('reviewsPlural')
-                    : t('review')}
-                  )
-                </span>
-              </div>
             </div>
           </div>
 

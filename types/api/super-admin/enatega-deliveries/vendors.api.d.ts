@@ -71,6 +71,7 @@ export interface GetDeliveryVendorProfileResponse {
   national_id_back: string | null;
   business_license_front: string | null;
   business_license_back: string | null;
+  business_trademark: string | null;
   bank_details: {
     bank_name: string | null;
     account_holder_name: string | null;

@@ -3360,7 +3360,8 @@
         "businessLicenseFront": "Licencia de negocios (Front)",
         "businessLicenseBack": "Licencia de Negocios (Back)",
         "nationalIdFront": "ID nacional (Front)",
-        "nationalIdBack": "National ID (Back)"
+        "nationalIdBack": "National ID (Back)",
+        "businessTrademark": "Marca comercial"
       },
       "reviewsLabel": "({count, plural, one {# reseña} other {# reseñas}})",
       "profileImageAlt": "Imagen del perfil del vendedor",

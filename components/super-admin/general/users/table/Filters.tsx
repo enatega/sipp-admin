@@ -11,10 +11,11 @@ import { DateRangePicker } from '@/components/shared/form/DateRangePicker';
 import { SearchInput } from '@/components/shared/SearchInput';
 
 type RegistrationMethod = 'google' | 'manual';
-type UserStatus = 'active' | 'blocked';
+type UserStatus = 'active' | 'deactivated' | 'blocked';
 
 export const Filters = () => {
   const t = useTranslations('users');
+  const tStatuses = useTranslations('users.statuses');
   const { getParam, setParams } = useQueryParams();
 
   // Local state for search input
@@ -55,8 +56,9 @@ export const Filters = () => {
   ] as const;
 
   const statusOptions = [
-    { value: 'active', key: t('statuses.active') },
-    { value: 'blocked', key: t('statuses.blocked') },
+    { value: 'active', key: tStatuses('active') },
+    { value: 'deactivated', key: tStatuses('deactivated') },
+    { value: 'blocked', key: tStatuses('blocked') },
   ] as const;
 
   const showClearButton =
@@ -125,12 +127,16 @@ export const Filters = () => {
           currentStatus
             ? (currentStatus as string)
                 .split(',')
-                .filter((s): s is UserStatus => s === 'active' || s === 'blocked')
+                .filter(
+                  (s): s is UserStatus =>
+                    s === 'active' || s === 'deactivated' || s === 'blocked',
+                )
             : []
         }
         onChange={(newStatuses) => {
           const mappedStatuses = newStatuses.filter(
-            (s): s is UserStatus => s === 'active' || s === 'blocked',
+            (s): s is UserStatus =>
+              s === 'active' || s === 'deactivated' || s === 'blocked',
           );
 
           setParams({

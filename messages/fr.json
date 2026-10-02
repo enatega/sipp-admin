@@ -3360,7 +3360,8 @@
         "businessLicenseFront": "Licence d'entreprise (Front)",
         "businessLicenseBack": "Licence d'entreprise (retour)",
         "nationalIdFront": "Identification nationale (Front)",
-        "nationalIdBack": "Identification nationale (en arrière)"
+        "nationalIdBack": "Identification nationale (en arrière)",
+        "businessTrademark": "Marque de commerce"
       },
       "reviewsLabel": "({count, plural, one {# avis} other {# avis}})",
       "profileImageAlt": "Image du profil du fournisseur",

@@ -3391,7 +3391,8 @@
         "businessLicenseFront": "Business License (Front)",
         "businessLicenseBack": "Business License (Back)",
         "nationalIdFront": "National ID (Front)",
-        "nationalIdBack": "National ID (Back)"
+        "nationalIdBack": "National ID (Back)",
+        "businessTrademark": "Business Trademark"
       },
       "reviewsLabel": "({count, plural, one {# review} other {# reviews}})",
       "profileImageAlt": "Vendor profile image",

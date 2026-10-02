@@ -3303,7 +3303,8 @@
         "businessLicenseFront": "Gewerbeschein (Vorderseite)",
         "businessLicenseBack": "Gewerbeschein (Rückseite)",
         "nationalIdFront": "Ausweis (Vorderseite)",
-        "nationalIdBack": "Ausweis (Rückseite)"
+        "nationalIdBack": "Ausweis (Rückseite)",
+        "businessTrademark": "Geschäftsmarke"
       },
       "reviewsLabel": "({count, plural, one {# Bewertung} other {# Bewertungen}})",
       "profileImageAlt": "Profilbild des Lieferanten",

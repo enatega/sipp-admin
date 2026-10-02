@@ -27,7 +27,7 @@ export interface UserManagementItem extends Record<string, unknown> {
 }
 
 export type RegistrationMethod = 'manual' | 'google';
-export type AccountStatus = 'active' | 'inactive' | 'blocked';
+export type AccountStatus = 'active' | 'deactivated' | 'inactive' | 'blocked';
 
 
 export interface UMUserProfileUser {
@@ -69,6 +69,4 @@ export interface UMUserDetails extends Record<string, unknown> {
     dateOfBirth: string | null;
     user_profile_id: string;
     userProfile: UMUserProfile;
-    totalReviewsGiven: number;
-    averageRatingGiven: number;
 }

@@ -81,10 +81,10 @@ export function ReviewsGiven({ userId }: ReviewsGivenProps) {
           </TableHeader>
           <TableBody>
             {isLoading ? (
-              <TableShimmer limit={10 as TLimitType} columns={5} />
+              <TableShimmer limit={10 as TLimitType} columns={4} />
             ) : isError ? (
               <TableRow>
-                <TableCell colSpan={5} className="p-4">
+                <TableCell colSpan={4} className="p-4">
                   <DisplayError
                     title={t('fetchFailed')}
                     message={
@@ -96,7 +96,7 @@ export function ReviewsGiven({ userId }: ReviewsGivenProps) {
               </TableRow>
             ) : sortedReviews.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center p-4">
+                <TableCell colSpan={4} className="text-center p-4">
                   <NoDataFound
                     title={t('noReviewsTitle')}
                     subtitle={t('noReviewsGivenSubtitle')}

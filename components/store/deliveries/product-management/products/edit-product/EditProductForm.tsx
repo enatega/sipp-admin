@@ -266,6 +266,9 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
         onClose={() => setIsVariationDialogOpen(false)}
         isSubmitting={customizationActionPending}
         initialGroup={selectedVariation}
+        storeId={resolvedStoreId}
+        taxRateId={product.taxRateId}
+        currentTaxRate={product.taxRate}
         onSubmit={handleVariationSubmit}
       />
 

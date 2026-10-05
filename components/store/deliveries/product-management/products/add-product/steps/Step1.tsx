@@ -142,9 +142,9 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           parentCategoryId={values.categoryId}
         />
 
-        <ProductFavouriteFoodTagsField storeId={storeId} />
+        <ProductFavouriteFoodTagsField storeId={storeId} fullWidth={false} />
 
-        <ProductTaxField />
+        <ProductTaxField showPriceInfo={false} />
         <div className="space-y-2">
           <AppInputField
             label={t('stockQuantityLabel')}

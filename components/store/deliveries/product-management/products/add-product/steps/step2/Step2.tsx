@@ -16,15 +16,19 @@ import {
   findDealSummaryById,
 } from '@/lib/deal-pricing';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { resolveProductTaxRate } from '@/lib/tax-inclusive';
 import { getStorePath } from '@/lib/store';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
+import { useTaxRates } from '@/hooks/api/deliveries/tax-rates';
+import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 import { useCreateProduct } from '@/hooks/api/store/deliveries/product-management/products';
 import { useCurrency } from '@/hooks/use-currency';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { FormErrorDisplay } from '@/components/shared/FormErrorDisplay';
+import { ProductVariationTaxBreakdown } from '../../../ProductVariationTaxBreakdown';
 
 const createEmptyVariation = (): ProductVariationFormValue => ({
   id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -47,6 +51,13 @@ export const Step2Form: React.FC = () => {
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = React.useState<string | null>(null);
   const { mutateAsync: createProduct, isPending } = useCreateProduct();
+  const storeProfile = useGetStoreProfile(storeId ?? '');
+  const productTaxRates = useTaxRates('product');
+  const selectedTaxRate = resolveProductTaxRate(
+    storeProfile.data?.basicInformation,
+    productTaxRates.data ?? [],
+    formData.step1?.taxRateId,
+  );
   const { data: activeDeals } = useGetActiveDeals(
     storeId
       ? {
@@ -210,20 +221,27 @@ export const Step2Form: React.FC = () => {
                           requiredAsterisk
                         />
 
-                        <AppInputField
-                          label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
-                          name={`variations.${index}.price`}
-                          type="number"
-                          step="0.01"
-                          min="0"
-                          placeholder={t('pricePlaceholder')}
-                          prefix={
-                            <span className="font-semibold text-primary">
-                              {resolvedCurrencySymbol}
-                            </span>
-                          }
-                          requiredAsterisk
-                        />
+                        <div className="min-w-0 space-y-2">
+                          <AppInputField
+                            label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
+                            name={`variations.${index}.price`}
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            placeholder={t('pricePlaceholder')}
+                            prefix={
+                              <span className="font-semibold text-primary">
+                                {resolvedCurrencySymbol}
+                              </span>
+                            }
+                            requiredAsterisk
+                          />
+                          <ProductVariationTaxBreakdown
+                            price={variation.price}
+                            rate={selectedTaxRate}
+                            currencySymbol={resolvedCurrencySymbol}
+                          />
+                        </div>
                       </div>
 
                       {selectedDealSummary ? (

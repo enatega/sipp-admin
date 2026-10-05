@@ -7,9 +7,10 @@ import { useProductFavouriteFoodOptions, type ProductFavouriteFoodOption } from 
 interface Props {
   storeId?: string;
   initialSelected?: ProductFavouriteFoodOption[];
+  fullWidth?: boolean;
 }
 
-export function ProductFavouriteFoodTagsField({ storeId, initialSelected = [] }: Props) {
+export function ProductFavouriteFoodTagsField({ storeId, initialSelected = [], fullWidth = true }: Props) {
   const t = useTranslations('products.addProduct.step1');
   const tErrors = useTranslations('products.errors');
   const locale = useLocale().split('-')[0];
@@ -19,7 +20,7 @@ export function ProductFavouriteFoodTagsField({ storeId, initialSelected = [] }:
   data?.forEach((food) => options.set(food.id, food));
 
   return (
-    <div className="md:col-span-2 space-y-1">
+    <div className={`${fullWidth ? 'md:col-span-2 ' : ''}space-y-1`}>
       <MultiSelect
         name="favouriteFoodIds"
         label={t('favouriteFoodTagsLabel')}

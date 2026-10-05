@@ -153,6 +153,7 @@
       "SUN": "Dimanche"
     },
     "fetchFailedTitle": "Échec du moment de chargement du magasin",
+    "incompleteHours": "Définissez les heures d’ouverture et de fermeture de chaque jour actif avant d’enregistrer.",
     "updateSuccess": "Mise à jour réussie du timing"
   },
   "Shared": {

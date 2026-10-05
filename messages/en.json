@@ -153,6 +153,7 @@
       "SUN": "Sunday"
     },
     "fetchFailedTitle": "Failed to load store timing",
+    "incompleteHours": "Set both opening and closing times for every active day before saving.",
     "updateSuccess": "Store timing updated successfully"
   },
   "Shared": {

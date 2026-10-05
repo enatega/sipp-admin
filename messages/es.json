@@ -153,6 +153,7 @@
       "SUN": "Domingo"
     },
     "fetchFailedTitle": "Failed to load store timing",
+    "incompleteHours": "Indica la hora de apertura y de cierre de cada día activo antes de guardar.",
     "updateSuccess": "Actualización del tiempo de almacenamiento con éxito"
   },
   "Shared": {

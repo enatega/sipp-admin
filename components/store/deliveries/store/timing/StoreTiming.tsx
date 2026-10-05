@@ -24,6 +24,7 @@ const WEEK_DAYS: TWeekDay[] = [
   'saturday',
   'sunday',
 ];
+const TIME_24H_REGEX = /^([01]\d|2[0-3]):[0-5]\d$/;
 
 interface EditableTimeSlot {
   id: string;
@@ -84,6 +85,23 @@ const StoreTiming = () => {
 
   const handleSave = async () => {
     if (!weekTimings) return;
+
+    const hasIncompleteActiveDay = WEEK_DAYS.some((day) => {
+      const timing = weekTimings[day];
+      return (
+        timing.is_active &&
+        (timing.slots.length === 0 ||
+          timing.slots.some(
+            (slot) =>
+              !TIME_24H_REGEX.test(slot.open) ||
+              !TIME_24H_REGEX.test(slot.close),
+          ))
+      );
+    });
+    if (hasIncompleteActiveDay) {
+      toast.error(t('incompleteHours'));
+      return;
+    }
 
     const payload = {
       storeId,

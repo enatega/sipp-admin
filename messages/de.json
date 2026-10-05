@@ -153,6 +153,7 @@
       "SUN": "Sonntag"
     },
     "fetchFailedTitle": "Fehler beim Laden der Öffnungszeiten",
+    "incompleteHours": "Legen Sie für jeden aktiven Tag eine Öffnungs- und Schließzeit fest, bevor Sie speichern.",
     "updateSuccess": "Öffnungszeiten erfolgreich aktualisiert"
   },
   "Shared": {

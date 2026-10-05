@@ -138,6 +138,7 @@ export const Step2Form: React.FC = () => {
         unit_of_measure: step1.unitOfMeasure || undefined,
         image: step1.image,
         addOns: step1.addOnIds,
+        favouriteFoodIds: step1.favouriteFoodIds ?? [],
         deal_ids: step1.dealId ? [step1.dealId] : [],
         variations: normalizedVariations.map((variation) => ({
           name: variation.name,

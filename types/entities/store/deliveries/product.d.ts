@@ -36,6 +36,7 @@ export interface Product extends Record<string, unknown> {
   sku?: string | null;
   name: string;
   nameTranslations?: Record<string, string>;
+  favouriteFoods?: Array<{ id: string; name: string; nameTranslations?: Record<string, string>; isActive?: boolean; isDeleted?: boolean }>;
   unitOfMeasure: string | null;
   stockQuantity: number;
   inStock: boolean;
@@ -82,6 +83,7 @@ export interface Product extends Record<string, unknown> {
 }
 
 export interface CreateProductFormValues {
+  favouriteFoodIds?: string[];
   taxRateId?: string;
   name: string;
   nameTranslations?: Record<string, string>;
@@ -106,6 +108,7 @@ export interface ProductVariationFormValue {
 }
 
 export interface EditProductFormValues {
+  favouriteFoodIds?: string[];
   taxRateId?: string;
   name: string;
   nameTranslations?: Record<string, string>;

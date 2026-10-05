@@ -32,6 +32,7 @@ export interface CreateProductVariationPayload {
 }
 
 export interface CreateProductPayload {
+  favouriteFoodIds?: string[];
   taxRateId?: string;
   store_id?: string;
   category_id: string;
@@ -74,6 +75,7 @@ export interface CreateProductResponse {
 export type GetProductResponse = Product;
 
 export interface UpdateProductPayload {
+  favouriteFoodIds?: string[];
   useDefaultTax?: boolean;
   taxRateId?: string;
   id: string;

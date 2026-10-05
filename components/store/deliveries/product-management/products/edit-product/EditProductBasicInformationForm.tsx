@@ -26,6 +26,7 @@ import DealsAsyncMultiSelect from '@/components/store/deliveries/product-managem
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
 import ProductTaxField from '../ProductTaxField';
 import { ProductNameTranslationsFields } from '../ProductNameTranslationsFields';
+import { ProductFavouriteFoodTagsField } from '../ProductFavouriteFoodTagsField';
 
 interface EditProductBasicInformationFormProps {
   initialValues: EditProductFormValues;
@@ -172,6 +173,11 @@ export function EditProductBasicInformationForm({
                         }
                       : null
                   }
+                />
+
+                <ProductFavouriteFoodTagsField
+                  storeId={storeId || product.store_id}
+                  initialSelected={product.favouriteFoods}
                 />
 
                 <AppInputField

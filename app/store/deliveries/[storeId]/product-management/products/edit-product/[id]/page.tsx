@@ -63,12 +63,17 @@ export default function EditProductPage() {
 
     try {
       const { prevImages } = splitProductFormImages(values.images);
+      const originalFoodIds = product?.favouriteFoods?.map((food) => food.id) ?? [];
+      const selectedFoodIds = values.favouriteFoodIds ?? [];
+      const tagsChanged = originalFoodIds.length !== selectedFoodIds.length ||
+        originalFoodIds.some((id) => !selectedFoodIds.includes(id));
 
       await updateProduct({
         id: productId,
         category_id: values.categoryId,
         subcategory_id: values.subcategoryId || undefined,
         deal_ids: values.dealId ? [values.dealId] : [],
+        favouriteFoodIds: tagsChanged ? selectedFoodIds : undefined,
         name: values.name.trim(),
         nameTranslations: values.nameTranslations,
         price: Number(values.price),
@@ -123,6 +128,7 @@ export default function EditProductPage() {
   const initialValues: EditProductFormValues = {
     name: product.name || '',
     nameTranslations: product.nameTranslations || {},
+    favouriteFoodIds: product.favouriteFoods?.map((food) => food.id) ?? [],
     categoryId: product.category_id || product.category?.id || '',
     subcategoryId: product.subcategory_id || product.subcategory?.id || '',
     dealId: extractDealIdFromProduct(product as Record<string, unknown>),

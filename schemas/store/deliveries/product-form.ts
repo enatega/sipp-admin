@@ -30,6 +30,7 @@ export const productFormStep1Schema = (t: (key: string) => string) =>
       .min(0, t('products.Schemas.product.stockQuantityMin'))
       .typeError(t('products.Schemas.product.stockQuantityRequired')),
     addOnIds: Yup.array().of(Yup.string()).optional(),
+    favouriteFoodIds: Yup.array().of(Yup.string().required()).optional(),
     dealId: Yup.string().optional(),
     unitOfMeasure: Yup.string().optional(),
     description: Yup.string().optional(),

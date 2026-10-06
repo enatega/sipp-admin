@@ -84,6 +84,18 @@ export const DayTimingRow = ({
     });
   };
 
+  const updateFirstSlot = (field: 'open' | 'close', value: string) => {
+    const firstSlot = data.slots[0] ?? {
+      id: String(Date.now()),
+      open: '',
+      close: '',
+    };
+    updateDay({
+      ...data,
+      slots: [{ ...firstSlot, [field]: value }, ...data.slots.slice(1)],
+    });
+  };
+
   return (
     <div className="py-4 border-b border-gray-200 last:border-0">
       <div className="flex items-center justify-between gap-6 flex-wrap md:flex-nowrap">
@@ -92,7 +104,14 @@ export const DayTimingRow = ({
           <Switch
             checked={data.is_active}
             onCheckedChange={(checked) =>
-              updateDay({ ...data, is_active: checked as boolean })
+              updateDay({
+                ...data,
+                is_active: checked,
+                slots:
+                  checked && data.slots.length === 0
+                    ? [{ id: String(Date.now()), open: '', close: '' }]
+                    : data.slots,
+              })
             }
           />
           <h4 className="font-medium text-sm">{dayLabelMap[dayKey]}</h4>
@@ -109,19 +128,15 @@ export const DayTimingRow = ({
           <div className="flex-1 flex items-center justify-between max-w-md gap-4 mt-3 md:mt-0">
             <input
               type="time"
-              value={data.slots[0]?.open}
-              onChange={(e) =>
-                updateSlot(data.slots[0].id, 'open', e.target.value)
-              }
+              value={data.slots[0]?.open ?? ''}
+              onChange={(e) => updateFirstSlot('open', e.target.value)}
               className="h-10 w-full md:w-40 rounded-lg border border-gray-300 px-3 text-sm"
             />
             <span className="hidden md:block">{t('timeSeparator')}</span>
             <input
               type="time"
-              value={data.slots[0]?.close}
-              onChange={(e) =>
-                updateSlot(data.slots[0].id, 'close', e.target.value)
-              }
+              value={data.slots[0]?.close ?? ''}
+              onChange={(e) => updateFirstSlot('close', e.target.value)}
               className="h-10 w-full md:w-40 rounded-lg border border-gray-300 px-3 text-sm"
             />
           </div>

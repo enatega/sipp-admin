@@ -257,6 +257,7 @@ export const useCreateProduct = (
           JSON.stringify(payload.nameTranslations),
         );
       }
+      formData.append('favouriteFoodIds', JSON.stringify(payload.favouriteFoodIds ?? []));
       formData.append('price', String(payload.variations[0].price));
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       formData.append('stock_quantity', String(payload.stock_quantity));
@@ -407,6 +408,9 @@ export const useUpdateProduct = (
           'nameTranslations',
           JSON.stringify(payload.nameTranslations),
         );
+      }
+      if (payload.favouriteFoodIds !== undefined) {
+        formData.append('favouriteFoodIds', JSON.stringify(payload.favouriteFoodIds));
       }
       formData.append('price', String(payload.price));
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);

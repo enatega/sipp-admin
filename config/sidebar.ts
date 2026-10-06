@@ -138,6 +138,13 @@ export const sidebarMenus: SidebarMenu[] = [
         permission: 'general-delivery.shop_types',
       },
       {
+        id: 3.805,
+        name: 'Favourite Foods',
+        translationKey: 'sidebar.favouriteFoods',
+        path: adminRoutes.deliveries.favouriteFoods,
+        permission: 'general-delivery.shop_types',
+      },
+      {
         id: 3.82,
         name: 'Home Sequence',
         translationKey: 'sidebar.homeSequence',

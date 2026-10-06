@@ -153,6 +153,7 @@
       "SUN": "Domingo"
     },
     "fetchFailedTitle": "Failed to load store timing",
+    "incompleteHours": "Indica la hora de apertura y de cierre de cada día activo antes de guardar.",
     "updateSuccess": "Actualización del tiempo de almacenamiento con éxito"
   },
   "Shared": {
@@ -333,6 +334,7 @@
     "loyaltyAndReferrals": "Lealtad y referencia",
     "discountsOffers": "Descuentos/Ofertas",
     "shopTypes": "Tipos de tienda",
+    "favouriteFoods": "Comidas favoritas",
     "subscriptionPlans": "Planes de suscripción",
     "serviceType": "Tipo de servicio",
     "contracts": "Contratos",
@@ -2178,6 +2180,12 @@
         "addonsLabel": "Complementos",
         "addonsPlaceholder": "Seleccione complementos",
         "dealsLabel": "Tratos",
+        "favouriteFoodTagsLabel": "Etiquetas de comidas favoritas",
+        "favouriteFoodTagsPlaceholder": "Selecciona comidas favoritas",
+        "favouriteFoodTagsHelp": "Ayuda a los clientes a descubrir este producto. Las categorías de la tienda no cambian.",
+        "favouriteFoodTagsLoading": "Cargando comidas favoritas...",
+        "favouriteFoodTagsLoadError": "No se pudieron cargar las etiquetas de comidas favoritas.",
+        "favouriteFoodTagsInactive": "Inactiva",
         "dealsPlaceholder": "Seleccione ofertas",
         "unitOfMeasureLabel": "Unidad de Medida",
         "unitOfMeasurePlaceholder": "Select unit of measure",
@@ -5820,6 +5828,18 @@
         }
       }
     }
+  },
+  "favouriteFoods": {
+    "title": "Comidas favoritas", "subtitle": "Gestiona etiquetas de descubrimiento y asígnalas a tipos de tienda.", "addButton": "Añadir comida favorita", "empty": "No se encontraron comidas favoritas",
+    "filters": { "search": "Buscar comidas favoritas", "status": "Todos los estados", "shopType": "Todos los tipos de tienda" },
+    "table": { "image": "Imagen", "name": "Nombre", "shopTypes": "Tipos de tienda", "order": "Orden", "status": "Estado", "actions": "Acciones" },
+    "status": { "active": "Activo", "inactive": "Inactivo" },
+    "actions": { "create": "Crear", "save": "Guardar cambios", "cancel": "Cancelar", "edit": "Editar", "delete": "Eliminar", "toggleStatus": "Cambiar estado de {name}" },
+    "form": { "createTitle": "Añadir comida favorita", "editTitle": "Editar comida favorita", "description": "Define nombre, visibilidad, orden, imagen y tipos de tienda.", "name": "Nombre en inglés", "namePlaceholder": "p. ej. Pizza", "translations": "Nombres traducidos", "translationsDescription": "Añade nombres para los idiomas habilitados. Los vacíos usan inglés.", "translationPlaceholder": "Nombre en {language}", "shopTypes": "Tipos de tienda", "shopTypesPlaceholder": "Selecciona uno o más", "displayOrder": "Orden de visualización", "displayOrderHelp": "Los números menores aparecen primero.", "image": "Imagen", "imageHelp": "PNG, JPG o WebP de hasta 5 MB.", "removeImage": "Quitar imagen actual", "status": "Visibilidad para clientes" },
+    "validation": { "nameRequired": "El nombre en inglés es obligatorio", "shopTypeRequired": "Selecciona al menos un tipo de tienda", "orderInteger": "El orden debe ser entero", "orderMinimum": "El orden no puede ser negativo" },
+    "messages": { "created": "Comida favorita creada", "updated": "Comida favorita actualizada", "deleted": "Comida favorita eliminada", "statusUpdated": "Estado actualizado" },
+    "errors": { "loadTitle": "No se pudieron cargar las comidas favoritas", "loadMessage": "Inténtalo de nuevo." },
+    "deleteDialog": { "title": "Eliminar comida favorita", "subtitle": "¿Eliminar {name}?", "description": "Se ocultará sin borrar el historial de productos." }
   },
   "Schemas": {
     "customerLoyalty": {

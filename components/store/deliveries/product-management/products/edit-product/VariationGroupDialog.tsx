@@ -10,18 +10,26 @@ import type {
 } from '@/types';
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
+import { resolveProductTaxRate } from '@/lib/tax-inclusive';
+import { useTaxRates } from '@/hooks/api/deliveries/tax-rates';
+import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 import { useCurrency } from '@/hooks/use-currency';
+import type { TaxRate } from '@/types/tax';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 import { FormErrorDisplay } from '@/components/shared/FormErrorDisplay';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
+import { ProductVariationTaxBreakdown } from '../ProductVariationTaxBreakdown';
 
 interface VariationGroupDialogProps {
   open: boolean;
   onClose: () => void;
   isSubmitting: boolean;
   initialGroup?: ProductCustomizationGroup | null;
+  storeId?: string;
+  taxRateId?: string | null;
+  currentTaxRate?: TaxRate | null;
   onSubmit: (values: EditProductVariationGroupFormValues) => Promise<void>;
 }
 
@@ -30,6 +38,9 @@ export function VariationGroupDialog({
   onClose,
   isSubmitting,
   initialGroup,
+  storeId,
+  taxRateId,
+  currentTaxRate,
   onSubmit,
 }: VariationGroupDialogProps) {
   const tProducts = useTranslations('products');
@@ -38,6 +49,14 @@ export function VariationGroupDialog({
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = useState<string | null>(null);
   const isEditMode = Boolean(initialGroup);
+  const storeProfile = useGetStoreProfile(storeId ?? '');
+  const productTaxRates = useTaxRates('product');
+  const selectedTaxRate = resolveProductTaxRate(
+    storeProfile.data?.basicInformation,
+    productTaxRates.data ?? [],
+    taxRateId,
+    currentTaxRate,
+  );
 
   useEffect(() => {
     if (open) {
@@ -87,7 +106,7 @@ export function VariationGroupDialog({
           }
         }}
       >
-        {({ isSubmitting: isFormSubmitting, errors, touched }) => (
+        {({ values, isSubmitting: isFormSubmitting, errors, touched }) => (
           <Form className="space-y-5">
             <AppInputField
               label={tStep2('nameLabel')}
@@ -106,6 +125,12 @@ export function VariationGroupDialog({
               placeholder={tStep2('pricePlaceholder')}
               prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
               requiredAsterisk
+            />
+
+            <ProductVariationTaxBreakdown
+              price={values.price}
+              rate={selectedTaxRate}
+              currencySymbol={resolvedCurrencySymbol}
             />
 
             <AppFileInput

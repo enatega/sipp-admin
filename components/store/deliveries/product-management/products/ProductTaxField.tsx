@@ -4,31 +4,35 @@ import { useParams } from 'next/navigation';
 import { useField, useFormikContext } from 'formik';
 import { useTranslations } from 'next-intl';
 import { TaxRate } from '@/types/tax';
-import { inclusiveTaxBreakdown } from '@/lib/tax-inclusive';
+import { inclusiveTaxBreakdown, resolveProductTaxRate } from '@/lib/tax-inclusive';
 import { useTaxRates } from '@/hooks/api/deliveries/tax-rates';
 import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 import { Button } from '@/components/ui/button';
 
 export default function ProductTaxField({
   currentRate,
+  showPriceInfo = true,
 }: {
   currentRate?: TaxRate | null;
+  showPriceInfo?: boolean;
 }) {
   const t = useTranslations('taxRates');
   const { storeId } = useParams() as { storeId: string };
   const profile = useGetStoreProfile(storeId);
   const query = useTaxRates('product');
   const { values, setFieldValue } = useFormikContext<{
-    price: string;
+    price?: string;
     taxRateId?: string;
   }>();
   const configuration = profile.data?.basicInformation;
   const productLevel = configuration?.productTaxMode === 'product_level';
   const rates = query.data || [];
-  const selected = productLevel
-    ? rates.find((rate) => rate.id === values.taxRateId) ||
-      (values.taxRateId ? currentRate : configuration?.productDefaultTaxRate)
-    : configuration?.taxRate;
+  const selected = resolveProductTaxRate(
+    configuration,
+    rates,
+    values.taxRateId,
+    currentRate,
+  );
   const gross = Number(values.price);
   const percentage = selected ? Number(selected.rate) : null;
   const breakdown =
@@ -41,6 +45,9 @@ export default function ProductTaxField({
         ? t('missingDefault')
         : undefined,
   });
+  if (!showPriceInfo && !profile.isPending && !profile.isError && !productLevel) {
+    return null;
+  }
   return (
     <div className="space-y-2">
       {profile.isPending && <p role="status">{t('loading')}</p>}
@@ -85,8 +92,10 @@ export default function ProductTaxField({
           </select>
         </label>
       )}
-      <p className="text-sm text-muted-foreground">{t('inclusiveHelp')}</p>
-      {selected && net !== null && Number.isFinite(gross) && gross >= 0 && (
+      {showPriceInfo && (
+        <p className="text-sm text-muted-foreground">{t('inclusiveHelp')}</p>
+      )}
+      {showPriceInfo && selected && net !== null && values.price && Number.isFinite(gross) && gross >= 0 && (
         <p className="text-sm" aria-live="polite">
           {t('breakdown', {
             name: selected.name,

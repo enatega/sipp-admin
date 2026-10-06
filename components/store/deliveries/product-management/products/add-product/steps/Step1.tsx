@@ -20,6 +20,7 @@ import DealsAsyncMultiSelect from '@/components/store/deliveries/product-managem
 import SubCategoryAsyncSelect from '@/components/store/deliveries/product-management/common/SubCategoryAsyncSelect';
 import ProductTaxField from '../../ProductTaxField';
 import { ProductNameTranslationsFields } from '../../ProductNameTranslationsFields';
+import { ProductFavouriteFoodTagsField } from '../../ProductFavouriteFoodTagsField';
 
 const EMPTY_STEP1: Step1Data = {
   name: '',
@@ -28,6 +29,7 @@ const EMPTY_STEP1: Step1Data = {
   subcategoryId: '',
   stockQuantity: '',
   addOnIds: [],
+  favouriteFoodIds: [],
   dealId: '',
   unitOfMeasure: '',
   description: '',
@@ -140,7 +142,9 @@ const Step1Content: React.FC<Step1ContentProps> = ({
           parentCategoryId={values.categoryId}
         />
 
-        <ProductTaxField />
+        <ProductFavouriteFoodTagsField storeId={storeId} fullWidth={false} />
+
+        <ProductTaxField showPriceInfo={false} />
         <div className="space-y-2">
           <AppInputField
             label={t('stockQuantityLabel')}

@@ -54,48 +54,12 @@ export function RecentOrdersTable({
             <Table className="min-w-[900px]">
               <TableHeader className="bg-accent rounded-t-md">
                 <TableRow>
-                  <TableHeaderCell
-                    label={t('orderId')}
-                    sortKey={'orderId'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('module')}
-                    sortKey={'module'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('serviceType')}
-                    sortKey={'serviceType'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('customer')}
-                    sortKey={'customer.user.name'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('workerRider')}
-                    sortKey={'workerRider.user.name'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('location')}
-                    sortKey={'location'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
+                  <TableHead className="pl-3 py-4">{t('orderId')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('module')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('serviceType')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('customer')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('workerRider')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('location')}</TableHead>
                   <TableHeaderCell
                     label={t('amount')}
                     sortKey={'amount'}

@@ -66,8 +66,8 @@ export const EditVendorForm = () => {
   );
 
   const validationSchema = useMemo(
-    () => EditVendorFormSchema(tSchema),
-    [tSchema],
+    () => EditVendorFormSchema(tSchema, initialValues),
+    [tSchema, initialValues],
   );
 
   const handleSubmit = async (

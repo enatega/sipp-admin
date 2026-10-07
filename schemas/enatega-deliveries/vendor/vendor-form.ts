@@ -139,32 +139,43 @@ export const VendorFormStep3Schema = (
 
 export const EditVendorFormSchema = (
   t: ReturnType<typeof useTranslations>,
-) =>
-  Yup.object().shape({
-    name: Yup.string()
+  initialValues: EditVendorFormValues,
+) => {
+  const name = Yup.string()
       .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .trim()
       .min(3, t('Schemas.vendorForm.nameMinLength'))
-      .max(50, t('Schemas.vendorForm.nameMaxLength'))
-      .notRequired(),
+      .max(50, t('Schemas.vendorForm.nameMaxLength'));
 
-    email: Yup.string()
+  const email = Yup.string()
       .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .trim()
-      .email(t('Schemas.vendorForm.invalidEmailAddress'))
-      .notRequired(),
+      .email(t('Schemas.vendorForm.invalidEmailAddress'));
 
-    phone: Yup.string()
+  const phone = Yup.string()
       .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .matches(/^[0-9+\-\s()]{7,20}$/, t('Schemas.vendorForm.phoneInvalid'))
       .test(
         'phoneMaxDigits',
         t('Schemas.vendorForm.phoneInvalid'),
         (value) => getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
-      )
-      .notRequired(),
+      );
 
-    zone_id: Yup.string().notRequired(),
+  // Existing values cannot be cleared. Fields missing in a legacy record remain
+  // optional so admins can update that vendor without inventing old documents/data.
+  return Yup.object().shape({
+    name: initialValues.name.trim()
+      ? name.required(t('Schemas.vendorForm.nameRequired'))
+      : name.notRequired(),
+    email: initialValues.email.trim()
+      ? email.required(t('Schemas.vendorForm.emailRequired'))
+      : email.notRequired(),
+    phone: initialValues.phone.trim()
+      ? phone.required(t('Schemas.vendorForm.phoneRequired'))
+      : phone.notRequired(),
+    zone_id: initialValues.zone_id.trim()
+      ? Yup.string().required(t('Schemas.vendorForm.zoneRequired'))
+      : Yup.string().notRequired(),
 
     logo: createOptionalImageFileOrUrl(t),
     business_license_front: createOptionalImageFileOrUrl(t),
@@ -172,6 +183,7 @@ export const EditVendorFormSchema = (
     national_id_passport_front: createOptionalImageFileOrUrl(t),
     national_id_passport_back: createOptionalImageFileOrUrl(t),
   });
+};
 
 export interface EditVendorFormValues {
     name: string;

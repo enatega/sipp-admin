@@ -4,6 +4,11 @@
 **Module:** Enatega Deliveries (formerly lumi-foods)
 **Status:** In Progress
 
+**Current behavior (October 2026):** Admins with vendor permission can open the
+Vendors page in single-vendor mode to view or manage its vendor. The page uses
+a single-vendor card view, and Add Vendor redirects back when a vendor already
+exists. This supersedes the vendors-hidden and route-blocking steps below.
+
 ---
 
 ## Overview

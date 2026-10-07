@@ -28,9 +28,9 @@ export const StoreTypeForm: React.FC = () => {
   const formikRef = React.useRef<FormikProps<SettingsFormValues>>(null);
   const options = useMemo(
     () => [
+      { label: tOptions('multi'), value: 'multi' as const },
       { label: tOptions('single'), value: 'single' as const },
       { label: tOptions('chain'), value: 'chain' as const },
-      { label: tOptions('multi'), value: 'multi' as const },
     ],
     [tOptions],
   );
@@ -66,10 +66,8 @@ export const StoreTypeForm: React.FC = () => {
     if (!shopModeData) return initialSettingsValues;
 
     // Map API values to form values
-    let storeType: 'single' | 'chain' | 'multi' = 'single';
-    if (shopModeData.shop_mode === 'MULTI_VENDOR') {
-      storeType = 'multi';
-    } else if (shopModeData.shop_mode === 'STORE_CHAIN') {
+    let storeType: SettingsFormValues['storeType'] = 'multi';
+    if (shopModeData.shop_mode === 'STORE_CHAIN') {
       storeType = 'chain';
     } else if (shopModeData.shop_mode === 'SINGLE_VENDOR') {
       storeType = 'single';
@@ -98,12 +96,10 @@ export const StoreTypeForm: React.FC = () => {
   // Handle form submission
   const handleSubmit = (values: SettingsFormValues) => {
     // Map form value to API value
-    let shopMode: 'SINGLE_VENDOR' | 'MULTI_VENDOR' | 'STORE_CHAIN' = 'SINGLE_VENDOR';
-    if (values.storeType === 'multi') {
-      shopMode = 'MULTI_VENDOR';
-    } else if (values.storeType === 'chain') {
+    let shopMode: 'SINGLE_VENDOR' | 'MULTI_VENDOR' | 'STORE_CHAIN' = 'MULTI_VENDOR';
+    if (values.storeType === 'chain') {
       shopMode = 'STORE_CHAIN';
-    } else {
+    } else if (values.storeType === 'single') {
       shopMode = 'SINGLE_VENDOR';
     }
 

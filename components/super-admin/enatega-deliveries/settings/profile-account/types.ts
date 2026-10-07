@@ -18,7 +18,7 @@ export const initialSettingsValues: SettingsFormValues = {
     phone: '',
     avatar: null,
     twoFactor: false,
-    storeType: 'single',
+    storeType: 'multi',
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',

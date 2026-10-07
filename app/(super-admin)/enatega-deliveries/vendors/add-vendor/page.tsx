@@ -25,12 +25,13 @@ const AddVendor = () => {
     () => false,
   );
 
-  const isStoreChain =
-    isHydrated && getShopMode() === 'STORE_CHAIN';
+  const shopMode = isHydrated ? getShopMode() : null;
+  const isSingleVendorOrStoreChain =
+    shopMode === 'SINGLE_VENDOR' || shopMode === 'STORE_CHAIN';
   const hasExistingVendor = (vendorsResponse?.data?.length ?? 0) > 0;
 
   useEffect(() => {
-    if (!isStoreChain || isLoading || !hasExistingVendor) {
+    if (!isSingleVendorOrStoreChain || isLoading || !hasExistingVendor) {
       return;
     }
     router.replace(
@@ -39,9 +40,12 @@ const AddVendor = () => {
         '/enatega-deliveries/vendors',
       ),
     );
-  }, [hasExistingVendor, isLoading, isStoreChain, router]);
+  }, [hasExistingVendor, isLoading, isSingleVendorOrStoreChain, pathname, router]);
 
-  if (!isHydrated || (isStoreChain && (isLoading || hasExistingVendor))) {
+  if (
+    !isHydrated ||
+    (isSingleVendorOrStoreChain && (isLoading || hasExistingVendor))
+  ) {
     return <EnategaLoader />;
   }
 

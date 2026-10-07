@@ -14,12 +14,6 @@ export type StoredUser = User;
 // Shop Mode Storage Constants
 const SHOP_MODE_STORAGE_KEY = 'shopMode';
 
-const SHOP_MODE_BLOCKED_ROUTE_PREFIXES: Record<ShopMode, string[]> = {
-  SINGLE_VENDOR: [adminRoutes.deliveries.vendors],
-  MULTI_VENDOR: [],
-  STORE_CHAIN: [],
-};
-
 const normalizePath = (path: string) => path.split('?')[0];
 
 const normalizeShopMode = (shopMode?: string | null): ShopMode | null => {
@@ -267,18 +261,6 @@ export const updateStoredShopMode = (shopMode?: ShopMode | null): void => {
   }
 };
 
-export const hasShopModeAccess = (path: string): boolean => {
-  const shopMode = getShopMode();
-  if (!shopMode) return true;
-  const normalizedPath = canonicalizeAdminPath(normalizePath(path));
-
-  const blockedPrefixes = SHOP_MODE_BLOCKED_ROUTE_PREFIXES[shopMode] ?? [];
-  return !blockedPrefixes.some(
-    (prefix) =>
-      normalizedPath === prefix || normalizedPath.startsWith(`${prefix}/`),
-  );
-};
-
 export const storeRoleAndPermissions = (role: Role): void => {
   try {
     if (typeof window === 'undefined') return;
@@ -387,10 +369,6 @@ const routePermissionMap: Record<string, string | null> = {
 
 export const hasRoutePermission = (path: string): boolean => {
   const normalizedPath = canonicalizeAdminPath(normalizePath(path));
-
-  if (!hasShopModeAccess(normalizedPath)) {
-    return false;
-  }
 
   const matchedPrefix = Object.keys(routePermissionMap)
     .sort((left, right) => right.length - left.length)

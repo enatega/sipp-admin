@@ -3359,6 +3359,7 @@
         "phoneNumber": "Numéro de téléphone",
         "createdDate": "Date de création",
         "city": "Ville",
+        "zone": "Zone",
         "bankName": "Nom de la banque",
         "branchCode": "Code de la branche",
         "accountTitle": "Titre du compte",
@@ -3389,6 +3390,7 @@
         "email": "Courriel",
         "phone": "Numéro de téléphone",
         "city": "Ville",
+        "zone": "Zone",
         "bankName": "Nom de la banque",
         "branchCode": "Code de la branche",
         "accountTitle": "Titre du compte",
@@ -3400,6 +3402,7 @@
         "nationalIdBack": "Identification nationale (en arrière)"
       },
       "placeholders": {
+        "zone": "Sélectionner une zone",
         "notes": "Ajoutez des notes ici..."
       },
       "fallback": {
@@ -3418,6 +3421,7 @@
         "emailRequired": "Un courriel est nécessaire",
         "phoneRequired": "Numéro de téléphone requis",
         "cityRequired": "Ville requise",
+        "zoneRequired": "La zone est requise",
         "bankNameRequired": "Nom bancaire requis",
         "branchCodeRequired": "Code de la succursale requis",
         "accountTitleRequired": "Le titre du compte est requis",
@@ -4978,8 +4982,8 @@
           "emailPlaceholder": "Entrez le courriel",
           "phoneLabel": "Numéro de téléphone",
           "phonePlaceholder": "Saisissez le numéro de téléphone",
-          "zoneCityLabel": "Zone/Ville",
-          "zoneCityPlaceholder": "Sélectionner une zone/une ville",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Sélectionner une zone",
           "passwordLabel": "Mot de passe",
           "passwordPlaceholder": "Saisissez le mot de passe",
           "autoGeneratePasswordLabel": "Mot de passe généré automatiquement",
@@ -5021,8 +5025,8 @@
           "emailPlaceholder": "Entrez le courriel",
           "phoneLabel": "Numéro de téléphone",
           "phonePlaceholder": "Saisissez le numéro de téléphone",
-          "zoneCityLabel": "Zone/Ville",
-          "zoneCityPlaceholder": "Sélectionner une zone/une ville"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Sélectionner une zone"
         },
         "businessDocuments": {
           "title": "Documents commerciaux",

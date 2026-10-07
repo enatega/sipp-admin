@@ -78,11 +78,16 @@ export const EditVendorForm = () => {
       setSubmitting(true);
       setApiError(null);
 
+      const changedText = (value: string, original: string) => {
+        const trimmed = value.trim();
+        return trimmed && trimmed !== original.trim() ? trimmed : undefined;
+      };
+
       const payload: UpdateVendorPayload = {
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
-        zone_id: values.zone_id,
+        name: changedText(values.name, initialValues.name),
+        email: changedText(values.email, initialValues.email),
+        phone: changedText(values.phone, initialValues.phone),
+        zone_id: changedText(values.zone_id, initialValues.zone_id),
         profile: values.logo instanceof File ? values.logo : undefined,
         business_liscence_front_file:
           values.business_license_front instanceof File

@@ -25,7 +25,6 @@ export const BusinessDocumentsSection = () => {
             name="logo"
             label={t('businessTrademarkLabel')}
             existingImageUrl={typeof values.logo === 'string' ? values.logo : null}
-            requiredAsterisk
           />
         </div>
         <EditableDocumentField
@@ -36,7 +35,6 @@ export const BusinessDocumentsSection = () => {
               ? values.business_license_front
               : null
           }
-          requiredAsterisk
         />
         <EditableDocumentField
           name="business_license_back"
@@ -46,7 +44,6 @@ export const BusinessDocumentsSection = () => {
               ? values.business_license_back
               : null
           }
-          requiredAsterisk
         />
         <EditableDocumentField
           name="national_id_passport_front"
@@ -56,7 +53,6 @@ export const BusinessDocumentsSection = () => {
               ? values.national_id_passport_front
               : null
           }
-          requiredAsterisk
         />
         <EditableDocumentField
           name="national_id_passport_back"
@@ -66,7 +62,6 @@ export const BusinessDocumentsSection = () => {
               ? values.national_id_passport_back
               : null
           }
-          requiredAsterisk
         />
       </div>
     </div>

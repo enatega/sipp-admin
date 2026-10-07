@@ -3390,6 +3390,7 @@
         "phoneNumber": "Phone Number",
         "createdDate": "Created Date",
         "city": "City",
+        "zone": "Zone",
         "bankName": "Bank Name",
         "branchCode": "Branch Code",
         "accountTitle": "Account Title",
@@ -3420,6 +3421,7 @@
         "email": "Email",
         "phone": "Phone Number",
         "city": "City",
+        "zone": "Zone",
         "bankName": "Bank Name",
         "branchCode": "Branch Code",
         "accountTitle": "Account Title",
@@ -3431,6 +3433,7 @@
         "nationalIdBack": "National ID (Back)"
       },
       "placeholders": {
+        "zone": "Select zone",
         "notes": "Add any notes here..."
       },
       "fallback": {
@@ -3449,6 +3452,7 @@
         "emailRequired": "Email is required",
         "phoneRequired": "Phone number is required",
         "cityRequired": "City is required",
+        "zoneRequired": "Zone is required",
         "bankNameRequired": "Bank name is required",
         "branchCodeRequired": "Branch code is required",
         "accountTitleRequired": "Account title is required",
@@ -5015,8 +5019,8 @@
           "emailPlaceholder": "Enter email",
           "phoneLabel": "Phone Number",
           "phonePlaceholder": "Enter phone number",
-          "zoneCityLabel": "Zone/City",
-          "zoneCityPlaceholder": "Select Zone/City",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Select zone",
           "passwordLabel": "Password",
           "passwordPlaceholder": "Enter password",
           "autoGeneratePasswordLabel": "Auto-generate Password",
@@ -5058,8 +5062,8 @@
           "emailPlaceholder": "Enter email",
           "phoneLabel": "Phone Number",
           "phonePlaceholder": "Enter phone number",
-          "zoneCityLabel": "Zone/City",
-          "zoneCityPlaceholder": "Select Zone/City"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Select zone"
         },
         "businessDocuments": {
           "title": "Business Documents",

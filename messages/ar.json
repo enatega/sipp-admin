@@ -3366,6 +3366,7 @@
         "phoneNumber": "رقم الهاتف",
         "createdDate": "تاريخ الإنشاء",
         "city": "المدينة",
+        "zone": "المنطقة",
         "bankName": "الاسم المصرفي",
         "branchCode": "قانون الفرع",
         "accountTitle": "الحساب",
@@ -3396,6 +3397,7 @@
         "email": "Email",
         "phone": "رقم الهاتف",
         "city": "المدينة",
+        "zone": "المنطقة",
         "bankName": "الاسم المصرفي",
         "branchCode": "قانون الفرع",
         "accountTitle": "الحساب",
@@ -3407,6 +3409,7 @@
         "nationalIdBack": "الهوية الوطنية"
       },
       "placeholders": {
+        "zone": "اختر المنطقة",
         "notes": "أضف أي ملاحظات هنا"
       },
       "fallback": {
@@ -3425,6 +3428,7 @@
         "emailRequired": "الإيميل مطلوب",
         "phoneRequired": "رقم الهاتف مطلوب",
         "cityRequired": "المدينة مطلوبة",
+        "zoneRequired": "المنطقة مطلوبة",
         "bankNameRequired": "الاسم المصرفي مطلوب",
         "branchCodeRequired": "رمز الفرع مطلوب",
         "accountTitleRequired": "لقب الحساب",
@@ -4987,8 +4991,8 @@
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
-          "zoneCityLabel": "المنطقة/المدينة",
-          "zoneCityPlaceholder": "المنطقة المختارة/ المدينة",
+          "zoneCityLabel": "المنطقة",
+          "zoneCityPlaceholder": "اختر المنطقة",
           "passwordLabel": "كلمة السر",
           "passwordPlaceholder": "كلمة المرور",
           "autoGeneratePasswordLabel": "Auto-generate Password",
@@ -5030,8 +5034,8 @@
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
-          "zoneCityLabel": "المنطقة/المدينة",
-          "zoneCityPlaceholder": "المنطقة المختارة/ المدينة"
+          "zoneCityLabel": "المنطقة",
+          "zoneCityPlaceholder": "اختر المنطقة"
         },
         "businessDocuments": {
           "title": "وثائق الأعمال",

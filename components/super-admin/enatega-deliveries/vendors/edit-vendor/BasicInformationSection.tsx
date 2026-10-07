@@ -32,7 +32,6 @@ export const BasicInformationSection = () => {
           name="name"
           type="text"
           placeholder={t('vendorNamePlaceholder')}
-          requiredAsterisk
         />
 
         <AppInputField
@@ -40,7 +39,6 @@ export const BasicInformationSection = () => {
           name="email"
           type="email"
           placeholder={t('emailPlaceholder')}
-          requiredAsterisk
           disabled
         />
 
@@ -48,7 +46,6 @@ export const BasicInformationSection = () => {
           label={t('phoneLabel')}
           name="phone"
           placeholder={t('phonePlaceholder')}
-          requiredAsterisk
         />
         
         <AppSelect
@@ -58,7 +55,6 @@ export const BasicInformationSection = () => {
           options={zoneOptions}
           value={values.zone_id}
           onValueChange={(value) => setFieldValue('zone_id', value)}
-          requiredAsterisk
         />
       </div>
     </div>

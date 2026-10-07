@@ -3359,6 +3359,7 @@
         "phoneNumber": "Número de teléfono",
         "createdDate": "Fecha de creación",
         "city": "Ciudad",
+        "zone": "Zona",
         "bankName": "Nombre del Banco",
         "branchCode": "Código de sucesión",
         "accountTitle": "Título de cuenta",
@@ -3389,6 +3390,7 @@
         "email": "Correo electrónico",
         "phone": "Número de teléfono",
         "city": "Ciudad",
+        "zone": "Zona",
         "bankName": "Nombre del Banco",
         "branchCode": "Código de sucesión",
         "accountTitle": "Título de cuenta",
@@ -3400,6 +3402,7 @@
         "nationalIdBack": "National ID (Back)"
       },
       "placeholders": {
+        "zone": "Seleccionar zona",
         "notes": "Añada cualquier nota aquí..."
       },
       "fallback": {
@@ -3418,6 +3421,7 @@
         "emailRequired": "Se requiere correo electrónico",
         "phoneRequired": "Número de teléfono requerido",
         "cityRequired": "La ciudad es necesaria",
+        "zoneRequired": "La zona es obligatoria",
         "bankNameRequired": "Se requiere el nombre bancario",
         "branchCodeRequired": "Se requiere código de rama",
         "accountTitleRequired": "Se requiere el título de cuenta",
@@ -4978,8 +4982,8 @@
           "emailPlaceholder": "Introduzca el correo electrónico",
           "phoneLabel": "Número de teléfono",
           "phonePlaceholder": "Introduzca el número de teléfono",
-          "zoneCityLabel": "Zona/Ciudad",
-          "zoneCityPlaceholder": "Seleccionar Zona/Ciudad",
+          "zoneCityLabel": "Zona",
+          "zoneCityPlaceholder": "Seleccionar zona",
           "passwordLabel": "Contraseña",
           "passwordPlaceholder": "Introduzca contraseña",
           "autoGeneratePasswordLabel": "Contraseña autogenerada",
@@ -5021,8 +5025,8 @@
           "emailPlaceholder": "Introduzca el correo electrónico",
           "phoneLabel": "Número de teléfono",
           "phonePlaceholder": "Introduzca el número de teléfono",
-          "zoneCityLabel": "Zona/Ciudad",
-          "zoneCityPlaceholder": "Seleccionar Zona/Ciudad"
+          "zoneCityLabel": "Zona",
+          "zoneCityPlaceholder": "Seleccionar zona"
         },
         "businessDocuments": {
           "title": "Documentos de negocios",

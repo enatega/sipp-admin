@@ -3302,6 +3302,7 @@
         "phoneNumber": "Telefonnummer",
         "createdDate": "Erstellungsdatum",
         "city": "Stadt",
+        "zone": "Zone",
         "bankName": "Bankname",
         "branchCode": "Filialcode",
         "accountTitle": "Kontoinhaber",
@@ -3332,6 +3333,7 @@
         "email": "E-Mail",
         "phone": "Telefonnummer",
         "city": "Stadt",
+        "zone": "Zone",
         "bankName": "Bankname",
         "branchCode": "Filialcode",
         "accountTitle": "Kontoinhaber",
@@ -3343,6 +3345,7 @@
         "nationalIdBack": "Ausweis (Rückseite)"
       },
       "placeholders": {
+        "zone": "Zone auswählen",
         "notes": "Fügen Sie hier Notizen hinzu..."
       },
       "fallback": {
@@ -3361,6 +3364,7 @@
         "emailRequired": "E-Mail ist erforderlich",
         "phoneRequired": "Telefonnummer ist erforderlich",
         "cityRequired": "Stadt ist erforderlich",
+        "zoneRequired": "Zone ist erforderlich",
         "bankNameRequired": "Bankname ist erforderlich",
         "branchCodeRequired": "Filialcode ist erforderlich",
         "accountTitleRequired": "Kontoinhaber ist erforderlich",
@@ -5344,8 +5348,8 @@
           "emailPlaceholder": "E-Mail eingeben",
           "phoneLabel": "Telefonnummer",
           "phonePlaceholder": "Telefonnummer eingeben",
-          "zoneCityLabel": "Zone/Stadt",
-          "zoneCityPlaceholder": "Zone/Stadt auswählen",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Zone auswählen",
           "passwordLabel": "Passwort",
           "passwordPlaceholder": "Passwort eingeben",
           "autoGeneratePasswordLabel": "Passwort automatisch generieren",
@@ -5387,8 +5391,8 @@
           "emailPlaceholder": "E-Mail eingeben",
           "phoneLabel": "Telefonnummer",
           "phonePlaceholder": "Telefonnummer eingeben",
-          "zoneCityLabel": "Zone/Stadt",
-          "zoneCityPlaceholder": "Zone/Stadt auswählen"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Zone auswählen"
         },
         "businessDocuments": {
           "title": "Geschäftsdokumente",

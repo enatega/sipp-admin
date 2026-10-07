@@ -63,6 +63,8 @@ export interface GetDeliveryVendorProfileResponse {
   phone: string;
   profile_image: string | null;
   city: string | null;
+  zone_id: string | null;
+  zone_name: string | null;
   created_date: string;
   status: string;
   active_status: boolean;

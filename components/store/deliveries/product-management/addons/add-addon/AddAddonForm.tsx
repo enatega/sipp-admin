@@ -35,6 +35,8 @@ export function AddAddonForm({
     requiredCheck: editData?.requiredCheck ?? true,
     selectionType: editData?.selectionType || '',
     optionIds: editData?.options?.map((option) => option.id) || [],
+    minSelect: editData?.minSelect ? String(editData.minSelect) : '',
+    maxSelect: editData?.maxSelect ? String(editData.maxSelect) : '',
   };
 
   const selectionOptions = [
@@ -104,6 +106,25 @@ export function AddAddonForm({
               options={selectionOptions}
               requiredAsterisk
             />
+
+            {values.selectionType === 'multi' && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <AppInputField
+                  name="minSelect"
+                  type="number"
+                  min={0}
+                  label={t('form.minSelectLabel')}
+                  placeholder={t('form.minSelectPlaceholder')}
+                />
+                <AppInputField
+                  name="maxSelect"
+                  type="number"
+                  min={0}
+                  label={t('form.maxSelectLabel')}
+                  placeholder={t('form.maxSelectPlaceholder')}
+                />
+              </div>
+            )}
 
             <OptionAsyncMultiSelect
               name="optionIds"

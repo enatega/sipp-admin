@@ -4039,6 +4039,21 @@
       "rejectStore": "Reject Store",
       "blockStore": "Block Store",
       "unblockStore": "Unblock Store",
+      "storeAccountInactive": "Store account inactive",
+      "storeAccountActivated": "Store account activated",
+      "activateAccountDialog": {
+        "title": "Activate store account",
+        "subTitle": "Activate the account for {name}?",
+        "description": "The store account will be able to sign in. If availability is on, the store can appear to customers immediately.",
+        "requireApproval": "Approve and unblock this store before enabling availability.",
+        "confirm": "Activate account"
+      },
+      "enableAndActivateDialog": {
+        "title": "Enable availability",
+        "subTitle": "Turn on availability for {name}?",
+        "description": "This will also activate the store account so staff can sign in.",
+        "confirm": "Activate and enable"
+      },
       "approveSuccess": "Store approved successfully.",
       "rejectSuccess": "Store rejected successfully.",
       "blockSuccess": "Store blocked successfully.",
@@ -4081,6 +4096,7 @@
       },
       "availabilityToasts": {
         "markedAvailable": "Store marked as available",
+        "markedAvailableAndActivated": "Store account activated and store marked as available",
         "markedUnavailable": "Store marked as unavailable"
       },
       "table": {

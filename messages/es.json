@@ -4008,6 +4008,21 @@
       "rejectStore": "Reject Store",
       "blockStore": "Block Store",
       "unblockStore": "Unblock Store",
+      "storeAccountInactive": "Cuenta de tienda inactiva",
+      "storeAccountActivated": "Cuenta de tienda activada",
+      "activateAccountDialog": {
+        "title": "Activar cuenta de tienda",
+        "subTitle": "¿Activar la cuenta de {name}?",
+        "description": "La cuenta de la tienda podrá iniciar sesión. Si la disponibilidad está activada, la tienda podrá aparecer de inmediato a los clientes.",
+        "requireApproval": "Aprueba y desbloquea esta tienda antes de activar la disponibilidad.",
+        "confirm": "Activar cuenta"
+      },
+      "enableAndActivateDialog": {
+        "title": "Activar disponibilidad",
+        "subTitle": "¿Activar la disponibilidad de {name}?",
+        "description": "Esto también activará la cuenta de la tienda para que el personal pueda iniciar sesión.",
+        "confirm": "Activar y habilitar"
+      },
       "approveSuccess": "Tienda aprobada con éxito.",
       "rejectSuccess": "Tienda rechazada con éxito.",
       "blockSuccess": "Tienda bloqueada con éxito.",
@@ -4050,6 +4065,7 @@
       },
       "availabilityToasts": {
         "markedAvailable": "Tienda marcada como disponible",
+        "markedAvailableAndActivated": "Cuenta de tienda activada y tienda marcada como disponible",
         "markedUnavailable": "Tienda marcada como no disponible"
       },
       "table": {

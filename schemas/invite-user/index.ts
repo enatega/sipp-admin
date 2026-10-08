@@ -9,15 +9,7 @@ export const inviteUserValidationSchema = (t: ReturnType<typeof useTranslations>
     email: Yup.string()
       .required(t('Schemas.inviteUser.emailRequired'))
       .email(t('Schemas.inviteUser.invalidEmailAddress')),
-    password: Yup.string()
-      .required(t('Schemas.inviteUser.passwordRequired'))
-      .min(8, t('Schemas.inviteUser.passwordMinLength'))
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        t('Schemas.inviteUser.passwordRequirements'),
-      ),
-    role: Yup.string().optional(),
-    mustChangePassword: Yup.boolean(),
+    role: Yup.string().required(t('Schemas.inviteUser.roleRequired')),
   });
 
 export type InviteUserFormValues = Yup.InferType<ReturnType<typeof inviteUserValidationSchema>>;

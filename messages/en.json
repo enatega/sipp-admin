@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Back to login", "title": "Set up your account", "description": "Choose your password to accept the invitation. You can then sign in.", "missingToken": "This invitation link is incomplete. Ask your admin to resend it.", "success": "Invitation accepted. Please sign in.", "password": "Password", "confirmPassword": "Confirm password", "submit": "Accept invitation" },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "Set an email and password for this store to log in.",
@@ -5195,6 +5196,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Pending invitations", "description": "Invited people appear here until they accept and become assigned users.", "name": "Name", "email": "Email", "role": "Role", "expires": "Link expires", "action": "Action", "loading": "Loading invitations…", "loadError": "Could not load invitations.", "retry": "Try again", "empty": "No pending invitations", "noRole": "No role selected", "resend": "Resend invite", "resendSuccess": "Invitation resent" },
     "title": "Roles and Permissions",
     "addRole": "Add Role",
     "editRole": "Edit Role",
@@ -5239,7 +5241,7 @@
     },
     "inviteDialog": {
       "title": "Invite User",
-      "subtitle": "Send an invitation to a new user to join the system. They’ll receive an email with an invitation link and a system-generated password.",
+      "subtitle": "The user will receive an email link to set their own password and accept the invitation.",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Enter full name",
       "email": "Email Address",

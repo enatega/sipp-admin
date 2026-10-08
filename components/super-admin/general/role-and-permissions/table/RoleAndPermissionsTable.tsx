@@ -153,6 +153,7 @@ function RoleAndPermissionsTable({
                   <AssignedUsersCell users={role?.assignedUsersList || []} />
                   <AddAssignedUsersCell
                     roleId={role.id}
+                    roleName={role.roleName}
                     selectedUsers={role?.assignedUsersList || []}
                   />
                 </div>

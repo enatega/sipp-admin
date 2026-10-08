@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Volver al inicio de sesión", "title": "Configura tu cuenta", "description": "Elige tu contraseña para aceptar la invitación. Después podrás iniciar sesión.", "missingToken": "Este enlace de invitación está incompleto. Pide al administrador que lo reenvíe.", "success": "Invitación aceptada. Inicia sesión.", "password": "Contraseña", "confirmPassword": "Confirmar contraseña", "submit": "Aceptar invitación" },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "Establecer un correo electrónico y una contraseña para que esta tienda entre.",
@@ -5158,6 +5159,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Invitaciones pendientes", "description": "Las personas invitadas aparecen aquí hasta que acepten y se conviertan en usuarios asignados.", "name": "Nombre", "email": "Correo", "role": "Rol", "expires": "El enlace vence", "action": "Acción", "loading": "Cargando invitaciones…", "loadError": "No se pudieron cargar las invitaciones.", "retry": "Reintentar", "empty": "No hay invitaciones pendientes", "noRole": "Sin rol seleccionado", "resend": "Reenviar invitación", "resendSuccess": "Invitación reenviada" },
     "title": "Funciones y permisos",
     "addRole": "Add Role",
     "editRole": "Función de edición",
@@ -5202,7 +5204,7 @@
     },
     "inviteDialog": {
       "title": "Invitar usuario",
-      "subtitle": "Enviar una invitación a un nuevo usuario para unirse al sistema. Recibirán un correo electrónico con un enlace de invitación y una contraseña generada por el sistema.",
+      "subtitle": "El usuario recibirá un enlace por correo para crear su contraseña y aceptar la invitación.",
       "fullName": "Nombre completo",
       "fullNamePlaceholder": "Introduzca el nombre completo",
       "email": "Dirección de correo",

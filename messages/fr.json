@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Retour à la connexion", "title": "Configurer votre compte", "description": "Choisissez votre mot de passe pour accepter l'invitation. Vous pourrez ensuite vous connecter.", "missingToken": "Ce lien d'invitation est incomplet. Demandez à votre administrateur de le renvoyer.", "success": "Invitation acceptée. Veuillez vous connecter.", "password": "Mot de passe", "confirmPassword": "Confirmer le mot de passe", "submit": "Accepter l'invitation" },
   "storeLogin": {
     "title": "Activer la connexion de stockage",
     "description": "Définir un courriel et un mot de passe pour que ce magasin se connecte.",
@@ -5158,6 +5159,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Invitations en attente", "description": "Les personnes invitées apparaissent ici jusqu'à leur acceptation et leur attribution.", "name": "Nom", "email": "E-mail", "role": "Rôle", "expires": "Expiration du lien", "action": "Action", "loading": "Chargement des invitations…", "loadError": "Impossible de charger les invitations.", "retry": "Réessayer", "empty": "Aucune invitation en attente", "noRole": "Aucun rôle choisi", "resend": "Renvoyer l'invitation", "resendSuccess": "Invitation renvoyée" },
     "title": "Rôles et autorisations",
     "addRole": "Ajouter un rôle",
     "editRole": "Modifier le rôle",
@@ -5202,7 +5204,7 @@
     },
     "inviteDialog": {
       "title": "Inviter l'utilisateur",
-      "subtitle": "Envoyer une invitation à un nouvel utilisateur pour rejoindre le système. Ils recevront un courriel avec un lien d'invitation et un mot de passe généré par le système.",
+      "subtitle": "L'utilisateur recevra un lien par e-mail pour définir son mot de passe et accepter l'invitation.",
       "fullName": "Nom complet",
       "fullNamePlaceholder": "Saisissez le nom complet",
       "email": "Adresse électronique",

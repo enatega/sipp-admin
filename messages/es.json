@@ -5359,6 +5359,13 @@
       "recipientPlaceholder": "Filtro por destinatario",
       "sortByPlaceholder": "Ordenar por",
       "sortOrderPlaceholder": "Ordenar",
+      "sortLabel": "Ordenar notificaciones",
+      "sortMostRecent": "Más recientes primero",
+      "sortOldest": "Más antiguas primero",
+      "sortTitleAZ": "Título: A–Z",
+      "sortTitleZA": "Título: Z–A",
+      "sortTypeAZ": "Tipo: A–Z",
+      "sortTypeZA": "Tipo: Z–A",
       "clear": "Despejado",
       "sortBy": {
         "title": "Título",
@@ -6468,6 +6475,8 @@
       },
       "messages": {
         "placeholder": "Escribe un mensaje...",
+        "customerSender": "Cliente: {name}",
+        "supportSender": "Soporte: {name}",
         "send": "Enviar"
       },
       "userInfo": {

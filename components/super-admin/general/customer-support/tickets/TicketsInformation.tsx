@@ -9,6 +9,7 @@ import {
   SupportModule,
 } from '@/types/api/super-admin/general/customerSupport.api';
 import { cn, formatReadableLabel } from '@/lib/utils';
+import { supportReference } from '@/lib/support-reference';
 import { Skeleton } from '@/components/ui/skeleton';
 import NoDataFound from '@/components/shared/NoDataFound';
 import RelativeTime from '@/components/shared/RelativeTime';
@@ -108,7 +109,7 @@ const TicketsInformation: React.FC<Props> = ({
               <div className="flex items-start justify-between">
                 <div>
                   <div className="text-xs text-muted-foreground">
-                    ID: #{t.id}
+                    {supportReference('ticket', t.ticketId || t.id)}
                   </div>
                   <div className="font-medium mt-1">{formatReadableLabel(t.title)}</div>
                 </div>

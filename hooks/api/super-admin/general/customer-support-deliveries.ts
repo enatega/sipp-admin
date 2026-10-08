@@ -23,6 +23,7 @@ export const useGetDeliverySupport = (
         {
             endpoint: '/deliveries/support-chat/all',
             queryKey: 'get-delivery-support-chat',
+            fetchAll: true,
         },
         options
     );

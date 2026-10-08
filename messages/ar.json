@@ -5368,6 +5368,13 @@
       "recipientPlaceholder": "المصورون حسب المتلقي",
       "sortByPlaceholder": "نوعا ما",
       "sortOrderPlaceholder": "نوع من الأوامر",
+      "sortLabel": "ترتيب الإشعارات",
+      "sortMostRecent": "الأحدث أولاً",
+      "sortOldest": "الأقدم أولاً",
+      "sortTitleAZ": "العنوان: A–Z",
+      "sortTitleZA": "العنوان: Z–A",
+      "sortTypeAZ": "النوع: A–Z",
+      "sortTypeZA": "النوع: Z–A",
       "clear": "آمن",
       "sortBy": {
         "title": "العنوان",
@@ -6480,6 +6487,8 @@
       },
       "messages": {
         "placeholder": "أكتب رسالة...",
+        "customerSender": "العميل: {name}",
+        "supportSender": "الدعم: {name}",
         "send": "أرسل"
       },
       "userInfo": {

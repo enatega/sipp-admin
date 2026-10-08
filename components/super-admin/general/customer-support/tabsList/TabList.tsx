@@ -26,16 +26,23 @@ type Props = {
   error?: ApiErrorResponse | null;
   selectedItemId?: string | null;
   onSelect?: (item: CustomerSupportGroupedByCustomer) => void;
+  onTabChange?: () => void;
 };
 
 export const TabList: React.FC<Props> = ({
   grouped,
   selectedItemId = null,
   onSelect,
+  onTabChange,
 }) => {
   const t = useTranslations('customerSupport.tabs');
   const TABS = [
     { key: 'all', label: t('all'), value: '' },
+    {
+      key: 'opened',
+      label: t('opened'),
+      value: 'opened',
+    },
     {
       key: 'in_progress',
       label: t('inProgress'),
@@ -45,11 +52,6 @@ export const TabList: React.FC<Props> = ({
       key: 'resolved',
       label: t('resolved'),
       value: 'resolved',
-    },
-    {
-      key: 'opened',
-      label: t('opened'),
-      value: 'opened',
     },
   ] as const;
 
@@ -77,7 +79,10 @@ export const TabList: React.FC<Props> = ({
   return (
     <Tabs
       value={tabValue}
-      onValueChange={setActive}
+      onValueChange={(value) => {
+        setActive(value);
+        onTabChange?.();
+      }}
       className="space-y-0"
     >
       <TabsList className="bg-muted rounded-md grid grid-cols-4 gap-1 w-full">

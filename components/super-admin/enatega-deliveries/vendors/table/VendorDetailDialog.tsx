@@ -1,7 +1,7 @@
 'use client';
 
 import { format, parseISO } from 'date-fns';
-import { Calendar, FileText, Star, User } from 'lucide-react';
+import { Calendar, FileText, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useGetDeliveryVendorProfile } from '@/hooks/api/super-admin/enatega-deliveries/vendors';
 import { AppDialog } from '@/components/shared/AppDialog';
@@ -71,8 +71,6 @@ export default function VendorDetailDialog({
 
   const notAvailable = t('notAvailable');
   const formattedCreatedDate = getDisplayDate(vendor?.created_date, notAvailable);
-  const averageRating = vendor?.rating?.average_rating ?? 0;
-  const totalReviews = vendor?.rating?.total_reviews ?? 0;
 
   return (
     <AppDialog
@@ -137,13 +135,6 @@ export default function VendorDetailDialog({
                     <Status status={vendor.status?.toLowerCase() || 'pending'} />
                     <span className="text-sm">{vendor.email || notAvailable}</span>
                   </div>
-                  <div className="mt-2 flex items-center gap-2 text-sm text-white/90">
-                    <span className="font-semibold">{averageRating}</span>
-                    <Star className="size-4 fill-current text-yellow-300" />
-                    <span>
-                      ({totalReviews} {tVendorDetail('reviewsLabel', { count: totalReviews })})
-                    </span>
-                  </div>
                 </div>
               </div>
 
@@ -170,8 +161,8 @@ export default function VendorDetailDialog({
                 <p className="font-medium">{formattedCreatedDate}</p>
               </div>
               <div className="rounded-xl border bg-muted/20 p-4">
-                <p className="text-xs text-muted-foreground mb-1">{tVendorDetailFields('city')}</p>
-                <p className="font-medium">{vendor.city || notAvailable}</p>
+                <p className="text-xs text-muted-foreground mb-1">{tVendorDetailFields('zone')}</p>
+                <p className="font-medium">{vendor.zone_name || notAvailable}</p>
               </div>
             </div>
           </section>

@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Back to login", "title": "Set up your account", "description": "Choose your password to accept the invitation. You can then sign in.", "missingToken": "This invitation link is incomplete. Ask your admin to resend it.", "success": "Invitation accepted. Please sign in.", "password": "Password", "confirmPassword": "Confirm password", "submit": "Accept invitation" },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "Set an email and password for this store to log in.",
@@ -3390,6 +3391,7 @@
         "phoneNumber": "Phone Number",
         "createdDate": "Created Date",
         "city": "City",
+        "zone": "Zone",
         "bankName": "Bank Name",
         "branchCode": "Branch Code",
         "accountTitle": "Account Title",
@@ -3420,6 +3422,7 @@
         "email": "Email",
         "phone": "Phone Number",
         "city": "City",
+        "zone": "Zone",
         "bankName": "Bank Name",
         "branchCode": "Branch Code",
         "accountTitle": "Account Title",
@@ -3431,6 +3434,7 @@
         "nationalIdBack": "National ID (Back)"
       },
       "placeholders": {
+        "zone": "Select zone",
         "notes": "Add any notes here..."
       },
       "fallback": {
@@ -3449,6 +3453,7 @@
         "emailRequired": "Email is required",
         "phoneRequired": "Phone number is required",
         "cityRequired": "City is required",
+        "zoneRequired": "Zone is required",
         "bankNameRequired": "Bank name is required",
         "branchCodeRequired": "Branch code is required",
         "accountTitleRequired": "Account title is required",
@@ -4422,6 +4427,8 @@
       "tables": {
         "recentOrders": {
           "title": "Recent Orders",
+          "zoneFilterLabel": "Filter recent orders by zone",
+          "allZones": "All zones",
           "orderId": "Order ID",
           "module": "Module",
           "serviceType": "Service Type",
@@ -5031,8 +5038,8 @@
           "emailPlaceholder": "Enter email",
           "phoneLabel": "Phone Number",
           "phonePlaceholder": "Enter phone number",
-          "zoneCityLabel": "Zone/City",
-          "zoneCityPlaceholder": "Select Zone/City",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Select zone",
           "passwordLabel": "Password",
           "passwordPlaceholder": "Enter password",
           "autoGeneratePasswordLabel": "Auto-generate Password",
@@ -5074,8 +5081,8 @@
           "emailPlaceholder": "Enter email",
           "phoneLabel": "Phone Number",
           "phonePlaceholder": "Enter phone number",
-          "zoneCityLabel": "Zone/City",
-          "zoneCityPlaceholder": "Select Zone/City"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Select zone"
         },
         "businessDocuments": {
           "title": "Business Documents",
@@ -5205,6 +5212,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Pending invitations", "description": "Invited people appear here until they accept and become assigned users.", "name": "Name", "email": "Email", "role": "Role", "expires": "Link expires", "action": "Action", "loading": "Loading invitations…", "loadError": "Could not load invitations.", "retry": "Try again", "empty": "No pending invitations", "noRole": "No role selected", "resend": "Resend invite", "resendSuccess": "Invitation resent" },
     "title": "Roles and Permissions",
     "addRole": "Add Role",
     "editRole": "Edit Role",
@@ -5249,7 +5257,7 @@
     },
     "inviteDialog": {
       "title": "Invite User",
-      "subtitle": "Send an invitation to a new user to join the system. They’ll receive an email with an invitation link and a system-generated password.",
+      "subtitle": "The user will receive an email link to set their own password and accept the invitation.",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Enter full name",
       "email": "Email Address",
@@ -6686,12 +6694,12 @@
       "step4": {
         "title": "Commission and COD Settings",
         "description": "Set this rider's delivery commission and COD controls.",
-        "platformCommissionLabel": "Platform commission",
+        "platformCommissionLabel": "Delivery commission",
         "platformCommissionHelper": "The platform keeps this percentage of each delivery fee. The rider receives the remainder plus 100% of the tip.",
-        "platformCommissionNumberError": "Platform commission must be a number",
-        "platformCommissionMinError": "Platform commission cannot be below 0%",
-        "platformCommissionMaxError": "Platform commission cannot exceed 100%",
-        "platformCommissionRequiredError": "Platform commission is required",
+        "platformCommissionNumberError": "Delivery commission must be a number",
+        "platformCommissionMinError": "Delivery commission cannot be below 0%",
+        "platformCommissionMaxError": "Delivery commission cannot exceed 100%",
+        "platformCommissionRequiredError": "Delivery commission is required",
         "enableCodLimitLabel": "Enable COD Limit",
         "enableCodLimitDescription": "When disabled, rider has unlimited COD capacity.",
         "codLimitAmountLabel": "COD Limit Amount (PKR)",
@@ -6781,12 +6789,12 @@
       "noCosmeticDamage": "No Cosmetic Damage",
       "platformCommissionTitle": "Delivery Commission",
       "platformCommissionDescription": "Set the platform share deducted when this rider completes a delivery.",
-      "platformCommissionLabel": "Platform commission",
+      "platformCommissionLabel": "Delivery commission",
       "platformCommissionHelper": "The rider receives the remaining delivery fee plus 100% of the tip.",
-      "platformCommissionNumberError": "Platform commission must be a number",
-      "platformCommissionMinError": "Platform commission cannot be below 0%",
-      "platformCommissionMaxError": "Platform commission cannot exceed 100%",
-      "platformCommissionRequiredError": "Platform commission is required",
+      "platformCommissionNumberError": "Delivery commission must be a number",
+      "platformCommissionMinError": "Delivery commission cannot be below 0%",
+      "platformCommissionMaxError": "Delivery commission cannot exceed 100%",
+      "platformCommissionRequiredError": "Delivery commission is required",
       "codLimitTitle": "COD Limit Settings",
       "codLimitDescription": "Configure COD limits and settlement behavior for this rider.",
       "enableCodLimitLabel": "Enable COD Limit",

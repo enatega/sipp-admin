@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "العودة إلى تسجيل الدخول", "title": "إعداد حسابك", "description": "اختر كلمة مرور لقبول الدعوة، ثم يمكنك تسجيل الدخول.", "missingToken": "رابط الدعوة غير مكتمل. اطلب من المسؤول إعادة إرساله.", "success": "تم قبول الدعوة. يرجى تسجيل الدخول.", "password": "كلمة المرور", "confirmPassword": "تأكيد كلمة المرور", "submit": "قبول الدعوة" },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "ضع رسالة إلكترونية وكلمة مرور لهذا المتجر ليسجلها",
@@ -3366,6 +3367,7 @@
         "phoneNumber": "رقم الهاتف",
         "createdDate": "تاريخ الإنشاء",
         "city": "المدينة",
+        "zone": "المنطقة",
         "bankName": "الاسم المصرفي",
         "branchCode": "قانون الفرع",
         "accountTitle": "الحساب",
@@ -3396,6 +3398,7 @@
         "email": "Email",
         "phone": "رقم الهاتف",
         "city": "المدينة",
+        "zone": "المنطقة",
         "bankName": "الاسم المصرفي",
         "branchCode": "قانون الفرع",
         "accountTitle": "الحساب",
@@ -3407,6 +3410,7 @@
         "nationalIdBack": "الهوية الوطنية"
       },
       "placeholders": {
+        "zone": "اختر المنطقة",
         "notes": "أضف أي ملاحظات هنا"
       },
       "fallback": {
@@ -3425,6 +3429,7 @@
         "emailRequired": "الإيميل مطلوب",
         "phoneRequired": "رقم الهاتف مطلوب",
         "cityRequired": "المدينة مطلوبة",
+        "zoneRequired": "المنطقة مطلوبة",
         "bankNameRequired": "الاسم المصرفي مطلوب",
         "branchCodeRequired": "رمز الفرع مطلوب",
         "accountTitleRequired": "لقب الحساب",
@@ -4382,6 +4387,8 @@
       "tables": {
         "recentOrders": {
           "title": "الأوامر الأخيرة",
+          "zoneFilterLabel": "تصفية الطلبات الأخيرة حسب المنطقة",
+          "allZones": "جميع المناطق",
           "orderId": "رمز الهوية",
           "module": "الوحدة",
           "serviceType": "الخدمة",
@@ -4987,8 +4994,8 @@
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
-          "zoneCityLabel": "المنطقة/المدينة",
-          "zoneCityPlaceholder": "المنطقة المختارة/ المدينة",
+          "zoneCityLabel": "المنطقة",
+          "zoneCityPlaceholder": "اختر المنطقة",
           "passwordLabel": "كلمة السر",
           "passwordPlaceholder": "كلمة المرور",
           "autoGeneratePasswordLabel": "Auto-generate Password",
@@ -5030,8 +5037,8 @@
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
-          "zoneCityLabel": "المنطقة/المدينة",
-          "zoneCityPlaceholder": "المنطقة المختارة/ المدينة"
+          "zoneCityLabel": "المنطقة",
+          "zoneCityPlaceholder": "اختر المنطقة"
         },
         "businessDocuments": {
           "title": "وثائق الأعمال",
@@ -5161,6 +5168,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "الدعوات المعلقة", "description": "يظهر المدعوون هنا حتى يقبلوا الدعوة ويصبحوا مستخدمين معينين.", "name": "الاسم", "email": "البريد الإلكتروني", "role": "الدور", "expires": "انتهاء صلاحية الرابط", "action": "الإجراء", "loading": "جارٍ تحميل الدعوات…", "loadError": "تعذر تحميل الدعوات.", "retry": "إعادة المحاولة", "empty": "لا توجد دعوات معلقة", "noRole": "لم يُحدد دور", "resend": "إعادة إرسال الدعوة", "resendSuccess": "أُعيد إرسال الدعوة" },
     "title": "الأدوار والأذون",
     "addRole": "الدور",
     "editRole": "Edit Role",
@@ -5205,7 +5213,7 @@
     },
     "inviteDialog": {
       "title": "مستخدم دعوة",
-      "subtitle": "أرسل دعوة لمستعمل جديد للانضمام إلى النظام وسوف يتلقون بريدا إلكترونيا يحمل وصلة دعوة وكلمة سر منبثقة عن النظام.",
+      "subtitle": "سيتلقى المستخدم رابطاً عبر البريد الإلكتروني لتعيين كلمة مروره وقبول الدعوة.",
       "fullName": "الاسم الكامل",
       "fullNamePlaceholder": "الاسم الكامل",
       "email": "عنوان البريد الإلكتروني",
@@ -6642,12 +6650,12 @@
       "step4": {
         "title": "Commission and COD Settings",
         "description": "جهزوا لجنة تسليم الراكبين وتحكموا بالوحدة",
-        "platformCommissionLabel": "لجنة منهاج العمل",
+        "platformCommissionLabel": "عمولة التوصيل",
         "platformCommissionHelper": "ويحتفظ المنبر بهذه النسبة المئوية لكل رسم تسليم. الراكب يتلقى الباقي بالإضافة إلى 100% من النصيحة",
-        "platformCommissionNumberError": "لجنة منهاج العمل يجب أن تكون عددا",
-        "platformCommissionMinError": "لا يمكن أن تكون لجنة المنبر أقل من 60 في المائة",
-        "platformCommissionMaxError": "لا يمكن أن تتجاوز لجنة المنبر 100 في المائة",
-        "platformCommissionRequiredError": "لجنة المنبر مطلوبة",
+        "platformCommissionNumberError": "يجب أن تكون عمولة التوصيل رقمًا",
+        "platformCommissionMinError": "لا يمكن أن تقل عمولة التوصيل عن 0%",
+        "platformCommissionMaxError": "لا يمكن أن تتجاوز عمولة التوصيل 100%",
+        "platformCommissionRequiredError": "عمولة التوصيل مطلوبة",
         "enableCodLimitLabel": "الحد المسموح به",
         "enableCodLimitDescription": "عندما يكون معاقاً، الراكب لديه قدرة غير محدودة على التخلص من الذخائر العنقودية.",
         "codLimitAmountLabel": "COD Limit Amount (PKR)",
@@ -6737,12 +6745,12 @@
       "noCosmeticDamage": "No Cosmetic Damage",
       "platformCommissionTitle": "لجنة التنفيذ",
       "platformCommissionDescription": "حدد حصة المنصات عندما يكمل هذا الراكب التسليم",
-      "platformCommissionLabel": "لجنة منهاج العمل",
+      "platformCommissionLabel": "عمولة التوصيل",
       "platformCommissionHelper": "ويتلقى الراكب رسوم التسليم المتبقية بالإضافة إلى 100 في المائة من النصيحة.",
-      "platformCommissionNumberError": "لجنة منهاج العمل يجب أن تكون عددا",
-      "platformCommissionMinError": "لا يمكن أن تكون لجنة المنبر أقل من 60 في المائة",
-      "platformCommissionMaxError": "لا يمكن أن تتجاوز لجنة المنبر 100 في المائة",
-      "platformCommissionRequiredError": "لجنة المنبر مطلوبة",
+      "platformCommissionNumberError": "يجب أن تكون عمولة التوصيل رقمًا",
+      "platformCommissionMinError": "لا يمكن أن تقل عمولة التوصيل عن 0%",
+      "platformCommissionMaxError": "لا يمكن أن تتجاوز عمولة التوصيل 100%",
+      "platformCommissionRequiredError": "عمولة التوصيل مطلوبة",
       "codLimitTitle": "COD Limit Settings",
       "codLimitDescription": "حدود الثقة وتصرفات التسوية لهذا الراكب",
       "enableCodLimitLabel": "الحد المسموح به",

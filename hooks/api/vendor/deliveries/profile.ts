@@ -38,6 +38,7 @@ export const useUpdateVendorProfile = (options?: UseMutationOptions<UpdateVendor
             if (payload.email != null) formData.append('email', payload.email)
             if (payload.password != null) formData.append('password', payload.password)
             if (payload.city != null) formData.append('city', payload.city)
+            if (payload.zone_id != null) formData.append('zone_id', payload.zone_id)
             if (payload.phone != null) formData.append('phone', payload.phone)
             if (payload.bank_name != null) formData.append('bank_name', payload.bank_name)
             if (payload.account_title != null) formData.append('account_title', payload.account_title)

@@ -20,6 +20,23 @@ import {
 const DELIVERIES_ZONES_ENDPOINT = '/zones';
 const DELIVERIES_ZONES_QUERY_KEY = ['deliveries-zones'];
 
+export type DeliveriesZoneBoundary = Pick<
+  DeliveriesZone,
+  'id' | 'title' | 'zoneShape' | 'zonePolygon' | 'circleData'
+>;
+
+export const useGetDeliveriesZoneBoundaries = () =>
+  useQuery<DeliveriesZoneBoundary[], ApiErrorResponse>({
+    queryKey: [...DELIVERIES_ZONES_QUERY_KEY, 'boundaries'],
+    queryFn: async () => {
+      const response = await Axios.get<DeliveriesZoneBoundary[]>(
+        `${DELIVERIES_ZONES_ENDPOINT}/boundaries`,
+      );
+      return response.data;
+    },
+    retry: false,
+  });
+
 export const useGetDeliveriesZones = (
   options?: Omit<
     UseQueryOptions<
@@ -154,4 +171,3 @@ export const useDeleteDeliveriesZone = (
     ...options,
   });
 };
-

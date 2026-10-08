@@ -125,6 +125,8 @@ export interface UserAddressItem {
     coordinates: number[];
   };
   type: string;
+  /** The name the customer gave this address, e.g. "Case 123". */
+  location_name?: string | null;
   createdAt: string;
   updatedAt: string;
 }

@@ -121,7 +121,7 @@ export const convertZoneDataToUpdatePayload = (
 };
 
 export const convertZoneToZoneData = (
-  zone: DeliveriesZone,
+  zone: Pick<DeliveriesZone, 'zoneShape' | 'zonePolygon' | 'circleData'>,
 ): ZoneData | null => {
   if (zone.zoneShape === 'Point' && zone.zonePolygon) {
     const point = zone.zonePolygon as unknown;

@@ -7686,6 +7686,7 @@
         "taxesLabel": "Impuestos:",
         "discountsLabel": "Descuentos:",
         "deliveryFeeLabel": "Tasa de entrega:",
+        "packingChargesLabel": "Cargos de empaque:",
         "riderTipLabel": "Rider Tip:",
         "riderDeliverySplitTitle": "Gastos de envío divididos",
         "riderDeliveryEarningLabel": "Rider delivery earning",

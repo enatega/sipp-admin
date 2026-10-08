@@ -7726,6 +7726,7 @@
         "taxesLabel": "Taxes:",
         "discountsLabel": "Discounts:",
         "deliveryFeeLabel": "Delivery Fee:",
+        "packingChargesLabel": "Packing Charges:",
         "riderTipLabel": "Rider Tip:",
         "riderDeliverySplitTitle": "Delivery fee split",
         "riderDeliveryEarningLabel": "Rider delivery earning",

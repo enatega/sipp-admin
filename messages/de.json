@@ -8049,6 +8049,7 @@
         "taxesLabel": "Steuern:",
         "discountsLabel": "Rabatte:",
         "deliveryFeeLabel": "Liefergebühr:",
+        "packingChargesLabel": "Verpackungskosten:",
         "riderTipLabel": "Trinkgeld für Fahrer:",
         "riderDeliverySplitTitle": "Aufteilung der Liefergebühr",
         "riderDeliveryEarningLabel": "Lieferverdienst des Fahrers",

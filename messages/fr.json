@@ -7686,6 +7686,7 @@
         "taxesLabel": "Impôts",
         "discountsLabel": "Réductions:",
         "deliveryFeeLabel": "Frais de livraison :",
+        "packingChargesLabel": "Frais d'emballage :",
         "riderTipLabel": "Conseil du cavalier :",
         "riderDeliverySplitTitle": "Frais de livraison fractionnés",
         "riderDeliveryEarningLabel": "Livraison de cavaliers",

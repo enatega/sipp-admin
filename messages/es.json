@@ -2093,6 +2093,8 @@
       "deleteAddonTitle": "Suprímase Add-on",
       "deleteVariationTitle": "Suprímase la variación",
       "deleteAddonDescription": "¿Estás seguro de que quieres eliminar este add-on?",
+      "detach": "Quitar de este producto",
+      "deleteAddonStoreWideDescription": "Esto elimina permanentemente el complemento de todos los productos de esta tienda. Para quitarlo solo de este producto, usa \"Quitar de este producto\".",
       "deleteVariationDescription": "¿Seguro que quieres eliminar esta variación?"
     },
     "form": {
@@ -2291,7 +2293,8 @@
     "success": {
       "create": "Producto creado con éxito!",
       "update": "Producto actualizado con éxito!",
-      "delete": "Producto eliminado con éxito!"
+      "delete": "Producto eliminado con éxito!",
+      "detach": "Complemento quitado de este producto"
     },
     "errors": {
       "fetchFailed": "Failed to fetch products",

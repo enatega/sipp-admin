@@ -684,6 +684,40 @@ export const useUpdateProductCustomizationGroup = (
   });
 };
 
+/** Unlinks an add-on/variation group from one product; the group itself is kept. */
+export const useDetachProductCustomizationGroup = (
+  options?: UseMutationOptions<
+    unknown,
+    ApiErrorResponse,
+    { id: string; productId: string }
+  >,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<unknown, ApiErrorResponse, { id: string; productId: string }>({
+    ...options,
+    mutationFn: async ({ id, productId }) => {
+      const { data } = await Axios.delete(
+        `/apps/deliveries/products/${productId}/customization-groups/${id}`,
+      );
+      return data;
+    },
+    retry: false,
+    onSuccess: (data, variables, onMutateResult, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ['store-products'],
+        exact: false,
+        refetchType: 'active',
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['store-product', variables.productId],
+        exact: true,
+      });
+      options?.onSuccess?.(data, variables, onMutateResult, context);
+    },
+  });
+};
+
 export const useDeleteProductCustomizationGroup = (
   options?: UseMutationOptions<
     DeleteProductCustomizationGroupResponse,

@@ -2117,6 +2117,8 @@
       "deleteAddonTitle": "Delete Add-on",
       "deleteVariationTitle": "Delete Variation",
       "deleteAddonDescription": "Are you sure you want to delete this add-on?",
+      "detach": "Detach from this product",
+      "deleteAddonStoreWideDescription": "This permanently deletes the add-on from every product in this store. To remove it from this product only, use \"Detach from this product\" instead.",
       "deleteVariationDescription": "Are you sure you want to delete this variation?"
     },
     "form": {
@@ -2315,7 +2317,8 @@
     "success": {
       "create": "Product created successfully!",
       "update": "Product updated successfully!",
-      "delete": "Product deleted successfully!"
+      "delete": "Product deleted successfully!",
+      "detach": "Add-on detached from this product"
     },
     "errors": {
       "fetchFailed": "Failed to fetch products",

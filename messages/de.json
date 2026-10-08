@@ -2116,6 +2116,8 @@
       "deleteAddonTitle": "Add-on löschen",
       "deleteVariationTitle": "Variante löschen",
       "deleteAddonDescription": "Möchten Sie dieses Add-on wirklich löschen?",
+      "detach": "Von diesem Produkt lösen",
+      "deleteAddonStoreWideDescription": "Dadurch wird das Add-on dauerhaft aus allen Produkten dieses Shops gelöscht. Um es nur von diesem Produkt zu entfernen, verwende stattdessen \"Von diesem Produkt lösen\".",
       "deleteVariationDescription": "Möchten Sie diese Variante wirklich löschen?"
     },
     "form": {
@@ -2314,7 +2316,8 @@
     "success": {
       "create": "Produkt erfolgreich erstellt!",
       "update": "Produkt erfolgreich aktualisiert!",
-      "delete": "Produkt erfolgreich gelöscht!"
+      "delete": "Produkt erfolgreich gelöscht!",
+      "detach": "Add-on von diesem Produkt gelöst"
     },
     "errors": {
       "fetchFailed": "Produkte konnten nicht geladen werden",

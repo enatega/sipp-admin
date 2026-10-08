@@ -2093,6 +2093,8 @@
       "deleteAddonTitle": "Supprimer le complément",
       "deleteVariationTitle": "Supprimer la variation",
       "deleteAddonDescription": "Voulez-vous vraiment supprimer cet add-on ?",
+      "detach": "Retirer de ce produit",
+      "deleteAddonStoreWideDescription": "Cela supprime définitivement l'option de tous les produits de cette boutique. Pour la retirer uniquement de ce produit, utilisez plutôt \"Retirer de ce produit\".",
       "deleteVariationDescription": "Voulez-vous vraiment supprimer cette variation?"
     },
     "form": {
@@ -2291,7 +2293,8 @@
     "success": {
       "create": "Produit créé avec succès!",
       "update": "Produit mis à jour avec succès!",
-      "delete": "Produit supprimé avec succès!"
+      "delete": "Produit supprimé avec succès!",
+      "detach": "Option retirée de ce produit"
     },
     "errors": {
       "fetchFailed": "Impossible de récupérer les produits",

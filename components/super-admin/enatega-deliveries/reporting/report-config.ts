@@ -237,6 +237,7 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Store net earnings', keys: ['storeNetEarnings'], format: 'currency' },
           { label: 'Approved withdrawals', keys: ['approvedWithdrawals'], format: 'currency' },
           { label: 'Pending withdrawals', keys: ['pendingWithdrawals'], format: 'currency' },
+          { label: 'Refund deductions', keys: ['refundDeductions'], format: 'currency' },
           { label: 'Current wallet balance', keys: ['currentWalletBalance'], format: 'currency' },
         ],
       },

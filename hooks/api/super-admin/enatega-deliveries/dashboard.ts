@@ -35,8 +35,9 @@ export function useGetEnategaDeliveriesDashboardStats(
   // Only include custom range params for the deliveries dashboard API when `period=custom`.
   const startDate = period === 'custom' ? getParam('startDate') || undefined : undefined;
   const endDate = period === 'custom' ? getParam('endDate') || undefined : undefined;
+  const recentOrdersZoneId = getParam('recentOrdersZoneId') || undefined;
 
-  const queryKey = ['get-enatega-deliveries-dashboard-stats', period, startDate ?? null, endDate ?? null, modeScope ?? null];
+  const queryKey = ['get-enatega-deliveries-dashboard-stats', period, startDate ?? null, endDate ?? null, modeScope ?? null, recentOrdersZoneId ?? null];
 
   return useQuery<EnategaDeliveriesDashboardResponse, ApiErrorResponse>({
     queryKey,
@@ -45,6 +46,7 @@ export function useGetEnategaDeliveriesDashboardStats(
 
       query.append('period', period);
       if (modeScope) query.append('modeScope', modeScope);
+      if (recentOrdersZoneId) query.append('recentOrdersZoneId', recentOrdersZoneId);
       if (period === 'custom') {
         if (startDate) query.append('startDate', startDate);
         // API defaults endDate to today when omitted in custom mode.

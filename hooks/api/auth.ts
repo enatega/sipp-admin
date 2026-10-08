@@ -126,3 +126,14 @@ export const useUpdatePasswordRequired = (
     ...options,
   });
 };
+
+export const useAcceptAdminInvitation = () =>
+  useMutation<{ message: string }, ApiErrorResponse, { token: string; password: string }>({
+    mutationFn: async (payload) => {
+      const { data } = await Axios.post<{ message: string }>(
+        '/auth/admin/invitations/accept',
+        payload,
+      );
+      return data;
+    },
+  });

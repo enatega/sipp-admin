@@ -18,7 +18,9 @@ const getPhoneDigitCount = (value: unknown) => {
 
 
 
-export const RiderFormStep1Schema = Yup.object().shape({
+export const RiderFormStep1Schema = (
+    t: ReturnType<typeof useTranslations>,
+) => Yup.object().shape({
     name: Yup.string()
         .trim()
         .min(3, 'Name must be at least 3 characters')
@@ -44,6 +46,12 @@ export const RiderFormStep1Schema = Yup.object().shape({
 
     zone_id: Yup.string()
         .required('City / Zone is required'),
+
+    platform_commission_percentage: Yup.number()
+        .typeError(t('platformCommissionNumberError'))
+        .min(0, t('platformCommissionMinError'))
+        .max(100, t('platformCommissionMaxError'))
+        .required(t('platformCommissionRequiredError')),
 
     send_login_credentials_email: Yup.boolean(),
 
@@ -150,44 +158,7 @@ export const RiderFormStep3Schema = () =>
 
     });
 
-export const RiderFormStep4Schema = (
-    t: ReturnType<typeof useTranslations>,
-) =>
-    Yup.object().shape({
-        platform_commission_percentage: Yup.number()
-            .typeError(t('platformCommissionNumberError'))
-            .min(0, t('platformCommissionMinError'))
-            .max(100, t('platformCommissionMaxError'))
-            .required(t('platformCommissionRequiredError')),
-        cod_limit_enabled: Yup.boolean().required(),
-        cod_limit_amount: Yup.number()
-            .nullable()
-            .transform((value, originalValue) =>
-                originalValue === '' || originalValue === null ? null : value,
-            )
-            .when('cod_limit_enabled', {
-                is: true,
-                then: (schema) =>
-                    schema
-                        .min(1)
-                        .required(),
-                otherwise: (schema) => schema.notRequired(),
-            }),
-        cod_warning_threshold: Yup.string().when('cod_limit_enabled', {
-            is: true,
-            then: (schema) => schema.required(),
-            otherwise: (schema) => schema.notRequired(),
-        }),
-        cod_auto_settlement_cycle: Yup.string().when('cod_limit_enabled', {
-            is: true,
-            then: (schema) => schema.required(),
-            otherwise: (schema) => schema.notRequired(),
-        }),
-        cod_allow_online_payments_when_blocked: Yup.boolean().required(),
-    });
-
 export const EditRiderFormSchema = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     t: ReturnType<typeof useTranslations>) =>
     Yup.object().shape({
         name: Yup.string()

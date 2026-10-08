@@ -6,13 +6,12 @@ import { AppInputField } from '@/components/shared/form/AppInput';
 import { AppPhoneField } from '@/components/shared/form/AppPhoneInput';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { useFormikContext } from 'formik';
+import { EditVendorFormValues } from '@/schemas/enatega-deliveries/vendor/vendor-form';
 
 export const BasicInformationSection = () => {
   const t = useTranslations('lumiFood.vendors.editVendor.basicInfo');
   const { data: zones } = useGetZonesSimple();
-  const { values, setFieldValue } = useFormikContext<{
-    zone_id: string;
-  }>();
+  const { values, initialValues, setFieldValue } = useFormikContext<EditVendorFormValues>();
 
   const zoneOptions =
     zones?.map((zone) => ({
@@ -32,7 +31,7 @@ export const BasicInformationSection = () => {
           name="name"
           type="text"
           placeholder={t('vendorNamePlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={Boolean(initialValues.name.trim())}
         />
 
         <AppInputField
@@ -40,7 +39,7 @@ export const BasicInformationSection = () => {
           name="email"
           type="email"
           placeholder={t('emailPlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={Boolean(initialValues.email.trim())}
           disabled
         />
 
@@ -48,7 +47,7 @@ export const BasicInformationSection = () => {
           label={t('phoneLabel')}
           name="phone"
           placeholder={t('phonePlaceholder')}
-          requiredAsterisk
+          requiredAsterisk={Boolean(initialValues.phone.trim())}
         />
         
         <AppSelect
@@ -58,7 +57,7 @@ export const BasicInformationSection = () => {
           options={zoneOptions}
           value={values.zone_id}
           onValueChange={(value) => setFieldValue('zone_id', value)}
-          requiredAsterisk
+          requiredAsterisk={Boolean(initialValues.zone_id.trim())}
         />
       </div>
     </div>

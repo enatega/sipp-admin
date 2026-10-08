@@ -43,6 +43,7 @@ export const useVendorDashboard = (options?: Omit<UseQueryOptions<GetVendorDashb
         },
         enabled: Boolean(vendorId),
         retry: false,
+        refetchInterval: 60_000,
         ...options
 
     })

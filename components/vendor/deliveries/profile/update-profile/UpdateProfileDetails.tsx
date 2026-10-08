@@ -12,10 +12,12 @@ import {
   useUpdateVendorProfile,
   useVendorProfile,
 } from '@/hooks/api/vendor/deliveries/profile';
+import { useGetZonesSimple } from '@/hooks/api/super-admin/general/zones';
 import { Spinner } from '@/components/ui/spinner';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
+import { AppSelect } from '@/components/shared/form/AppSelect';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import { Heading } from '@/components/shared/Heading';
 import { UpdateProfileShimmer } from './UpdateProfileShimmer';
@@ -24,7 +26,7 @@ interface UpdateProfileFormValues {
   vendorName: string;
   email: string;
   phone: string;
-  city: string;
+  zone_id: string;
   notes: string;
   businessLicenseFront: string | null;
   businessLicenseBack: string | null;
@@ -50,7 +52,13 @@ const UpdateProfileDetails = () => {
   const { vendorId } = useParams() as { vendorId: string };
 
   const { data: vendorProfile, isLoading } = useVendorProfile();
+  const { data: zones, isLoading: isLoadingZones } = useGetZonesSimple();
   const { mutateAsync: updateProfile, isPending } = useUpdateVendorProfile();
+
+  const zoneOptions = useMemo(
+    () => zones?.map((zone) => ({ key: zone.title, value: zone.id })) || [],
+    [zones],
+  );
 
   const validationSchema = useMemo(
     () => createUpdateProfileValidationSchema(tValidation),
@@ -62,7 +70,7 @@ const UpdateProfileDetails = () => {
       vendorName: vendorProfile?.name || notAvailable,
       email: vendorProfile?.email || notAvailable,
       phone: vendorProfile?.phone || notAvailable,
-      city: vendorProfile?.city || notAvailable,
+      zone_id: vendorProfile?.zone_id || '',
       notes: vendorProfile?.notes || notAvailable,
       businessLicenseFront:
         vendorProfile?.business_license_front ||
@@ -84,7 +92,7 @@ const UpdateProfileDetails = () => {
         name: value?.vendorName,
         email: value?.email,
         phone: value?.phone,
-        city: value?.city,
+        zone_id: value.zone_id,
         notes: value?.notes,
         business_liscence_front_file: value?.businessLicenseFront as string,
         business_liscence_back_file: value?.businessLicenseBack as string,
@@ -109,7 +117,7 @@ const UpdateProfileDetails = () => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ handleSubmit: formikHandleSubmit }) => (
+      {({ handleSubmit: formikHandleSubmit, values, setFieldValue }) => (
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -135,7 +143,16 @@ const UpdateProfileDetails = () => {
                   type="email"
                 />
                 <AppInputField name="phone" label={tLabels('phone')} />
-                <AppInputField name="city" label={tLabels('city')} />
+                <AppSelect
+                  name="zone_id"
+                  label={tLabels('zone')}
+                  placeholder={tPlaceholders('zone')}
+                  options={zoneOptions}
+                  value={values.zone_id}
+                  onValueChange={(zoneId) => setFieldValue('zone_id', zoneId)}
+                  disabled={isLoadingZones}
+                  requiredAsterisk
+                />
               </div>
             </section>
 

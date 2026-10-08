@@ -18,7 +18,7 @@ export const createUpdateProfileValidationSchema = (t: TranslateFunction) =>
       .test('phoneMaxDigits', t('phoneRequired'), (value) =>
         getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
       ),
-    city: Yup.string().required(t('cityRequired')),
+    zone_id: Yup.string().required(t('zoneRequired')),
     notes: Yup.string(),
     businessLicenseFront: Yup.mixed().nullable(),
     businessLicenseBack: Yup.mixed().nullable(),

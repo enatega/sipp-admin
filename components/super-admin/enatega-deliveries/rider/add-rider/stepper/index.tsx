@@ -24,11 +24,6 @@ export const RiderFormStepper = () => {
       title: t('vehicleRequirementsTitle'),
       description: t('vehicleRequirementsDescription'),
     },
-    {
-      number: 4,
-      title: t('codLimitSettingsTitle'),
-      description: t('codLimitSettingsDescription'),
-    },
   ];
 
   return <AppStepper steps={steps} currentStep={currentStep} />;

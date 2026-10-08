@@ -29,12 +29,14 @@ export interface AddAssignedUser {
 
 interface AddAssignedUsersCellProps {
   roleId: string;
+  roleName: string;
   selectedUsers: AddAssignedUser[];
   variant?: 'button' | 'text-link';
 }
 
 export function AddAssignedUsersCell({
   roleId,
+  roleName,
   selectedUsers,
   variant = 'button',
 }: AddAssignedUsersCellProps) {
@@ -224,6 +226,8 @@ export function AddAssignedUsersCell({
       <InviteUserDialog
         open={inviteDialogOpen}
         onClose={() => setInviteDialogOpen(false)}
+        roleId={roleId}
+        roleName={roleName}
       />
     </>
   );

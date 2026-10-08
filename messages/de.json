@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Zurück zur Anmeldung", "title": "Konto einrichten", "description": "Legen Sie Ihr Passwort fest, um die Einladung anzunehmen. Danach können Sie sich anmelden.", "missingToken": "Dieser Einladungslink ist unvollständig. Bitten Sie Ihren Administrator, ihn erneut zu senden.", "success": "Einladung angenommen. Bitte melden Sie sich an.", "password": "Passwort", "confirmPassword": "Passwort bestätigen", "submit": "Einladung annehmen" },
   "storeLogin": {
     "title": "Store-Login aktivieren",
     "description": "Legen Sie eine E-Mail-Adresse und ein Passwort für den Store-Login fest.",
@@ -3302,6 +3303,7 @@
         "phoneNumber": "Telefonnummer",
         "createdDate": "Erstellungsdatum",
         "city": "Stadt",
+        "zone": "Zone",
         "bankName": "Bankname",
         "branchCode": "Filialcode",
         "accountTitle": "Kontoinhaber",
@@ -3332,6 +3334,7 @@
         "email": "E-Mail",
         "phone": "Telefonnummer",
         "city": "Stadt",
+        "zone": "Zone",
         "bankName": "Bankname",
         "branchCode": "Filialcode",
         "accountTitle": "Kontoinhaber",
@@ -3343,6 +3346,7 @@
         "nationalIdBack": "Ausweis (Rückseite)"
       },
       "placeholders": {
+        "zone": "Zone auswählen",
         "notes": "Fügen Sie hier Notizen hinzu..."
       },
       "fallback": {
@@ -3361,6 +3365,7 @@
         "emailRequired": "E-Mail ist erforderlich",
         "phoneRequired": "Telefonnummer ist erforderlich",
         "cityRequired": "Stadt ist erforderlich",
+        "zoneRequired": "Zone ist erforderlich",
         "bankNameRequired": "Bankname ist erforderlich",
         "branchCodeRequired": "Filialcode ist erforderlich",
         "accountTitleRequired": "Kontoinhaber ist erforderlich",
@@ -4747,6 +4752,8 @@
       "tables": {
         "recentOrders": {
           "title": "Letzte Bestellungen",
+          "zoneFilterLabel": "Letzte Bestellungen nach Zone filtern",
+          "allZones": "Alle Zonen",
           "orderId": "Bestell-ID",
           "module": "Modul",
           "serviceType": "Servicetyp",
@@ -5344,8 +5351,8 @@
           "emailPlaceholder": "E-Mail eingeben",
           "phoneLabel": "Telefonnummer",
           "phonePlaceholder": "Telefonnummer eingeben",
-          "zoneCityLabel": "Zone/Stadt",
-          "zoneCityPlaceholder": "Zone/Stadt auswählen",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Zone auswählen",
           "passwordLabel": "Passwort",
           "passwordPlaceholder": "Passwort eingeben",
           "autoGeneratePasswordLabel": "Passwort automatisch generieren",
@@ -5387,8 +5394,8 @@
           "emailPlaceholder": "E-Mail eingeben",
           "phoneLabel": "Telefonnummer",
           "phonePlaceholder": "Telefonnummer eingeben",
-          "zoneCityLabel": "Zone/Stadt",
-          "zoneCityPlaceholder": "Zone/Stadt auswählen"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Zone auswählen"
         },
         "businessDocuments": {
           "title": "Geschäftsdokumente",
@@ -5518,6 +5525,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Ausstehende Einladungen", "description": "Eingeladene Personen erscheinen hier, bis sie annehmen und zugewiesene Benutzer werden.", "name": "Name", "email": "E-Mail", "role": "Rolle", "expires": "Link gültig bis", "action": "Aktion", "loading": "Einladungen werden geladen…", "loadError": "Einladungen konnten nicht geladen werden.", "retry": "Erneut versuchen", "empty": "Keine ausstehenden Einladungen", "noRole": "Keine Rolle ausgewählt", "resend": "Einladung erneut senden", "resendSuccess": "Einladung erneut gesendet" },
     "title": "Rollen und Berechtigungen",
     "addRole": "Rolle hinzufügen",
     "editRole": "Rolle bearbeiten",
@@ -5562,7 +5570,7 @@
     },
     "inviteDialog": {
       "title": "Benutzer einladen",
-      "subtitle": "Senden Sie eine Einladung an einen neuen Benutzer, um dem System beizutreten. Er erhält eine E-Mail mit einem Einladungslink und einem vom System generierten Passwort.",
+      "subtitle": "Der Benutzer erhält per E-Mail einen Link, um sein Passwort festzulegen und die Einladung anzunehmen.",
       "fullName": "Vollständiger Name",
       "fullNamePlaceholder": "Vollständigen Namen eingeben",
       "email": "E-Mail-Adresse",
@@ -6993,12 +7001,12 @@
       "step4": {
         "title": "Provisions- und COD-Einstellungen",
         "description": "Legen Sie die Lieferprovision und COD-Kontrollen für diesen Fahrer fest.",
-        "platformCommissionLabel": "Plattformprovision",
+        "platformCommissionLabel": "Lieferprovision",
         "platformCommissionHelper": "Die Plattform behält diesen Prozentsatz jeder Liefergebühr. Der Fahrer erhält den Restbetrag plus 100 % des Trinkgelds.",
-        "platformCommissionNumberError": "Die Plattformprovision muss eine Zahl sein",
-        "platformCommissionMinError": "Die Plattformprovision darf nicht unter 0 % liegen",
-        "platformCommissionMaxError": "Die Plattformprovision darf 100 % nicht überschreiten",
-        "platformCommissionRequiredError": "Die Plattformprovision ist erforderlich",
+        "platformCommissionNumberError": "Die Lieferprovision muss eine Zahl sein",
+        "platformCommissionMinError": "Die Lieferprovision darf nicht unter 0 % liegen",
+        "platformCommissionMaxError": "Die Lieferprovision darf 100 % nicht überschreiten",
+        "platformCommissionRequiredError": "Die Lieferprovision ist erforderlich",
         "enableCodLimitLabel": "Nachnahme-Limit aktivieren",
         "enableCodLimitDescription": "Wenn deaktiviert, hat der Fahrer unbegrenzte Nachnahme-Kapazität.",
         "codLimitAmountLabel": "Nachnahme-Limitbetrag (PKR)",
@@ -7088,12 +7096,12 @@
       "noCosmeticDamage": "Keine kosmetischen Schäden",
       "platformCommissionTitle": "Lieferprovision",
       "platformCommissionDescription": "Legen Sie den Plattformanteil fest, der bei Abschluss einer Lieferung abgezogen wird.",
-      "platformCommissionLabel": "Plattformprovision",
+      "platformCommissionLabel": "Lieferprovision",
       "platformCommissionHelper": "Der Fahrer erhält die verbleibende Liefergebühr plus 100 % des Trinkgelds.",
-      "platformCommissionNumberError": "Die Plattformprovision muss eine Zahl sein",
-      "platformCommissionMinError": "Die Plattformprovision darf nicht unter 0 % liegen",
-      "platformCommissionMaxError": "Die Plattformprovision darf 100 % nicht überschreiten",
-      "platformCommissionRequiredError": "Die Plattformprovision ist erforderlich",
+      "platformCommissionNumberError": "Die Lieferprovision muss eine Zahl sein",
+      "platformCommissionMinError": "Die Lieferprovision darf nicht unter 0 % liegen",
+      "platformCommissionMaxError": "Die Lieferprovision darf 100 % nicht überschreiten",
+      "platformCommissionRequiredError": "Die Lieferprovision ist erforderlich",
       "codLimitTitle": "Nachnahme-Limit-Einstellungen",
       "codLimitDescription": "Konfigurieren Sie Nachnahme-Limits und Abrechnungsverhalten für diesen Fahrer.",
       "enableCodLimitLabel": "Nachnahme-Limit aktivieren",

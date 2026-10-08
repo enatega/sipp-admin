@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Volver al inicio de sesión", "title": "Configura tu cuenta", "description": "Elige tu contraseña para aceptar la invitación. Después podrás iniciar sesión.", "missingToken": "Este enlace de invitación está incompleto. Pide al administrador que lo reenvíe.", "success": "Invitación aceptada. Inicia sesión.", "password": "Contraseña", "confirmPassword": "Confirmar contraseña", "submit": "Aceptar invitación" },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "Establecer un correo electrónico y una contraseña para que esta tienda entre.",
@@ -3359,6 +3360,7 @@
         "phoneNumber": "Número de teléfono",
         "createdDate": "Fecha de creación",
         "city": "Ciudad",
+        "zone": "Zona",
         "bankName": "Nombre del Banco",
         "branchCode": "Código de sucesión",
         "accountTitle": "Título de cuenta",
@@ -3389,6 +3391,7 @@
         "email": "Correo electrónico",
         "phone": "Número de teléfono",
         "city": "Ciudad",
+        "zone": "Zona",
         "bankName": "Nombre del Banco",
         "branchCode": "Código de sucesión",
         "accountTitle": "Título de cuenta",
@@ -3400,6 +3403,7 @@
         "nationalIdBack": "National ID (Back)"
       },
       "placeholders": {
+        "zone": "Seleccionar zona",
         "notes": "Añada cualquier nota aquí..."
       },
       "fallback": {
@@ -3418,6 +3422,7 @@
         "emailRequired": "Se requiere correo electrónico",
         "phoneRequired": "Número de teléfono requerido",
         "cityRequired": "La ciudad es necesaria",
+        "zoneRequired": "La zona es obligatoria",
         "bankNameRequired": "Se requiere el nombre bancario",
         "branchCodeRequired": "Se requiere código de rama",
         "accountTitleRequired": "Se requiere el título de cuenta",
@@ -4373,6 +4378,8 @@
       "tables": {
         "recentOrders": {
           "title": "Ordenes recientes",
+          "zoneFilterLabel": "Filtrar órdenes recientes por zona",
+          "allZones": "Todas las zonas",
           "orderId": "ID de orden",
           "module": "Módulo",
           "serviceType": "Tipo de servicio",
@@ -4978,8 +4985,8 @@
           "emailPlaceholder": "Introduzca el correo electrónico",
           "phoneLabel": "Número de teléfono",
           "phonePlaceholder": "Introduzca el número de teléfono",
-          "zoneCityLabel": "Zona/Ciudad",
-          "zoneCityPlaceholder": "Seleccionar Zona/Ciudad",
+          "zoneCityLabel": "Zona",
+          "zoneCityPlaceholder": "Seleccionar zona",
           "passwordLabel": "Contraseña",
           "passwordPlaceholder": "Introduzca contraseña",
           "autoGeneratePasswordLabel": "Contraseña autogenerada",
@@ -5021,8 +5028,8 @@
           "emailPlaceholder": "Introduzca el correo electrónico",
           "phoneLabel": "Número de teléfono",
           "phonePlaceholder": "Introduzca el número de teléfono",
-          "zoneCityLabel": "Zona/Ciudad",
-          "zoneCityPlaceholder": "Seleccionar Zona/Ciudad"
+          "zoneCityLabel": "Zona",
+          "zoneCityPlaceholder": "Seleccionar zona"
         },
         "businessDocuments": {
           "title": "Documentos de negocios",
@@ -5152,6 +5159,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Invitaciones pendientes", "description": "Las personas invitadas aparecen aquí hasta que acepten y se conviertan en usuarios asignados.", "name": "Nombre", "email": "Correo", "role": "Rol", "expires": "El enlace vence", "action": "Acción", "loading": "Cargando invitaciones…", "loadError": "No se pudieron cargar las invitaciones.", "retry": "Reintentar", "empty": "No hay invitaciones pendientes", "noRole": "Sin rol seleccionado", "resend": "Reenviar invitación", "resendSuccess": "Invitación reenviada" },
     "title": "Funciones y permisos",
     "addRole": "Add Role",
     "editRole": "Función de edición",
@@ -5196,7 +5204,7 @@
     },
     "inviteDialog": {
       "title": "Invitar usuario",
-      "subtitle": "Enviar una invitación a un nuevo usuario para unirse al sistema. Recibirán un correo electrónico con un enlace de invitación y una contraseña generada por el sistema.",
+      "subtitle": "El usuario recibirá un enlace por correo para crear su contraseña y aceptar la invitación.",
       "fullName": "Nombre completo",
       "fullNamePlaceholder": "Introduzca el nombre completo",
       "email": "Dirección de correo",
@@ -6630,12 +6638,12 @@
       "step4": {
         "title": "Configuración de la Comisión y el COD",
         "description": "Establece la comisión de entrega de este piloto y controles de COD.",
-        "platformCommissionLabel": "Comisión de la Plataforma",
+        "platformCommissionLabel": "Comisión de entrega",
         "platformCommissionHelper": "La plataforma mantiene este porcentaje de cada cuota de entrega. El jinete recibe el resto más el 100% de la punta.",
-        "platformCommissionNumberError": "Comisión de Plataforma debe ser un número",
-        "platformCommissionMinError": "La comisión de la plataforma no puede estar por debajo del 0%",
-        "platformCommissionMaxError": "La comisión de la plataforma no puede superar el 100%",
-        "platformCommissionRequiredError": "Comisión de Plataforma",
+        "platformCommissionNumberError": "La comisión de entrega debe ser un número",
+        "platformCommissionMinError": "La comisión de entrega no puede ser inferior al 0%",
+        "platformCommissionMaxError": "La comisión de entrega no puede superar el 100%",
+        "platformCommissionRequiredError": "La comisión de entrega es obligatoria",
         "enableCodLimitLabel": "Habilitar límite de COD",
         "enableCodLimitDescription": "Cuando está deshabilitado, el jinete tiene una capacidad ilimitada de COD.",
         "codLimitAmountLabel": "Cantidad límite de COD (PKR)",
@@ -6725,12 +6733,12 @@
       "noCosmeticDamage": "Sin daños cosméticos",
       "platformCommissionTitle": "Comisión de Administración",
       "platformCommissionDescription": "Establece la cuota de plataforma deducida cuando este jinete completa una entrega.",
-      "platformCommissionLabel": "Comisión de la Plataforma",
+      "platformCommissionLabel": "Comisión de entrega",
       "platformCommissionHelper": "El jinete recibe la cuota de entrega restante más el 100% de la propina.",
-      "platformCommissionNumberError": "Comisión de Plataforma debe ser un número",
-      "platformCommissionMinError": "La comisión de la plataforma no puede estar por debajo del 0%",
-      "platformCommissionMaxError": "La comisión de la plataforma no puede superar el 100%",
-      "platformCommissionRequiredError": "Comisión de Plataforma",
+      "platformCommissionNumberError": "La comisión de entrega debe ser un número",
+      "platformCommissionMinError": "La comisión de entrega no puede ser inferior al 0%",
+      "platformCommissionMaxError": "La comisión de entrega no puede superar el 100%",
+      "platformCommissionRequiredError": "La comisión de entrega es obligatoria",
       "codLimitTitle": "Configuración de límites de COD",
       "codLimitDescription": "Configure límites de COD y comportamiento de asentamiento para este jinete.",
       "enableCodLimitLabel": "Habilitar límite de COD",

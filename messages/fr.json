@@ -1,4 +1,5 @@
 {
+  "acceptInvite": { "back": "Retour à la connexion", "title": "Configurer votre compte", "description": "Choisissez votre mot de passe pour accepter l'invitation. Vous pourrez ensuite vous connecter.", "missingToken": "Ce lien d'invitation est incomplet. Demandez à votre administrateur de le renvoyer.", "success": "Invitation acceptée. Veuillez vous connecter.", "password": "Mot de passe", "confirmPassword": "Confirmer le mot de passe", "submit": "Accepter l'invitation" },
   "storeLogin": {
     "title": "Activer la connexion de stockage",
     "description": "Définir un courriel et un mot de passe pour que ce magasin se connecte.",
@@ -3359,6 +3360,7 @@
         "phoneNumber": "Numéro de téléphone",
         "createdDate": "Date de création",
         "city": "Ville",
+        "zone": "Zone",
         "bankName": "Nom de la banque",
         "branchCode": "Code de la branche",
         "accountTitle": "Titre du compte",
@@ -3389,6 +3391,7 @@
         "email": "Courriel",
         "phone": "Numéro de téléphone",
         "city": "Ville",
+        "zone": "Zone",
         "bankName": "Nom de la banque",
         "branchCode": "Code de la branche",
         "accountTitle": "Titre du compte",
@@ -3400,6 +3403,7 @@
         "nationalIdBack": "Identification nationale (en arrière)"
       },
       "placeholders": {
+        "zone": "Sélectionner une zone",
         "notes": "Ajoutez des notes ici..."
       },
       "fallback": {
@@ -3418,6 +3422,7 @@
         "emailRequired": "Un courriel est nécessaire",
         "phoneRequired": "Numéro de téléphone requis",
         "cityRequired": "Ville requise",
+        "zoneRequired": "La zone est requise",
         "bankNameRequired": "Nom bancaire requis",
         "branchCodeRequired": "Code de la succursale requis",
         "accountTitleRequired": "Le titre du compte est requis",
@@ -4373,6 +4378,8 @@
       "tables": {
         "recentOrders": {
           "title": "Commandes récentes",
+          "zoneFilterLabel": "Filtrer les commandes récentes par zone",
+          "allZones": "Toutes les zones",
           "orderId": "Numéro d'ordre",
           "module": "Module",
           "serviceType": "Type de service",
@@ -4978,8 +4985,8 @@
           "emailPlaceholder": "Entrez le courriel",
           "phoneLabel": "Numéro de téléphone",
           "phonePlaceholder": "Saisissez le numéro de téléphone",
-          "zoneCityLabel": "Zone/Ville",
-          "zoneCityPlaceholder": "Sélectionner une zone/une ville",
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Sélectionner une zone",
           "passwordLabel": "Mot de passe",
           "passwordPlaceholder": "Saisissez le mot de passe",
           "autoGeneratePasswordLabel": "Mot de passe généré automatiquement",
@@ -5021,8 +5028,8 @@
           "emailPlaceholder": "Entrez le courriel",
           "phoneLabel": "Numéro de téléphone",
           "phonePlaceholder": "Saisissez le numéro de téléphone",
-          "zoneCityLabel": "Zone/Ville",
-          "zoneCityPlaceholder": "Sélectionner une zone/une ville"
+          "zoneCityLabel": "Zone",
+          "zoneCityPlaceholder": "Sélectionner une zone"
         },
         "businessDocuments": {
           "title": "Documents commerciaux",
@@ -5152,6 +5159,7 @@
     }
   },
   "roleAndPermissions": {
+    "pendingInvitations": { "title": "Invitations en attente", "description": "Les personnes invitées apparaissent ici jusqu'à leur acceptation et leur attribution.", "name": "Nom", "email": "E-mail", "role": "Rôle", "expires": "Expiration du lien", "action": "Action", "loading": "Chargement des invitations…", "loadError": "Impossible de charger les invitations.", "retry": "Réessayer", "empty": "Aucune invitation en attente", "noRole": "Aucun rôle choisi", "resend": "Renvoyer l'invitation", "resendSuccess": "Invitation renvoyée" },
     "title": "Rôles et autorisations",
     "addRole": "Ajouter un rôle",
     "editRole": "Modifier le rôle",
@@ -5196,7 +5204,7 @@
     },
     "inviteDialog": {
       "title": "Inviter l'utilisateur",
-      "subtitle": "Envoyer une invitation à un nouvel utilisateur pour rejoindre le système. Ils recevront un courriel avec un lien d'invitation et un mot de passe généré par le système.",
+      "subtitle": "L'utilisateur recevra un lien par e-mail pour définir son mot de passe et accepter l'invitation.",
       "fullName": "Nom complet",
       "fullNamePlaceholder": "Saisissez le nom complet",
       "email": "Adresse électronique",
@@ -6630,12 +6638,12 @@
       "step4": {
         "title": "Paramètres de la Commission et de la COD",
         "description": "Réglez la commission de livraison de ce pilote et les contrôles COD.",
-        "platformCommissionLabel": "Commission de la Plateforme",
+        "platformCommissionLabel": "Commission de livraison",
         "platformCommissionHelper": "La plateforme conserve ce pourcentage de chaque frais de livraison. Le cavalier reçoit le reste plus 100 % de la pointe.",
-        "platformCommissionNumberError": "La Commission de la Plateforme doit être un nombre",
-        "platformCommissionMinError": "La Commission de la Plateforme ne peut être inférieure à 0%",
-        "platformCommissionMaxError": "Commission plate-forme ne peut pas dépasser 100%",
-        "platformCommissionRequiredError": "Une commission de la Plateforme est nécessaire",
+        "platformCommissionNumberError": "La commission de livraison doit être un nombre",
+        "platformCommissionMinError": "La commission de livraison ne peut être inférieure à 0%",
+        "platformCommissionMaxError": "La commission de livraison ne peut pas dépasser 100%",
+        "platformCommissionRequiredError": "La commission de livraison est obligatoire",
         "enableCodLimitLabel": "Activer la limite COD",
         "enableCodLimitDescription": "Lorsque le pilote est handicapé, sa capacité de COD est illimitée.",
         "codLimitAmountLabel": "Montant limite de DCO (RCP)",
@@ -6725,12 +6733,12 @@
       "noCosmeticDamage": "Aucun dommage esthétique",
       "platformCommissionTitle": "Commission de livraison",
       "platformCommissionDescription": "Définissez la part de plate-forme déduite lorsque ce pilote termine une livraison.",
-      "platformCommissionLabel": "Commission de la Plateforme",
+      "platformCommissionLabel": "Commission de livraison",
       "platformCommissionHelper": "Le coureur reçoit les frais de livraison restants plus 100 % du pourboire.",
-      "platformCommissionNumberError": "La Commission de la Plateforme doit être un nombre",
-      "platformCommissionMinError": "La Commission de la Plateforme ne peut être inférieure à 0%",
-      "platformCommissionMaxError": "Commission plate-forme ne peut pas dépasser 100%",
-      "platformCommissionRequiredError": "Une commission de la Plateforme est nécessaire",
+      "platformCommissionNumberError": "La commission de livraison doit être un nombre",
+      "platformCommissionMinError": "La commission de livraison ne peut être inférieure à 0%",
+      "platformCommissionMaxError": "La commission de livraison ne peut pas dépasser 100%",
+      "platformCommissionRequiredError": "La commission de livraison est obligatoire",
       "codLimitTitle": "Paramètres des limites de DCO",
       "codLimitDescription": "Configurez les limites de COD et le comportement de règlement pour ce pilote.",
       "enableCodLimitLabel": "Activer la limite COD",

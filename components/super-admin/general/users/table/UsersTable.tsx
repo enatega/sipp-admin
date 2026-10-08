@@ -156,7 +156,7 @@ export function UsersTable() {
         )}
       </div>
       <div className="rounded-md border overflow-auto mb-8">
-        <Table className="min-w-[1200px]">
+        <Table className="min-w-[1300px]">
           <TableHeader className="bg-accent">
             <TableRow>
               <TableHeaderCell
@@ -173,6 +173,7 @@ export function UsersTable() {
                 requestSort={requestSort}
                 sortConfig={sortConfig}
               />
+              <TableHead>{t('table.userType')}</TableHead>
               <TableHeaderCell
                 label={t('table.phone')}
                 sortKey="userProfile.user.phone"
@@ -195,10 +196,10 @@ export function UsersTable() {
           </TableHeader>
           <TableBody>
             {isLoading ? (
-              <TableShimmer limit={10 as TLimitType} columns={9} />
+              <TableShimmer limit={10 as TLimitType} columns={10} />
             ) : isError ? (
               <TableRow>
-                <TableCell colSpan={9} className="p-4">
+                <TableCell colSpan={10} className="p-4">
                   <DisplayError
                     title={t('errors.fetchFailed')}
                     message={
@@ -241,6 +242,9 @@ export function UsersTable() {
                   </TableCell>
                   <TableCell>
                     {user.userProfile.user.email || t('notAvailable')}
+                  </TableCell>
+                  <TableCell className="whitespace-nowrap">
+                    {user.userProfile.userType?.name || t('notAvailable')}
                   </TableCell>
                   <TableCell>
                     {user.userProfile.user.phone || t('notAvailable')}

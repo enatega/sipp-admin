@@ -3697,6 +3697,7 @@
     "table": {
       "name": "Dénomination",
       "email": "Courriel",
+      "userType": "Type d’utilisateur",
       "phone": "Téléphone",
       "registrationMethod": "Méthode d'enregistrement",
       "status": "État",

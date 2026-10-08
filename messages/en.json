@@ -3728,6 +3728,7 @@
     "table": {
       "name": "Name",
       "email": "Email",
+      "userType": "User Type",
       "phone": "Phone",
       "registrationMethod": "Registration Method",
       "status": "Status",

@@ -138,6 +138,58 @@ const ORDER_STATUSES = [
   'failed',
 ] as const;
 
+function OrderStatusSelect({
+  orderId,
+  status,
+  formatStatus,
+  onOrderUpdated,
+}: {
+  orderId: string;
+  status: string;
+  formatStatus: (status: string) => string;
+  onOrderUpdated?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const { mutateAsync: updateStatus, isPending } =
+    useUpdateSuperAdminOrderStatus();
+
+  const handleStatusChange = async (nextStatus: string) => {
+    setOpen(false);
+    if (nextStatus === status || isPending) return;
+
+    try {
+      await updateStatus({ orderId, status: nextStatus });
+      toast.success('Order status updated successfully');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  return (
+    <div onClick={(event) => event.stopPropagation()}>
+      <Select
+        value={status || undefined}
+        open={open}
+        onOpenChange={setOpen}
+        disabled={isPending}
+        onValueChange={(nextStatus) => void handleStatusChange(nextStatus)}
+      >
+        <SelectTrigger className="w-[175px]">
+          <SelectValue placeholder={formatStatus(status)} />
+        </SelectTrigger>
+        <SelectContent>
+          {ORDER_STATUSES.map((option) => (
+            <SelectItem key={option} value={option}>
+              {formatStatus(option)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
 export function OrdersTable({
   data,
   page = 1,
@@ -177,10 +229,6 @@ export function OrdersTable({
     useAcceptAdminOrder();
   const { mutateAsync: rejectAdminOrder, isPending: isRejectingAdmin } =
     useRejectAdminOrder();
-  const {
-    mutateAsync: updateSuperAdminOrderStatus,
-    isPending: isUpdatingSuperAdminOrderStatus,
-  } = useUpdateSuperAdminOrderStatus();
   const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
     useGetOrderDetail(trackingOrderId ?? undefined);
 
@@ -236,19 +284,6 @@ export function OrdersTable({
       toast.success('Order rejected successfully');
       setRejectingOrderId(null);
       setRejectionReason('');
-      onOrderUpdated?.();
-    } catch (error) {
-      handleApiError(error as ApiErrorResponse);
-    }
-  };
-
-  const handleSuperAdminStatusChange = async (
-    orderId: string,
-    status: string,
-  ) => {
-    try {
-      await updateSuperAdminOrderStatus({ orderId, status });
-      toast.success('Order status updated successfully');
       onOrderUpdated?.();
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
@@ -426,41 +461,18 @@ export function OrdersTable({
                     </TableCell>
                     <TableCell>
                       {!storeOrdersPath && canUpdateSuperAdminOrderStatus ? (
-                        <div onClick={(event) => event.stopPropagation()}>
-                          <Select
-                            value={normalizedStatus || undefined}
-                            disabled={isUpdatingSuperAdminOrderStatus}
-                            onValueChange={(status) => {
-                              if (status !== normalizedStatus) {
-                                void handleSuperAdminStatusChange(
-                                  order.orderId,
-                                  status,
-                                );
-                              }
-                            }}
-                          >
-                            <SelectTrigger className="w-[175px]">
-                              <SelectValue
-                                placeholder={formatOrderStatusLabel(
-                                  order?.status,
-                                  tStatuses,
-                                  t('notAvailable'),
-                                )}
-                              />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {ORDER_STATUSES.map((status) => (
-                                <SelectItem key={status} value={status}>
-                                  {formatOrderStatusLabel(
-                                    status,
-                                    tStatuses,
-                                    status.replace(/_/g, ' '),
-                                  )}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
+                        <OrderStatusSelect
+                          orderId={order.orderId}
+                          status={normalizedStatus}
+                          formatStatus={(status) =>
+                            formatOrderStatusLabel(
+                              status,
+                              tStatuses,
+                              status.replace(/_/g, ' ') || t('notAvailable'),
+                            )
+                          }
+                          onOrderUpdated={onOrderUpdated}
+                        />
                       ) : (
                         <Status
                           status={(order?.status || '').toLowerCase()}

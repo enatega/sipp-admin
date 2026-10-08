@@ -205,7 +205,7 @@ export function EditProductBasicInformationForm({
                     placeholder={t('stockQuantityPlaceholder')}
                     requiredAsterisk
                     disabled={isUnlimitedStock}
-                    value={isUnlimitedStock ? '' : undefined}
+                    {...(isUnlimitedStock ? { value: '' } : {})}
                   />
                   <div className="flex items-center gap-3">
                     <label className="text-sm font-medium">

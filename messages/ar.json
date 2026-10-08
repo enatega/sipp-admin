@@ -3704,6 +3704,7 @@
     "table": {
       "name": "الاسم",
       "email": "Email",
+      "userType": "نوع المستخدم",
       "phone": "Phone",
       "registrationMethod": "طريقة التسجيل",
       "status": "الحالة",

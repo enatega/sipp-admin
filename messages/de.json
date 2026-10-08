@@ -3725,6 +3725,7 @@
     "table": {
       "name": "Name",
       "email": "E-Mail",
+      "userType": "Benutzertyp",
       "phone": "Telefon",
       "registrationMethod": "Registrierungsmethode",
       "status": "Status",

@@ -3697,6 +3697,7 @@
     "table": {
       "name": "Nombre",
       "email": "Correo electrónico",
+      "userType": "Tipo de usuario",
       "phone": "Teléfono",
       "registrationMethod": "Método de registro",
       "status": "Situación",

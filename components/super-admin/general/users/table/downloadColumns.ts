@@ -15,6 +15,12 @@ export const downloadColumns = [
     formatter: (item: UserManagementItem) => item.userProfile.user.email || 'N/A',
   },
   {
+    header: 'User Type',
+    dataKey: 'userType',
+    formatter: (item: UserManagementItem) =>
+      item.userProfile.userType?.name || 'N/A',
+  },
+  {
     header: 'Phone',
     dataKey: 'phone',
     formatter: (item: UserManagementItem) => item.userProfile.user.phone,

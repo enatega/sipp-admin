@@ -87,12 +87,10 @@ export function RecentOrdersTable({
 
         <div className="mb-4">
           <div className="rounded-md border overflow-auto">
-            <Table className="min-w-[900px]">
+            <Table className="min-w-[720px]">
               <TableHeader className="bg-accent rounded-t-md">
                 <TableRow>
                   <TableHead className="pl-3 py-4">{t('orderId')}</TableHead>
-                  <TableHead className="pl-3 py-4">{t('module')}</TableHead>
-                  <TableHead className="pl-3 py-4">{t('serviceType')}</TableHead>
                   <TableHead className="pl-3 py-4">{t('customer')}</TableHead>
                   <TableHead className="pl-3 py-4">{t('workerRider')}</TableHead>
                   <TableHead className="pl-3 py-4">{t('location')}</TableHead>
@@ -116,10 +114,10 @@ export function RecentOrdersTable({
 
               <TableBody>
                 {isLoading ? (
-                  <TableShimmer limit={10} columns={9} />
+                  <TableShimmer limit={10} columns={7} />
                 ) : isError ? (
                   <TableRow>
-                    <TableCell colSpan={9}>
+                    <TableCell colSpan={7}>
                       <DisplayError
                         title={t('loadFailedTitle')}
                         message={errorMessage}
@@ -129,7 +127,7 @@ export function RecentOrdersTable({
                   </TableRow>
                 ) : orders.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={9}>
+                    <TableCell colSpan={7}>
                       <NoDataFound
                         title={t('noDataTitle')}
                         subtitle={t('noDataSubtitle')}
@@ -151,10 +149,6 @@ export function RecentOrdersTable({
                           </span>
                           {item.orderId ? <CopyButton text={item.orderId} /> : null}
                         </div>
-                      </TableCell>
-                      <TableCell>{item.module}</TableCell>
-                      <TableCell>
-                        <span>{item.serviceType}</span>
                       </TableCell>
                       <TableCell>
                         <span>{item.customer?.user?.name || notAvailable}</span>

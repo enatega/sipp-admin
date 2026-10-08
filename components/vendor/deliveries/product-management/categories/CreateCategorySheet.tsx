@@ -83,6 +83,7 @@ export default function CreateCategorySheet({
                 />
                 <AppFileInput
                   name="image"
+                  requiredAsterisk
                   label={t('form.imageLabel')}
                   helperText={t('form.imageHelper')}
                   acceptTypes={[

@@ -4,6 +4,8 @@ import { EnategaDeliveriesDashboardRecentOrder } from '@/types/api/super-admin/e
 import { useTranslations } from 'next-intl';
 import { useCurrency } from '@/hooks/use-currency';
 import { useSortableData } from '@/hooks/use-sortable-data';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { useGetZonesSimple } from '@/hooks/api/super-admin/general/zones';
 import {
   Table,
   TableBody,
@@ -18,6 +20,13 @@ import Status from '@/components/shared/Status';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer } from '@/components/shared/TableShimmer';
 import CopyButton from '@/components/shared/CopyButton';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface RecentOrdersTableProps {
   data?: EnategaDeliveriesDashboardRecentOrder[];
@@ -34,6 +43,9 @@ export function RecentOrdersTable({
 }: RecentOrdersTableProps) {
   const t = useTranslations('lumiFood.dashboard.tables.recentOrders');
   const { currencySymbol } = useCurrency();
+  const { getParam, setParams } = useQueryParams();
+  const { data: zones, isLoading: zonesLoading, isError: zonesError } = useGetZonesSimple();
+  const selectedZoneId = getParam('recentOrdersZoneId');
   const orders = data ?? [];
   const notAvailable = t('notAvailable');
   const notAssigned = t('notAssigned');
@@ -43,10 +55,34 @@ export function RecentOrdersTable({
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-lg border p-3 sm:p-4">
-        <div>
-          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3 sm:mb-4">
+          <h3 className="text-base sm:text-lg font-semibold">
             {t('title')}
           </h3>
+          <div>
+            <label htmlFor="recent-orders-zone" className="sr-only">
+              {t('zoneFilterLabel')}
+            </label>
+            <Select
+              value={selectedZoneId || 'all'}
+              onValueChange={(value) =>
+                setParams({ recentOrdersZoneId: value === 'all' ? null : value })
+              }
+              disabled={zonesLoading || zonesError}
+            >
+              <SelectTrigger id="recent-orders-zone" className="w-[190px] max-w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('allZones')}</SelectItem>
+                {zones?.map((zone) => (
+                  <SelectItem key={zone.id} value={zone.id}>
+                    {zone.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="mb-4">

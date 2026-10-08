@@ -4377,6 +4377,8 @@
       "tables": {
         "recentOrders": {
           "title": "Ordenes recientes",
+          "zoneFilterLabel": "Filtrar órdenes recientes por zona",
+          "allZones": "Todas las zonas",
           "orderId": "ID de orden",
           "module": "Módulo",
           "serviceType": "Tipo de servicio",

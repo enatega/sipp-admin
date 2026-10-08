@@ -4751,6 +4751,8 @@
       "tables": {
         "recentOrders": {
           "title": "Letzte Bestellungen",
+          "zoneFilterLabel": "Letzte Bestellungen nach Zone filtern",
+          "allZones": "Alle Zonen",
           "orderId": "Bestell-ID",
           "module": "Modul",
           "serviceType": "Servicetyp",

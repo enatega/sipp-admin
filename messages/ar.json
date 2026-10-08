@@ -4386,6 +4386,8 @@
       "tables": {
         "recentOrders": {
           "title": "الأوامر الأخيرة",
+          "zoneFilterLabel": "تصفية الطلبات الأخيرة حسب المنطقة",
+          "allZones": "جميع المناطق",
           "orderId": "رمز الهوية",
           "module": "الوحدة",
           "serviceType": "الخدمة",

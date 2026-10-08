@@ -1596,6 +1596,7 @@
       "status": "الحالة",
       "creationDate": "تاريخ الإنشاء",
       "actionHeader": "الإجراءات",
+      "actionsColumn": "الإجراءات",
       "actions": {
         "view": "View",
         "edit": "Edit",

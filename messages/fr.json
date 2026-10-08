@@ -1596,6 +1596,7 @@
       "status": "État",
       "creationDate": "Date de création",
       "actionHeader": "Actions",
+      "actionsColumn": "Actions",
       "actions": {
         "view": "Affichage",
         "edit": "Modifier",

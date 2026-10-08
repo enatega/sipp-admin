@@ -1620,6 +1620,7 @@
       "status": "Status",
       "creationDate": "Created Date",
       "actionHeader": "Actions",
+      "actionsColumn": "Actions",
       "actions": {
         "view": "View",
         "edit": "Edit",

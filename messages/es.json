@@ -1596,6 +1596,7 @@
       "status": "Situación",
       "creationDate": "Fecha de creación",
       "actionHeader": "Acciones",
+      "actionsColumn": "Acciones",
       "actions": {
         "view": "Ver",
         "edit": "Editar",

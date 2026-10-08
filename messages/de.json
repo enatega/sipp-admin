@@ -1619,6 +1619,7 @@
       "status": "Status",
       "creationDate": "Erstellungsdatum",
       "actionHeader": "Aktionen",
+      "actionsColumn": "Aktionen",
       "actions": {
         "view": "Ansehen",
         "edit": "Bearbeiten",

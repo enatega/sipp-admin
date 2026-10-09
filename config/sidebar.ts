@@ -76,7 +76,7 @@ export const sidebarMenus: SidebarMenu[] = [
   {
     id: 3,
     name: deployment.moduleLabels.deliveries,
-    translationKey: 'modules.deliveries',
+    translationKey: 'sidebar.lumiFoods',
     path: '#',
     icon: Utensils,
     permission: 'general-delivery.dashboard',

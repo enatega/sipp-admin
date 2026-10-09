@@ -1,5 +1,14 @@
 {
-  "acceptInvite": { "back": "Zurück zur Anmeldung", "title": "Konto einrichten", "description": "Legen Sie Ihr Passwort fest, um die Einladung anzunehmen. Danach können Sie sich anmelden.", "missingToken": "Dieser Einladungslink ist unvollständig. Bitten Sie Ihren Administrator, ihn erneut zu senden.", "success": "Einladung angenommen. Bitte melden Sie sich an.", "password": "Passwort", "confirmPassword": "Passwort bestätigen", "submit": "Einladung annehmen" },
+  "acceptInvite": {
+    "back": "Zurück zur Anmeldung",
+    "title": "Konto einrichten",
+    "description": "Legen Sie Ihr Passwort fest, um die Einladung anzunehmen. Danach können Sie sich anmelden.",
+    "missingToken": "Dieser Einladungslink ist unvollständig. Bitten Sie Ihren Administrator, ihn erneut zu senden.",
+    "success": "Einladung angenommen. Bitte melden Sie sich an.",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "submit": "Einladung annehmen"
+  },
   "storeLogin": {
     "title": "Store-Login aktivieren",
     "description": "Legen Sie eine E-Mail-Adresse und ein Passwort für den Store-Login fest.",
@@ -192,7 +201,7 @@
     "dragAndDrop": "Bild hierher ziehen und ablegen oder",
     "browse": "durchsuchen",
     "allowed": "Erlaubt",
-    "max": "Max",
+    "max": "Max.",
     "openFullSizePreview": "Vollbildvorschau öffnen",
     "preview": "Vorschau",
     "view": "Ansehen",
@@ -309,7 +318,7 @@
     "general": "Allgemein",
     "wallet": "Wallet",
     "users": "Benutzer",
-    "zones": "Zones",
+    "zones": "Zonen",
     "rolesAndPermissions": "Rollen und Berechtigungen",
     "notifications": "Benachrichtigungen",
     "customerSupport": "Kundensupport",
@@ -320,7 +329,7 @@
     "earningReports": "Verdienstberichte",
     "withdrawalRequests": "Auszahlungsanfragen",
     "ridePricingAndControls": "Fahrpreise und Kontrollen",
-    "lumiFoods": "SIPP Deliveries",
+    "lumiFoods": "SIPP Lieferungen",
     "generalBookings": "Algemene boekingen",
     "bookings": "Boekingen",
     "vendors": "Anbieter",
@@ -431,7 +440,11 @@
       "restaurantLoadError": "Restaurants konnten nicht geladen werden.",
       "allPaymentMethods": "Alle Zahlungsmethoden",
       "allOrderStatuses": "Alle Bestellstatus",
-      "payment": { "cash": "Bargeld", "card": "Karte", "wallet": "Wallet" },
+      "payment": {
+        "cash": "Bargeld",
+        "card": "Karte",
+        "wallet": "Wallet"
+      },
       "status": {
         "pending": "Ausstehend",
         "scheduled": "Geplant",
@@ -1116,7 +1129,8 @@
     "walletTransactions": "Wallet-Transaktionen",
     "withdrawalRequests": "Auszahlungsanfragen",
     "backToAdmin": "Zurück zum Admin",
-    "backToVendorStores": "Zurück zu den Vendor-Stores"
+    "backToVendorStores": "Zurück zu den Vendor-Stores",
+    "deals": "Angebote"
   },
   "storeCoupons": {
     "title": "Gutscheine",
@@ -1125,7 +1139,7 @@
     "editTitle": "Gutschein bearbeiten"
   },
   "storeAddons": {
-    "title": "Add-ons",
+    "title": "Zusatzoptionen",
     "addButton": "Add-on hinzufügen",
     "searchPlaceholder": "Add-ons nach Name oder Beschreibung suchen...",
     "table": {
@@ -1455,7 +1469,7 @@
         }
       },
       "addons": {
-        "title": "Add-ons",
+        "title": "Zusatzoptionen",
         "selectAddons": "Add-ons auswählen",
         "noAddons": "Keine Add-ons verfügbar"
       }
@@ -1529,7 +1543,7 @@
     }
   },
   "deals": {
-    "title": "Deals",
+    "title": "Angebote",
     "addButton": "Deals hinzufügen",
     "productLevel": "Produktebene",
     "dealType": {
@@ -2156,7 +2170,7 @@
       "pricePlaceholder": "Preis eingeben",
       "addonLabel": "Zusatz",
       "addonPlaceholder": "Zusatz eingeben",
-      "addonsLabel": "Add-ons",
+      "addonsLabel": "Zusatzoptionen",
       "addonsPlaceholder": "Add-ons auswählen",
       "addNewAddon": "Neues Add-on hinzufügen",
       "unitOfMeasureLabel": "Mengeinheit",
@@ -2204,9 +2218,9 @@
         "pricePlaceholder": "Preis eingeben",
         "addonLabel": "Zusatz",
         "addonPlaceholder": "Zusatz eingeben",
-        "addonsLabel": "Add-ons",
+        "addonsLabel": "Zusatzoptionen",
         "addonsPlaceholder": "Add-ons auswählen",
-        "dealsLabel": "Deals",
+        "dealsLabel": "Angebote",
         "favouriteFoodTagsLabel": "Lieblingsspeisen-Tags",
         "favouriteFoodTagsPlaceholder": "Lieblingsspeisen auswählen",
         "favouriteFoodTagsHelp": "Erleichtert Kunden das Entdecken dieses Produkts. Die Shop-Kategorien bleiben unverändert.",
@@ -2250,7 +2264,7 @@
         "discountPriceLabel": "Rabattpreis",
         "discountPricePlaceholder": "Rabattpreis eingeben",
         "optional": "optional",
-        "addonsLabel": "Add-ons",
+        "addonsLabel": "Zusatzoptionen",
         "addonsPlaceholder": "Add-ons auswählen",
         "addVariantButton": "Variante hinzufügen",
         "variantsListTitle": "Variantenliste",
@@ -2278,9 +2292,9 @@
     },
     "detail": {
       "sections": {
-        "deals": "Deals",
+        "deals": "Angebote",
         "variations": "Varianten",
-        "addOns": "Add-ons"
+        "addOns": "Zusatzoptionen"
       },
       "fields": {
         "sku": "Artikelnummer",
@@ -2466,7 +2480,8 @@
         "contactDetails": "Kontaktdetails",
         "settings": "Einstellungen",
         "additionalNotes": "Zusätzliche Notizen",
-        "kycDocuments": "KYC-Dokumente"
+        "kycDocuments": "KYC-Dokumente",
+        "bankDetails": "Bankverbindung"
       },
       "settingsFields": {
         "pickupAllowed": "Abholung erlaubt?",
@@ -2524,7 +2539,8 @@
       "storeInformation": "Store-Informationen",
       "serviceCenterInformation": "Servicecenter-Informationen",
       "additionalNotes": "Zusätzliche Notizen",
-      "kycDocuments": "KYC-Dokumente"
+      "kycDocuments": "KYC-Dokumente",
+      "bankDetails": "Bankverbindung"
     },
     "form": {
       "storeNameLabel": "Name des Geschäftstyps",
@@ -2605,14 +2621,14 @@
       "totalRevenue": "Gesamtumsatz",
       "secondaryText": "Totale omzet uitgesplitst per categorie",
       "loDrive": "SIPP Drive",
-      "loFoods": "SIPP Deliveries",
-      "loHotels": "General Bookings",
+      "loFoods": "SIPP Lieferungen",
+      "loHotels": "Allgemeine Buchungen",
       "loTickets": "FixRight Bookings"
     },
     "serviceCards": {
       "loDrive": "SIPP Drive",
-      "loFoods": "SIPP Deliveries",
-      "loHotels": "General Bookings",
+      "loFoods": "SIPP Lieferungen",
+      "loHotels": "Allgemeine Buchungen",
       "loTickets": "FixRight Bookings",
       "driverCount": "Anzahl der Fahrer",
       "completedRides": "Abgeschlossene Fahrten",
@@ -2687,7 +2703,7 @@
       "monthlyTab": "Monatlich",
       "yearly": "Jährlich",
       "yearlyTab": "Jährlich",
-      "dashboardTitle": "Drive Dashboard",
+      "dashboardTitle": "Drive-Dashboard",
       "custom": "Benutzerdefiniert"
     },
     "statsCards": {
@@ -3179,7 +3195,7 @@
         "phoneLabel": "Telefonnummer",
         "phonePlaceholder": "+1 (555) 987-6543",
         "logoLabel": "Logo",
-        "bannerLabel": "Banner (Optional)",
+        "bannerLabel": "Banner (optional)",
         "emailLabel": "E-Mail",
         "emailPlaceholder": "Abc@gmail.com",
         "passwordLabel": "Passwort",
@@ -3215,7 +3231,7 @@
         "title": "Betriebsart der Filiale",
         "description": "Konfigurieren Sie Ihre Filialbetriebseinstellungen",
         "prepareTimeLabel": "Vorbereitungszeit",
-        "prepareTimePlaceholder": "20 Min",
+        "prepareTimePlaceholder": "20 Min.",
         "emergencyChargesLabel": "Notfallgebühren",
         "orderMethodLabel": "Bestellmethode",
         "pickupAllowed": "Abholung erlaubt",
@@ -3464,7 +3480,7 @@
       "weeklyTab": "Wöchentlich",
       "monthlyTab": "Monatlich",
       "yearlyTab": "Jährlich",
-      "dashboardTitle": "Store Dashboard"
+      "dashboardTitle": "Geschäfts-Dashboard"
     },
     "statsCards": {
       "totalSalesTitle": "Gesamtumsatz",
@@ -3681,7 +3697,8 @@
         "tooltip": {
           "type": "Typ",
           "totalOrders": "Gesamtbestellungen",
-          "percentage": "Prozentsatz"
+          "percentage": "Prozentsatz",
+          "count": "Anzahl"
         }
       }
     },
@@ -3953,7 +3970,7 @@
     },
     "drawingTools": {
       "circle": "Kreis",
-      "marker": "Point",
+      "marker": "Punkt",
       "polygon": "Polygone",
       "polyline": "Polylinie"
     },
@@ -4357,7 +4374,8 @@
       },
       "availabilityToasts": {
         "markedAvailable": "Geschäft als verfügbar markiert",
-        "markedUnavailable": "Geschäft als nicht verfügbar markiert"
+        "markedUnavailable": "Geschäft als nicht verfügbar markiert",
+        "markedAvailableAndActivated": "Geschäftskonto aktiviert und Geschäft als verfügbar markiert"
       },
       "table": {
         "name": "Name",
@@ -4510,7 +4528,7 @@
           "phoneLabel": "Telefonnummer",
           "phonePlaceholder": "+49 (555) 987-6543",
           "logoLabel": "Logo",
-          "bannerLabel": "Banner (Optional)",
+          "bannerLabel": "Banner (optional)",
           "emailLabel": "E-Mail",
           "emailPlaceholder": "beispiel@email.de",
           "passwordLabel": "Passwort",
@@ -4554,7 +4572,7 @@
           "title": "Betriebsmodus",
           "description": "Konfigurieren Sie Ihre Geschäftseinstellungen",
           "prepareTimeLabel": "Zubereitungszeit",
-          "prepareTimePlaceholder": "20 Min",
+          "prepareTimePlaceholder": "20 Min.",
           "orderMethodLabel": "Bestellmethode",
           "pickupAllowed": "Abholung erlaubt",
           "deliveryAllowed": "Lieferung erlaubt",
@@ -4638,7 +4656,8 @@
             "both": "Beide",
             "emergencyChargesLabel": "Notfallgebühren",
             "emergencyChargesPlaceholder": "z.B. 25.00"
-          }
+          },
+          "emergencyChargesLabel": "Notfallgebühren"
         },
         "step4": {
           "title": "Standort",
@@ -4715,6 +4734,22 @@
         "description": "Möchten Sie zur Geschäftsliste zurückkehren oder weiter bearbeiten?",
         "confirm": "Zur Geschäftsliste",
         "cancel": "Weiter bearbeiten"
+      },
+      "addButton": "Geschäft hinzufügen",
+      "storeAccountInactive": "Geschäftskonto inaktiv",
+      "storeAccountActivated": "Geschäftskonto aktiviert",
+      "activateAccountDialog": {
+        "title": "Geschäftskonto aktivieren",
+        "subTitle": "Konto für {name} aktivieren?",
+        "description": "Das Geschäftskonto kann sich anmelden. Ist die Verfügbarkeit aktiviert, kann das Geschäft sofort für Kunden sichtbar sein.",
+        "requireApproval": "Genehmigen und entsperren Sie dieses Geschäft, bevor Sie die Verfügbarkeit aktivieren.",
+        "confirm": "Konto aktivieren"
+      },
+      "enableAndActivateDialog": {
+        "title": "Verfügbarkeit aktivieren",
+        "subTitle": "Verfügbarkeit für {name} aktivieren?",
+        "description": "Dadurch wird auch das Geschäftskonto aktiviert, damit sich Mitarbeiter anmelden können.",
+        "confirm": "Aktivieren und freischalten"
       }
     },
     "dashboard": {
@@ -4786,7 +4821,7 @@
         },
         "topStores": {
           "title": "Top-Stores",
-          "store": "Store",
+          "store": "Geschäft",
           "orders": "Bestellungen",
           "revenue": "Umsatz",
           "rating": "Bewertung",
@@ -4896,7 +4931,7 @@
         "validityFrom": "Gültig ab",
         "validityTo": "Gültig bis",
         "appliedTo": "Gilt für",
-        "storesName": "Stores",
+        "storesName": "Geschäfte",
         "status": "Status",
         "actions": "Aktionen",
         "fetchFailedTitle": "Coupons konnten nicht geladen werden",
@@ -4987,14 +5022,14 @@
           "productsLabel": "Produkte",
           "productsLoading": "Wird geladen...",
           "productsPlaceholder": "Produkte auswählen",
-          "storesLabel": "Stores",
+          "storesLabel": "Geschäfte",
           "storesLoading": "Wird geladen...",
           "serviceLabel": "Service",
           "serviceLoading": "Wird geladen...",
           "servicesLabel": "Services",
           "servicesLoading": "Wird geladen...",
           "servicesPlaceholder": "Service auswählen",
-          "serviceCentersLabel": "Service Centers",
+          "serviceCentersLabel": "Servicecenter",
           "serviceCentersLoading": "Wird geladen...",
           "serviceCentersPlaceholder": "Service Centers auswählen",
           "servicePlaceholder": "Service auswählen",
@@ -5083,13 +5118,13 @@
           "productsLabel": "Produkte",
           "productsLoading": "Wird geladen...",
           "productsPlaceholder": "Produkte auswählen",
-          "storesLabel": "Stores",
+          "storesLabel": "Geschäfte",
           "storesLoading": "Wird geladen...",
           "storesPlaceholder": "Stores auswählen",
           "serviceLabel": "Service",
           "serviceLoading": "Wird geladen...",
           "servicePlaceholder": "Service auswählen",
-          "serviceCentersLabel": "Service Centers",
+          "serviceCentersLabel": "Servicecenter",
           "servicesLabel": "Services",
           "servicesLoading": "Dienstleistungen werden geladen...",
           "servicesPlaceholder": "Dienstleistung auswählen",
@@ -5313,6 +5348,19 @@
             "totalRevenue": "Gesamtumsatz"
           }
         }
+      },
+      "filters": {
+        "periodPlaceholder": "Periode auswählen",
+        "dateRangePlaceholder": "Zeitraum auswählen",
+        "periodOptions": {
+          "all": "Alle",
+          "today": "Heute",
+          "thisWeek": "Diese Woche",
+          "this_week": "Diese Woche",
+          "thisMonth": "Diesen Monat",
+          "this_month": "Diesen Monat",
+          "custom": "Benutzerdefiniert"
+        }
       }
     },
     "vendors": {
@@ -5529,7 +5577,22 @@
     }
   },
   "roleAndPermissions": {
-    "pendingInvitations": { "title": "Ausstehende Einladungen", "description": "Eingeladene Personen erscheinen hier, bis sie annehmen und zugewiesene Benutzer werden.", "name": "Name", "email": "E-Mail", "role": "Rolle", "expires": "Link gültig bis", "action": "Aktion", "loading": "Einladungen werden geladen…", "loadError": "Einladungen konnten nicht geladen werden.", "retry": "Erneut versuchen", "empty": "Keine ausstehenden Einladungen", "noRole": "Keine Rolle ausgewählt", "resend": "Einladung erneut senden", "resendSuccess": "Einladung erneut gesendet" },
+    "pendingInvitations": {
+      "title": "Ausstehende Einladungen",
+      "description": "Eingeladene Personen erscheinen hier, bis sie annehmen und zugewiesene Benutzer werden.",
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "expires": "Link gültig bis",
+      "action": "Aktion",
+      "loading": "Einladungen werden geladen…",
+      "loadError": "Einladungen konnten nicht geladen werden.",
+      "retry": "Erneut versuchen",
+      "empty": "Keine ausstehenden Einladungen",
+      "noRole": "Keine Rolle ausgewählt",
+      "resend": "Einladung erneut senden",
+      "resendSuccess": "Einladung erneut gesendet"
+    },
     "title": "Rollen und Berechtigungen",
     "addRole": "Rolle hinzufügen",
     "editRole": "Rolle bearbeiten",
@@ -5669,7 +5732,7 @@
       "all": "Alle",
       "rider": "Fahrer",
       "customer": "Kunde",
-      "store": "Store",
+      "store": "Geschäft",
       "admin": "Administrator",
       "staff": "Mitarbeiter",
       "vendor": "Anbieter"
@@ -5686,7 +5749,7 @@
       "targetZonesHelper": "Leer lassen, um an alle Zonen zu senden",
       "imageUrl": "Bild-URL (Optional)",
       "imageUrlPlaceholder": "https://example.com/image.png",
-      "deepLink": "Deep Link (Optional)",
+      "deepLink": "Deep Link (optional)",
       "deepLinkPlaceholder": "ihreapp://bildschirm",
       "cancel": "Abbrechen",
       "validation": {
@@ -5819,7 +5882,8 @@
     },
     "tabs": {
       "zoneBased": "Zonenbasiert",
-      "storeLevel": "Store-Ebene"
+      "storeLevel": "Store-Ebene",
+      "serviceCenterBased": "Servicecenter-basiert"
     },
     "storeLevelTitle": "Store-Provisionssatz",
     "globalSettings": {
@@ -5836,8 +5900,8 @@
     "storeForm": {
       "addTitle": "Store-Provision hinzufügen",
       "editTitle": "Store-Provision bearbeiten",
-      "storeLabel": "Store",
-      "storePlaceholder": "Store",
+      "storeLabel": "Geschäft",
+      "storePlaceholder": "Geschäft",
       "commissionLabel": "Provisionssatz",
       "commissionPlaceholder": "Provisionssatz eingeben",
       "commissionVatLabel": "Mehrwertsteuer auf Provision",
@@ -5867,7 +5931,7 @@
       "updateSuccess": "Zonenprovision erfolgreich aktualisiert"
     },
     "storeTable": {
-      "store": "Store",
+      "store": "Geschäft",
       "vendor": "Anbieter",
       "zone": "Zone",
       "defaultCommission": "Standardprovision",
@@ -5896,7 +5960,8 @@
         "description": "Diese Aktion löscht die ausgewählte Zonenprovision dauerhaft.",
         "confirm": "Ja, löschen"
       }
-    }
+    },
+    "serviceCenterLevelTitle": "Servicecenter-Provisionssatz"
   },
   "fixrightCommissionRate": {
     "title": "Provisionssatz",
@@ -5976,8 +6041,8 @@
     "storeForm": {
       "addTitle": "Store-Provision hinzufügen",
       "editTitle": "Store-Provision bearbeiten",
-      "storeLabel": "Store",
-      "storePlaceholder": "Store",
+      "storeLabel": "Geschäft",
+      "storePlaceholder": "Geschäft",
       "commissionLabel": "Provisionssatz",
       "commissionPlaceholder": "Provisionssatz eingeben",
       "statusLabel": "Status",
@@ -6004,7 +6069,7 @@
       "updateSuccess": "Zonenprovision erfolgreich aktualisiert"
     },
     "storeTable": {
-      "store": "Store",
+      "store": "Geschäft",
       "vendor": "Anbieter",
       "zone": "Zone",
       "defaultCommission": "Standardprovision",
@@ -6113,7 +6178,7 @@
         "columns": {
           "contractId": "Vertrags-ID",
           "client": "Kunde",
-          "worker": "Worker",
+          "worker": "Mitarbeiter",
           "category": "Kategorie",
           "zone": "Zone",
           "created": "Erstellt",
@@ -6206,16 +6271,74 @@
     }
   },
   "favouriteFoods": {
-    "title": "Lieblingsspeisen", "subtitle": "Entdeckungs-Tags verwalten und Geschäftsarten zuweisen.", "addButton": "Lieblingsspeise hinzufügen", "empty": "Keine Lieblingsspeisen gefunden",
-    "filters": { "search": "Lieblingsspeisen suchen", "status": "Alle Status", "shopType": "Alle Geschäftsarten" },
-    "table": { "image": "Bild", "name": "Name", "shopTypes": "Geschäftsarten", "order": "Anzeigereihenfolge", "status": "Status", "actions": "Aktionen" },
-    "status": { "active": "Aktiv", "inactive": "Inaktiv" },
-    "actions": { "create": "Erstellen", "save": "Speichern", "cancel": "Abbrechen", "edit": "Bearbeiten", "delete": "Löschen", "toggleStatus": "Status für {name} ändern" },
-    "form": { "createTitle": "Lieblingsspeise hinzufügen", "editTitle": "Lieblingsspeise bearbeiten", "description": "Name, Sichtbarkeit, Reihenfolge, Bild und Geschäftsarten festlegen.", "name": "Englischer Name", "namePlaceholder": "z. B. Pizza", "translations": "Übersetzte Namen", "translationsDescription": "Namen für aktivierte Sprachen hinzufügen. Leere Werte verwenden Englisch.", "translationPlaceholder": "Name auf {language}", "shopTypes": "Geschäftsarten", "shopTypesPlaceholder": "Eine oder mehrere auswählen", "displayOrder": "Anzeigereihenfolge", "displayOrderHelp": "Kleinere Zahlen erscheinen zuerst.", "image": "Bild", "imageHelp": "PNG, JPG oder WebP bis 5 MB.", "removeImage": "Aktuelles Bild entfernen", "status": "Kundensichtbarkeit" },
-    "validation": { "nameRequired": "Englischer Name ist erforderlich", "shopTypeRequired": "Mindestens eine Geschäftsart auswählen", "orderInteger": "Die Reihenfolge muss ganzzahlig sein", "orderMinimum": "Die Reihenfolge darf nicht negativ sein" },
-    "messages": { "created": "Lieblingsspeise erstellt", "updated": "Lieblingsspeise aktualisiert", "deleted": "Lieblingsspeise gelöscht", "statusUpdated": "Status aktualisiert" },
-    "errors": { "loadTitle": "Lieblingsspeisen konnten nicht geladen werden", "loadMessage": "Bitte erneut versuchen." },
-    "deleteDialog": { "title": "Lieblingsspeise löschen", "subtitle": "{name} löschen?", "description": "Sie wird ausgeblendet; die Produkthistorie bleibt erhalten." }
+    "title": "Lieblingsspeisen",
+    "subtitle": "Entdeckungs-Tags verwalten und Geschäftsarten zuweisen.",
+    "addButton": "Lieblingsspeise hinzufügen",
+    "empty": "Keine Lieblingsspeisen gefunden",
+    "filters": {
+      "search": "Lieblingsspeisen suchen",
+      "status": "Alle Status",
+      "shopType": "Alle Geschäftsarten"
+    },
+    "table": {
+      "image": "Bild",
+      "name": "Name",
+      "shopTypes": "Geschäftsarten",
+      "order": "Anzeigereihenfolge",
+      "status": "Status",
+      "actions": "Aktionen"
+    },
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Inaktiv"
+    },
+    "actions": {
+      "create": "Erstellen",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "toggleStatus": "Status für {name} ändern"
+    },
+    "form": {
+      "createTitle": "Lieblingsspeise hinzufügen",
+      "editTitle": "Lieblingsspeise bearbeiten",
+      "description": "Name, Sichtbarkeit, Reihenfolge, Bild und Geschäftsarten festlegen.",
+      "name": "Englischer Name",
+      "namePlaceholder": "z. B. Pizza",
+      "translations": "Übersetzte Namen",
+      "translationsDescription": "Namen für aktivierte Sprachen hinzufügen. Leere Werte verwenden Englisch.",
+      "translationPlaceholder": "Name auf {language}",
+      "shopTypes": "Geschäftsarten",
+      "shopTypesPlaceholder": "Eine oder mehrere auswählen",
+      "displayOrder": "Anzeigereihenfolge",
+      "displayOrderHelp": "Kleinere Zahlen erscheinen zuerst.",
+      "image": "Bild",
+      "imageHelp": "PNG, JPG oder WebP bis 5 MB.",
+      "removeImage": "Aktuelles Bild entfernen",
+      "status": "Kundensichtbarkeit"
+    },
+    "validation": {
+      "nameRequired": "Englischer Name ist erforderlich",
+      "shopTypeRequired": "Mindestens eine Geschäftsart auswählen",
+      "orderInteger": "Die Reihenfolge muss ganzzahlig sein",
+      "orderMinimum": "Die Reihenfolge darf nicht negativ sein"
+    },
+    "messages": {
+      "created": "Lieblingsspeise erstellt",
+      "updated": "Lieblingsspeise aktualisiert",
+      "deleted": "Lieblingsspeise gelöscht",
+      "statusUpdated": "Status aktualisiert"
+    },
+    "errors": {
+      "loadTitle": "Lieblingsspeisen konnten nicht geladen werden",
+      "loadMessage": "Bitte erneut versuchen."
+    },
+    "deleteDialog": {
+      "title": "Lieblingsspeise löschen",
+      "subtitle": "{name} löschen?",
+      "description": "Sie wird ausgeblendet; die Produkthistorie bleibt erhalten."
+    }
   },
   "Schemas": {
     "customerLoyalty": {
@@ -6242,7 +6365,9 @@
       "zoneRequired": "Zone ist erforderlich",
       "categoryRequired": "Kategorie ist erforderlich",
       "commissionRateRequired": "Provisionssatz ist erforderlich",
-      "commissionRateNonNegative": "Provisionssatz darf nicht negativ sein"
+      "commissionRateNonNegative": "Provisionssatz darf nicht negativ sein",
+      "commissionRequired": "Provision ist erforderlich",
+      "commissionNonNegative": "Provision muss 0 oder größer sein"
     },
     "editCategory": {
       "commissionRequired": "Provision ist erforderlich",
@@ -6288,7 +6413,9 @@
       "atLeastOneDeliveryType": "Mindestens eine Lieferart muss ausgewählt werden",
       "deliveryTypeRequired": "Lieferart ist erforderlich",
       "forNewUserOnlyRequired": "Nur-für-neue-Benutzer-Flag ist erforderlich",
-      "forPremiumShopOnlyRequired": "Nur-für-Premium-Shops-Flag ist erforderlich"
+      "forPremiumShopOnlyRequired": "Nur-für-Premium-Shops-Flag ist erforderlich",
+      "atLeastOneService": "Mindestens ein Service muss ausgewählt werden",
+      "serviceRequired": "Service ist erforderlich"
     },
     "commissionRate": {
       "currencyRequired": "Währung ist erforderlich",
@@ -7972,7 +8099,7 @@
         "headers": {
           "itemServiceName": "Artikel-/Service-Name",
           "price": "Preis",
-          "addon": "Add-on",
+          "addon": "Zusatzoption",
           "finalPrice": "Endpreis"
         },
         "quantityLabel": "Menge:",
@@ -7981,7 +8108,7 @@
         "totalAmount": "Gesamtbetrag"
       },
       "addonsModal": {
-        "title": "Add-ons",
+        "title": "Zusatzoptionen",
         "totalAmount": "Gesamtbetrag:"
       },
       "appointmentServices": {
@@ -7989,7 +8116,7 @@
         "headers": {
           "service": "Service",
           "price": "Preis",
-          "addon": "Add-on",
+          "addon": "Zusatzoption",
           "notes": "Notizen"
         },
         "durationLabel": "Dauer:"
@@ -7999,7 +8126,7 @@
         "headers": {
           "service": "Service",
           "baseFee": "Grundgebühr",
-          "addon": "Add-on",
+          "addon": "Zusatzoption",
           "notes": "Notizen"
         },
         "durationLabel": "Dauer:"
@@ -8092,7 +8219,7 @@
         "pickupLabel": "Abholung:",
         "dropoffLabel": "Zustellung:",
         "distanceLabel": "Entfernung:",
-        "etaLabel": "ETA:",
+        "etaLabel": "Ankunft ca.:",
         "notesLabel": "Notizen:",
         "notAvailable": "N/A"
       },
@@ -9804,7 +9931,10 @@
       "enterPoints": "Punkte eingeben",
       "pointsPlaceholder": "Punkte zum Umrechnen eingeben",
       "convertedValue": "Umgerechneter Wert",
-      "errorLoading": "Punkt-Umrechnungseinstellungen konnten nicht geladen werden"
+      "errorLoading": "Punkt-Umrechnungseinstellungen konnten nicht geladen werden",
+      "pointsEqualsOneLabel": "Punkte entsprechen einer Empfehlung",
+      "pointsEqualsOnePlaceholder": "Punkte",
+      "successMessage": "Punkte-Umrechnungskurs erfolgreich aktualisiert"
     },
     "editConversion": {
       "title": "Umrechnungssatz bearbeiten",
@@ -10230,7 +10360,7 @@
       "statusUnpaid": "Unbezahlt"
     },
     "filters": {
-      "searchPlaceholder": "Request ID, employee name, status"
+      "searchPlaceholder": "Anfrage-ID, Mitarbeitername, Status"
     },
     "payNowDialog": {
       "title": "Jetzt bezahlen",

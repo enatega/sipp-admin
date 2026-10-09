@@ -1,5 +1,14 @@
 {
-  "acceptInvite": { "back": "Retour à la connexion", "title": "Configurer votre compte", "description": "Choisissez votre mot de passe pour accepter l'invitation. Vous pourrez ensuite vous connecter.", "missingToken": "Ce lien d'invitation est incomplet. Demandez à votre administrateur de le renvoyer.", "success": "Invitation acceptée. Veuillez vous connecter.", "password": "Mot de passe", "confirmPassword": "Confirmer le mot de passe", "submit": "Accepter l'invitation" },
+  "acceptInvite": {
+    "back": "Retour à la connexion",
+    "title": "Configurer votre compte",
+    "description": "Choisissez votre mot de passe pour accepter l'invitation. Vous pourrez ensuite vous connecter.",
+    "missingToken": "Ce lien d'invitation est incomplet. Demandez à votre administrateur de le renvoyer.",
+    "success": "Invitation acceptée. Veuillez vous connecter.",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "submit": "Accepter l'invitation"
+  },
   "storeLogin": {
     "title": "Activer la connexion de stockage",
     "description": "Définir un courriel et un mot de passe pour que ce magasin se connecte.",
@@ -324,7 +333,7 @@
     "generalBookings": "Réservations générales",
     "vendors": "Fournisseurs",
     "chainProfile": "Profil de chaîne",
-    "branches": "Branches",
+    "branches": "Succursales",
     "bookings": "Réservations",
     "stores": "Magasins",
     "riders": "Livreurs",
@@ -347,7 +356,8 @@
     "reportingCancellations": "Annulations",
     "reportingFinancialPayouts": "Financement et paiements",
     "reportingCustomersPromotions": "Clients & Promotions",
-    "customerLoyaltyAndReferrals": "Fidélité du client et références"
+    "customerLoyaltyAndReferrals": "Fidélité du client et références",
+    "homeSequence": "Ordre de l'Accueil"
   },
   "reporting": {
     "title": "Rapports",
@@ -413,6 +423,10 @@
       "promotions": {
         "label": "Coupons et réductions",
         "description": "Coupon et autres réductions d'utilisation et d'impact des ventes."
+      },
+      "refunds": {
+        "label": "Rapport des remboursements",
+        "description": "Demandes de remboursement, résultats et répartition des responsabilités."
       }
     },
     "filters": {
@@ -468,7 +482,11 @@
       "commissionVat": "VAT en commission",
       "totalCommissionDeduction": "Déduction pour commissions",
       "absorbedVat": "Absorbé VAT",
-      "loadError": "Le résumé des taxes et commissions n'a pas pu être chargé"
+      "loadError": "Le résumé des taxes et commissions n'a pas pu être chargé",
+      "grossCommission": "Commission avant coupons",
+      "adminCouponCost": "Coût du coupon admin",
+      "adminCouponExtraPaid": "Supplément payé par l'admin pour le coupon",
+      "storeCouponCost": "Coût du coupon magasin"
     },
     "table": {
       "records": "{count, plural, one {# enregistrement} other {# enregistrements}}",
@@ -548,7 +566,25 @@
       "promotionType": "Type de promotion",
       "promotionCode": "Code promotionnel",
       "orders": "Ordonnances",
-      "totalDiscount": "Réduction totale"
+      "totalDiscount": "Réduction totale",
+      "couponBorneBy": "Coupon à la charge de",
+      "couponDiscount": "Remise du coupon",
+      "adminCouponCost": "Coût du coupon admin",
+      "storeCouponCost": "Coût du coupon magasin",
+      "adminCouponExtraPaid": "Supplément payé par l'admin pour le coupon",
+      "storeEarnings": "Revenus du magasin",
+      "commissionBeforeCoupon": "Commission avant coupon",
+      "adminCouponFromCommission": "Coupon admin pris sur la commission",
+      "requestId": "ID de la demande",
+      "requestDate": "Date de la demande",
+      "rider": "Livreur",
+      "refundType": "Type de remboursement",
+      "requestedAmount": "Montant demandé",
+      "approvedAmount": "Montant approuvé",
+      "storeDeduction": "Déduction magasin",
+      "riderDeduction": "Déduction livreur",
+      "adminDeduction": "Déduction admin",
+      "reason": "Motif"
     }
   },
   "noPermission": {
@@ -599,7 +635,7 @@
     },
     "appTypes": {
       "riderApp": "Application Rider",
-      "storeApp": "Store App",
+      "storeApp": "Application magasin",
       "customerApp": "App client",
       "web": "Site Web",
       "admin": "Administrateur"
@@ -1081,7 +1117,7 @@
     "categories": "Catégories",
     "deals": "Marchés",
     "subCategories": "Sous-catégories",
-    "addons": "Addons",
+    "addons": "Suppléments",
     "options": "Options",
     "orders": "Ordonnances",
     "subscriptionPlans": "Plans d'abonnement",
@@ -1093,7 +1129,8 @@
     "walletTransactions": "Opérations sur portefeuille",
     "withdrawalRequests": "Demandes de retrait",
     "backToAdmin": "Retour à Admin",
-    "backToVendorStores": "Retour aux magasins fournisseurs"
+    "backToVendorStores": "Retour aux magasins fournisseurs",
+    "menuControl": "Gestion du menu"
   },
   "storeCoupons": {
     "title": "Coupons",
@@ -2444,7 +2481,7 @@
         "settings": "Paramètres",
         "additionalNotes": "Notes complémentaires",
         "bankDetails": "Détails bancaires",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "Documents KYC"
       },
       "settingsFields": {
         "pickupAllowed": "Le ramassage est-il autorisé?",
@@ -2484,7 +2521,7 @@
         "taxCertificateLabel": "Certificat fiscal",
         "taxCertificateAlt": "Certificat fiscal",
         "nationalIdFrontLabel": "Identification nationale (Front)",
-        "nationalIdFrontAlt": "National ID Front",
+        "nationalIdFrontAlt": "Carte d'identité (recto)",
         "nationalIdBackLabel": "Identification nationale (en arrière)",
         "nationalIdBackAlt": "ID national Retour"
       },
@@ -2503,7 +2540,7 @@
       "serviceCenterInformation": "Information du centre de services",
       "additionalNotes": "Notes complémentaires",
       "bankDetails": "Détails bancaires",
-      "kycDocuments": "KYC Documents"
+      "kycDocuments": "Documents KYC"
     },
     "form": {
       "storeNameLabel": "Nom du type d'entreprise",
@@ -2531,7 +2568,9 @@
       "businessTypeRegistrationDocumentLabel": "Document d'enregistrement de type d'entreprise",
       "taxCertificateLabel": "Certificat fiscal",
       "cancelButton": "Annuler",
-      "updateProfileButton": "Mettre à jour le profil"
+      "updateProfileButton": "Mettre à jour le profil",
+      "slugLabel": "Slug",
+      "slugHint": "Généré à partir du nom du magasin. Vous pouvez le modifier."
     },
     "errors": {
       "fetchFailedTitle": "Impossible de récupérer les données du magasin.",
@@ -2556,7 +2595,10 @@
       "supportPhoneRequired": "Téléphone de soutien nécessaire",
       "zoneIdRequired": "Zone requise",
       "tagLineRequired": "La ligne d'étiquette est requise",
-      "minimumOrderValueRequired": "La valeur minimale de la réservation est requise"
+      "minimumOrderValueRequired": "La valeur minimale de la réservation est requise",
+      "slugRequired": "Le slug est requis",
+      "slugInvalid": "Utilisez uniquement des lettres minuscules, des chiffres et des tirets",
+      "slugMaxLength": "Le slug ne doit pas dépasser 100 caractères"
     }
   },
   "dashboard": {
@@ -3076,7 +3118,7 @@
       "bankNameLabel": "Nom de la banque",
       "ibanLabel": "IBAN Numéro de compte",
       "branchCodeLabel": "Code de la branche",
-      "swiftCodeLabel": "SWIFT Code",
+      "swiftCodeLabel": "Code SWIFT",
       "rejectionReasonLabel": "Motif du rejet",
       "notesLabel": "Annexe",
       "paymentProofLabel": "Preuve de paiement",
@@ -3260,7 +3302,9 @@
         "storeNameImmutableHint": "Le nom du magasin ne peut pas être changé",
         "phoneImmutableHint": "Le numéro de téléphone ne peut pas être modifié",
         "backButton": "Précédent",
-        "saveNextButton": "Enregistrer & Suivant"
+        "saveNextButton": "Enregistrer & Suivant",
+        "slugLabel": "Slug",
+        "slugHint": "Généré à partir du nom du magasin. Vous pouvez le modifier."
       },
       "step2": {
         "title": "Type de magasin",
@@ -3357,7 +3401,7 @@
       "sections": {
         "vendorInformation": "Informations sur le fournisseur",
         "bankDetails": "Détails bancaires",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "Documents KYC"
       },
       "fields": {
         "email": "Courriel",
@@ -3388,7 +3432,7 @@
         "vendorInformation": "Informations sur le fournisseur",
         "bankDetails": "Détails bancaires",
         "additionalNotes": "Notes complémentaires",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "Documents KYC"
       },
       "labels": {
         "vendorName": "Nom du fournisseur",
@@ -3529,11 +3573,11 @@
         "grossEarnings": "Revenus bruts",
         "commission": "Commission européenne",
         "payout": "Paiement",
-        "avgFare": "Avg Fare"
+        "avgFare": "Tarif moyen"
       },
       "profileCard": {
         "vehicleType": "Type de véhicule:",
-        "zone": "Zone:",
+        "zone": "Zone :",
         "driverId": "Identification du conducteur :"
       }
     },
@@ -3541,7 +3585,7 @@
       "noData": "Aucune donnée trouvée",
       "totalDrivers": "Total des chauffeurs",
       "driverPayout": "Paiement au chauffeur",
-      "totalCommission": "Total Commission",
+      "totalCommission": "Commission totale",
       "avgEarnings": "Les gains",
       "driverTiersChart": {
         "title": "Niveau conducteur",
@@ -3580,7 +3624,7 @@
       "noData": "Aucune donnée trouvée",
       "totalRides": "Total des courses",
       "totalEarnings": "Total des gains",
-      "totalCommission": "Total Commission",
+      "totalCommission": "Commission totale",
       "driverPayout": "Paiement au chauffeur",
       "filters": {
         "periodPlaceholder": "Filtrer les statistiques par période de temps",
@@ -3617,7 +3661,7 @@
       },
       "totalEarningsChart": {
         "totalEarnings": "Total des gains",
-        "totalCommission": "Total Commission",
+        "totalCommission": "Commission totale",
         "title": "Total des gains et de la Commission",
         "description": "Analyser les tendances des gains et des commissions au fil du temps."
       },
@@ -3632,7 +3676,7 @@
     "title": "Rapport sur les gains",
     "stats": {
       "totalEarnings": "Total des gains",
-      "totalCommission": "Total Commission",
+      "totalCommission": "Commission totale",
       "netEarnings": "Net Store Gains",
       "commissionAndVat": "SIPP Conseil VAT",
       "pendingWithdrawals": "Retraits en attente"
@@ -3643,7 +3687,7 @@
         "description": "Analyser les revenus et les tendances des commissions au fil du temps.",
         "legend": {
           "totalEarnings": "Total des gains",
-          "totalCommission": "Total Commission"
+          "totalCommission": "Commission totale"
         }
       },
       "paymentMethod": {
@@ -3849,7 +3893,7 @@
         "success": "Désaction de l'utilisateurvatavec succès"
       },
       "block": {
-        "titleBlock": "Block User",
+        "titleBlock": "Bloquer l'utilisateur",
         "titleUnblock": "Débloquer l'utilisateur",
         "subtitleBlock": "Voulez-vous vraiment bloquer cet utilisateur ? Ils ne pourront plus se connecter ou accéder à leur compte avant d'être débloqués.",
         "subtitleUnblock": "Voulez-vous vraiment débloquer cet utilisateur ? Ils pourront se connecter ou accéder à leur compte jusqu'à ce qu'il soit actif.",
@@ -4059,7 +4103,8 @@
       },
       "availabilityToasts": {
         "markedAvailable": "Stock marqué comme disponible",
-        "markedUnavailable": "Stock marqué comme non disponible"
+        "markedUnavailable": "Stock marqué comme non disponible",
+        "markedAvailableAndActivated": "Compte du magasin activé et magasin marqué comme disponible"
       },
       "table": {
         "name": "Dénomination",
@@ -4227,7 +4272,9 @@
           "addressLabel": "Adresse",
           "addressPlaceholder": "Saisissez l'adresse du magasin",
           "backButton": "Précédent",
-          "saveNextButton": "Enregistrer & Suivant"
+          "saveNextButton": "Enregistrer & Suivant",
+          "slugLabel": "Slug",
+          "slugHint": "Généré à partir du nom du magasin. Vous pouvez le modifier."
         },
         "step2": {
           "title": "Type de magasin",
@@ -4341,6 +4388,21 @@
         "description": "Voulez-vous revenir à la liste des magasins ou continuer à éditer?",
         "confirm": "Aller à la liste des magasins",
         "cancel": "Continuer l'édition"
+      },
+      "storeAccountInactive": "Compte du magasin inactif",
+      "storeAccountActivated": "Compte du magasin activé",
+      "activateAccountDialog": {
+        "title": "Activer le compte du magasin",
+        "subTitle": "Activer le compte de {name} ?",
+        "description": "Le compte du magasin pourra se connecter. Si la disponibilité est activée, le magasin peut apparaître immédiatement aux clients.",
+        "requireApproval": "Approuvez et débloquez ce magasin avant d'activer sa disponibilité.",
+        "confirm": "Activer le compte"
+      },
+      "enableAndActivateDialog": {
+        "title": "Activer la disponibilité",
+        "subTitle": "Activer la disponibilité de {name} ?",
+        "description": "Cela activera aussi le compte du magasin afin que le personnel puisse se connecter.",
+        "confirm": "Activer et rendre disponible"
       }
     },
     "dashboard": {
@@ -4411,7 +4473,7 @@
           "noDataSubtitle": "Il n'y a pas de statistiques des fournisseurs à afficher."
         },
         "topStores": {
-          "title": "Top Stores",
+          "title": "Meilleurs magasins",
           "store": "A conserver",
           "orders": "Ordonnances",
           "revenue": "Recettes",
@@ -4544,7 +4606,8 @@
       "options": {
         "paymentMethod": {
           "card": "Carte",
-          "cod": "Encaisse à la livraison"
+          "cod": "Encaisse à la livraison",
+          "wallet": "Portefeuille"
         },
         "deliveryType": {
           "all": "Tous",
@@ -4628,7 +4691,8 @@
           "usagePerUserPlaceholder": "Utilisation par utilisateur",
           "usagePerUserHelper": "L'utilisation par utilisateur ne peut pas dépasser la limite d'utilisation totale",
           "backButton": "Précédent",
-          "saveNextButton": "Enregistrer & Suivant"
+          "saveNextButton": "Enregistrer & Suivant",
+          "selectAll": "Tout sélectionner"
         },
         "step4": {
           "title": "Calendrier et état",
@@ -4659,7 +4723,8 @@
           "premiumShopLabel": "Sélectionnez Boutiques Premium",
           "premiumShopPlaceholder": "Choisir des magasins haut de gamme",
           "backButton": "Précédent",
-          "saveNextButton": "Enregistrer & Suivant"
+          "saveNextButton": "Enregistrer & Suivant",
+          "paymentMethodWallet": "Portefeuille"
         }
       },
       "editCoupon": {
@@ -4745,7 +4810,8 @@
           "deliveryTypeDelivery": "Livraison",
           "deliveryTypePickup": "Prise",
           "premiumShopLabel": "Sélectionnez Boutiques Premium",
-          "premiumShopPlaceholder": "Choisir des magasins haut de gamme"
+          "premiumShopPlaceholder": "Choisir des magasins haut de gamme",
+          "paymentMethodWallet": "Portefeuille"
         }
       }
     },
@@ -4859,7 +4925,7 @@
       "statsCards": {
         "totalEarnings": "Total des gains",
         "totalOrders": "Total des commandes",
-        "totalCommission": "Total Commission",
+        "totalCommission": "Commission totale",
         "totalWithdrawals": "Total des retraits",
         "totalSales": "Total des ventes"
       },
@@ -4914,7 +4980,7 @@
             "pendingOrders": "Ordonnances en instance",
             "completedOrders": "Ordonnances complétées",
             "totalEarnings": "Total des gains",
-            "totalCommission": "Total Commission"
+            "totalCommission": "Commission totale"
           }
         },
         "paymentMethod": {
@@ -5163,7 +5229,22 @@
     }
   },
   "roleAndPermissions": {
-    "pendingInvitations": { "title": "Invitations en attente", "description": "Les personnes invitées apparaissent ici jusqu'à leur acceptation et leur attribution.", "name": "Nom", "email": "E-mail", "role": "Rôle", "expires": "Expiration du lien", "action": "Action", "loading": "Chargement des invitations…", "loadError": "Impossible de charger les invitations.", "retry": "Réessayer", "empty": "Aucune invitation en attente", "noRole": "Aucun rôle choisi", "resend": "Renvoyer l'invitation", "resendSuccess": "Invitation renvoyée" },
+    "pendingInvitations": {
+      "title": "Invitations en attente",
+      "description": "Les personnes invitées apparaissent ici jusqu'à leur acceptation et leur attribution.",
+      "name": "Nom",
+      "email": "E-mail",
+      "role": "Rôle",
+      "expires": "Expiration du lien",
+      "action": "Action",
+      "loading": "Chargement des invitations…",
+      "loadError": "Impossible de charger les invitations.",
+      "retry": "Réessayer",
+      "empty": "Aucune invitation en attente",
+      "noRole": "Aucun rôle choisi",
+      "resend": "Renvoyer l'invitation",
+      "resendSuccess": "Invitation renvoyée"
+    },
     "title": "Rôles et autorisations",
     "addRole": "Ajouter un rôle",
     "editRole": "Modifier le rôle",
@@ -5263,10 +5344,10 @@
       "deactivateTitle": "Déactivate Rôle",
       "activateTitle": "Activate Rôle",
       "deactivateSubtitle": "Déactivate {roleName}",
-      "activateSubtitle": "Activate {roleName}",
+      "activateSubtitle": "Activer {roleName}",
       "toggleSuccess": "Rôle {status} avec succès.",
       "activated": "activvated",
-      "deactivated": "deactivated",
+      "deactivated": "désactivé",
       "deactivateConfirm": "Êtes-vous sûr de vouloir deactivatCe rôle ? Les utilisateurs ayant ce rôle perdront l'accès.",
       "activateConfirm": "Êtes-vous sûr de vouloir agirvatCe rôle ? Les utilisateurs avec ce rôle retrouveront l'accès.",
       "confirmDeactivate": "Oui, Deacti.vate",
@@ -5336,7 +5417,7 @@
       "title": "Renvoyez la notification",
       "recipients": "Bénéficiaires",
       "targetZones": "Zones cibles",
-      "imageUrl": "Image URL",
+      "imageUrl": "URL de l'image",
       "deepLink": "Lien profond",
       "originallySent": "Envoyé à l'origine",
       "note": "Remarque: Cela renverra la notification à tous les utilisateurs actuels qui correspondent aux critères cibles (types d'utilisateurs et zones). La notification sera envoyée aux derniers utilisateurs, qui peuvent différer des destinataires originaux.",
@@ -5842,16 +5923,74 @@
     }
   },
   "favouriteFoods": {
-    "title": "Plats favoris", "subtitle": "Gérez les tags de découverte et associez-les aux types de magasins.", "addButton": "Ajouter un plat favori", "empty": "Aucun plat favori trouvé",
-    "filters": { "search": "Rechercher des plats favoris", "status": "Tous les statuts", "shopType": "Tous les types de magasins" },
-    "table": { "image": "Image", "name": "Nom", "shopTypes": "Types de magasins", "order": "Ordre d’affichage", "status": "Statut", "actions": "Actions" },
-    "status": { "active": "Actif", "inactive": "Inactif" },
-    "actions": { "create": "Créer", "save": "Enregistrer", "cancel": "Annuler", "edit": "Modifier", "delete": "Supprimer", "toggleStatus": "Modifier le statut de {name}" },
-    "form": { "createTitle": "Ajouter un plat favori", "editTitle": "Modifier le plat favori", "description": "Définissez le nom, la visibilité, l’ordre, l’image et les types de magasins.", "name": "Nom anglais", "namePlaceholder": "p. ex. Pizza", "translations": "Noms traduits", "translationsDescription": "Ajoutez les noms des langues activées. Les champs vides utilisent l’anglais.", "translationPlaceholder": "Nom en {language}", "shopTypes": "Types de magasins", "shopTypesPlaceholder": "Sélectionnez-en un ou plusieurs", "displayOrder": "Ordre d’affichage", "displayOrderHelp": "Les nombres inférieurs apparaissent en premier.", "image": "Image", "imageHelp": "PNG, JPG ou WebP jusqu’à 5 Mo.", "removeImage": "Supprimer l’image actuelle", "status": "Visibilité client" },
-    "validation": { "nameRequired": "Le nom anglais est requis", "shopTypeRequired": "Sélectionnez au moins un type de magasin", "orderInteger": "L’ordre doit être entier", "orderMinimum": "L’ordre ne peut pas être négatif" },
-    "messages": { "created": "Plat favori créé", "updated": "Plat favori mis à jour", "deleted": "Plat favori supprimé", "statusUpdated": "Statut mis à jour" },
-    "errors": { "loadTitle": "Impossible de charger les plats favoris", "loadMessage": "Veuillez réessayer." },
-    "deleteDialog": { "title": "Supprimer le plat favori", "subtitle": "Supprimer {name} ?", "description": "Il sera masqué sans supprimer l’historique produit." }
+    "title": "Plats favoris",
+    "subtitle": "Gérez les tags de découverte et associez-les aux types de magasins.",
+    "addButton": "Ajouter un plat favori",
+    "empty": "Aucun plat favori trouvé",
+    "filters": {
+      "search": "Rechercher des plats favoris",
+      "status": "Tous les statuts",
+      "shopType": "Tous les types de magasins"
+    },
+    "table": {
+      "image": "Image",
+      "name": "Nom",
+      "shopTypes": "Types de magasins",
+      "order": "Ordre d’affichage",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif"
+    },
+    "actions": {
+      "create": "Créer",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "toggleStatus": "Modifier le statut de {name}"
+    },
+    "form": {
+      "createTitle": "Ajouter un plat favori",
+      "editTitle": "Modifier le plat favori",
+      "description": "Définissez le nom, la visibilité, l’ordre, l’image et les types de magasins.",
+      "name": "Nom anglais",
+      "namePlaceholder": "p. ex. Pizza",
+      "translations": "Noms traduits",
+      "translationsDescription": "Ajoutez les noms des langues activées. Les champs vides utilisent l’anglais.",
+      "translationPlaceholder": "Nom en {language}",
+      "shopTypes": "Types de magasins",
+      "shopTypesPlaceholder": "Sélectionnez-en un ou plusieurs",
+      "displayOrder": "Ordre d’affichage",
+      "displayOrderHelp": "Les nombres inférieurs apparaissent en premier.",
+      "image": "Image",
+      "imageHelp": "PNG, JPG ou WebP jusqu’à 5 Mo.",
+      "removeImage": "Supprimer l’image actuelle",
+      "status": "Visibilité client"
+    },
+    "validation": {
+      "nameRequired": "Le nom anglais est requis",
+      "shopTypeRequired": "Sélectionnez au moins un type de magasin",
+      "orderInteger": "L’ordre doit être entier",
+      "orderMinimum": "L’ordre ne peut pas être négatif"
+    },
+    "messages": {
+      "created": "Plat favori créé",
+      "updated": "Plat favori mis à jour",
+      "deleted": "Plat favori supprimé",
+      "statusUpdated": "Statut mis à jour"
+    },
+    "errors": {
+      "loadTitle": "Impossible de charger les plats favoris",
+      "loadMessage": "Veuillez réessayer."
+    },
+    "deleteDialog": {
+      "title": "Supprimer le plat favori",
+      "subtitle": "Supprimer {name} ?",
+      "description": "Il sera masqué sans supprimer l’historique produit."
+    }
   },
   "Schemas": {
     "customerLoyalty": {
@@ -6123,7 +6262,10 @@
       "bankNameRequired": "Nom bancaire requis",
       "accountHolderNameRequired": "Le nom du titulaire du compte est requis",
       "accountNumberRequired": "Numéro de compte / IBAN est nécessaire",
-      "accountNumberOrIbanInvalid": "Doit être un numéro de compte valide ou IBAN"
+      "accountNumberOrIbanInvalid": "Doit être un numéro de compte valide ou IBAN",
+      "slugRequired": "Le slug est requis",
+      "slugInvalid": "Utilisez uniquement des lettres minuscules, des chiffres et des tirets",
+      "slugMaxLength": "Le slug ne doit pas dépasser 100 caractères"
     },
     "addVehicleType": {
       "vehicleTypeNameRequired": "Le nom du type de véhicule est requis",
@@ -7055,8 +7197,8 @@
       "approveRiderDialogDescription": "Êtes-vous sûr de vouloir approuver {riderName}?",
       "approveRiderConfirmButton": "Approuver",
       "riderApprovedSuccess": "Cavalier approuvé avec succès",
-      "blockRiderDialogTitle": "Block Rider",
-      "blockRiderDialogSubtitle": "Block Rider",
+      "blockRiderDialogTitle": "Bloquer le livreur",
+      "blockRiderDialogSubtitle": "Bloquer le livreur",
       "blockRiderDialogDescription": "Tu es sûr de vouloir bloquer {riderName}? ",
       "blockRiderConfirmButton": "Bloc",
       "riderBlockedSuccess": "Rider bloqué avec succès",
@@ -7709,20 +7851,27 @@
         "stripeChargeLabel": "Stripe frais ({currency})",
         "commissionBreakdownTitle": "Ventilation par Commission",
         "commissionBreakdownHint": "La Commission est déduite des revenus des magasins, sans addition au total du client.",
-        "commissionNetLabel": "SIPP commission",
+        "commissionNetLabel": "Commission SIPP",
         "vatOnCommissionLabel": "VAT en commission",
         "vatOnCommissionNotChargedLabel": "VAT en commission (non facturé)",
         "totalCommissionDebitLabel": "Déduction pour commissions",
         "sippAbsorbedVatLabel": "VAT couverts par SIPP",
         "storeEarningsLabel": "Gains en magasin :",
-        "notAvailable": "---"
+        "notAvailable": "---",
+        "couponTitle": "Coupon",
+        "couponBorneByAdmin": "À la charge de l'admin",
+        "couponBorneByStore": "À la charge du magasin",
+        "couponDiscountLabel": "Remise du coupon",
+        "commissionBeforeCouponLabel": "Commission avant coupon",
+        "adminCouponFromCommissionLabel": "Couvert par la commission",
+        "adminCouponExtraPaidLabel": "Supplément payé au magasin par l'admin"
       },
       "productDeliveryInformation": {
         "title": "Informations sur la livraison des produits",
         "pickupLabel": "Prise en charge :",
         "dropoffLabel": "Décrochage :",
-        "distanceLabel": "Distance:",
-        "etaLabel": "ETA:",
+        "distanceLabel": "Distance :",
+        "etaLabel": "Arrivée estimée :",
         "notesLabel": "Remarques:",
         "notAvailable": "Sans objet"
       },
@@ -7746,7 +7895,7 @@
       "title": "Suivi en direct",
       "description": "Piste de ramassage et de descente en temps réel.",
       "loading": "Chargement de la carte...",
-      "pickupMarkerTitle": "Restaurant (Pickup)",
+      "pickupMarkerTitle": "Restaurant (à emporter)",
       "dropoffMarkerTitle": "Client (Dropoff)",
       "missingApiKeyTitle": "Google Carte manquante",
       "missingApiKeyMessage": "Définir NEXT PUBLIC GOOGLEMAPS APIKEY pour charger le suivi en direct.",
@@ -8031,7 +8180,7 @@
         "confirm": "Confirmer le rejet"
       },
       "block": {
-        "title": "Block Service Center",
+        "title": "Bloquer le centre de service",
         "subTitle": "Bloc {name}?",
         "description": "Les utilisateurs ne pourront pas accéder à ce service.",
         "confirm": "Bloc"
@@ -8856,7 +9005,7 @@
           "deliveryDate": "Date de livraison",
           "deliveryTime": "Délai de livraison",
           "distance": "Distance",
-          "eta": "ETA",
+          "eta": "Heure d'arrivée estimée",
           "notes": "Annexe",
           "notAvailable": "Sans objet"
         },
@@ -10010,7 +10159,7 @@
       "statsCards": {
         "totalEarnings": "Total des gains",
         "totalOrders": "Total des commandes",
-        "totalCommission": "Total Commission",
+        "totalCommission": "Commission totale",
         "totalWithdrawals": "Total des retraits",
         "totalSales": "Total des ventes"
       },
@@ -10085,7 +10234,7 @@
             "pendingOrders": "Ordonnances en instance",
             "completedOrders": "Ordonnances complétées",
             "totalEarnings": "Total des gains",
-            "totalCommission": "Total Commission"
+            "totalCommission": "Commission totale"
           }
         },
         "paymentMethod": {
@@ -10478,9 +10627,9 @@
     },
     "entryTypes": {
       "order_sale": "Vente de commandes",
-      "store_commission": "SIPP commission",
+      "store_commission": "Commission SIPP",
       "store_commission_vat": "VAT le SIPP commission",
-      "store_commission_total": "SIPP commission & VAT",
+      "store_commission_total": "Commission SIPP et TVA",
       "reversal_order_sale": "Inversion de la commande",
       "reversal_store_commission": "SIPP remboursement",
       "reversal_store_commission_vat": "VAT le SIPP remboursement",
@@ -10523,5 +10672,134 @@
       "amountRange": "Le montant doit être compris entre -1 000 000 et 1 000 000",
       "insufficientBalance": "Déduction supérieure au solde disponible {amount}"
     }
+  },
+  "storeMenuControl": {
+    "editorEyebrow": "Espace magasin",
+    "title": "Gestion du menu",
+    "description": "Organisez les catégories et les produits tels que les clients les voient, puis publiez le menu complet.",
+    "loading": "Chargement du menu…",
+    "loadError": "Impossible de charger le menu.",
+    "catalogError": "Impossible de charger les produits.",
+    "retry": "Réessayer",
+    "publish": "Publier le menu",
+    "published": "Menu publié",
+    "publishError": "Le menu n'a pas pu être publié. Le menu précédent est toujours en ligne.",
+    "saveError": "Cette modification n'a pas pu être enregistrée.",
+    "conflict": "Un autre éditeur a modifié ce brouillon. Il a été rechargé.",
+    "saving": "Enregistrement du brouillon du menu",
+    "publishing": "Publication du menu",
+    "savingHint": "Préparation du dernier aperçu…",
+    "unpublished": "Modifications non publiées",
+    "upToDate": "Publié",
+    "draft": "Aperçu du brouillon",
+    "previewTitle": "Menu du magasin",
+    "previewHint": "Les 24 premiers produits de chaque section sont affichés ici.",
+    "visibleCategories": "catégories visibles",
+    "activeProducts": "produits actifs",
+    "hiddenCount": "catégories masquées",
+    "moveHint": "Faites glisser une poignée ou utilisez les flèches pour modifier l'ordre.",
+    "sectionCount": "{count} sections",
+    "productsCount": "{count} produits",
+    "expandCategory": "Développer {name}",
+    "collapseCategory": "Réduire {name}",
+    "categoryNavigation": "Catégories du menu",
+    "emptyMenu": "Aucune catégorie n'est visible dans ce menu.",
+    "emptyCategory": "Cette catégorie n'a aucun produit actif.",
+    "emptySection": "Aucun produit actif dans cette section.",
+    "showing": "{visible} sur {total} affichés",
+    "hide": "Masquer",
+    "hiddenTitle": "Catégories masquées",
+    "hiddenHint": "Elles restent absentes du menu client jusqu'à leur restauration et publication.",
+    "restore": "Restaurer",
+    "noHidden": "Les catégories masquées apparaîtront ici pour être facilement restaurées.",
+    "findAndPlace": "Rechercher et placer",
+    "finderHint": "Choisissez une section, une position, puis trouvez n'importe quel produit de cette section.",
+    "sectionLabel": "Section du menu",
+    "placementHint": "Le produit apparaîtra en position {position} dans cette section.",
+    "inPosition": "En place",
+    "chooseSection": "Choisissez Rechercher et placer dans une section du menu pour rechercher tous ses produits.",
+    "positionLabel": "Insérer à",
+    "position": "Position {position}",
+    "search": "Rechercher des produits",
+    "results": "Produits",
+    "place": "Placer",
+    "placeProduct": "Placer {name} en position {position}",
+    "noResults": "Aucun produit correspondant.",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "moveUp": "Monter {name}",
+    "moveDown": "Descendre {name}",
+    "dragCategory": "Faire glisser la catégorie {name}",
+    "dragSection": "Faire glisser la section {name}",
+    "dropAtEnd": "Déposez une catégorie ici pour la placer à la fin",
+    "dropSectionAtEnd": "Déposez une section ici pour la placer à la fin",
+    "dropProductAtEnd": "Déposez un produit ici pour le placer à la fin"
+  },
+  "homeSequenceEditor": {
+    "title": "Ordre de l'Accueil",
+    "description": "Organisez l'onglet Accueil client, vérifiez un emplacement, puis publiez tout le brouillon.",
+    "publish": "Publier les modifications",
+    "published": "Ordre de l'Accueil publié",
+    "loading": "Chargement de l'ordre de l'Accueil…",
+    "loadError": "Impossible de charger l'ordre de l'Accueil.",
+    "saveError": "Impossible d'enregistrer cette modification.",
+    "refreshError": "Le déplacement a été enregistré, mais le brouillon n'a pas pu être actualisé. Rechargez la page avant de publier.",
+    "savingDraft": "Enregistrement du nouvel ordre",
+    "savingHint": "Actualisation du brouillon et préparation de la publication…",
+    "publishing": "Publication de la mise en page de l'Accueil",
+    "publishingHint": "Votre mise en page publiée est en cours de mise à jour…",
+    "readyToPublish": "Brouillon prêt à publier",
+    "conflict": "Un autre administrateur a modifié le brouillon. Il a été rechargé.",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "allLocations": "Afficher tous les emplacements",
+    "locationHint": "Recherchez une adresse pour voir quels articles les clients y voient.",
+    "previewLocation": "Emplacement d'aperçu",
+    "previewingLocation": "Disponibilité affichée près de cette adresse",
+    "allLocationsHint": "Articles éligibles de tous les emplacements affichés",
+    "searchAddress": "Rechercher une adresse",
+    "clearLocation": "Effacer l'adresse d'aperçu",
+    "searchingPlaces": "Recherche d'adresses…",
+    "placesError": "Impossible de rechercher des adresses.",
+    "placeDetailsError": "Impossible de charger cette adresse. Essayez un autre résultat.",
+    "noPlaces": "Aucune adresse correspondante.",
+    "selectAddressHint": "Choisissez une adresse parmi les suggestions pour prévisualiser la disponibilité locale.",
+    "selectedLocationHint": "L'ordre du brouillon est inchangé ; cet aperçu n'affiche que les articles disponibles à proximité.",
+    "invalidLocation": "Saisissez ensemble une latitude et une longitude valides.",
+    "previewHint": "Les dix premiers articles de chaque section de l'Accueil. Faites glisser une poignée ou utilisez les flèches pour modifier l'ordre.",
+    "previewError": "L'aperçu n'a pas pu se charger. Votre brouillon est en sécurité.",
+    "retry": "Réessayer",
+    "showingItems": "{visible} sur {total} affichés",
+    "findAndPlace": "Rechercher et placer",
+    "closeSearch": "Fermer la recherche d'articles",
+    "positionLabel": "Insérer à",
+    "positionOption": "Position {position}",
+    "positionHint": "Choisissez une position dans la rangée visible de l'Accueil, puis recherchez dans tout le catalogue.",
+    "localPlacementHint": "La recherche inclut tous les magasins approuvés. Un magasin hors de cet emplacement peut disparaître de cet aperçu après placement, mais sa priorité globale est enregistrée.",
+    "catalogCount": "{count} articles correspondants",
+    "results": "Articles",
+    "place": "Placer",
+    "placeItem": "Placer {name} en position {position}",
+    "searchGuidance": "Choisissez Rechercher et placer dans une section pour rechercher tous les articles éligibles et en déplacer un dans sa rangée visible.",
+    "preview": "Aperçu client",
+    "homeTab": "Onglet Accueil",
+    "draft": "Brouillon",
+    "dragSection": "Faire glisser la section {name}",
+    "moveUp": "Monter {name}",
+    "moveDown": "Descendre {name}",
+    "noItems": "Aucun article à afficher ici.",
+    "manageAll": "Gérer les {count} articles",
+    "personalSection": "Les articles propres à chaque client restent personnalisés.",
+    "fixedActions": "Les boutons d'action rapide conservent leur ordre actuel.",
+    "browse": "Parcourir",
+    "deals": "Offres",
+    "orders": "Commandes",
+    "favourites": "Favoris",
+    "dropAtEnd": "Déposez une section ici pour la placer à la fin",
+    "allItems": "Tous les articles",
+    "chooseSection": "Choisissez une section pour gérer son catalogue complet.",
+    "search": "Rechercher des articles",
+    "previous": "Précédent",
+    "next": "Suivant"
   }
 }

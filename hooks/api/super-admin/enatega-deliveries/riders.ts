@@ -54,7 +54,6 @@ export const useGetDeliveryRiders = (
   const tabParam = getParam('tab');
   const tab = tabParam === 'all' || !tabParam ? undefined : tabParam; // Normalize 'all' to undefined
   const vehicleType = getParam('vehicleType') || undefined;
-  const rating = getParam('rating') ? Number(getParam('rating')) : undefined;
   const startDate = getParam('start_date') || undefined;
   const endDate = getParam('end_date') || undefined;
   const zoneId = getParam('zoneId') || undefined;
@@ -68,7 +67,6 @@ export const useGetDeliveryRiders = (
       status: tab,
       kyc_status: status,
       vehicle_type: vehicleType,
-      rating,
       start_date: startDate,
       end_date: endDate,
       zoneIds: zoneId,
@@ -78,7 +76,6 @@ export const useGetDeliveryRiders = (
       limit,
       offset,
       page,
-      rating,
       search,
       startDate,
       status,
@@ -108,8 +105,6 @@ export const useGetDeliveryRiders = (
         query.append('kyc_status', requestParams.kyc_status);
       if (requestParams.vehicle_type)
         query.append('vehicle_type', requestParams.vehicle_type);
-      if (requestParams.rating !== undefined)
-        query.append('rating', String(requestParams.rating));
       if (requestParams.start_date)
         query.append('start_date', requestParams.start_date);
       if (requestParams.end_date)

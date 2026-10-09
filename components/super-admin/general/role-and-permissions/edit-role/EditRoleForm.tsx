@@ -5,8 +5,10 @@ import type { ApiErrorResponse, GetRoleByIdResponse } from '@/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { Form, Formik } from 'formik';
 import { UserPlus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
+import { presentRolePermissions } from '@/lib/role-permission-presentation';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import {
   useGetAllPermissions,
@@ -21,7 +23,6 @@ import AssignRoleToUserMultiSelect from '../common/AssignRoleToUserMultiSelect';
 import { InviteUserDialog } from '../common/InviteUserDialog';
 import PermissionCard from '../common/PermissionCard';
 import PermissionCardShimmer from '../common/PermissionCardShimmer';
-import { useTranslations } from 'next-intl';
 
 interface EditRoleFormProps {
   roleId: string;
@@ -68,37 +69,10 @@ export default function EditRoleForm({
   const { mutateAsync: updateRole, isPending: isUpdatingRole } =
     useUpdateRole();
 
-  // Transform API data to PermissionCard format
-  const modules = useMemo(() => {
-    if (!permissionsData) return [];
-
-    return Object.entries(permissionsData).map(
-      ([mainModuleKey, modulePermissions]) => ({
-        id: mainModuleKey,
-        name: mainModuleKey
-          .split('_')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' '),
-        subModules: Object.entries(modulePermissions).map(
-          ([subModuleKey, permissions]) => ({
-            id: subModuleKey,
-            name: subModuleKey
-              .split('_')
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' '),
-            permissions: permissions.map((permission) => ({
-              id: permission.id,
-              name: permission.name
-                .split('_')
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' '),
-              description: permission.description,
-            })),
-          }),
-        ),
-      }),
-    );
-  }, [permissionsData]);
+  const modules = useMemo(
+    () => (permissionsData ? presentRolePermissions(permissionsData) : []),
+    [permissionsData],
+  );
 
   // Initial values from existing role data
   const initialValues = {
@@ -267,7 +241,8 @@ export default function EditRoleForm({
             <div className="space-y-4">
               <div>
                 <h3 className="text-md font-medium ">
-                  {t('form.permissions')} <span className="text-destructive ml-1">*</span>
+                  {t('form.permissions')}{' '}
+                  <span className="text-destructive ml-1">*</span>
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   {t('form.permissionsSubtitle')}

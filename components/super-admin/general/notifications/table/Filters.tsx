@@ -52,15 +52,18 @@ const Filters = () => {
   const t = useTranslations('notifications.filters');
   const { getParam, setParams } = useQueryParams();
 
-  const sortByOptions: { label: string; value: SortByField }[] = [
-    { label: t('sortBy.title'), value: 'title' },
-    { label: t('sortBy.createdDate'), value: 'created_at' },
-    { label: t('sortBy.type'), value: 'type' },
-  ];
-
-  const sortOrderOptions: { label: string; value: SortOrder }[] = [
-    { label: t('sortOrder.asc'), value: 'ASC' },
-    { label: t('sortOrder.desc'), value: 'DESC' },
+  const sortOptions: {
+    label: string;
+    value: string;
+    sortBy: SortByField;
+    sortOrder: SortOrder;
+  }[] = [
+    { label: t('sortMostRecent'), value: 'created_at:DESC', sortBy: 'created_at', sortOrder: 'DESC' },
+    { label: t('sortOldest'), value: 'created_at:ASC', sortBy: 'created_at', sortOrder: 'ASC' },
+    { label: t('sortTitleAZ'), value: 'title:ASC', sortBy: 'title', sortOrder: 'ASC' },
+    { label: t('sortTitleZA'), value: 'title:DESC', sortBy: 'title', sortOrder: 'DESC' },
+    { label: t('sortTypeAZ'), value: 'type:ASC', sortBy: 'type', sortOrder: 'ASC' },
+    { label: t('sortTypeZA'), value: 'type:DESC', sortBy: 'type', sortOrder: 'DESC' },
   ];
 
   // Local state for search input
@@ -159,40 +162,22 @@ const Filters = () => {
       />
 
       <Select
-        value={currentSortBy || ''}
+        value={`${currentSortBy || 'created_at'}:${currentSortOrder || 'DESC'}`}
         onValueChange={(value) => {
+          const selectedSort = sortOptions.find((option) => option.value === value);
+          if (!selectedSort) return;
           setParams({
-            sortBy: value || null,
+            sortBy: selectedSort.sortBy,
+            sortOrder: selectedSort.sortOrder,
             page: '1',
           });
         }}
       >
-        <SelectTrigger className="w-full sm:w-[180px] !h-11 sm:!h-11 shadow-sm">
-          <SelectValue placeholder={t('sortByPlaceholder')} />
+        <SelectTrigger aria-label={t('sortLabel')} className="w-full sm:w-[210px] !h-11 sm:!h-11 shadow-sm">
+          <SelectValue placeholder={t('sortLabel')} />
         </SelectTrigger>
         <SelectContent>
-          {sortByOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
-        value={currentSortOrder || ''}
-        onValueChange={(value) => {
-          setParams({
-            sortOrder: value || null,
-            page: '1',
-          });
-        }}
-      >
-        <SelectTrigger className="w-full sm:w-[180px] !h-11 sm:!h-11 shadow-sm">
-          <SelectValue placeholder={t('sortOrderPlaceholder')} />
-        </SelectTrigger>
-        <SelectContent>
-          {sortOrderOptions.map((option) => (
+          {sortOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>

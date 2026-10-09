@@ -5,6 +5,7 @@ import { GetCustomerSupportTicketMessagesByIdResponse } from '@/types/api/super-
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ImagePreview } from '@/components/shared/ImagePreview';
+import { supportReference } from '@/lib/support-reference';
 
 const UserInformation = ({
   data,
@@ -108,7 +109,7 @@ const UserInformation = ({
           <div className="space-y-3">
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('id')}</span>
-              <span className="font-medium text-black">{id || 'N/A'}</span>
+              <span className="font-medium text-black">{supportReference('customer', id)}</span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-mute">{t('phone')}</span>

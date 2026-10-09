@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type {
   GetCustomerSupportTicketMessagesByIdResponse,
   Message as Msg,
@@ -13,8 +13,15 @@ import type {
 import { getUser } from '@/lib/user';
 import { useSendSupportChatMessage } from '@/hooks/api/super-admin/general/customerSupport';
 import { useSocket } from '@/hooks/use-socket';
-import RelativeTime from '@/components/shared/RelativeTime';
 import { ImagePreview } from '@/components/shared/ImagePreview';
+
+const formatMessageDate = (value: string | undefined, locale: string) => {
+  if (!value) return '';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? ''
+    : new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+};
 
 export default function Messages({
   data,
@@ -22,6 +29,7 @@ export default function Messages({
   data: GetCustomerSupportTicketMessagesByIdResponse | undefined;
 }) {
   const t = useTranslations('customerSupport.details.messages');
+  const locale = useLocale();
   const { slug } = useParams<{ slug: string }>();
   const ticketId = Array.isArray(slug) ? slug[0] : (slug ?? '');
   const params = useParams<{
@@ -152,54 +160,44 @@ export default function Messages({
       <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
         {messages.map((m, idx) => {
           const mine = m.sender_id === userId;
-          const isAdminMessage =
-            m.senderType === 'admin' || (m.senderType === undefined && mine);
-          const isCustomerMessage = !isAdminMessage;
+          const isCustomerMessage = m.sender_id === data?.sender?.id || m.senderType === 'customer';
+          const isAdminMessage = !isCustomerMessage;
+          const senderName = m.senderName || (isCustomerMessage ? data?.sender?.name : undefined);
           return (
             <div
               key={m?.id ?? idx}
-              className={`flex gap-3 ${mine ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-3 ${isAdminMessage ? 'justify-end' : 'justify-start'}`}
             >
               {isCustomerMessage && (
-                <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-sm">
-                  {(m.senderName ?? data?.sender?.name ?? 'C').trim()[0]}
+                <div className="h-8 w-8 shrink-0 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-sm font-semibold">
+                  {(senderName ?? 'C').trim()[0]}
                 </div>
               )}
               <div
-                className={`max-w-[70%] px-4 py-2 rounded-lg shadow-sm ${
-                  isAdminMessage ? 'text-white' : 'text-black'
+                className={`max-w-[85%] sm:max-w-[78%] break-words rounded-xl px-4 py-2.5 ${
+                  isAdminMessage
+                    ? 'rounded-br-sm bg-primary text-white'
+                    : 'rounded-bl-sm bg-slate-100 text-slate-900'
                 }`}
-                style={{
-                  backgroundColor: mine ? 'var(--primary,#0ea5e9)' : isAdminMessage ? '#dcfce7' : 'var(--muted,#f3f4f6)',
-                }}
               >
-                {!mine && (
-                  <div className="mb-1 text-[11px] font-semibold text-gray-600">
-                    {isAdminMessage
-                      ? `Admin: ${m.senderName ?? 'Support admin'}`
-                      : 'Customer'}
-                  </div>
-                )}
-                <div className={`text-sm text-black`}>{m.text}</div>
+                <div className={`mb-1 text-xs font-semibold ${isAdminMessage ? 'text-white/90' : 'text-slate-600'}`}>
+                  {isAdminMessage
+                    ? t('supportSender', { name: senderName || (mine ? user?.role?.name || 'Support' : 'Support') })
+                    : t('customerSender', { name: senderName || 'Customer' })}
+                </div>
+                <div className="whitespace-pre-wrap text-sm">{m.text}</div>
                 {m.attachmentUrls?.map((url, attachmentIndex) => (
                   <ImagePreview key={url} image={url} label={`Attachment ${attachmentIndex + 1}`} className="mt-2" imageClassName="h-32" />
                 ))}
                 <div
-                  className={`mt-1 text-[11px] ${mine ? 'text-white/80' : 'text-mute'}`}
+                  className={`mt-2 text-[11px] ${isAdminMessage ? 'text-white/80' : 'text-slate-500'}`}
                 >
-                  <RelativeTime date={m.createdAt} />
+                  {formatMessageDate(m.createdAt, locale)}
                 </div>
               </div>
               {isAdminMessage && (
-                <div
-                  className="h-8 w-8 rounded-full flex items-center justify-center text-sm"
-                  style={{ backgroundColor: '#e0f2fe', color: '#0ea5e9' }}
-                >
-                  {(mine
-                    ? user?.role?.name
-                    : m.senderName)?.[0]?.toUpperCase() ||
-                    (mine ? user?.email : m.senderName)?.[0]?.toUpperCase() ||
-                    '?'}
+                <div className="h-8 w-8 shrink-0 rounded-full bg-sky-100 text-primary flex items-center justify-center text-sm font-semibold">
+                  {(senderName || (mine ? user?.email : undefined))?.[0]?.toUpperCase() || 'S'}
                 </div>
               )}
             </div>

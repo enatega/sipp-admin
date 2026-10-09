@@ -81,8 +81,11 @@ const CustomerSupportMain = () => {
   //   placeholderData: (previousData) => previousData,
   // });
 
+  // Opening a ticket changes its read receipt on the server. Revisit the
+  // inbox with fresh data instead of showing its five-minute-old badge.
   const deliveriesQuery = useGetDeliverySupport({
-    placeholderData: (previousData) => previousData,
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   // const generalBookingsQuery = useGetGeneralBookingsSupport({
@@ -131,16 +134,25 @@ const CustomerSupportMain = () => {
   }, [data]);
 
   const allTickets = useMemo(() => data?.data ?? [], [data?.data]);
+  const activeTicket = selectedTicket && allTickets.some(
+    (ticket) => ticket.sender.id === selectedTicket.sender.id,
+  ) ? selectedTicket : null;
 
   const ticketsForSelectedUser = useMemo(() => {
-    if (!selectedTicket) {
+    if (!activeTicket) {
       return null;
     }
 
-    const senderId = selectedTicket.sender.id;
+    const senderId = activeTicket.sender.id;
 
-    return allTickets.filter((ticket) => ticket.sender.id === senderId);
-  }, [selectedTicket, allTickets]);
+    return allTickets
+      .filter((ticket) => ticket.sender.id === senderId)
+      .sort(
+        (left, right) =>
+          new Date(right.latestMessageAt).getTime() -
+          new Date(left.latestMessageAt).getTime(),
+      );
+  }, [activeTicket, allTickets]);
 
   if (isLoading) {
     return <MainPageSkeleton />;
@@ -190,14 +202,15 @@ const CustomerSupportMain = () => {
             error={error}
             isFetching={isFetching}
             grouped={groupedTickets}
-            selectedItemId={selectedTicket?.id ?? null}
+            selectedItemId={activeTicket?.id ?? null}
             onSelect={(ticket) => setSelectedTicket(ticket)}
+            onTabChange={() => setSelectedTicket(null)}
           />
         </div>
 
-        <div className={`${selectedTicket ? 'border rounded-md' : ''} flex-1`}>
+        <div className={`${activeTicket ? 'border rounded-md' : ''} flex-1`}>
           <TicketsInformation
-            ticket={selectedTicket}
+            ticket={activeTicket}
             tickets={ticketsForSelectedUser}
             isLoading={isFetching}
             module={'deliveries' as SupportModule}

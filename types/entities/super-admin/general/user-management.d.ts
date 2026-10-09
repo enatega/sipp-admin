@@ -15,6 +15,10 @@ export interface UserManagementUser {
 export interface UserProfile {
     id: string;
     createdAt: string;
+    userType?: {
+        id: string;
+        name: string;
+    } | null;
     user: UserManagementUser;
 }
 

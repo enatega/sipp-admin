@@ -4,6 +4,7 @@ import { GetCustomerSupportTicketMessagesByIdResponse } from '@/types/api/super-
 import StatusDropdown from './StatusDropdown';
 import { useAssignSupportTicket, useSupportAdmins } from '@/hooks/api/super-admin/general/customerSupport';
 import { getUser } from '@/lib/user';
+import { supportReference } from '@/lib/support-reference';
 
 const formatDateTime = (value?: string) =>
   value ? moment(value).format('DD MMM YYYY, hh:mm A') : 'N/A';
@@ -13,12 +14,12 @@ export const StatusDetails: React.FC<{
   isLoading: boolean;
 }> = ({ data, isLoading }) => {
   const t = useTranslations('customerSupport.details.status');
-  if (isLoading || !data) {
-    return null;
-  }
   const admins = useSupportAdmins().data?.admins ?? [];
   const assign = useAssignSupportTicket();
   const currentUserId = getUser()?.id;
+  if (isLoading || !data) {
+    return null;
+  }
 
   const createdOn = data?.sender?.createdAt;
   const lastUpdated = data?.sender.updatedAt;
@@ -45,7 +46,7 @@ export const StatusDetails: React.FC<{
     <div className="w-full border rounded-md p-4 bg-gray-50">
       <div className="flex items-start justify-between">
         <div>
-          <div className="text-xs text-mute mb-1">ID: {data?.chatBoxId}</div>
+          <div className="text-xs text-mute mb-1">{supportReference('ticket', data.ticket?.id || data.chatBoxId)}</div>
           <h3 className="text-lg font-medium capitalize">
             {data.sender?.name ?? t('customerTicket')}
           </h3>

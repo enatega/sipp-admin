@@ -20,17 +20,15 @@ const Filters = () => {
   const endDate = getParam('end_date');
   const currentZoneId = getParam('zoneId');
   const currentStatus = getParam('status');
-  const currentRating = getParam('rating');
   const currentVehicle = getParam('vehicleType');
 
   const advanceFilterCount = useMemo(() => {
     let count = 0;
     if (currentZoneId) count++;
     if (currentStatus) count++;
-    if (currentRating) count++;
     if (currentVehicle) count++;
     return count;
-  }, [currentZoneId, currentStatus, currentRating, currentVehicle]);
+  }, [currentZoneId, currentStatus, currentVehicle]);
 
   const hasAdvanceFilters = advanceFilterCount > 0;
 

@@ -89,10 +89,6 @@ export function OrderDetailsSheet({
               label="Vehicle Type"
               value={overview?.rider.vehicleType || 'Not available'}
             />
-            <DetailRow
-              label="Rating"
-              value={`${Number(overview?.rider.rating ?? item.riderRating).toFixed(1)} (${overview?.rider.totalReviews ?? item.riderReviews} reviews)`}
-            />
           </section>
 
           <section className="space-y-4 rounded-xl border border-sidebar-border bg-white p-4">

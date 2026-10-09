@@ -12,7 +12,6 @@ import {
   MapPin,
   Pencil,
   Phone,
-  Star,
   Wallet,
 } from 'lucide-react';
 import moment from 'moment';
@@ -203,8 +202,6 @@ export function RiderDetailsPage({ riderId }: { riderId: string }) {
       label: tHeaders('totalEarnings'),
       value: formatCurrency(deliveredOrdersData?.totalEarnings ?? 0, currency),
     },
-    { label: t('ratings'), value: Number(data.averageRatings ?? 0).toFixed(1) },
-    { label: t('reviewsCount'), value: data.noOfReviews ?? 0 },
   ];
 
   const downloadColumns = [
@@ -326,7 +323,7 @@ export function RiderDetailsPage({ riderId }: { riderId: string }) {
               </p>
             </div>
           </div>
-          <div className="grid w-full grid-cols-2 gap-3 lg:max-w-2xl lg:grid-cols-4">
+          <div className="grid w-full grid-cols-2 gap-3 lg:max-w-md">
             {stats.map((stat) => (
               <div
                 key={stat.label}

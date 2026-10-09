@@ -42,13 +42,15 @@ export const groupTicketsByCustomer = (
         );
     }
 
-    return Array.from(byCustomer.values());
+    return Array.from(byCustomer.values()).sort(
+        (left, right) => new Date(right.latestMessageAt).getTime() - new Date(left.latestMessageAt).getTime()
+    );
 };
 
 export const groupSupportTickets = (
     tickets: CustomerSupportGroupedByCustomer[]
 ): GroupedSupportTickets => {
-    return tickets.reduce<GroupedSupportTickets>(
+    const grouped = tickets.reduce<GroupedSupportTickets>(
         (acc, ticket) => {
             const ticketDate = new Date(ticket.latestMessageAt);
 
@@ -68,4 +70,12 @@ export const groupSupportTickets = (
             older: [],
         }
     );
+
+    for (const items of [grouped.today, grouped.yesterday, grouped.older]) {
+        items.sort(
+            (left, right) => new Date(right.latestMessageAt).getTime() - new Date(left.latestMessageAt).getTime()
+        );
+    }
+
+    return grouped;
 };

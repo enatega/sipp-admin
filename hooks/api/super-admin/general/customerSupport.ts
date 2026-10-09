@@ -35,6 +35,7 @@ export const useAssignSupportTicket = () => {
 interface SupportHookConfig {
     endpoint: string;
     queryKey: string;
+    fetchAll?: boolean;
 }
 
 export const useSupportChatBase = (
@@ -87,15 +88,15 @@ export const useSupportChatBase = (
     return useQuery<GetCustomerSupportResponse, ApiErrorResponse>({
         queryKey,
 
-        queryFn: async () => {
+        queryFn: async ({ signal }) => {
             const query = new URLSearchParams();
 
             if (params.offset !== undefined) {
-                query.append('offset', String(params.offset));
+                query.append('offset', String(config.fetchAll ? 0 : params.offset));
             }
 
             if (params.limit !== undefined) {
-                query.append('limit', String(params.limit));
+                query.append('limit', String(config.fetchAll ? 100 : params.limit));
             }
 
             if (params.status) {
@@ -126,9 +127,27 @@ export const useSupportChatBase = (
 
             const apiUrl = `${config.endpoint}?${query.toString()}`;
 
-            const res = await Axios.get<GetCustomerSupportResponse>(apiUrl);
+            const res = await Axios.get<GetCustomerSupportResponse>(apiUrl, { signal });
+            if (!config.fetchAll || res.data.total <= res.data.limit) return res.data;
 
-            return res.data;
+            const tickets = [...res.data.data];
+            const offsets: number[] = [];
+            for (let nextOffset = res.data.limit; nextOffset < res.data.total; nextOffset += res.data.limit) {
+                offsets.push(nextOffset);
+            }
+            for (let index = 0; index < offsets.length; index += 4) {
+                const pages = await Promise.all(offsets.slice(index, index + 4).map((nextOffset) => {
+                    const pageQuery = new URLSearchParams(query);
+                    pageQuery.set('offset', String(nextOffset));
+                    return Axios.get<GetCustomerSupportResponse>(
+                        `${config.endpoint}?${pageQuery.toString()}`,
+                        { signal },
+                    );
+                }));
+                tickets.push(...pages.flatMap((page) => page.data.data));
+            }
+
+            return { ...res.data, offset: 0, limit: res.data.total, count: tickets.length, data: tickets };
         },
 
         retry: false,

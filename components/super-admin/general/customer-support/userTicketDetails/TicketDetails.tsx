@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useQueryClient } from '@tanstack/react-query';
 import { SupportModule } from '@/types/api/super-admin/general/customerSupport.api';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetSupportChatMessagesById } from '@/hooks/api/super-admin/general/customerSupport';
@@ -29,11 +30,21 @@ const TicketDetails = () => {
     ? params.module[0]
     : (params.module ?? '');
 
-  const { data, isLoading, isError, error } = useGetSupportChatMessagesById(
+  const { data, isLoading, isFetching, isError, error } = useGetSupportChatMessagesById(
     supportModule as SupportModule,
     ticketId,
+    { staleTime: 0, refetchOnMount: 'always' },
   );
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  // Reading the thread updates the server-side unread threshold. Refresh the
+  // ticket list so its badge does not retain the pre-read cached count.
+  useEffect(() => {
+    if (data?.chatBoxId && !isFetching) {
+      queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
+    }
+  }, [data?.chatBoxId, isFetching, queryClient]);
 
   // Older notification links carried the requester id; move to the resolved chat box URL
   // so replies and live updates use the real chat box id.

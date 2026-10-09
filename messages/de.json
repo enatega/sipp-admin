@@ -3746,6 +3746,7 @@
     "table": {
       "name": "Name",
       "email": "E-Mail",
+      "userType": "Benutzertyp",
       "phone": "Telefon",
       "registrationMethod": "Registrierungsmethode",
       "status": "Status",
@@ -5792,6 +5793,13 @@
       "recipientPlaceholder": "Nach Empfänger filtern",
       "sortByPlaceholder": "Sortieren nach",
       "sortOrderPlaceholder": "Sortierreihenfolge",
+      "sortLabel": "Benachrichtigungen sortieren",
+      "sortMostRecent": "Neueste zuerst",
+      "sortOldest": "Älteste zuerst",
+      "sortTitleAZ": "Titel: A–Z",
+      "sortTitleZA": "Titel: Z–A",
+      "sortTypeAZ": "Typ: A–Z",
+      "sortTypeZA": "Typ: Z–A",
       "clear": "Löschen",
       "sortBy": {
         "title": "Titel",
@@ -6964,6 +6972,8 @@
       },
       "messages": {
         "placeholder": "Nachricht schreiben...",
+        "customerSender": "Kunde: {name}",
+        "supportSender": "Support: {name}",
         "send": "Senden"
       },
       "userInfo": {

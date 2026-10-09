@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { Bike, Clock, Power, Star } from 'lucide-react';
+import { Bike, Clock, Power } from 'lucide-react';
 import type { ReactNode } from 'react';
 import type { RiderTrackingItem, RiderTrackingStatus } from './types';
 
@@ -56,11 +56,6 @@ export function RiderMapMarker({ item, isSelected, onClick }: RiderMapMarkerProp
         <p className="truncate text-sm font-semibold text-foreground">
           {item.riderName}
         </p>
-        <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-          <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-          <span>{item.riderRating.toFixed(1)}</span>
-          <span>({item.riderReviews})</span>
-        </div>
         <p className="mt-1 truncate text-xs text-muted-foreground">
           {item.order
             ? `${item.order.orderId} - ${item.order.customerName}`

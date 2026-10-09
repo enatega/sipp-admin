@@ -32,23 +32,25 @@ const VendorAddStoreForm = () => {
       setIsSubmitting(false);
       toast.success(data.message || tMessages('createSuccess'));
       resetForm();
-      const createdStoreId = data?.storeId || data?.data?.storeId;
-
-      const createdStoreEmail = formData.step1?.email;
-
-      if (createdStoreId) {
-        const nextUrl = new URL(
-          `/vendor/deliveries/${vendorId}/stores/subscription-plan/${createdStoreId}`,
-          window.location.origin,
-        );
-
-        if (createdStoreEmail) {
-          nextUrl.searchParams.set('email', createdStoreEmail);
-        }
-
-        router.push(nextUrl.pathname + nextUrl.search);
-        return;
-      }
+      // Subscription plans are out of scope for now; restore this redirect to the
+      // plan-selection step if the client asks for them.
+      // const createdStoreId = data?.storeId || data?.data?.storeId;
+      //
+      // const createdStoreEmail = formData.step1?.email;
+      //
+      // if (createdStoreId) {
+      //   const nextUrl = new URL(
+      //     `/vendor/deliveries/${vendorId}/stores/subscription-plan/${createdStoreId}`,
+      //     window.location.origin,
+      //   );
+      //
+      //   if (createdStoreEmail) {
+      //     nextUrl.searchParams.set('email', createdStoreEmail);
+      //   }
+      //
+      //   router.push(nextUrl.pathname + nextUrl.search);
+      //   return;
+      // }
 
       router.push(`/vendor/deliveries/${vendorId}/stores`);
     },

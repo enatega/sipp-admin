@@ -101,7 +101,6 @@ export default function CreateSubCategorySheet({
                 <AppFileInput
                   name="image"
                   label={t('form.imageLabel')}
-                  requiredAsterisk
                   helperText={t('form.imageHelper')}
                   acceptTypes={[
                     'image/png',

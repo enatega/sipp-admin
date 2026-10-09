@@ -150,7 +150,7 @@ export default function CategoriesTable() {
                   sortConfig={sortConfig}
                   containerClass="pl-2"
                 />
-                <TableHead>{t('table.actions')}</TableHead>
+                <TableHead>{t('table.actionsColumn')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

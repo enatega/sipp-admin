@@ -21,7 +21,7 @@ export function pruneUnchangedStoreFields<T extends object>(
 }
 
 export const STORE_EDIT_PAYLOAD_FIELDS = {
-  slug: 'slug',
+  name: 'name', slug: 'slug',
   address: 'address', tagLine: 'tag_line', description: 'description',
   minimumOrderValue: 'minimumOrder', shopType: 'shopType',
   productTaxMode: 'productTaxMode', taxRateId: 'taxRateId', zoneId: 'zoneId',

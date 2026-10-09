@@ -116,18 +116,19 @@ export const useGetAllSimpleStores = (
  * @param options - React Query mutation options
  */
 export const useToggleStoreAvailability = (
-    options?: UseMutationOptions<unknown, ApiErrorResponse, string>
+    options?: UseMutationOptions<{ store_available: boolean }, ApiErrorResponse, string>
 ) => {
     const queryClient = useQueryClient();
 
-    return useMutation<unknown, ApiErrorResponse, string>({
+    return useMutation<{ store_available: boolean }, ApiErrorResponse, string>({
+        ...options,
         mutationFn: async (storeId: string) => {
-            const res = await Axios.patch(
+            const res = await Axios.patch<{ store_available: boolean }>(
                 `/apps/deliveries/stores/${storeId}/toggle-availability`
             );
             return res.data;
         },
-        onSuccess: () => {
+        onSuccess: (data, storeId, onMutateResult, context) => {
             // Invalidate all queries that start with 'get-delivery-stores'
             queryClient.invalidateQueries({
                 queryKey: ["get-store-detail"],
@@ -138,8 +139,26 @@ export const useToggleStoreAvailability = (
                 exact: false,
                 // refetchType: 'active',
             });
+            options?.onSuccess?.(data, storeId, onMutateResult, context);
         },
-        ...options,
+    });
+};
+
+export const useActivateStoreAccount = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation<{ storeId: string; activeStatus: true }, ApiErrorResponse, string>({
+        mutationFn: async (storeId) => {
+            const { data } = await Axios.patch<{ storeId: string; activeStatus: true }>(
+                `/apps/deliveries/stores/${storeId}/activate-account`,
+            );
+            return data;
+        },
+        onSuccess: (_, storeId) => {
+            queryClient.invalidateQueries({ queryKey: ['get-delivery-stores'] });
+            queryClient.invalidateQueries({ queryKey: ['get-store-detail', storeId] });
+            queryClient.invalidateQueries({ queryKey: ['get-store-profile', storeId] });
+        },
     });
 };
 

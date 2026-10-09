@@ -38,8 +38,8 @@ export function CommissionRateTables({ activeTab, onChange }: Props) {
   const [storeRow, setStoreRow] = useState<StoreCommissionData | null>(null);
 
   const tabs = [
-    { value: 'zone-based', label: tTabs('zoneBased') },
     { value: 'store-level', label: tTabs('storeLevel') },
+    { value: 'zone-based', label: tTabs('zoneBased') },
   ];
 
   const handleZoneEdit = (row: ZoneCommissionData) => {

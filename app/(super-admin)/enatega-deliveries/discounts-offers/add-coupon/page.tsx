@@ -13,7 +13,7 @@ function AddCoupon() {
   return (
     <div>
       <Heading title={t('addCoupon')} showBackBtn />
-      <div className="w-full min-h-[80vh] flex mt-6 gap-10 bg-light rounded-lg p-6 border">
+      <div className="w-full min-h-[80vh] flex flex-col lg:flex-row mt-6 gap-10 bg-light rounded-lg p-6 border">
         <Stepper currentStep={currentStep} />
         <AddCouponForm basePath={basePath} />
       </div>

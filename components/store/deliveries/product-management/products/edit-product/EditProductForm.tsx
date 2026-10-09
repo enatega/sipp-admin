@@ -24,6 +24,7 @@ import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-manageme
 import {
   useAddProductCustomizationGroup,
   useDeleteProductCustomizationGroup,
+  useDetachProductCustomizationGroup,
   useUpdateProductCustomizationGroup,
 } from '@/hooks/api/store/deliveries/product-management/products';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
@@ -91,6 +92,8 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
     useUpdateProductCustomizationGroup();
   const { mutateAsync: deleteCustomizationGroup, isPending: isDeletingGroup } =
     useDeleteProductCustomizationGroup();
+  const { mutateAsync: detachCustomizationGroup, isPending: isDetachingGroup } =
+    useDetachProductCustomizationGroup();
 
   const customizationGroups = Array.isArray(product.customizationGroups)
     ? product.customizationGroups
@@ -106,7 +109,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
   );
 
   const customizationActionPending =
-    isCreatingGroup || isUpdatingGroup || isDeletingGroup;
+    isCreatingGroup || isUpdatingGroup || isDeletingGroup || isDetachingGroup;
 
   const openCreateAddOnDialog = () => {
     setSelectedAddOn(null);
@@ -199,6 +202,17 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
     }
   };
 
+  const handleDetachCustomizationGroup = async (
+    group: ProductCustomizationGroup,
+  ) => {
+    try {
+      await detachCustomizationGroup({ id: group.id, productId: product.id });
+      toast.success(tProducts('success.detach'));
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
   const handleDeleteCustomizationGroup = async () => {
     if (!groupToDelete) return;
 
@@ -249,6 +263,8 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
           onCreate={openCreateAddOnDialog}
           onEdit={openEditAddOnDialog}
           onDelete={setGroupToDelete}
+          detachLabel={tProducts('actions.detach')}
+          onDetach={handleDetachCustomizationGroup}
         />
       </div>
 
@@ -286,7 +302,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
         }
         subTitle={
           groupToDelete?.type === 'add-on'
-            ? 'Are you sure you want to delete this add-on?'
+            ? tProducts('actions.deleteAddonStoreWideDescription')
             : 'Are you sure you want to delete this variation?'
         }
         confirmLabel={tProducts('errors.deleteConfirm')}

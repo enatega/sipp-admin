@@ -82,7 +82,7 @@ const AppHeader = ({ containerClass }: Props) => {
             onClick={() => router.push('/deliveries/live-tracking')}
           >
             <MapPinned className="mr-2 h-4 w-4" />
-            Live Tracking
+            {t('sidebar.liveTracking')}
           </Button>
 
           <div className="relative hidden lg:block">

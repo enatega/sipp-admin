@@ -460,7 +460,14 @@ export default function OptionAsyncMultiSelect({
                     <CommandItem
                       key={option.id}
                       value={`${option.id} ${option.title}`}
-                      className="cursor-pointer px-3 py-2.5"
+                      // Keep the keyboard highlight neutral so it never looks
+                      // like a chosen option; chosen options are tinted.
+                      className={cn(
+                        'cursor-pointer px-3 py-2.5 data-[selected=true]:bg-muted data-[selected=true]:text-foreground',
+                        selectedOptionIds.includes(option.id) &&
+                          'bg-primary/10 font-medium data-[selected=true]:bg-primary/15',
+                      )}
+                      aria-checked={selectedOptionIds.includes(option.id)}
                       onSelect={() => handleToggleOption(option.id)}
                     >
                       <div className="flex w-full items-center justify-between gap-2">

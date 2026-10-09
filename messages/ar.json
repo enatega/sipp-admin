@@ -1,7 +1,16 @@
 {
-  "acceptInvite": { "back": "العودة إلى تسجيل الدخول", "title": "إعداد حسابك", "description": "اختر كلمة مرور لقبول الدعوة، ثم يمكنك تسجيل الدخول.", "missingToken": "رابط الدعوة غير مكتمل. اطلب من المسؤول إعادة إرساله.", "success": "تم قبول الدعوة. يرجى تسجيل الدخول.", "password": "كلمة المرور", "confirmPassword": "تأكيد كلمة المرور", "submit": "قبول الدعوة" },
+  "acceptInvite": {
+    "back": "العودة إلى تسجيل الدخول",
+    "title": "إعداد حسابك",
+    "description": "اختر كلمة مرور لقبول الدعوة، ثم يمكنك تسجيل الدخول.",
+    "missingToken": "رابط الدعوة غير مكتمل. اطلب من المسؤول إعادة إرساله.",
+    "success": "تم قبول الدعوة. يرجى تسجيل الدخول.",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "submit": "قبول الدعوة"
+  },
   "storeLogin": {
-    "title": "Enable Store Login",
+    "title": "تفعيل تسجيل دخول المتجر",
     "description": "ضع رسالة إلكترونية وكلمة مرور لهذا المتجر ليسجلها",
     "email": "عنوان البريد الإلكتروني",
     "password": "كلمة السر الأولى",
@@ -22,15 +31,15 @@
     "active": "النشاط",
     "default": "التقصير",
     "actions": "الإجراءات",
-    "edit": "Edit",
+    "edit": "تعديل",
     "delete": "تحذف",
     "save": "أنقذني",
     "cancel": "إلغاء",
     "saving": "إنقاذ...",
     "creating": "خلق معدل ضريبي...",
     "updating": "تحديث {name}…",
-    "activating": "Activating {name}…",
-    "deactivating": "Deactivating {name}…",
+    "activating": "جارٍ تفعيل {name}…",
+    "deactivating": "جارٍ تعطيل {name}…",
     "settingDefault": "Setting {name} .....",
     "deleting": "حذف {name}…",
     "saved": "معدل الضرائب الموفرة",
@@ -53,7 +62,7 @@
     "allTaxRates": "جميع المعدلات الضريبية",
     "storeCount": "{count, plural, one {# متجر} other {# متاجر}}",
     "matchingStoreCount": "{count, plural, one {# متجر مطابق} other {# متاجر مطابقة}}",
-    "storeName": "Store",
+    "storeName": "المتجر",
     "status": "الحالة",
     "appliedMainTax": "الضرائب الرئيسية المطبقة",
     "defaultProductTax": "ضريبة المنتجات الافتراضية",
@@ -71,7 +80,7 @@
     "storeTaxSaved": "تحديث الضرائب المسروقة",
     "storeStatusApproved": "الوظائف المعتمدة",
     "storeStatusPending": "تنتهي",
-    "storeStatusRejected": "Rejected",
+    "storeStatusRejected": "مرفوض",
     "storeStatusUnknown": "غير معروف",
     "formHelp": "أدخل نسبة مئوية من صفر إلى 100، مع وجود مكانين عشريين.",
     "validation": "أدخل اسماً ومعدلاً صالحاً بين صفر و100 (حتى مكانين عشريين).",
@@ -87,16 +96,16 @@
     "inclusiveHelp": "ويشمل السعر المقيد الضريبة. الضرائب ليست مضافة على القمة",
     "missingDefault": "اختيار معدل ضريبي المنتج أو طلب من مدير لفرض ضريبة على المنتجات المفقودة لهذا المتجر",
     "breakdown": "{name} ({rate}النسبة المئوية: الصافي {net} + أدرجت الضرائب {tax} = السعر {gross}",
-    "unconfigured": "No tax rate configured"
+    "unconfigured": "لم يتم إعداد معدل ضريبة"
   },
   "common": {
     "welcome": "مرحباً",
-    "login": "Login",
-    "logout": "Logout",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
     "save": "أنقذني",
     "cancel": "إلغاء",
     "delete": "تحذف",
-    "edit": "Edit",
+    "edit": "تعديل",
     "search": "البحث",
     "loading": "التعبئة...",
     "noDataFound": "لا توجد بيانات",
@@ -110,7 +119,7 @@
     "csvDownloadSuccess": "CSV تم تحميل التقرير بنجاح!",
     "excelDownloadSuccess": "Excel تم تحميل التقرير بنجاح!",
     "rowsSelected": "{selectedRows} of of {totalData} منتقاة",
-    "rowsPerPage": "Rows per page",
+    "rowsPerPage": "عدد الصفوف في الصفحة",
     "pageOfTotalPages": "الصفحة {page} of of {totalPages}",
     "filters": {
       "dateRangePlaceholder": "التاريخ المحدد",
@@ -132,13 +141,13 @@
   },
   "fixrightBookingsModes": {
     "singleVendor": "الزهرة الوحيدة",
-    "multiVendor": "Multi Vendor",
-    "chain": "Chain"
+    "multiVendor": "متعدد البائعين",
+    "chain": "سلسلة"
   },
   "generalBookingsModes": {
     "singleVendor": "الزهرة الوحيدة",
-    "multiVendor": "Multi Vendor",
-    "chain": "Chain"
+    "multiVendor": "متعدد البائعين",
+    "chain": "سلسلة"
   },
   "storeTiming": {
     "title": "التوقيتات",
@@ -160,7 +169,7 @@
   "Shared": {
     "cancel": "إلغاء",
     "save": "أنقذني",
-    "edit": "Edit",
+    "edit": "تعديل",
     "delete": "تحذف",
     "areYouSure": "هل أنت متأكد؟",
     "yesDelete": "نعم، تحذف",
@@ -176,8 +185,8 @@
     "loadFailed": "لا يمكن تحميل الوثيقة."
   },
   "imagePreview": {
-    "viewPdf": "View PDF",
-    "viewFull": "View Full",
+    "viewPdf": "عرض PDF",
+    "viewFull": "عرض كامل",
     "notUploaded": "لم تقدم",
     "loadFailed": "لا يمكن تحميل الوثيقة.",
     "documentPreview": "الوثائق",
@@ -185,7 +194,7 @@
     "download": "تحميل"
   },
   "appFileInput": {
-    "onlyImageFilesAllowed": "Only image files are allowed (PNG/JPG/JPEG/WEBP/JFIF)",
+    "onlyImageFilesAllowed": "يُسمح بملفات الصور فقط (PNG/JPG/JPEG/WEBP/JFIF)",
     "fileTooLarge": "أطير كثيراً ماكس {maxSize}MB سمح.",
     "failedToLoadPreview": "فشل في تحميل ما قبل الاستعراض.",
     "changeDocument": "وثيقة تغيير",
@@ -194,14 +203,14 @@
     "allowed": "الوظائف المأذون بها",
     "max": "ماكس",
     "openFullSizePreview": "استعراض شامل مفتوح",
-    "preview": "Preview",
-    "view": "View",
+    "preview": "معاينة",
+    "view": "عرض",
     "currentImageLabel": "الصورة الحالية",
     "documentBadge": "الوثيقة",
     "uploadedFileReady": "ملف معبّل جاهز لتقديمه",
     "removeFile": "ملف نقل",
     "fullPreview": "استعراض أولي كامل",
-    "noPreviewAvailable": "No preview available"
+    "noPreviewAvailable": "لا توجد معاينة متاحة"
   },
   "appAlertDialog": {
     "cancel": "إلغاء",
@@ -209,7 +218,7 @@
   },
   "appMultiSelect": {
     "placeholder": "نوع مختار",
-    "deselect": "Deselect",
+    "deselect": "إلغاء التحديد",
     "more": "أكثر",
     "noMoreOptions": "لا مزيد من الخيارات"
   },
@@ -229,9 +238,9 @@
     "placeholder": "الاختيار",
     "options": {
       "fiveStars": "5 نجوم",
-      "fourPlusStars": "4+ Stars",
-      "threePlusStars": "3+ Stars",
-      "twoPlusStars": "2+ Stars",
+      "fourPlusStars": "+4 نجوم",
+      "threePlusStars": "+3 نجوم",
+      "twoPlusStars": "+2 نجوم",
       "onePlusStars": "1+ النجوم"
     }
   },
@@ -243,7 +252,7 @@
   },
   "displayError": {
     "somethingWentWrong": "شيء ما حدث",
-    "retry": "Retry",
+    "retry": "إعادة المحاولة",
     "messagePrefix": "الرسالة:"
   },
   "ratingFilterPopover": {
@@ -272,7 +281,7 @@
   },
   "resendOtp": {
     "description": "لم يتلق OTP?",
-    "actionLabel": "Resend OTP",
+    "actionLabel": "إعادة إرسال رمز التحقق",
     "sentAgainSuccess": "OTP أرسل مرة أخرى",
     "resendFailed": "فشل في الإلغاء حاول مرة أخرى",
     "sending": "إرسال...",
@@ -291,11 +300,11 @@
     "home": "البيت",
     "dashboard": "لوحة",
     "settings": "التركيبات",
-    "profile": "Profile"
+    "profile": "الملف الشخصي"
   },
   "userDropMenu": {
-    "profile": "Profile",
-    "logout": "Logout",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج",
     "logoutDialog": {
       "title": "لوج",
       "subTitle": "أخرج من حسابك",
@@ -347,14 +356,15 @@
     "reportingCancellations": "الإلغاءات",
     "reportingFinancialPayouts": "المدفوعات المالية",
     "reportingCustomersPromotions": "تعزيزات الزبائن",
-    "customerLoyaltyAndReferrals": "وفاء العملاء والمراجع"
+    "customerLoyaltyAndReferrals": "وفاء العملاء والمراجع",
+    "homeSequence": "ترتيب الرئيسية"
   },
   "reporting": {
     "title": "الإبلاغ",
     "pages": {
       "salesOrders": {
         "title": "أوامر البيع",
-        "description": "Detailed order, restaurant sales and product performance reporting."
+        "description": "تقارير مفصلة عن الطلبات ومبيعات المطاعم وأداء المنتجات."
       },
       "taxCommission": {
         "title": "لجنة الضرائب",
@@ -413,6 +423,10 @@
       "promotions": {
         "label": "حسابات الأزواج",
         "description": "الاستخدام المزدوج وغير ذلك من أشكال الخصم وتأثير المبيعات."
+      },
+      "refunds": {
+        "label": "تقرير المبالغ المستردة",
+        "description": "طلبات الاسترداد ونتائجها وتوزيع المسؤولية."
       }
     },
     "filters": {
@@ -428,7 +442,7 @@
       "allOrderStatuses": "جميع الطلبات",
       "payment": {
         "cash": "النقدية",
-        "card": "Card",
+        "card": "بطاقة",
         "wallet": "الجدار"
       },
       "status": {
@@ -442,7 +456,7 @@
         "out_for_delivery": "خارج للتسليم",
         "arrived": "وصلت",
         "delivered": "المبلغ",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "failed": "فشل",
         "cancelled": "ألغيت"
       }
@@ -465,10 +479,14 @@
       "totalProductTax": "مجموع المنتجات VAT /ضريبة",
       "commissionBase": "قاعدة اللجنة",
       "commissionNet": "صافي اللجنة",
-      "commissionVat": "VAT on commission",
+      "commissionVat": "ضريبة القيمة المضافة على العمولة",
       "totalCommissionDeduction": "مجموع الخصم",
       "absorbedVat": "الممتنعون VAT",
-      "loadError": "لا يمكن تحميل موجز الضرائب والاجراءات"
+      "loadError": "لا يمكن تحميل موجز الضرائب والاجراءات",
+      "grossCommission": "العمولة قبل القسائم",
+      "adminCouponCost": "تكلفة قسيمة المسؤول",
+      "adminCouponExtraPaid": "المبلغ الإضافي المدفوع من المسؤول للقسيمة",
+      "storeCouponCost": "تكلفة قسيمة المتجر"
     },
     "table": {
       "records": "{count, plural, one {# سجل} other {# سجلات}}",
@@ -476,7 +494,7 @@
       "emptyTitle": "لا سجلات متطابقة",
       "emptySubtitle": "حاول تغيير نطاق التاريخ أو مرشحات أخرى",
       "dateBasis": "التاريخ",
-      "timezone": "Timezone",
+      "timezone": "المنطقة الزمنية",
       "yes": "نعم",
       "no": "لا"
     },
@@ -512,10 +530,10 @@
       "commissionRate": "معدل اللجنة",
       "commissionNet": "صافي اللجنة",
       "commissionVatRate": "اللجنة VAT المعدل",
-      "vatOnCommission": "VAT on commission",
+      "vatOnCommission": "ضريبة القيمة المضافة على العمولة",
       "totalDeduction": "مجموع الخصوم",
       "absorbedVat": "الممتنعون VAT",
-      "snapshot": "Snapshot",
+      "snapshot": "لقطة",
       "cancelledAt": "ألغيت",
       "createdAt": "أنشئت في",
       "status": "الحالة",
@@ -537,8 +555,8 @@
       "platformDeliveryCommission": "لجنة تنفيذ منهاج العمل",
       "approvedPayouts": "المبالغ الموافق عليها",
       "pendingPayouts": "المدفوعات المستحقة الدفع",
-      "email": "Email",
-      "phone": "Phone",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
       "firstOrder": "الأمر الأول",
       "lastOrder": "آخر أمر",
       "totalOrders": "مجموع الطلبات",
@@ -548,7 +566,25 @@
       "promotionType": "نوع الترقية",
       "promotionCode": "رمز الترقية",
       "orders": "الأوامر",
-      "totalDiscount": "مجموع الخصوم"
+      "totalDiscount": "مجموع الخصوم",
+      "couponBorneBy": "القسيمة يتحملها",
+      "couponDiscount": "خصم القسيمة",
+      "adminCouponCost": "تكلفة قسيمة المسؤول",
+      "storeCouponCost": "تكلفة قسيمة المتجر",
+      "adminCouponExtraPaid": "المبلغ الإضافي المدفوع من المسؤول للقسيمة",
+      "storeEarnings": "أرباح المتجر",
+      "commissionBeforeCoupon": "العمولة قبل القسيمة",
+      "adminCouponFromCommission": "قسيمة المسؤول من العمولة",
+      "requestId": "معرّف الطلب",
+      "requestDate": "تاريخ الطلب",
+      "rider": "المندوب",
+      "refundType": "نوع الاسترداد",
+      "requestedAmount": "المبلغ المطلوب",
+      "approvedAmount": "المبلغ المعتمد",
+      "storeDeduction": "خصم المتجر",
+      "riderDeduction": "خصم المندوب",
+      "adminDeduction": "خصم المسؤول",
+      "reason": "السبب"
     }
   },
   "noPermission": {
@@ -561,15 +597,15 @@
         "description": "حسابك لديه تصريحات محدودة"
       },
       "noAccess": {
-        "title": "No Modules Available",
+        "title": "لا توجد وحدات متاحة",
         "description": "لا توجد سمات متاحة لدورك"
       },
       "contact": {
-        "title": "Contact Admin",
+        "title": "التواصل مع المسؤول",
         "description": "طلب إذن من المدير"
       }
     },
-    "logoutButton": "Logout"
+    "logoutButton": "تسجيل الخروج"
   },
   "settings": {
     "title": "التركيبات",
@@ -599,26 +635,26 @@
     },
     "appTypes": {
       "riderApp": "طراز Rder App",
-      "storeApp": "Store App",
+      "storeApp": "تطبيق المتجر",
       "customerApp": "العملاء",
-      "web": "Web",
-      "admin": "Admin"
+      "web": "الويب",
+      "admin": "المسؤول"
     },
     "appSettings": {
       "globalLogo": {
-        "title": "Global Logo",
-        "logoLabel": "App Logo",
+        "title": "الشعار العام",
+        "logoLabel": "شعار التطبيق",
         "helperText": "تحميل شعار تطبيقك (PNG, JPG, SVG, WebP - max 5MB)",
-        "previewButton": "Preview Logo",
-        "previewTitle": "Logo Preview",
+        "previewButton": "معاينة الشعار",
+        "previewTitle": "معاينة الشعار",
         "previewAlt": "استعراض أولي لشعار التطبيق"
       },
       "splashScreen": {
-        "title": "Splash Screen",
+        "title": "شاشة البداية",
         "splashLabel": "ذخيرة سبراش سكرين",
         "helperText": "أعلى صورة لشاشة البرق (PNG, JPG, WebP - max 5MB)",
-        "previewButton": "Preview Splash Screen",
-        "previewTitle": "Splash Screen Preview",
+        "previewButton": "معاينة شاشة البداية",
+        "previewTitle": "معاينة شاشة البداية",
         "previewAlt": "عرض موجز"
       },
       "maintenanceMessage": {
@@ -635,7 +671,7 @@
       },
       "promotionalBanner": {
         "title": "Banner الترويجي",
-        "uploadLabel": "Banner Media",
+        "uploadLabel": "وسائط اللافتة",
         "helperText": "تحميل صورة ترويجية أو شريط فيديو (PNG, JPG, WeBP, MP4, WeBM, OGG, MOV - max 50MB)",
         "dropzoneText": "وسائل الإعلام هنا أو",
         "invalidFileTypeMessage": "Only PNG, JPG, WeBP, MP4, WeBM, OGG, and MOV files are allowed.",
@@ -646,20 +682,20 @@
         "removeButton": "إزالة وسائط الإعلام الحالية",
         "deleteSuccess": "أزيلت لوحة الترويج بنجاح",
         "confirmDelete": {
-          "title": "Remove Promotional Banner",
+          "title": "إزالة اللافتة الترويجية",
           "subTitle": "هل تريد إزالة المأدبة الترويجية الحالية؟",
           "description": "هذا يزيل اللافتة المنقذة فوراً من أماكن تطبيق الزبائن",
           "confirm": "إزالة الألغام",
           "cancel": "إلغاء"
         },
-        "previewVideo": "Preview Video",
+        "previewVideo": "معاينة الفيديو",
         "previewImage": "الصورة التمهيدية",
-        "previewVideoTitle": "Video Preview",
+        "previewVideoTitle": "معاينة الفيديو",
         "previewImageTitle": "لمحة عامة",
         "previewAlt": "الإعلان الترويجي"
       },
       "themeColor": {
-        "title": "Theme Color",
+        "title": "لون السمة",
         "primaryColor": "Color",
         "secondaryColor": "العقيدة الثانوية",
         "tertiaryColor": "Color",
@@ -678,7 +714,7 @@
         "invalidHexColor": "شكل لون الثعلب اللامع # إستعملْه #"
       },
       "notApplicable": "N/A",
-      "saveChanges": "Save Changes",
+      "saveChanges": "حفظ التغييرات",
       "saving": "إنقاذ...",
       "saveSuccess": "تم إنقاذ (ستينغز) بنجاح!",
       "saveError": "فشل في إنقاذ الأماكن حاول مرة أخرى"
@@ -735,8 +771,8 @@
             "placeholder": "الاسم الكامل"
           },
           "email": {
-            "label": "Enter Email Address",
-            "placeholder": "Enter Email Address"
+            "label": "أدخل البريد الإلكتروني",
+            "placeholder": "أدخل البريد الإلكتروني"
           },
           "phone": {
             "label": "رقم الهاتف",
@@ -817,8 +853,8 @@
         "updateButton": "آخر",
         "options": {
           "single": "الزهرة الوحيدة",
-          "chain": "Store Chain",
-          "multi": "Multi Vendor"
+          "chain": "سلسلة المتاجر",
+          "multi": "متعدد البائعين"
         },
         "toasts": {
           "updateSuccess": "تحديث طريقة العرض بنجاح!",
@@ -850,14 +886,14 @@
       "table": {
         "columns": {
           "pageName": "الاسم",
-          "slug": "Slug",
+          "slug": "المعرّف النصي (Slug)",
           "content": "المضمون",
           "publish": "النشر",
           "actions": "الإجراءات"
         },
         "actions": {
-          "edit": "Edit",
-          "preview": "Preview",
+          "edit": "تعديل",
+          "preview": "معاينة",
           "delete": "تحذف"
         },
         "errors": {
@@ -873,15 +909,15 @@
         "notAvailable": "N/A"
       },
       "drawers": {
-        "addTitle": "Create Static Page",
-        "editTitle": "Edit Static Page"
+        "addTitle": "إنشاء صفحة ثابتة",
+        "editTitle": "تعديل الصفحة الثابتة"
       },
       "dialogs": {
         "delete": {
           "title": "تحذف الصفحة",
           "subTitle": "تحذف الصفحة",
           "description": "هل أنت متأكد أنك تريد حذف هذه الصفحة؟ هذا العمل لا يمكن أن يزول.",
-          "confirm": "Confirm"
+          "confirm": "تأكيد"
         }
       },
       "form": {
@@ -891,7 +927,7 @@
             "placeholder": "عنوان الصفحة"
           },
           "slug": {
-            "label": "Slug",
+            "label": "المعرّف النصي (Slug)",
             "placeholder": "حول"
           },
           "content": {
@@ -924,7 +960,7 @@
           "bannerMaxSize": "يجب أن تكون صورة البنر أقل من 5MB",
           "slugFormat": "يجب أن يكون السلوق أقل ويمكن أن يحتوي على الهيدروجين فقط",
           "slugMin": "لا بدّ أنّ (سلوغ) 3 شخصيات على الأقل",
-          "slugMax": "Slug cannot exceed 100 characters"
+          "slugMax": "لا يمكن أن يتجاوز المعرّف النصي 100 حرف"
         },
         "defaultContent": {
           "heading": "مرحبا بكم في الصفحة الجديدة",
@@ -942,7 +978,7 @@
       },
       "preview": {
         "desktop": "حاسوب مكتبي",
-        "mobile": "Mobile",
+        "mobile": "الجوال",
         "closeButton": "اقترب",
         "bannerAlt": "لافتة",
         "defaultPageTitle": "الصفحة",
@@ -956,19 +992,19 @@
   },
   "vendorSidebar": {
     "dashboard": "لوحة",
-    "profile": "Profile",
-    "stores": "Stores",
+    "profile": "الملف الشخصي",
+    "stores": "المتاجر",
     "menuTemplate": "نموذج منو",
     "businessType": "نوع الأعمال/المخزن",
     "wallet": "الجدار",
-    "earnings": "Earnings",
+    "earnings": "الأرباح",
     "withdrawalRequest": "طلب الانسحاب",
     "ratingReviews": "استعراضات التقييم",
     "backToAdmin": "العودة إلى أدمان"
   },
   "vendorMenuTemplate": {
     "title": "نموذج منو",
-    "addButton": "Add Menu",
+    "addButton": "إضافة قائمة",
     "tabs": {
       "all": "كل شيء",
       "newlyAdded": "مضاف حديثا"
@@ -983,7 +1019,7 @@
     "table": {
       "menuTitle": "الرمز",
       "description": "الوصف",
-      "assignedStores": "Assigned Stores",
+      "assignedStores": "المتاجر المعيّنة",
       "products": "عدد المنتجات",
       "availability": "التوافر",
       "searchPlaceholder": "البحث بالاسم",
@@ -999,16 +1035,16 @@
       "description": "الوصف",
       "products": "لا المنتجات",
       "status": "الحالة",
-      "assignedStores": "Assigned Stores",
+      "assignedStores": "المتاجر المعيّنة",
       "availability": "التوافر",
-      "createdAt": "Created At",
+      "createdAt": "تاريخ الإنشاء",
       "storeAssignments": "المهام المسروقة",
-      "available": "Available",
+      "available": "متاح",
       "unavailable": "غير متاح"
     },
     "form": {
-      "createTitle": "Add Menu",
-      "editTitle": "Edit Menu",
+      "createTitle": "إضافة قائمة",
+      "editTitle": "تعديل القائمة",
       "basicInformation": "المعلومات الأساسية",
       "titleLabel": "الرمز",
       "titlePlaceholder": "عنوان القائمة هنا",
@@ -1016,22 +1052,22 @@
       "descriptionLabel": "الوصف",
       "descriptionPlaceholder": "وصف الدخول",
       "descriptionRequired": "الوصف الرمزي مطلوب",
-      "storesLabel": "Assign Menu to Store",
+      "storesLabel": "تعيين القائمة للمتجر",
       "storesPlaceholder": "المخازن المختارة",
       "selectStore": "Sect Store",
       "storeSelectionRequired": "يلزم اختيار المخزون",
       "selectAtLeastOneStore": "يرجى اختيار متجر واحد على الأقل",
       "imageLabel": "رفع الصورة",
-      "imageHelper": "PNG, JPG up to 5MB",
+      "imageHelper": "PNG أو JPG حتى 5 ميغابايت",
       "imageRequired": "التصوير مطلوب",
-      "fileType": "Only PNG/JPG/JPEG/WEBP allowed",
+      "fileType": "يُسمح فقط بملفات PNG/JPG/JPEG/WEBP",
       "fileSize": "حجم الملف يجب أن يكون 5MB أو أقل",
       "availabilityLabel": "التوافر",
       "backButton": "العودة",
       "cancelButton": "إلغاء",
       "saveButton": "أنقذني",
-      "createButton": "Create Menu",
-      "updateButton": "Update Menu",
+      "createButton": "إنشاء قائمة",
+      "updateButton": "تحديث القائمة",
       "success": {
         "create": "منو خلق بنجاح",
         "update": "مينو استكمل بنجاح"
@@ -1039,8 +1075,8 @@
       "addNewMenuTemplate": "إضافة نموذج منو جديد"
     },
     "actions": {
-      "view": "View",
-      "edit": "Edit",
+      "view": "عرض",
+      "edit": "تعديل",
       "delete": "تحذف",
       "deleteSuccess": "منو حذف بنجاح",
       "statusUpdated": "تحديث حالة مينو"
@@ -1051,34 +1087,34 @@
       "selectAtLeastOneStore": "يرجى اختيار متجر واحد على الأقل",
       "storeSelectionRequired": "يلزم اختيار المخزون",
       "imageRequired": "التصوير مطلوب",
-      "fileType": "Only PNG/JPG/JPEG/WEBP allowed",
+      "fileType": "يُسمح فقط بملفات PNG/JPG/JPEG/WEBP",
       "fileSize": "حجم الملف يجب أن يكون 5MB أو أقل"
     }
   },
   "fixrightVendorSidebar": {
     "dashboard": "لوحة",
-    "profile": "Profile",
+    "profile": "الملف الشخصي",
     "serviceCenters": "مراكز الخدمات",
     "serviceInventories": "المخزونات من الخدمات",
     "worker": "العامل",
     "jobs": "الوظائف",
     "wallet": "الجدار",
-    "earningReports": "Earning Reports",
+    "earningReports": "تقارير الأرباح",
     "withdrawalRequest": "طلب الانسحاب",
     "ratingReviews": "استعراضات التقييمات",
     "backToAdmin": "العودة إلى أدمان"
   },
   "storeSidebar": {
     "dashboard": "لوحة",
-    "store": "Store",
-    "profile": "Profile",
+    "store": "المتجر",
+    "profile": "الملف الشخصي",
     "timing": "التوقيت",
     "location": "الموقع",
     "payments": "المدفوعات",
     "productManagement": "إدارة المنتجات",
     "products": "المنتجات",
-    "assignedMenuProducts": "Assigned Menu Products",
-    "categories": "Categories",
+    "assignedMenuProducts": "منتجات القائمة المعيّنة",
+    "categories": "الفئات",
     "deals": "الصفقات",
     "subCategories": "المجموعات الفرعية",
     "addons": "الإضافات",
@@ -1086,20 +1122,21 @@
     "orders": "الأوامر",
     "subscriptionPlans": "خطط الاشتراك",
     "ratingReviews": "استعراضات التقييمات",
-    "coupons": "Coupons",
+    "coupons": "القسائم",
     "marketing": "التسويق",
     "wallet": "الجدار",
-    "earningReports": "Earning Reports",
+    "earningReports": "تقارير الأرباح",
     "walletTransactions": "المعاملات الجدارية",
     "withdrawalRequests": "طلبات الانسحاب",
     "backToAdmin": "العودة إلى أدمان",
-    "backToVendorStores": "العودة إلى مخازن البائعين"
+    "backToVendorStores": "العودة إلى مخازن البائعين",
+    "menuControl": "إدارة القائمة"
   },
   "storeCoupons": {
-    "title": "Coupons",
-    "addButton": "Add Coupon",
-    "addTitle": "Add Coupon",
-    "editTitle": "Edit Coupon"
+    "title": "القسائم",
+    "addButton": "إضافة قسيمة",
+    "addTitle": "إضافة قسيمة",
+    "editTitle": "تعديل القسيمة"
   },
   "storeAddons": {
     "title": "مضافا إليه",
@@ -1119,8 +1156,8 @@
       "requiredYes": "نعم",
       "requiredNo": "لا",
       "actions": {
-        "view": "View",
-        "edit": "Edit",
+        "view": "عرض",
+        "edit": "تعديل",
         "delete": "تحذف"
       },
       "noDataTitle": "لا توجد إضافات",
@@ -1130,16 +1167,16 @@
     },
     "form": {
       "addTitle": "مضافا إليه",
-      "editTitle": "Edit Add-on",
+      "editTitle": "تعديل الإضافة",
       "nameLabel": "الاسم",
       "namePlaceholder": "الاسم المضاف",
       "descriptionLabel": "الوصف",
       "descriptionPlaceholder": "وصف الدخول",
       "priceLabel": "السعر",
       "pricePlaceholder": "السعر الإضافي",
-      "minSelectLabel": "Min Select",
+      "minSelectLabel": "الحد الأدنى للاختيار",
       "minSelectPlaceholder": "الاختيارات الدنيا",
-      "maxSelectLabel": "Max Select",
+      "maxSelectLabel": "الحد الأقصى للاختيار",
       "maxSelectPlaceholder": "بدء الاختيارات القصوى",
       "requiredLabel": "المطلوب",
       "requiredYes": "نعم",
@@ -1167,10 +1204,10 @@
       "addNewOption": "الخيار الجديد",
       "addNewAddon": "إضافة جديدة",
       "cancelButton": "إلغاء",
-      "createButton": "Create",
+      "createButton": "إنشاء",
       "updateButton": "آخر",
       "productEditAddTitle": "مضاف جديد",
-      "productEditEditTitle": "Edit Add-ons",
+      "productEditEditTitle": "تعديل الإضافات",
       "productEditCreateButton": "الإنشاء",
       "productEditUpdateButton": "آخر التطورات"
     },
@@ -1184,15 +1221,15 @@
         "name": "الاسم",
         "description": "الوصف",
         "price": "السعر",
-        "minSelect": "Min Select",
-        "maxSelect": "Max Select",
+        "minSelect": "الحد الأدنى للاختيار",
+        "maxSelect": "الحد الأقصى للاختيار",
         "required": "المطلوب",
         "selectionType": "نوع الاختيار",
         "type": "النوع",
         "status": "الحالة",
         "dependsOnVariationId": "يعتمد على هوية الفرق",
-        "createdAt": "Created At",
-        "updatedAt": "Updated At"
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث"
       },
       "optionFields": {
         "unitOfMeasure": "وحدة القياس",
@@ -1243,7 +1280,7 @@
     "title": "الخيارات",
     "addButton": "الخيار",
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     },
     "filters": {
@@ -1256,7 +1293,7 @@
       "stockQuantity": "كمية المخزون",
       "status": "الحالة",
       "description": "الوصف",
-      "createdAt": "Created At",
+      "createdAt": "تاريخ الإنشاء",
       "action": "الإجراء",
       "notAvailable": "N/A",
       "time": "الوقت"
@@ -1267,7 +1304,7 @@
       "price": "السعر",
       "stockQuantity": "كمية المخزون",
       "description": "الوصف",
-      "createdAt": "Created At"
+      "createdAt": "تاريخ الإنشاء"
     },
     "errors": {
       "fetchFailedTitle": "فشل في خيارات التحميل",
@@ -1298,7 +1335,7 @@
       "activeLabel": "النشاط",
       "inactiveLabel": "الخاملة",
       "cancelButton": "إلغاء",
-      "createButton": "Create",
+      "createButton": "إنشاء",
       "updateButton": "آخر",
       "loading": "تفاصيل خيار تحديد الموقع",
       "timeLabel": "الوقت",
@@ -1323,7 +1360,7 @@
       "timeMax": "لا يمكن أن يتجاوز الوقت 2880 دقيقة (48 ساعة)"
     },
     "units": {
-      "minutesShort": "min"
+      "minutesShort": "دقيقة"
     },
     "toast": {
       "serviceCenterIdRequired": "تحديد مركز الخدمات",
@@ -1351,7 +1388,7 @@
       "cancel": "إلغاء",
       "next": "التالي",
       "back": "العودة",
-      "submit": "Submit"
+      "submit": "إرسال"
     },
     "table": {
       "columns": {
@@ -1368,8 +1405,8 @@
       "noDataTitle": "لا توجد خدمات",
       "noDataSubtitle": "إنشاء خدمة للبدء",
       "actions": {
-        "view": "View",
-        "edit": "Edit",
+        "view": "عرض",
+        "edit": "تعديل",
         "delete": "تحذف"
       }
     },
@@ -1387,7 +1424,7 @@
           "required": "الفئة مطلوبة"
         },
         "subCategory": {
-          "label": "Sub-Category",
+          "label": "فئة فرعية",
           "placeholder": "الفئة الفرعية المختارة"
         },
         "description": {
@@ -1445,7 +1482,7 @@
       },
       "category": {
         "label": "الفئة",
-        "all": "All Categories"
+        "all": "جميع الفئات"
       },
       "status": {
         "label": "الحالة",
@@ -1490,7 +1527,7 @@
       "title": "العمال",
       "assign": "عامل مكلف",
       "remove": "عامل إزالة",
-      "noWorkers": "No workers assigned",
+      "noWorkers": "لم يتم تعيين عمال",
       "assignSuccess": "عامل تم تعيينه بنجاح",
       "removeSuccess": "العمال الذين أزيلوا بنجاح",
       "assignFailed": "عدم تعيين عامل",
@@ -1525,7 +1562,7 @@
     },
     "form": {
       "addTitle": "إضافة",
-      "editTitle": "Edit Deal",
+      "editTitle": "تعديل العرض",
       "addNewDeal": "إضافة اتفاق جديد",
       "dealSearchPlaceholder": "صفقات البحث",
       "selectedCount": "{count} صفقات مختارة",
@@ -1572,7 +1609,7 @@
       "noDataTitle": "لا توجد صفقات"
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     },
     "deleteDialog": {
@@ -1597,9 +1634,10 @@
       "status": "الحالة",
       "creationDate": "تاريخ الإنشاء",
       "actionHeader": "الإجراءات",
+      "actionsColumn": "الإجراءات",
       "actions": {
-        "view": "View",
-        "edit": "Edit",
+        "view": "عرض",
+        "edit": "تعديل",
         "delete": "تحذف"
       },
       "notAvailable": "N/A",
@@ -1624,7 +1662,7 @@
       "statusLabel": "الحالة",
       "activeLabel": "النشاط",
       "inactiveLabel": "الخاملة",
-      "createButton": "Create",
+      "createButton": "إنشاء",
       "updateButton": "آخر",
       "cancelButton": "إلغاء",
       "subCategoryNameLabel": "اسم المجموعة الفرعية",
@@ -1668,17 +1706,17 @@
       }
     },
     "types": {
-      "subCategory": "Sub-Category",
+      "subCategory": "فئة فرعية",
       "category": "الفئة"
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     }
   },
   "subCategories": {
     "title": "المنتجات الفرعية",
-    "createButton": "Create Sub-Category",
+    "createButton": "إنشاء فئة فرعية",
     "searchPlaceholder": "البحث في الفئات الفرعية...",
     "filterByStatus": "القائمة",
     "filterByCategory": "ملء حسب الفئة",
@@ -1696,8 +1734,8 @@
       "notAvailable": "N/A"
     },
     "form": {
-      "createTitle": "Create Sub-Category",
-      "editTitle": "Edit Sub-Category",
+      "createTitle": "إنشاء فئة فرعية",
+      "editTitle": "تعديل الفئة الفرعية",
       "nameLabel": "اسم المجموعة الفرعية",
       "namePlaceholder": "اسم الفئة الفرعية",
       "categoryLabel": "الفئة",
@@ -1711,11 +1749,11 @@
       "categoryLoadFailed": "الفشل في فئات الحمولة",
       "addNewCategory": "الفئة الجديدة",
       "imageLabel": "الصورة الفرعية",
-      "imageHelper": "Upload sub-category image (PNG, JPG, WebP - max 5MB)",
+      "imageHelper": "ارفع صورة الفئة الفرعية (PNG أو JPG أو WebP - بحد أقصى 5 ميغابايت)",
       "statusLabel": "الحالة",
       "activeLabel": "النشاط",
       "inactiveLabel": "الخاملة",
-      "createButton": "Create",
+      "createButton": "إنشاء",
       "updateButton": "آخر",
       "cancelButton": "إلغاء"
     },
@@ -1764,16 +1802,16 @@
   "serviceInventory": {
     "pages": {
       "categories": {
-        "title": "Categories",
+        "title": "الفئات",
         "addButton": "الفئة",
         "createSheet": {
           "title": "الفئة",
           "nameLabel": "الفئة",
           "namePlaceholder": "اسم الفئة",
           "imageLabel": "رفع الصورة",
-          "imageHelper": "PNG, JPG up to 5MB",
+          "imageHelper": "PNG أو JPG حتى 5 ميغابايت",
           "cancelButton": "إلغاء",
-          "createButton": "Create"
+          "createButton": "إنشاء"
         },
         "editSheet": {
           "title": "الفئة",
@@ -1782,7 +1820,7 @@
           "imageLabel": "آخر صورة",
           "cancelButton": "إلغاء",
           "updateButton": "آخر",
-          "imageHelper": "PNG, JPG up to 5MB"
+          "imageHelper": "PNG أو JPG حتى 5 ميغابايت"
         },
         "table": {
           "columns": {
@@ -1793,7 +1831,7 @@
           },
           "noDataTitle": "لا توجد فئات",
           "actions": {
-            "edit": "Edit",
+            "edit": "تعديل",
             "delete": "تحذف"
           }
         },
@@ -1833,12 +1871,12 @@
           "categoryLabel": "الفئة المختارة",
           "categoryPlaceholder": "الفئة الأم المختارة",
           "imageLabel": "رفع الصورة",
-          "imageHelper": "PNG, JPG up to 5MB",
+          "imageHelper": "PNG أو JPG حتى 5 ميغابايت",
           "cancelButton": "إلغاء",
-          "createButton": "Create"
+          "createButton": "إنشاء"
         },
         "editSheet": {
-          "title": "Edit Sub-Category",
+          "title": "تعديل الفئة الفرعية",
           "nameLabel": "اسم المجموعة الفرعية",
           "namePlaceholder": "اسم الفئة الفرعية",
           "categoryLabel": "الفئة المختارة",
@@ -1857,7 +1895,7 @@
           },
           "noDataTitle": "No subcategories found",
           "actions": {
-            "edit": "Edit",
+            "edit": "تعديل",
             "delete": "تحذف"
           }
         },
@@ -1891,7 +1929,7 @@
         "title": "المخزونات من الخدمات",
         "tabs": {
           "serviceItems": "بنود الخدمات",
-          "purchaseLogs": "Purchase Logs"
+          "purchaseLogs": "سجلات الشراء"
         },
         "serviceItems": {
           "table": {
@@ -1899,7 +1937,7 @@
               "image": "الصورة",
               "name": "البند الاسم",
               "category": "الفئة",
-              "subCategory": "Sub-Category",
+              "subCategory": "فئة فرعية",
               "sku": "SKU",
               "stockQuantity": "كمية المخزون",
               "price": "السعر",
@@ -1911,7 +1949,7 @@
           "filters": {
             "searchPlaceholder": "البحث في البنود...",
             "category": "الفئة",
-            "subCategory": "Sub-Category",
+            "subCategory": "فئة فرعية",
             "status": "الحالة",
             "all": "كل شيء",
             "inStock": "المخزون",
@@ -1961,7 +1999,7 @@
           "paidBy": "دفعة",
           "selectPaidBy": "اختيار من يدفع",
           "paidByEmployee": "الموظفون",
-          "paidByFreelancer": "Freelancer",
+          "paidByFreelancer": "عامل مستقل",
           "stockQuantity": "كمية المخزون",
           "stockQuantityPlaceholder": "كمية المخزون",
           "stockStatus": "المخزون",
@@ -1992,9 +2030,9 @@
         "inactive": "الخاملة"
       },
       "actions": {
-        "edit": "Edit",
+        "edit": "تعديل",
         "delete": "تحذف",
-        "view": "View"
+        "view": "عرض"
       },
       "buttons": {
         "add": "مضاف"
@@ -2009,7 +2047,7 @@
       "button": "الحمولة",
       "title": "مجموعة المنتجات الأساسية",
       "description": "تحميل CSV ملف بالمنتجات والتغيرات والإضافات الحد الأقصى للحجم: 10MB.",
-      "noFileSelected": "No file selected",
+      "noFileSelected": "لم يتم اختيار ملف",
       "buttons": {
         "chooseFile": "الاختيار CSV File",
         "cancel": "إلغاء",
@@ -2017,11 +2055,11 @@
       },
       "summary": {
         "totalRows": "المجموع",
-        "validRows": "Valid Rows",
+        "validRows": "الصفوف الصالحة",
         "errors": "الأخطاء"
       },
       "preview": {
-        "title": "CSV Preview",
+        "title": "معاينة CSV",
         "subtitle": "تظهر أول 10 صفوف من الملف المحمل"
       },
       "success": {
@@ -2037,14 +2075,14 @@
         "fixErrorsBeforeUpload": "Fix CSV أخطاء قبل تحميلها",
         "validationTitle": "CSV الخروقات",
         "columns": {
-          "row": "Row",
+          "row": "صف",
           "field": "الميدان",
           "message": "الرسالة"
         }
       }
     },
     "assignedMenuProducts": {
-      "title": "Assigned Menu Products",
+      "title": "منتجات القائمة المعيّنة",
       "totalProducts": "مجموع المنتجات",
       "inStock": "المخزون",
       "outOfStock": "خارج المخزون",
@@ -2063,7 +2101,7 @@
       "category": "الفئة",
       "price": "السعر",
       "priceAfterDeal": "السعر بعد الاتفاق",
-      "addon": "Add-on",
+      "addon": "إضافة",
       "unitOfMeasure": "وحدة القياس",
       "stockAvailability": "توافر المخزونات",
       "status": "الحالة",
@@ -2081,24 +2119,26 @@
       "name": "الاسم",
       "category": "الفئة",
       "price": "السعر",
-      "addon": "Add-on",
+      "addon": "إضافة",
       "unitOfMeasure": "وحدة القياس",
       "stockAvailability": "توافر المخزونات",
       "status": "الحالة",
       "stockQuantity": "كمية المخزون"
     },
     "actions": {
-      "view": "View",
-      "edit": "Edit",
+      "view": "عرض",
+      "edit": "تعديل",
       "delete": "تحذف",
       "deleteAddonTitle": "تحذف",
       "deleteVariationTitle": "يحذف الفرق",
       "deleteAddonDescription": "هل أنت متأكد أنك تريد حذف هذا الإضافة؟",
+      "detach": "فصل عن هذا المنتج",
+      "deleteAddonStoreWideDescription": "سيؤدي هذا إلى حذف الإضافة نهائيًا من جميع منتجات هذا المتجر. لإزالتها من هذا المنتج فقط، استخدم \"فصل عن هذا المنتج\" بدلاً من ذلك.",
       "deleteVariationDescription": "هل أنت متأكد أنك تريد حذف هذا التغيير؟"
     },
     "form": {
       "createTitle": "الناتج",
-      "editTitle": "Edit Product",
+      "editTitle": "تعديل المنتج",
       "nameLabel": "الاسم",
       "namePlaceholder": "اسم المنتج",
       "categoryLabel": "الفئة",
@@ -2128,8 +2168,8 @@
       "priceLabel": "السعر",
       "priceAfterDealLabel": "السعر بعد الصفقة",
       "pricePlaceholder": "سعر الانطلاق",
-      "addonLabel": "Add-on",
-      "addonPlaceholder": "Enter add-on",
+      "addonLabel": "إضافة",
+      "addonPlaceholder": "أدخل الإضافة",
       "addonsLabel": "مضافا إليه",
       "addonsPlaceholder": "مضافات مختارة",
       "addNewAddon": "إضافة جديدة",
@@ -2148,7 +2188,7 @@
       "inactiveLabel": "الخاملة",
       "inStockLabel": "المخزون",
       "outOfStockLabel": "خارج المخزون",
-      "createButton": "Create Product",
+      "createButton": "إنشاء منتج",
       "updateButton": "آخر المنتجات",
       "cancelButton": "إلغاء"
     },
@@ -2176,8 +2216,8 @@
         "priceAfterDealNotAvailable": "N/A",
         "priceAfterDealDescription": "الصفقة التطبيقية: {deal}",
         "pricePlaceholder": "سعر الانطلاق",
-        "addonLabel": "Add-on",
-        "addonPlaceholder": "Enter add-on",
+        "addonLabel": "إضافة",
+        "addonPlaceholder": "أدخل الإضافة",
         "addonsLabel": "مضافا إليه",
         "addonsPlaceholder": "مضافات مختارة",
         "dealsLabel": "الصفقات",
@@ -2220,7 +2260,7 @@
         "priceAfterDealLabel": "السعر بعد الصفقة",
         "pricePlaceholder": "سعر الانطلاق",
         "imageLabel": "الصورة المتغيرة",
-        "imageHelper": "Upload a variation image (PNG, JPG, WebP - max 5MB)",
+        "imageHelper": "ارفع صورة للخيار (PNG أو JPG أو WebP - بحد أقصى 5 ميغابايت)",
         "discountPriceLabel": "سعر الصرف",
         "discountPricePlaceholder": "سعر خصم الدخول",
         "optional": "اختياري",
@@ -2229,7 +2269,7 @@
         "addVariantButton": "مضافا إليه:",
         "variantsListTitle": "قائمة المتغيرات",
         "variantLabel": "البديل",
-        "editButton": "Edit",
+        "editButton": "تعديل",
         "deleteButton": "تحذف",
         "saveButton": "أنقذني",
         "cancelButton": "إلغاء",
@@ -2241,9 +2281,9 @@
           "imageRequired": "الصورة المتغيرة مطلوبة",
           "atLeastOneVariant": "يرجى إضافة متغير واحد على الأقل"
         },
-        "variantUpdatedSuccess": "Variant updated successfully",
+        "variantUpdatedSuccess": "تم تحديث الخيار بنجاح",
         "previousButton": "سابقا",
-        "submitButton": "Create Product",
+        "submitButton": "إنشاء منتج",
         "variantAddedSuccess": "البديل المضاف بنجاح",
         "completeStep1Error": "يرجى استكمال المعلومات الأساسية أولا",
         "productCreatedSuccess": "المنتج الذي خلق بنجاح!",
@@ -2292,7 +2332,8 @@
     "success": {
       "create": "المنتج الذي خلق بنجاح!",
       "update": "تم تحديث المنتجات بنجاح!",
-      "delete": "المنتج حذف بنجاح!"
+      "delete": "المنتج حذف بنجاح!",
+      "detach": "تم فصل الإضافة عن هذا المنتج"
     },
     "errors": {
       "fetchFailed": "فشل في جلب المنتجات",
@@ -2307,7 +2348,7 @@
       "categoryRequired": "الفئة مطلوبة",
       "priceRequired": "السعر مطلوب",
       "priceInvalid": "يجب أن يكون السعر رقما إيجابيا",
-      "retry": "Retry",
+      "retry": "إعادة المحاولة",
       "imageTooLarge": "حجم الصورة يجب أن يكون أقل من 5 ميغابايت",
       "invalidFileType": "من نوع الملف الغير سليم Only PNG, JPG, and WebP are allowed",
       "statusRequired": "الوضع مطلوب"
@@ -2398,11 +2439,11 @@
       "blocked": "مقفلة",
       "approved": "الوظائف المعتمدة",
       "pending": "تنتهي",
-      "rejected": "Rejected",
+      "rejected": "مرفوض",
       "approve": "الموافقة",
-      "reject": "Reject",
-      "blockStore": "Block Store",
-      "unblockStore": "Unblock Store",
+      "reject": "رفض",
+      "blockStore": "حظر المتجر",
+      "unblockStore": "إلغاء حظر المتجر",
       "approveDialog": {
         "title": "مستودع الموافقة",
         "subTitle": "الموافقة على هذا المخزن",
@@ -2413,19 +2454,19 @@
         "title": "سرقة",
         "subTitle": "رفض هذا المتجر",
         "description": "هل أنت متأكد أنك تريد رفض هذا المتجر؟",
-        "confirm": "Reject"
+        "confirm": "رفض"
       },
       "blockDialog": {
-        "title": "Block Store",
+        "title": "حظر المتجر",
         "subTitle": "أغلق هذا المتجر",
         "description": "هل أنت متأكد أنك تريد إغلاق هذا المتجر؟",
-        "confirm": "Block"
+        "confirm": "حظر"
       },
       "unblockDialog": {
-        "title": "Unblock Store",
+        "title": "إلغاء حظر المتجر",
         "subTitle": "فتح هذا المتجر",
         "description": "هل أنت متأكد أنك تريد فتح هذا المتجر؟",
-        "confirm": "Unblock"
+        "confirm": "إلغاء الحظر"
       }
     },
     "detail": {
@@ -2440,7 +2481,7 @@
         "settings": "التركيبات",
         "additionalNotes": "الحواشي",
         "bankDetails": "التفاصيل المصرفية",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "مستندات التحقق من الهوية"
       },
       "settingsFields": {
         "pickupAllowed": "هل بيكب مسموح؟",
@@ -2459,13 +2500,13 @@
           "createdDate": "تاريخ الإنشاء",
           "vendorName": "اسم البائع",
           "city": "المدينة",
-          "tagLine": "Tag Line",
+          "tagLine": "الشعار النصي",
           "description": "الوصف",
           "minimumOrderValue": "القيمة الدنيا للحجز"
         }
       },
       "contactDetails": {
-        "emailLabel": "Store Email Address",
+        "emailLabel": "البريد الإلكتروني للمتجر",
         "phoneLabel": "هاتف الدعم (اختياري)",
         "showContactInStorePageLabel": "إرسال معلومات الاتصال على صفحة المتجر؟"
       },
@@ -2480,7 +2521,7 @@
         "taxCertificateLabel": "شهادة الضرائب",
         "taxCertificateAlt": "شهادة الضرائب",
         "nationalIdFrontLabel": "الهوية الوطنية",
-        "nationalIdFrontAlt": "National ID Front",
+        "nationalIdFrontAlt": "الهوية الوطنية (الوجه الأمامي)",
         "nationalIdBackLabel": "الهوية الوطنية",
         "nationalIdBackAlt": "الهوية الوطنية"
       },
@@ -2499,7 +2540,7 @@
       "serviceCenterInformation": "مركز الخدمات",
       "additionalNotes": "الحواشي",
       "bankDetails": "التفاصيل المصرفية",
-      "kycDocuments": "KYC Documents"
+      "kycDocuments": "مستندات التحقق من الهوية"
     },
     "form": {
       "storeNameLabel": "اسم نوع الأعمال",
@@ -2509,13 +2550,13 @@
       "vendorNameLabel": "اسم البائع",
       "vendorPlaceholder": "البائع المختار",
       "vendorFetchFailed": "فشل في جلب البائع",
-      "emailLabel": "Store Email Address",
+      "emailLabel": "البريد الإلكتروني للمتجر",
       "serviceCenterEmailLabel": "عنوان البريد الإلكتروني",
       "supportPhoneLabel": "هاتف الدعم (اختياري)",
       "zoneLabel": "المنطقة",
       "zonePlaceholder": "المنطقة المختارة",
       "zoneFetchFailed": "فشل في جلب المنطقة",
-      "tagLineLabel": "Tag Line",
+      "tagLineLabel": "الشعار النصي",
       "minimumOrderValueLabel": "القيمة الدنيا للحجز{currencySymbol})",
       "descriptionLabel": "الوصف",
       "descriptionPlaceholder": "إضافة وصف قصير...",
@@ -2582,13 +2623,13 @@
       "loDrive": "SIPP قُد",
       "loFoods": "SIPP التوصيلات",
       "loHotels": "الكتب العامة",
-      "loTickets": "FixRight Bookings"
+      "loTickets": "حجوزات FixRight"
     },
     "serviceCards": {
       "loDrive": "SIPP قُد",
       "loFoods": "SIPP التوصيلات",
       "loHotels": "الكتب العامة",
-      "loTickets": "FixRight Bookings",
+      "loTickets": "حجوزات FixRight",
       "driverCount": "سائق الكونت",
       "completedRides": "Rdes Completed",
       "revenue": "الإيرادات",
@@ -2626,10 +2667,10 @@
   },
   "lumiDriveDashboard": {
     "earningsPerZoneChart": {
-      "earningsLabel": "Earnings",
+      "earningsLabel": "الأرباح",
       "totalRides": "المجموع",
       "totalRevenue": "مجموع الإيرادات",
-      "title": "Earnings per Zone",
+      "title": "الأرباح لكل منطقة",
       "description": "لمحة عامة عن الإيرادات الموزعة حسب المنطقة الجغرافية.",
       "noData": "لا توجد بيانات عن الدخل للمناطق"
     },
@@ -2644,7 +2685,7 @@
     },
     "ridesSummaryChart": {
       "itemLabel": "البند",
-      "ridesLabel": "Rides",
+      "ridesLabel": "الرحلات",
       "totalRideLabel": "المجموع",
       "totalRevenueLabel": "مجموع الإيرادات",
       "title": "التوزيع النوعي",
@@ -2736,12 +2777,12 @@
         "delivered": "المبلغ",
         "cancelled": "ألغيت"
       },
-      "noData": "No delivery status data found."
+      "noData": "لا توجد بيانات لحالة التوصيل."
     },
     "zonePerformanceChart": {
       "title": "أداء المنطقة",
       "description": "توزيع أداء التنفيذ حسب المناطق الجغرافية.",
-      "earningsLabel": "Earnings",
+      "earningsLabel": "الأرباح",
       "zoneLabel": "المنطقة",
       "totalDeliveries": "المجموع",
       "totalRevenue": "مجموع الإيرادات",
@@ -2805,11 +2846,11 @@
       "noData": "لا توجد بيانات عن المبيعات"
     },
     "peakHoursChart": {
-      "title": "Peak Hours",
+      "title": "ساعات الذروة",
       "description": "توزيع النظام خلال 24 ساعة",
       "ordersLabel": "الأوامر",
       "fetchFailedTitle": "فشل في حمل ساعات الذروة",
-      "noData": "No activity data found",
+      "noData": "لا توجد بيانات نشاط",
       "tooltip": {
         "time": "الوقت: {time}",
         "singleOrder": "1 الأمر",
@@ -2861,10 +2902,10 @@
       "noData": "لا توجد بيانات عن نمو العملاء"
     },
     "zonePerformanceChart": {
-      "title": "Peak Hours",
+      "title": "ساعات الذروة",
       "description": "توزيع النظام خلال 24 ساعة",
       "ordersLabel": "الأوامر",
-      "hourLabel": "Hour",
+      "hourLabel": "ساعة",
       "totalOrders": "مجموع الطلبات",
       "noData": "لا توجد بيانات عن ساعات الذروة"
     },
@@ -2898,7 +2939,7 @@
         "delivered": "المبلغ",
         "completed": "مكتملة",
         "cancelled": "ألغيت",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "failed": "فشل"
       }
     }
@@ -2914,7 +2955,7 @@
       }
     },
     "table": {
-      "title": "Earnings",
+      "title": "الأرباح",
       "noDataTitle": "لا يوجد ايرادات",
       "noDataSubtitle": "حاول أن تعدل مرشحيك أو أن تعود لاحقاً",
       "errors": {
@@ -2930,7 +2971,7 @@
         "applyFilters": "ملفات التطبيق",
         "zoneLabel": "المنطقة",
         "statusLabel": "الحالة",
-        "storeLabel": "Store",
+        "storeLabel": "المتجر",
         "selectZonePlaceholder": "المنطقة المختارة",
         "selectStatusPlaceholder": "الحالة المختارة",
         "storePlaceholder": "Sect Store",
@@ -2940,7 +2981,7 @@
       "columns": {
         "orderId": "رمز الهوية",
         "customerName": "زبون",
-        "store": "Store",
+        "store": "المتجر",
         "amount": "المبلغ",
         "zone": "المنطقة",
         "status": "الحالة",
@@ -2956,17 +2997,17 @@
   },
   "vendorWithdrawalRequest": {
     "title": "طلب الانسحاب",
-    "createButton": "Create Withdrawal",
+    "createButton": "إنشاء طلب سحب",
     "table": {
       "title": "طلبات الانسحاب",
-      "createButton": "Create Withdrawal",
-      "noDataTitle": "No withdrawal requests found.",
+      "createButton": "إنشاء طلب سحب",
+      "noDataTitle": "لا توجد طلبات سحب.",
       "noDataSubtitle": "حاول أن تعدل مرشحيك أو أن تعود لاحقاً",
       "searchPlaceholder": "البحث من قبل طلب الهوية أو الاسم المسروق...",
       "dateRangePlaceholder": "الجدول الزمني",
       "statusPlaceholder": "عرض حسب الحالة",
       "clear": "آمن",
-      "viewButton": "View",
+      "viewButton": "عرض",
       "columns": {
         "requestId": "الطلب هويته",
         "storeName": "الاسم المسروق",
@@ -2979,23 +3020,23 @@
         "all": "كل شيء",
         "pending": "تنتهي",
         "approved": "الوظائف المعتمدة",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "paid": "دفع"
       },
       "approveButtonTooltip": "الموافقة",
-      "rejectButtonTooltip": "Reject",
+      "rejectButtonTooltip": "رفض",
       "errors": {
         "fetchFailedSubtitle": "عدم تحميل طلبات الانسحاب"
       },
       "fallback": {
-        "store": "Store",
+        "store": "المتجر",
         "storeInitial": "S",
         "notAvailable": "N/A"
       }
     },
     "approveDialog": {
       "title": "الموافقة على طلب الانسحاب؟",
-      "storeLabel": "Store",
+      "storeLabel": "المتجر",
       "amountLabel": "المبلغ",
       "description": "هل أنت متأكد أنك تريد الموافقة على طلب الانسحاب هذا؟",
       "cancelButton": "إلغاء",
@@ -3017,13 +3058,13 @@
     },
     "rejectDialog": {
       "title": "طلب سحب",
-      "storeLabel": "Store",
+      "storeLabel": "المتجر",
       "amountLabel": "المبلغ",
       "reasonLabel": "سبب الرفض",
       "reasonPlaceholder": "أرجوك أكتب سبب الرفض",
       "imageAlt": "رفض الانسحاب",
       "cancelButton": "إلغاء",
-      "confirmButton": "Reject",
+      "confirmButton": "رفض",
       "validation": {
         "reasonRequired": "سبب الرفض مطلوب",
         "reasonMax": "لا يمكن أن يتجاوز سبب الرفض 500 شخص"
@@ -3033,15 +3074,15 @@
       }
     },
     "createDialog": {
-      "title": "Create Withdrawal",
-      "storeLabel": "Store",
+      "title": "إنشاء طلب سحب",
+      "storeLabel": "المتجر",
       "storePlaceholder": "مستودع بيع",
       "storeOptionWithBalance": "{storeName} ({currencySymbol}{availableBalance} متاحة)",
       "amountLabel": "المبلـغ",
       "enterAmountLabel": "المبلغ المستخدم",
       "enterAmountPlaceholder": "المبلغ المستخدم",
       "maximumOption": "الحد الأقصى{currencySymbol}{maxAmount} حسب الطلب",
-      "availableBalanceLabel": "Available to withdraw",
+      "availableBalanceLabel": "متاح للسحب",
       "bankInfoLabel": "معلومات مصرفية",
       "bankNameLabel": "الاسم المصرفي",
       "accountTitleLabel": "الحساب",
@@ -3088,8 +3129,8 @@
   "vendorDeliveriesStores": {
     "title": "أعمالي",
     "addStoreLabel": "مخزن جديد",
-    "editStore": "Edit Store",
-    "viewStore": "View Store",
+    "editStore": "تعديل المتجر",
+    "viewStore": "عرض المتجر",
     "deleteStore": "تحذف المخزون",
     "deleteSuccess": "تم مسحها بنجاح",
     "notAvailable": "N/A",
@@ -3099,7 +3140,7 @@
     "loading": "التعبئة...",
     "comingSoon": "هذه المميزة قادمة قريباً",
     "availabilityUpdated": "استكمال توافر المخزون",
-    "updateStore": "Update Store",
+    "updateStore": "تحديث المتجر",
     "updateSuccess": "تم تحديثها بنجاح!",
     "updateFailed": "فشل في تحديث المخزن",
     "noChangesDetected": "لم تكتشف أي تغييرات",
@@ -3109,19 +3150,19 @@
       "active": "النشاط",
       "pending": "تنتهي",
       "approved": "الوظائف المعتمدة",
-      "rejected": "Rejected",
+      "rejected": "مرفوض",
       "blocked": "مقفلة"
     },
     "table": {
       "name": "الاسم",
       "totalSales": "المجموع",
       "totalOrders": "مجموع الطلبات",
-      "phone": "Phone",
+      "phone": "الهاتف",
       "shopType": "النوع",
       "storeType": "نوع التخزين",
       "address": "العنوان",
       "availability": "التوافر",
-      "createdAt": "Created At",
+      "createdAt": "تاريخ الإنشاء",
       "activeOrders": "الأوامر النشطة",
       "zone": "المنطقة",
       "status": "الحالة",
@@ -3150,9 +3191,9 @@
       "selectRating": "تقييم دنيا مختار",
       "ratingOptions": {
         "fiveStars": "5 نجوم",
-        "fourPlusStars": "4+ Stars",
-        "threePlusStars": "3+ Stars",
-        "twoPlusStars": "2+ Stars",
+        "fourPlusStars": "+4 نجوم",
+        "threePlusStars": "+3 نجوم",
+        "twoPlusStars": "+2 نجوم",
         "onePlusStars": "1+ النجوم"
       },
       "noZonesAvailable": "لا توجد مناطق متاحة"
@@ -3179,24 +3220,24 @@
       "confirm": "معلومات مستكملة"
     },
     "successDialog": {
-      "title": "Update Successful",
+      "title": "تم التحديث بنجاح",
       "subTitle": "تم تحديث المخزن بنجاح!",
       "description": "هل تود العودة إلى قائمة المتاجر أو مواصلة التحرير؟",
-      "confirm": "Go to Stores List",
+      "confirm": "الذهاب إلى قائمة المتاجر",
       "cancel": "مواصلة التحرير"
     },
     "download": {
       "name": "الاسم",
       "totalSales": "المجموع",
       "totalOrders": "مجموع الطلبات",
-      "email": "Email",
-      "phone": "Phone",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
       "shopType": "النوع",
       "storeType": "نوع التخزين",
       "address": "العنوان",
       "zone": "المنطقة",
       "status": "الحالة",
-      "available": "Available",
+      "available": "متاح",
       "activeOrders": "الأوامر النشطة",
       "yes": "نعم",
       "no": "لا",
@@ -3204,13 +3245,13 @@
       "rating": "التقييم",
       "shopTypes": {
         "restaurant": "المطعم",
-        "grocery": "Grocery",
+        "grocery": "بقالة",
         "pharmacy": "الصيدلية",
         "convenience": "الضمير"
       },
       "storeTypes": {
-        "dine_in": "Dine In",
-        "takeaway": "Takeaway",
+        "dine_in": "تناول في المطعم",
+        "takeaway": "استلام من المطعم",
         "delivery": "التسليم",
         "all": "كل شيء"
       }
@@ -3240,12 +3281,12 @@
         "phoneLabel": "رقم الهاتف",
         "phonePlaceholder": "+1 (555) 987-6543",
         "logoLabel": "لوجو",
-        "bannerLabel": "Banner (Optional)",
-        "emailLabel": "Email",
+        "bannerLabel": "لافتة (اختياري)",
+        "emailLabel": "البريد الإلكتروني",
         "emailPlaceholder": "Abc@gmail.com",
         "passwordLabel": "كلمة السر",
         "passwordPlaceholder": "كلمة المرور",
-        "autoGeneratePasswordLabel": "Auto-generate Password",
+        "autoGeneratePasswordLabel": "إنشاء كلمة مرور تلقائيًا",
         "mailLoginCredentialsLabel": "إرسال وثائق تفويض لوجين عن طريق البريد",
         "changePasswordLabel": "السماح بتغيير كلمة السر",
         "emailImmutableHint": "البريد لا يمكن تغييره",
@@ -3284,7 +3325,7 @@
         "packingChargesLabel": "رسوم التعبئة",
         "baseFeeLabel": "قاعدة Fee",
         "baseFeePlaceholder": "$ 2.00",
-        "perKmFeeLabel": "Per Km Fee",
+        "perKmFeeLabel": "الرسوم لكل كيلومتر",
         "perKmFeePlaceholder": "$ 0.50",
         "freeDeliveryThresholdLabel": "Free Deliveryshold",
         "freeDeliveryThresholdPlaceholder": "$ 50.00",
@@ -3360,10 +3401,10 @@
       "sections": {
         "vendorInformation": "معلومات البائعين",
         "bankDetails": "التفاصيل المصرفية",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "مستندات التحقق من الهوية"
       },
       "fields": {
-        "email": "Email",
+        "email": "البريد الإلكتروني",
         "phoneNumber": "رقم الهاتف",
         "createdDate": "تاريخ الإنشاء",
         "city": "المدينة",
@@ -3391,11 +3432,11 @@
         "vendorInformation": "معلومات البائعين",
         "bankDetails": "التفاصيل المصرفية",
         "additionalNotes": "الحواشي",
-        "kycDocuments": "KYC Documents"
+        "kycDocuments": "مستندات التحقق من الهوية"
       },
       "labels": {
         "vendorName": "اسم البائع",
-        "email": "Email",
+        "email": "البريد الإلكتروني",
         "phone": "رقم الهاتف",
         "city": "المدينة",
         "zone": "المنطقة",
@@ -3485,7 +3526,7 @@
           "fetchFailedTitle": "فشل في استعراضات المخزن"
         },
         "noData": {
-          "title": "No reviews found",
+          "title": "لا توجد مراجعات",
           "subtitle": "لا يوجد استعراضات لهذا المتجر بعد"
         },
         "hideDialog": {
@@ -3515,16 +3556,16 @@
   },
   "earningReports": {
     "main": {
-      "title": "Earning Reports",
-      "ridesView": "Rides View",
+      "title": "تقارير الأرباح",
+      "ridesView": "عرض الرحلات",
       "driverView": "سائق فيو"
     },
     "driverDetails": {
       "pageTitle": "سائق التجزئة",
       "loadError": "عدم تحميل السائق التفاصيل",
       "dailyEarningTrendChart": {
-        "earningsLabel": "Earnings",
-        "title": "Daily Earning Trend",
+        "earningsLabel": "الأرباح",
+        "title": "اتجاه الأرباح اليومية",
         "description": "اتجاه الإيرادات الضئيلة خلال الفترات الزمنية"
       },
       "stats": {
@@ -3532,7 +3573,7 @@
         "grossEarnings": "إجمالي الإيرادات",
         "commission": "اللجنة",
         "payout": "المرتبات",
-        "avgFare": "Avg Fare"
+        "avgFare": "متوسط الأجرة"
       },
       "profileCard": {
         "vehicleType": "نوع المركبات:",
@@ -3545,11 +3586,11 @@
       "totalDrivers": "مجموع السائقين",
       "driverPayout": "سائق",
       "totalCommission": "مجموع اللجنة",
-      "avgEarnings": "Avg. Earnings",
+      "avgEarnings": "متوسط الأرباح",
       "driverTiersChart": {
         "title": "سائق (تايرز)",
         "description": "توزيع مدادات المركبات (فيو){totalRiders} مجموع السائقين.",
-        "noTierAssigned": "No Tier Assigned",
+        "noTierAssigned": "لم يتم تعيين مستوى",
         "drivers": "{count} السائقون"
       },
       "dataTable": {
@@ -3566,7 +3607,7 @@
         "commissionAmount": "المبلغ",
         "driverPayout": "سائق",
         "loadError": "عدم تحميل بيانات السائقين",
-        "noData": "No drivers data found",
+        "noData": "لا توجد بيانات سائقين",
         "noDataSubtitle": "حاول تعديل مرشحات أو تفقدها لاحقاً"
       },
       "totalEarningsChart": {
@@ -3597,7 +3638,7 @@
         }
       },
       "dataTable": {
-        "title": "Earnings View",
+        "title": "عرض الأرباح",
         "searchPlaceholder": "البحث بالاسم، البريد الإلكتروني، ركوب الد...",
         "rideId": "هويات Ride",
         "customerName": "اسم العملاء",
@@ -3625,14 +3666,14 @@
         "description": ":: تحليل اتجاهات الإيرادات واللجان بمرور الوقت."
       },
       "zoneWiseEarningsChart": {
-        "label": "Earnings",
+        "label": "الأرباح",
         "title": "المناطق الحادة",
         "description": "مشاهدة مجموع الإيرادات عبر مختلف المناطق لتتبع الأداء ومقارنةه."
       }
     }
   },
   "storeWalletEarningReports": {
-    "title": "Earnings Report",
+    "title": "تقرير الأرباح",
     "stats": {
       "totalEarnings": "مجموع الإيرادات",
       "totalCommission": "مجموع اللجنة",
@@ -3661,7 +3702,7 @@
       }
     },
     "table": {
-      "title": "Earnings View",
+      "title": "عرض الأرباح",
       "searchPlaceholder": "البحث حسب الطلب، اسم العملاء...",
       "filters": {
         "periodPlaceholder": "الفترة المختارة",
@@ -3703,14 +3744,14 @@
     "title": "إدارة المستعملين",
     "table": {
       "name": "الاسم",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "userType": "نوع المستخدم",
-      "phone": "Phone",
+      "phone": "الهاتف",
       "registrationMethod": "طريقة التسجيل",
       "status": "الحالة",
       "internalNotes": "الحواشي الداخلية",
       "lastLogin": "آخر لوجين",
-      "createdAt": "Created At",
+      "createdAt": "تاريخ الإنشاء",
       "actions": "الإجراءات"
     },
     "registrationMethods": {
@@ -3720,11 +3761,11 @@
     "statuses": {
       "active": "النشاط",
       "blocked": "مقفلة",
-      "deactivated": "Deactivated"
+      "deactivated": "معطّل"
     },
     "actions": {
       "viewDetails": "التفاصيل",
-      "loginAsUser": "Login as User",
+      "loginAsUser": "تسجيل الدخول كمستخدم",
       "internalNotes": "الحواشي الداخلية",
       "forceLogout": "القوة",
       "activateAccount": "Activat(هـ)",
@@ -3742,7 +3783,7 @@
     "errors": {
       "fetchFailed": "فشل في جلب المستخدمين",
       "tryAgain": "حاول مرة أخرى لاحقاً",
-      "noUsers": "No users found",
+      "noUsers": "لا يوجد مستخدمون",
       "noUsersSubtitle": "لا يوجد مستعملون في الوقت الحالي.",
       "impersonationFailed": "لا يمكن البدء في إنتحال شخصية المستخدمين"
     },
@@ -3764,18 +3805,18 @@
     "profile": {
       "id": "الهوية",
       "name": "الاسم",
-      "email": "Email",
-      "emailVerified": "Email Verified",
+      "email": "البريد الإلكتروني",
+      "emailVerified": "البريد الإلكتروني موثّق",
       "phone": "رقم الهاتف",
-      "phoneVerified": "Phone Verified",
+      "phoneVerified": "الهاتف موثّق",
       "registrationMethod": "طريقة التسجيل",
       "accountStatus": "الحساب",
       "twoFactorEnabled": "مصنعان",
       "dateOfRegistration": "تاريخ التسجيل",
       "lastLogin": "آخر لوجين",
       "internalNote": "الملاحظة الداخلية",
-      "true": "True",
-      "false": "False"
+      "true": "نعم",
+      "false": "لا"
     },
     "security": {
       "title": "الأمن ومراجعة الحسابات",
@@ -3783,7 +3824,7 @@
       "userStatus": "وضع المستخدم",
       "actionBy": "الإجراء الذي اتخذته",
       "date": "التاريخ",
-      "noLogsTitle": "No audit logs found",
+      "noLogsTitle": "لا توجد سجلات تدقيق",
       "noLogsSubtitle": "هذا المستخدم ليس لديه سجلات مراجعة الحسابات بعد",
       "fetchFailed": "فشل في جلب سجلات مراجعة حسابات المستخدمين"
     },
@@ -3813,7 +3854,7 @@
       "ratings": "التقييمات",
       "comments": "التعليقات",
       "date": "التاريخ",
-      "noReviewsTitle": "No reviews found",
+      "noReviewsTitle": "لا توجد مراجعات",
       "noReviewsGivenSubtitle": "ولم يقدم هذا المستخدم أي استعراضات بعد.",
       "noReviewsReceivedSubtitle": "ولم يتلق هذا المستخدم أي استعراضات بعد.",
       "fetchFailed": "فشل في جلب الاستعراضات",
@@ -3883,7 +3924,7 @@
       "loading": "التعبئة..."
     },
     "addZone": "المنطقة",
-    "editZone": "Edit",
+    "editZone": "تعديل",
     "deleteZone": "تحذف",
     "deleteSuccess": "المنطقة محذوفة بنجاح",
     "notAvailable": "N/A",
@@ -3905,7 +3946,7 @@
       "updateSuccess": "تم تحديث المنطقة بنجاح!",
       "cancel": "إلغاء",
       "add": "مضاف",
-      "update": "Update Zone"
+      "update": "تحديث المنطقة"
     },
     "filters": {
       "searchPlaceholder": "ابحث هنا",
@@ -3915,9 +3956,9 @@
     },
     "map": {
       "searchPlaceholder": "ابحث هنا",
-      "radiusLabel": "Radius (km):",
-      "polygonRadiusLabel": "Radius (km):",
-      "scaleLabel": "Scale:",
+      "radiusLabel": "نصف القطر (كم):",
+      "polygonRadiusLabel": "نصف القطر (كم):",
+      "scaleLabel": "المقياس:",
       "dragVertices": "خامات أو أزرار",
       "loading": "خريطة الشحن...",
       "missingApiKeyTitle": "Google مفتاح الخرائط مفقود",
@@ -3930,8 +3971,8 @@
     "drawingTools": {
       "circle": "الدائرة",
       "marker": "النقطة",
-      "polygon": "Polygon",
-      "polyline": "Polyline"
+      "polygon": "مضلع",
+      "polyline": "خط متعدد"
     },
     "errors": {
       "fetchFailedTitle": "خطأ!",
@@ -3950,24 +3991,24 @@
   },
   "lumiFood": {
     "stores": {
-      "title": "Stores",
+      "title": "المتاجر",
       "addButton": "مخزن",
       "pages": {
-        "title": "Stores",
+        "title": "المتاجر",
         "addButton": "مخزن"
       },
       "storeChain": {
-        "title": "Store Chain Mode",
+        "title": "وضع سلسلة المتاجر",
         "description": "في حالة (ستور شاين) يمكنك إضافة متجر واحد فقط قم بضغط الزر أسفل لخلق أول متجر لك."
       },
       "actions": {
         "menu": {
-          "viewStore": "View Store",
-          "editStore": "Edit Store",
+          "viewStore": "عرض المتجر",
+          "editStore": "تعديل المتجر",
           "approve": "الموافقة",
-          "reject": "Reject",
-          "block": "Block",
-          "unblock": "Unblock",
+          "reject": "رفض",
+          "block": "حظر",
+          "unblock": "إلغاء الحظر",
           "delete": "تحذف"
         },
         "toasts": {
@@ -3991,13 +4032,13 @@
             "confirm": "نعم، موافقة"
           },
           "block": {
-            "title": "Block Store",
+            "title": "حظر المتجر",
             "subTitle": "هل أنت متأكد أنك تريد أن تحجب {name}?",
             "description": "المخزن لن يكون متاحاً للزبائن",
             "confirm": "نعم، بلوك"
           },
           "unblock": {
-            "title": "Unblock Store",
+            "title": "إلغاء حظر المتجر",
             "subTitle": "هل أنت متأكد أنك تريد فتح الباب {name}?",
             "description": "المتجر سيكون متاحاً مرة أخرى",
             "confirm": "نعم، افتح الباب"
@@ -4006,11 +4047,11 @@
       },
       "addStorelabel": "مخزن",
       "addBusinessTypeLabel": "يضاف نوع الأعمال",
-      "editStoreLabel": "Edit Store",
-      "viewStore": "View Store",
+      "editStoreLabel": "تعديل المتجر",
+      "viewStore": "عرض المتجر",
       "deleteStore": "تحذف المخزون",
       "publishStore": "مخزن النشر",
-      "convertToDraft": "Convert to Draft",
+      "convertToDraft": "تحويل إلى مسودة",
       "deleteSuccess": "تم مسحها بنجاح",
       "publishSuccess": "تم نشره بنجاح",
       "draftSuccess": "تم تحويل المسروق إلى مشروع بنجاح.",
@@ -4019,15 +4060,15 @@
       "draft": "مشروع",
       "approveStore": "مستودع الموافقة",
       "rejectStore": "سرقة",
-      "blockStore": "Block Store",
-      "unblockStore": "Unblock Store",
+      "blockStore": "حظر المتجر",
+      "unblockStore": "إلغاء حظر المتجر",
       "approveSuccess": "تم إقراره بنجاح",
       "rejectSuccess": "تم رفضه بنجاح",
       "blockSuccess": "سرقت بنجاح",
       "unblockSuccess": "تم تخزينها بنجاح",
       "cancel": "إلغاء",
       "comingSoon": "هذه المميزة قادمة قريباً",
-      "updateStore": "Update Store",
+      "updateStore": "تحديث المتجر",
       "updateSuccess": "تم تحديثها بنجاح!",
       "updateFailed": "فشل في تحديث المخزن",
       "noChangesDetected": "لم تكتشف أي تغييرات",
@@ -4039,7 +4080,7 @@
         "genericDetail": "حدث شيء خاطئ أثناء تحديث المتجر يرجى مراجعة التفاصيل الخاصة بك ومحاولة مرة أخرى.",
         "fieldLabels": {
           "base_fee": "قاعدة Fee",
-          "per_km_fee": "Per KM Fee",
+          "per_km_fee": "الرسوم لكل كيلومتر",
           "free_delivery_threashold": "Free Deliveryshold",
           "free_delivery_threshold": "Free Deliveryshold",
           "packing_charges": "رسوم التعبئة"
@@ -4053,24 +4094,25 @@
         }
       },
       "tabs": {
-        "all": "All Stores",
+        "all": "جميع المتاجر",
         "active": "النشاط",
         "pending": "تنتهي",
         "approved": "الوظائف المعتمدة",
         "blocked": "مقفلة",
-        "rejected": "Rejected",
-        "loading": "Loading"
+        "rejected": "مرفوض",
+        "loading": "جارٍ التحميل"
       },
       "availabilityToasts": {
         "markedAvailable": "المخزن المميز حسب توافره",
-        "markedUnavailable": "مسروقة غير متاحة"
+        "markedUnavailable": "مسروقة غير متاحة",
+        "markedAvailableAndActivated": "تم تفعيل حساب المتجر وتعيينه كمتاح"
       },
       "table": {
         "name": "الاسم",
         "vendorName": "اسم البائع",
         "serviceType": "الخدمة",
         "totalSales": "المجموع",
-        "phone": "Phone",
+        "phone": "الهاتف",
         "shopType": "النوع",
         "storeType": "نوع التخزين",
         "address": "العنوان",
@@ -4127,19 +4169,19 @@
         "confirm": "نعم، النشر"
       },
       "draftDialog": {
-        "title": "Convert to Draft",
+        "title": "تحويل إلى مسودة",
         "subTitle": "هل أنت متأكد من أنك تريد تحويل هذا المتجر إلى مسودة؟",
         "description": "المخزن لن يكون مرئياً للزبائن",
         "confirm": "نعم، منحرف"
       },
       "unblockDialog": {
-        "title": "Unblock Store",
+        "title": "إلغاء حظر المتجر",
         "subTitle": "هل أنت متأكد أنك تريد فتح هذا المتجر؟",
         "description": "المتجر سيكون متاحاً مرة أخرى",
         "confirm": "نعم، افتح الباب"
       },
       "blockDialog": {
-        "title": "Block Store",
+        "title": "حظر المتجر",
         "subTitle": "هل أنت متأكد أنك تريد إغلاق هذا المتجر؟",
         "description": "المخزن لن يكون متاحاً للزبائن",
         "confirm": "نعم، بلوك"
@@ -4165,15 +4207,15 @@
         "vendorName": "اسم البائع",
         "serviceType": "الخدمة",
         "totalSales": "المجموع",
-        "email": "Email",
-        "phone": "Phone",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
         "shopType": "النوع",
         "vendor": "البائع",
         "address": "العنوان",
         "storeType": "نوع التخزين",
         "zone": "المنطقة",
         "status": "الحالة",
-        "available": "Available",
+        "available": "متاح",
         "blocked": "مقفلة",
         "published": "صادرة",
         "rating": "التقييم",
@@ -4212,12 +4254,12 @@
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "+1 (555) 987-6543",
           "logoLabel": "لوجو",
-          "bannerLabel": "Banner (Optional)",
-          "emailLabel": "Email",
+          "bannerLabel": "لافتة (اختياري)",
+          "emailLabel": "البريد الإلكتروني",
           "emailPlaceholder": "Abc@gmail.com",
           "passwordLabel": "كلمة السر",
           "passwordPlaceholder": "كلمة المرور",
-          "autoGeneratePasswordLabel": "Auto-generate Password",
+          "autoGeneratePasswordLabel": "إنشاء كلمة مرور تلقائيًا",
           "mailLoginCredentialsLabel": "إرسال وثائق تفويض لوجين عن طريق البريد",
           "changePasswordLabel": "السماح بتغيير كلمة السر",
           "emailImmutableHint": "البريد لا يمكن تغييره",
@@ -4265,7 +4307,7 @@
           "packingChargesLabel": "رسوم التعبئة",
           "baseFeeLabel": "قاعدة Fee",
           "baseFeePlaceholder": "$ 2.00",
-          "perKmFeeLabel": "Per Km Fee",
+          "perKmFeeLabel": "الرسوم لكل كيلومتر",
           "perKmFeePlaceholder": "$ 0.50",
           "freeDeliveryThresholdLabel": "Free Deliveryshold",
           "freeDeliveryThresholdPlaceholder": "$ 50.00",
@@ -4342,11 +4384,26 @@
         "confirm": "معلومات مستكملة"
       },
       "successDialog": {
-        "title": "Update Successful",
+        "title": "تم التحديث بنجاح",
         "subTitle": "تم تحديث المخزن بنجاح!",
         "description": "هل تود العودة إلى قائمة المتاجر أو مواصلة التحرير؟",
-        "confirm": "Go to Stores List",
+        "confirm": "الذهاب إلى قائمة المتاجر",
         "cancel": "مواصلة التحرير"
+      },
+      "storeAccountInactive": "حساب المتجر غير نشط",
+      "storeAccountActivated": "تم تفعيل حساب المتجر",
+      "activateAccountDialog": {
+        "title": "تفعيل حساب المتجر",
+        "subTitle": "تفعيل حساب {name}؟",
+        "description": "سيتمكن حساب المتجر من تسجيل الدخول. إذا كان التوفر مفعّلًا، فقد يظهر المتجر للعملاء فورًا.",
+        "requireApproval": "وافق على هذا المتجر وألغِ حظره قبل تفعيل التوفر.",
+        "confirm": "تفعيل الحساب"
+      },
+      "enableAndActivateDialog": {
+        "title": "تفعيل التوفر",
+        "subTitle": "تفعيل التوفر لـ {name}؟",
+        "description": "سيؤدي هذا أيضًا إلى تفعيل حساب المتجر ليتمكن الموظفون من تسجيل الدخول.",
+        "confirm": "تفعيل وتشغيل"
       }
     },
     "dashboard": {
@@ -4398,7 +4455,7 @@
           "location": "الموقع",
           "amount": "المبلغ",
           "status": "الحالة",
-          "createdAt": "Created At",
+          "createdAt": "تاريخ الإنشاء",
           "notAssigned": "غير موقوف",
           "notAvailable": "N/A",
           "loadFailedTitle": "فشل في تحميل الأوامر الأخيرة",
@@ -4418,7 +4475,7 @@
         },
         "topStores": {
           "title": "المناطق الرئيسية",
-          "store": "Store",
+          "store": "المتجر",
           "orders": "الأوامر",
           "revenue": "الإيرادات",
           "rating": "التقييم",
@@ -4459,13 +4516,13 @@
         "baseFee": "رسوم القاعدة (الأولى) {distance} كيلومترات)",
         "extraDistance": "بُعد إضافي{distance} كيلومترات)",
         "fixedMode": "رسوم التسليم الثابتة",
-        "noActiveFee": "No active delivery fee",
+        "noActiveFee": "لا توجد رسوم توصيل مفعّلة",
         "noActiveFeeDescription": "(ج) إتاحة تسعير مبني على بعد أو ثابت لحساب رسم.",
         "checkoutNote": "ويستخدم هذا التقدير تسعيراً قائماً على البعد أولاً ثم التراجع الثابت. ويمكن أن تؤدي قواعد تقييم النظام والتسليم المجاني إلى تغيير رسوم السحب النهائية."
       },
       "fixed": {
         "title": "رسوم التسليم الثابتة",
-        "setLabel": "Set Fixed Delivery Fee",
+        "setLabel": "تعيين رسوم توصيل ثابتة",
         "placeholder": "رسوم تسليم ثابتة",
         "fallbackHint": "تستخدم عندما يكون التسعير من بعد أو لا يمكن حساب مسافة التسليم.",
         "success": "استكمال رسوم التسليم الثابتة بنجاح",
@@ -4475,7 +4532,7 @@
         "title": "رسوم الإيصال عن بعد",
         "baseFeeLabel": "قاعدة البيانات",
         "distanceGreaterThanLabel": "المسافة أكبر من (كم)",
-        "perKmChargesLabel": "Per Km Charges",
+        "perKmChargesLabel": "الرسوم لكل كيلومتر",
         "applyBaseFeeLabel": "رسوم الأساس المطبقة حتى كل كيلومتر",
         "distanceStepHint": "1-5 أو 2 أو 2.5.",
         "calculationHint": "رسوم القاعدة تغطي المسافة المُشكلة والمسافة التي تتجاوزها هي وحدها التي تُحمَّل بمعدل كل كيلومتر.",
@@ -4493,17 +4550,17 @@
     "discountsOffers": {
       "pages": {
         "title": "العروض",
-        "addCoupon": "Add Coupon",
-        "addCouponButton": "Add Coupon",
-        "editCoupon": "Edit Coupon",
+        "addCoupon": "إضافة قسيمة",
+        "addCouponButton": "إضافة قسيمة",
+        "editCoupon": "تعديل القسيمة",
         "errorTitle": "خطأ",
-        "invalidCouponId": "Invalid Coupon ID"
+        "invalidCouponId": "معرّف القسيمة غير صالح"
       },
       "tabs": {
         "all": "كل شيء",
         "active": "النشاط",
         "inactive": "الخاملة",
-        "expired": "Expired"
+        "expired": "منتهية الصلاحية"
       },
       "filters": {
         "searchPlaceholder": "!",
@@ -4523,12 +4580,12 @@
         "value": "القيمة",
         "usageLimit": "الحد الأقصى",
         "usageTotal": "المجموع",
-        "usagePerUser": "Per User",
+        "usagePerUser": "لكل مستخدم",
         "validity": "القيمة",
         "validityFrom": "القيمة من",
         "validityTo": "القيمة",
         "appliedTo": "Applied",
-        "storesName": "Stores",
+        "storesName": "المتاجر",
         "status": "الحالة",
         "actions": "الإجراءات",
         "fetchFailedTitle": "فشل في جلب القسائم",
@@ -4549,8 +4606,9 @@
       },
       "options": {
         "paymentMethod": {
-          "card": "Card",
-          "cod": "النقدية المتعلقة بالتسليم"
+          "card": "بطاقة",
+          "cod": "النقدية المتعلقة بالتسليم",
+          "wallet": "المحفظة"
         },
         "deliveryType": {
           "all": "كل شيء",
@@ -4560,12 +4618,12 @@
       },
       "addCoupon": {
         "success": {
-          "create": "Coupon created successfully"
+          "create": "تم إنشاء القسيمة بنجاح"
         },
         "stepper": {
           "step1Title": "المعلومات الأساسية",
           "step1Description": "أضف تفاصيلك الأساسية",
-          "step2Title": "Discount Settings",
+          "step2Title": "إعدادات الخصم",
           "step2Description": "نوع الخصم المختارة",
           "step3Title": "Applies to",
           "step3Description": "تحديد المخازن المؤهلة",
@@ -4579,7 +4637,7 @@
           "title": "المعلومات الأساسية",
           "description": "إضافة تفاصيل القسائم الأساسية",
           "couponNameLabel": "اسم كوبون",
-          "couponNamePlaceholder": "Enter coupon name",
+          "couponNamePlaceholder": "أدخل اسم القسيمة",
           "couponCodeLabel": "قانون الأزواج",
           "couponCodePlaceholder": "رمز الكوبونات",
           "couponDescriptionLabel": "الوصف",
@@ -4588,7 +4646,7 @@
           "saveNextButton": "أنقذوا التالي"
         },
         "step2": {
-          "title": "Discount Settings",
+          "title": "إعدادات الخصم",
           "description": "قيم خصم الاستهلاك وحدود الاستخدام",
           "discountTypeLabel": "الرمز",
           "discountTypePlaceholder": "نوع الخصم المختارة",
@@ -4598,7 +4656,7 @@
           "discountValueLabelPercentage": "قيمة الخصم (%)",
           "discountValueLabelWithCurrency": "قيمة الخصم{currency})",
           "discountValuePlaceholder": "قيمة الخصم",
-          "maxDiscountCapLabel": "Max Discount Cap",
+          "maxDiscountCapLabel": "الحد الأقصى للخصم",
           "maxDiscountCapLabelWithCurrency": "Max Discount Cap (){currency})",
           "maxDiscountCapPlaceholder": "الحد الأقصى للخصوم",
           "minOrderValueLabel": "القيمة الدنيا",
@@ -4618,7 +4676,7 @@
           "productsLabel": "المنتجات",
           "productsLoading": "التعبئة...",
           "productsPlaceholder": "المنتجات المختارة",
-          "storesLabel": "Stores",
+          "storesLabel": "المتاجر",
           "storesLoading": "التعبئة...",
           "serviceLabel": "الخدمات",
           "serviceLoading": "التعبئة...",
@@ -4634,7 +4692,8 @@
           "usagePerUserPlaceholder": "الاستخدام لكل مستخدم",
           "usagePerUserHelper": "لا يمكن أن يكون الاستخدام بالنسبة للمستخدم أكبر من الحد الإجمالي للاستعمال",
           "backButton": "العودة",
-          "saveNextButton": "أنقذوا التالي"
+          "saveNextButton": "أنقذوا التالي",
+          "selectAll": "تحديد الكل"
         },
         "step4": {
           "title": "الجدول الزمني: الحالة",
@@ -4658,18 +4717,19 @@
           "forNewUserOnlyLabel": "للمستعمل الجديد فقط",
           "forPremiumShopOnlyLabel": "لـ (بريميوم شوب) فقط",
           "selectAll": "بيع",
-          "paymentMethodCard": "Card",
+          "paymentMethodCard": "بطاقة",
           "paymentMethodCod": "المرتب بعد انتهاء الخدمة",
           "deliveryTypeDelivery": "التسليم",
           "deliveryTypePickup": "بيبي",
           "premiumShopLabel": "Sect Premium Shops",
           "premiumShopPlaceholder": "متاجر أقساط مختارة",
           "backButton": "العودة",
-          "saveNextButton": "أنقذوا التالي"
+          "saveNextButton": "أنقذوا التالي",
+          "paymentMethodWallet": "المحفظة"
         }
       },
       "editCoupon": {
-        "updateButton": "Update Coupon",
+        "updateButton": "تحديث القسيمة",
         "updateSuccess": "تم تحديث ثنائي بنجاح",
         "fetchFailedTitle": "فشل في جلب القسطرة",
         "fetchFailedDescription": "حدث شيء خاطئ حاول مرة أخرى لاحقاً",
@@ -4684,7 +4744,7 @@
           "couponDescriptionPlaceholder": "وصف ثنائي"
         },
         "discountSetting": {
-          "title": "Discount Setting",
+          "title": "إعداد الخصم",
           "description": "نوع الخصم المستكمل",
           "discountTypeLabel": "نوع الحساب",
           "discountTypePlaceholder": "نوع الخصم المختارة",
@@ -4694,7 +4754,7 @@
           "discountValueLabelPercentage": "قيمة الخصم (%)",
           "discountValueLabelWithCurrency": "قيمة الخصم{currency})",
           "discountValuePlaceholder": "قيمة الخصم",
-          "maxDiscountCapLabel": "Max Discount Cap (Required for Flat)",
+          "maxDiscountCapLabel": "الحد الأقصى للخصم (مطلوب للخصم الثابت)",
           "maxDiscountCapLabelWithCurrency": "Max Discount Cap (){currency})",
           "maxDiscountCapPlaceholder": "قبعة الخصم",
           "minOrderValueLabel": "القيمة الدنيا",
@@ -4712,7 +4772,7 @@
           "productsLabel": "المنتجات",
           "productsLoading": "التعبئة...",
           "productsPlaceholder": "المنتجات المختارة",
-          "storesLabel": "Stores",
+          "storesLabel": "المتاجر",
           "storesLoading": "التعبئة...",
           "storesPlaceholder": "المخازن المختارة",
           "serviceLabel": "الخدمات",
@@ -4746,22 +4806,23 @@
           "deliveryTypePlaceholder": "نوع التسليم المختارة",
           "forNewUserOnlyLabel": "للمستعمل الجديد فقط",
           "forPremiumShopOnlyLabel": "لـ (بريميوم شوب) فقط",
-          "paymentMethodCard": "Card",
+          "paymentMethodCard": "بطاقة",
           "paymentMethodCod": "المرتب بعد انتهاء الخدمة",
           "deliveryTypeDelivery": "التسليم",
           "deliveryTypePickup": "بيبي",
           "premiumShopLabel": "Sect Premium Shops",
-          "premiumShopPlaceholder": "متاجر أقساط مختارة"
+          "premiumShopPlaceholder": "متاجر أقساط مختارة",
+          "paymentMethodWallet": "المحفظة"
         }
       }
     },
     "shopTypes": {
       "pages": {
-        "listTitle": "Shop Types",
+        "listTitle": "أنواع المتاجر",
         "addTitle": "مطروحة"
       },
       "header": {
-        "title": "Shop Types",
+        "title": "أنواع المتاجر",
         "addButton": "مطروحة"
       },
       "filters": {
@@ -4773,7 +4834,7 @@
         }
       },
       "table": {
-        "icon": "Icon",
+        "icon": "أيقونة",
         "name": "الاسم",
         "description": "الوصف",
         "status": "الحالة",
@@ -4784,7 +4845,7 @@
         "notAvailable": "N/A"
       },
       "actions": {
-        "edit": "Edit",
+        "edit": "تعديل",
         "delete": "تحذف"
       },
       "dialogs": {
@@ -4797,19 +4858,19 @@
       },
       "toasts": {
         "deleteSuccess": "تم حذف نوع المحل بنجاح",
-        "statusActive": "Shop type status marked as active",
-        "statusInactive": "Shop type status marked as inactive"
+        "statusActive": "تم تفعيل حالة نوع المتجر",
+        "statusInactive": "تم تعطيل حالة نوع المتجر"
       },
       "addForm": {
-        "title": "Shop Information",
+        "title": "معلومات المتجر",
         "fields": {
           "nameLabel": "الاسم",
           "namePlaceholder": "اسم محل الدخول",
-          "iconLabel": "Icon Upload",
+          "iconLabel": "رفع الأيقونة",
           "iconHelperText": "صورة المتجر",
           "descriptionLabel": "الوصف",
           "descriptionPlaceholder": "وصف الدخول",
-          "statusLabel": "Shop Status",
+          "statusLabel": "حالة المتجر",
           "statusEnabled": "التمكين",
           "statusDisabled": "العجز"
         },
@@ -4822,17 +4883,17 @@
         }
       },
       "editDrawer": {
-        "title": "Edit Shop Type"
+        "title": "تعديل نوع المتجر"
       },
       "editForm": {
         "fields": {
           "nameLabel": "الاسم",
           "namePlaceholder": "اسم محل الدخول",
-          "iconLabel": "Icon Upload",
+          "iconLabel": "رفع الأيقونة",
           "iconHelperText": "صورة المتجر",
           "descriptionLabel": "الوصف",
           "descriptionPlaceholder": "وصف الدخول",
-          "statusLabel": "Shop Status",
+          "statusLabel": "حالة المتجر",
           "statusEnabled": "التمكين",
           "statusDisabled": "العجز"
         },
@@ -4847,7 +4908,7 @@
     },
     "earningsReports": {
       "page": {
-        "title": "Earnings Report"
+        "title": "تقرير الأرباح"
       },
       "filters": {
         "periodPlaceholder": "الفترة المختارة",
@@ -4870,7 +4931,7 @@
         "totalSales": "المجموع"
       },
       "table": {
-        "title": "Earnings View",
+        "title": "عرض الأرباح",
         "loadError": "عدم تحميل بيانات الإيرادات",
         "noData": "لا توجد بيانات عن الإيرادات",
         "noDataSubtitle": "حاول تعديل مرشحات أو تفقدها لاحقاً",
@@ -4934,7 +4995,7 @@
           }
         },
         "earningsPerZone": {
-          "earningsLabel": "Earnings",
+          "earningsLabel": "الأرباح",
           "title": "المنطقة الواحدة",
           "description": "مشاهدة مجموع الإيرادات عبر مختلف المناطق لتتبع الأداء ومقارنةه.",
           "noData": "لا توجد بيانات",
@@ -4944,7 +5005,7 @@
           }
         },
         "earningsPerStore": {
-          "earningsLabel": "Earnings",
+          "earningsLabel": "الأرباح",
           "title": "الخدمات - الخدمات",
           "description": "مشاهدة مجموع الإيرادات في مختلف فئات الخدمات.",
           "noData": "لا توجد بيانات",
@@ -4958,12 +5019,12 @@
     "vendors": {
       "pages": {
         "listTitle": "البائعون",
-        "addButton": "Add Vendor",
-        "addTitle": "Add Vendor",
-        "editTitle": "Edit Vendor"
+        "addButton": "إضافة بائع",
+        "addTitle": "إضافة بائع",
+        "editTitle": "تعديل البائع"
       },
       "storeChain": {
-        "title": "Store Chain Mode",
+        "title": "وضع سلسلة المتاجر",
         "description": "في حالة (ستور شاين) يمكنك إضافة بائع واحد فقط لإدارة سلسلة المخزن",
         "infoTitle": "إدارة البائعين الوحيدين",
         "infoDescription": "طريقة (شاين) المسروقة تسمح لك بإضافة وإدارة بائع واحد لعمليات سلسلة المتاجر"
@@ -4972,9 +5033,9 @@
         "all": "جميع البائعين",
         "pending": "تنتهي",
         "approved": "الوظائف المعتمدة",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "blocked": "مقفلة",
-        "loading": "Loading"
+        "loading": "جارٍ التحميل"
       },
       "filters": {
         "searchPlaceholder": "بحث البائعين...",
@@ -4991,7 +5052,7 @@
           "title": "المعلومات الأساسية",
           "vendorNameLabel": "اسم البائع",
           "vendorNamePlaceholder": "اسم البائعين",
-          "emailLabel": "Email",
+          "emailLabel": "البريد الإلكتروني",
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
@@ -4999,7 +5060,7 @@
           "zoneCityPlaceholder": "اختر المنطقة",
           "passwordLabel": "كلمة السر",
           "passwordPlaceholder": "كلمة المرور",
-          "autoGeneratePasswordLabel": "Auto-generate Password",
+          "autoGeneratePasswordLabel": "إنشاء كلمة مرور تلقائيًا",
           "sendLoginCredentialsLabel": "إرسال وثائق تفويض لوجين عن طريق البريد",
           "allowVendorPasswordChangeLabel": "السماح للمورد بتغيير كلمة السر",
           "nextButton": "التالي"
@@ -5007,13 +5068,13 @@
         "step2": {
           "title": "وثائق الأعمال",
           "description": "وثائق الأعمال",
-          "businessTrademarkLabel": "Business Trademark",
+          "businessTrademarkLabel": "العلامة التجارية",
           "businessLicenseFrontLabel": "License (Front)",
           "businessLicenseBackLabel": "License (Back)",
           "nationalIdPassportFrontLabel": "الهوية الوطنية/جواز السفر (فرنت)",
           "nationalIdPassportBackLabel": "الهوية الوطنية/جواز السفر (باك)",
           "backButton": "العودة",
-          "submitButton": "Submit",
+          "submitButton": "إرسال",
           "toasts": {
             "step1Required": "يرجى إكمال الخطوة الأولى أولا",
             "createdSuccess": "البائع أضاف بنجاح!",
@@ -5024,7 +5085,7 @@
       "editVendor": {
         "vendorNotFound": "البائع لم يجد",
         "cancelButton": "إلغاء",
-        "updateButton": "Update Vendor",
+        "updateButton": "تحديث البائع",
         "toasts": {
           "updateSuccess": "البائع استكمل بنجاح",
           "updateFailed": "لم يستكمل البائع"
@@ -5034,7 +5095,7 @@
           "description": "تحديث المعلومات الأساسية للبائع",
           "vendorNameLabel": "اسم البائع",
           "vendorNamePlaceholder": "الاسم",
-          "emailLabel": "Email",
+          "emailLabel": "البريد الإلكتروني",
           "emailPlaceholder": "البريد الإلكتروني",
           "phoneLabel": "رقم الهاتف",
           "phonePlaceholder": "رقم الهاتف",
@@ -5044,7 +5105,7 @@
         "businessDocuments": {
           "title": "وثائق الأعمال",
           "documentsDescription": "تحميل وإدارة وثائق شؤون البائعين",
-          "businessTrademarkLabel": "Business Trademark",
+          "businessTrademarkLabel": "العلامة التجارية",
           "businessLicenseFrontLabel": "License (Front)",
           "businessLicenseBackLabel": "License (Back)",
           "nationalIdPassportFrontLabel": "الهوية الوطنية/جواز السفر (فرنت)",
@@ -5065,8 +5126,8 @@
       },
       "table": {
         "name": "الاسم",
-        "email": "Email",
-        "phone": "Phone",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
         "phoneNumber": "رقم الهاتف",
         "registrationDate": "تاريخ التسجيل",
         "zone": "المنطقة",
@@ -5074,7 +5135,7 @@
         "totalOrders": "مجموع الطلبات",
         "totalSales": "المجموع",
         "status": "الحالة",
-        "blockStatus": "Block Status",
+        "blockStatus": "حالة الحظر",
         "action": "الإجراء",
         "notAvailable": "N/A",
         "noDataTitle": "لم يتم العثور على بيانات البائعين",
@@ -5085,13 +5146,13 @@
       },
       "actions": {
         "menu": {
-          "viewVendor": "View Vendor",
+          "viewVendor": "عرض البائع",
           "goToVendorDashboard": "اذهب إلى (فيندور داشيوند)",
-          "editVendor": "Edit Vendor",
+          "editVendor": "تعديل البائع",
           "approve": "الموافقة",
-          "reject": "Reject",
-          "block": "Block",
-          "unblock": "Unblock",
+          "reject": "رفض",
+          "block": "حظر",
+          "unblock": "إلغاء الحظر",
           "delete": "تحذف"
         },
         "toasts": {
@@ -5109,22 +5170,22 @@
             "confirm": "تحذف اسم البائع"
           },
           "approve": {
-            "title": "Approve Vendor",
+            "title": "الموافقة على البائع",
             "subTitle": "الموافقة {name}",
             "description": "هل أنت متأكد أنك تريد الموافقة على هذا البائع؟",
             "confirm": "الموافقة"
           },
           "block": {
-            "title": "Block Vendor",
-            "subTitle": "Block {name}",
+            "title": "حظر البائع",
+            "subTitle": "حظر {name}",
             "description": "هل أنت متأكد أنك تريد إغلاق هذا البائع؟ ولن يتمكنوا من الوصول إلى حسابهم.",
-            "confirm": "Block"
+            "confirm": "حظر"
           },
           "unblock": {
-            "title": "Unblock Vendor",
-            "subTitle": "Unblock {name}",
+            "title": "إلغاء حظر البائع",
+            "subTitle": "إلغاء حظر {name}",
             "description": "هل أنت متأكد أنك تريد فتح هذا البائع؟",
-            "confirm": "Unblock"
+            "confirm": "إلغاء الحظر"
           }
         }
       },
@@ -5132,15 +5193,15 @@
         "title": "تفاصيل البائعين",
         "notAvailable": "N/A",
         "footer": {
-          "approveVendor": "Approve Vendor",
-          "rejectVendor": "Reject Vendor",
-          "unblockVendor": "Unblock Vendor"
+          "approveVendor": "الموافقة على البائع",
+          "rejectVendor": "رفض البائع",
+          "unblockVendor": "إلغاء حظر البائع"
         },
         "rejectionReasonTitle": "رفض",
-        "rejectedBadge": "Rejected",
+        "rejectedBadge": "مرفوض",
         "copyButton": "نسخ",
-        "phoneLabel": "Phone",
-        "emailLabel": "Email",
+        "phoneLabel": "الهاتف",
+        "emailLabel": "البريد الإلكتروني",
         "bankDetailsTitle": "التفاصيل المصرفية",
         "bankNameLabel": "الاسم المصرفي",
         "branchCodeLabel": "قانون الفرع",
@@ -5159,20 +5220,35 @@
         }
       },
       "rejectDialog": {
-        "title": "Reject Vendor",
+        "title": "رفض البائع",
         "description": "يرجى تقديم سبب لرفض هذا البائع. وسترسل هذه المعلومات إلى البائع.",
         "reasonLabel": "رفض",
         "reasonPlaceholder": "أدخل سبباً مفصلاً للرفض",
         "cancel": "إلغاء",
-        "confirm": "Reject Vendor"
+        "confirm": "رفض البائع"
       }
     }
   },
   "roleAndPermissions": {
-    "pendingInvitations": { "title": "الدعوات المعلقة", "description": "يظهر المدعوون هنا حتى يقبلوا الدعوة ويصبحوا مستخدمين معينين.", "name": "الاسم", "email": "البريد الإلكتروني", "role": "الدور", "expires": "انتهاء صلاحية الرابط", "action": "الإجراء", "loading": "جارٍ تحميل الدعوات…", "loadError": "تعذر تحميل الدعوات.", "retry": "إعادة المحاولة", "empty": "لا توجد دعوات معلقة", "noRole": "لم يُحدد دور", "resend": "إعادة إرسال الدعوة", "resendSuccess": "أُعيد إرسال الدعوة" },
+    "pendingInvitations": {
+      "title": "الدعوات المعلقة",
+      "description": "يظهر المدعوون هنا حتى يقبلوا الدعوة ويصبحوا مستخدمين معينين.",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "role": "الدور",
+      "expires": "انتهاء صلاحية الرابط",
+      "action": "الإجراء",
+      "loading": "جارٍ تحميل الدعوات…",
+      "loadError": "تعذر تحميل الدعوات.",
+      "retry": "إعادة المحاولة",
+      "empty": "لا توجد دعوات معلقة",
+      "noRole": "لم يُحدد دور",
+      "resend": "إعادة إرسال الدعوة",
+      "resendSuccess": "أُعيد إرسال الدعوة"
+    },
     "title": "الأدوار والأذون",
     "addRole": "الدور",
-    "editRole": "Edit Role",
+    "editRole": "تعديل الدور",
     "form": {
       "roleName": "الاسم",
       "roleNamePlaceholder": "نوع هنا...",
@@ -5184,7 +5260,7 @@
       "permissions": "الانبعاثات",
       "permissionsSubtitle": "اختيار الإذن لهذا الدور",
       "cancel": "إلغاء",
-      "submit": "Submit",
+      "submit": "إرسال",
       "update": "آخر",
       "addSuccess": "الدور المنجز بنجاح",
       "updateSuccess": "استكمال الأدوار بنجاح",
@@ -5199,7 +5275,7 @@
     "errors": {
       "loadingPermissions": "تراخيص تحميل الأخطاء",
       "fetchPermissions": "فشل في الحصول على إذن",
-      "noPermissions": "No permissions available",
+      "noPermissions": "لا توجد صلاحيات متاحة",
       "noPermissionsSubtitle": "غير قادر على حمل التصاريح حاول مرة أخرى لاحقاً",
       "roleIdNotFound": "لم يعثر على هوية",
       "provideValidRoleId": "يرجى تقديم دور صحيح في تحديد الهوية URL",
@@ -5233,11 +5309,11 @@
       "rolePermissions": "فترات الدور",
       "status": "الحالة",
       "action": "الإجراء",
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
       "notAvailable": "N/A",
       "allPermissions": "جميع الانبعاثات",
-      "noUsersAssigned": "No users assigned",
+      "noUsersAssigned": "لم يتم تعيين مستخدمين",
       "allAssignedUsers": "جميع المستخدمين المعينين"
     },
     "filters": {
@@ -5271,8 +5347,8 @@
       "deactivateSubtitle": "Deactivatه {roleName}",
       "activateSubtitle": "Activatه {roleName}",
       "toggleSuccess": "الدور {status} بنجاح",
-      "activated": "activated",
-      "deactivated": "deactivated",
+      "activated": "مفعّل",
+      "deactivated": "معطّل",
       "deactivateConfirm": "هل أنت متأكد أنك تريد أن تتحللvatهل هذا الدور؟ المستعملون بهذا الدور سيفقدون إمكانية الوصول",
       "activateConfirm": "هل أنت متأكد أنك تريد التمثيلvatهل هذا الدور؟ وسيستعيد المستخدمون الذين يضطلعون بهذا الدور إمكانية الوصول إليها.",
       "confirmDeactivate": "نعم، Deactivatه",
@@ -5309,8 +5385,8 @@
       "all": "كل شيء",
       "rider": "ريدر",
       "customer": "زبون",
-      "store": "Store",
-      "admin": "Admin",
+      "store": "المتجر",
+      "admin": "المسؤول",
       "staff": "الموظفون",
       "vendor": "البائع"
     },
@@ -5326,7 +5402,7 @@
       "targetZonesHelper": "ترك فارغة لإرسال إلى جميع المناطق",
       "imageUrl": "الصورة URL (اختياري)",
       "imageUrlPlaceholder": "https://example.com/image.png",
-      "deepLink": "Deep Link (Optional)",
+      "deepLink": "رابط عميق (اختياري)",
       "deepLinkPlaceholder": "♪ ♪",
       "cancel": "إلغاء",
       "validation": {
@@ -5343,7 +5419,7 @@
       "recipients": "المتلقين",
       "targetZones": "المناطق المستهدفة",
       "imageUrl": "الصورة URL",
-      "deepLink": "Deep Link",
+      "deepLink": "رابط عميق",
       "originallySent": "الأصل Sent",
       "note": "ملاحظة: وسيعيد هذا الإخطار إلى جميع المستخدمين الحاليين الذين يطابقون المعايير المستهدفة (أنواع المستخدمين والمناطق). وسيرسل الإخطار إلى أحدث مجموعة من المستعملين، قد تختلف عن المستفيدين الأصليين.",
       "noteTitle": "ملاحظة",
@@ -5356,7 +5432,7 @@
       "zones": "المناطق",
       "createdDate": "تاريخ الإنشاء",
       "action": "الإجراء",
-      "resend": "Resend",
+      "resend": "إعادة الإرسال",
       "delete": "تحذف",
       "actionsMenuAria": "إجراءات الإخطار المفتوح",
       "notAvailable": "N/A",
@@ -5390,7 +5466,7 @@
     "errors": {
       "fetchFailedTitle": "خطأ!",
       "fetchFailed": "فشل في جلب الإخطارات.",
-      "noNotifications": "No notifications found."
+      "noNotifications": "لا توجد إشعارات."
     },
     "dialogs": {
       "deleteTitle": "يحذف الإشعار",
@@ -5441,13 +5517,13 @@
       "commissionLabel": "{vehicleType} اللجنة",
       "commissionPlaceholder": "معدل الانتداب",
       "cancel": "إلغاء",
-      "saveChanges": "Save Changes",
+      "saveChanges": "حفظ التغييرات",
       "updateSuccess": "استكمال اللجنة بنجاح"
     },
     "table": {
       "category": "الفئة",
       "action": "الإجراء",
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
       "notAvailable": "N/A",
       "deleteSuccess": "تم حذفها بنجاح",
@@ -5474,7 +5550,7 @@
     "globalSettings": {
       "title": "اللجنة العالمية",
       "loadFailedTitle": "عدم تحميل مراكز اللجان العالمية",
-      "noDataError": "No commission settings found",
+      "noDataError": "لا توجد إعدادات عمولة",
       "zoneUpdateSuccess": "استكمال لجنة المنطقة بنجاح",
       "storeUpdateSuccess": "استكمال لجنة التخزين بنجاح",
       "currencyLabel": "العملة",
@@ -5484,9 +5560,9 @@
     },
     "storeForm": {
       "addTitle": "اللجنة المسروقة",
-      "editTitle": "Edit Store Commission",
-      "storeLabel": "Store",
-      "storePlaceholder": "Store",
+      "editTitle": "تعديل عمولة المتجر",
+      "storeLabel": "المتجر",
+      "storePlaceholder": "المتجر",
       "commissionLabel": "معدل اللجنة",
       "commissionPlaceholder": "معدل الانتداب",
       "commissionVatLabel": "اللجنة VAT المعدل",
@@ -5502,7 +5578,7 @@
     },
     "zoneForm": {
       "addTitle": "لجنة المنطقة",
-      "editTitle": "Edit Zone Commission",
+      "editTitle": "تعديل عمولة المنطقة",
       "zoneLabel": "المنطقة",
       "zonePlaceholder": "المنطقة",
       "commissionLabel": "معدل اللجنة",
@@ -5516,7 +5592,7 @@
       "updateSuccess": "استكمال لجنة المنطقة بنجاح"
     },
     "storeTable": {
-      "store": "Store",
+      "store": "المتجر",
       "vendor": "البائع",
       "zone": "المنطقة",
       "defaultCommission": "لجنة التقديم",
@@ -5536,9 +5612,10 @@
       "zone": "المنطقة",
       "commissionRate": "معدل اللجنة",
       "status": "الحالة",
+      "inherited": "القيمة العامة",
       "action": "الإجراء",
       "loadFailedTitle": "فشل في تحميل طاولة لجنة المنطقة",
-      "noDataTitle": "No zone commissions found",
+      "noDataTitle": "لا توجد عمولات مناطق",
       "deleteDialog": {
         "title": "لجنة المنطقة",
         "subTitle": "هل أنت متأكد؟",
@@ -5581,13 +5658,13 @@
       "commissionLabel": "{vehicleType} اللجنة",
       "commissionPlaceholder": "معدل الانتداب",
       "cancel": "إلغاء",
-      "saveChanges": "Save Changes",
+      "saveChanges": "حفظ التغييرات",
       "updateSuccess": "استكمال اللجنة بنجاح"
     },
     "table": {
       "category": "الفئة",
       "action": "الإجراء",
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
       "notAvailable": "N/A",
       "deleteSuccess": "تم حذفها بنجاح",
@@ -5614,7 +5691,7 @@
     "globalSettings": {
       "title": "اللجنة العالمية",
       "loadFailedTitle": "عدم تحميل مراكز اللجان العالمية",
-      "noDataError": "No commission settings found",
+      "noDataError": "لا توجد إعدادات عمولة",
       "zoneUpdateSuccess": "استكمال لجنة المنطقة بنجاح",
       "storeUpdateSuccess": "استكمال لجنة التخزين بنجاح",
       "currencyLabel": "العملة",
@@ -5624,9 +5701,9 @@
     },
     "storeForm": {
       "addTitle": "اللجنة المسروقة",
-      "editTitle": "Edit Store Commission",
-      "storeLabel": "Store",
-      "storePlaceholder": "Store",
+      "editTitle": "تعديل عمولة المتجر",
+      "storeLabel": "المتجر",
+      "storePlaceholder": "المتجر",
       "commissionLabel": "معدل اللجنة",
       "commissionPlaceholder": "معدل الانتداب",
       "statusLabel": "الحالة",
@@ -5639,7 +5716,7 @@
     },
     "zoneForm": {
       "addTitle": "لجنة المنطقة",
-      "editTitle": "Edit Zone Commission",
+      "editTitle": "تعديل عمولة المنطقة",
       "zoneLabel": "المنطقة",
       "zonePlaceholder": "المنطقة",
       "commissionLabel": "معدل اللجنة",
@@ -5653,7 +5730,7 @@
       "updateSuccess": "استكمال لجنة المنطقة بنجاح"
     },
     "storeTable": {
-      "store": "Store",
+      "store": "المتجر",
       "vendor": "البائع",
       "zone": "المنطقة",
       "defaultCommission": "لجنة التقديم",
@@ -5674,7 +5751,7 @@
       "status": "الحالة",
       "action": "الإجراء",
       "loadFailedTitle": "فشل في تحميل طاولة لجنة المنطقة",
-      "noDataTitle": "No zone commissions found",
+      "noDataTitle": "لا توجد عمولات مناطق",
       "deleteDialog": {
         "title": "لجنة المنطقة",
         "subTitle": "هل أنت متأكد؟",
@@ -5694,7 +5771,7 @@
   },
   "fixrightBookings": {
     "vendorDashboard": {
-      "title": "FixRight Vendor Dashboard",
+      "title": "لوحة تحكم بائع FixRight",
       "shortTitle": "لوحة",
       "filters": {
         "all": "كل شيء",
@@ -5706,7 +5783,7 @@
       "statsCards": {
         "activeJobs": "الوظائف النشطة",
         "pendingAssignments": "الخصوم",
-        "inProgress": "InProgress",
+        "inProgress": "قيد التنفيذ",
         "completedToday": "أُنجز اليوم"
       },
       "charts": {
@@ -5767,7 +5844,7 @@
           "zone": "المنطقة",
           "created": "المنشأة",
           "status": "الحالة",
-          "viewAction": "View"
+          "viewAction": "عرض"
         },
         "noData": {
           "title": "لا زيارات للعقود اليوم",
@@ -5781,12 +5858,12 @@
         "title": "عامل مكلف",
         "description": "اختيار طريقة تعيين العمال وتعيين عامل للعمل",
         "tabs": {
-          "auto": "Auto Assign",
+          "auto": "تعيين تلقائي",
           "manual": "التوجيه اليدوي"
         },
         "autoAssign": {
           "title": "أقرب عامل متاح",
-          "description": "The system will automatically assign the best worker based on distance, availability, and rating.",
+          "description": "سيعيّن النظام تلقائيًا أفضل عامل بناءً على المسافة والتوفر والتقييم.",
           "criteriaTitle": "معايير الإحالة:",
           "criteria": {
             "nearest": "أقرب مسافة",
@@ -5801,11 +5878,11 @@
           "searchPlaceholder": "البحث بالاسم...",
           "workerType": {
             "employee": "الموظفون",
-            "freelancer": "Freelancer"
+            "freelancer": "عامل مستقل"
           },
           "loading": "عمال التعبئة...",
           "noWorkers": "لا يوجد عامل في الوقت الراهن.",
-          "assignButton": "Assign",
+          "assignButton": "تعيين",
           "assigning": "تعيين...",
           "reviews": "الاستعراضات",
           "activeJobs": "النشاط",
@@ -5855,16 +5932,74 @@
     }
   },
   "favouriteFoods": {
-    "title": "الأطعمة المفضلة", "subtitle": "إدارة وسوم الاستكشاف وربطها بنوع متجر واحد أو أكثر.", "addButton": "إضافة طعام مفضل", "empty": "لم يتم العثور على أطعمة مفضلة",
-    "filters": { "search": "البحث في الأطعمة المفضلة", "status": "كل الحالات", "shopType": "كل أنواع المتاجر" },
-    "table": { "image": "الصورة", "name": "الاسم", "shopTypes": "أنواع المتاجر", "order": "ترتيب العرض", "status": "الحالة", "actions": "الإجراءات" },
-    "status": { "active": "نشط", "inactive": "غير نشط" },
-    "actions": { "create": "إنشاء", "save": "حفظ التغييرات", "cancel": "إلغاء", "edit": "تعديل", "delete": "حذف", "toggleStatus": "تغيير حالة {name}" },
-    "form": { "createTitle": "إضافة طعام مفضل", "editTitle": "تعديل الطعام المفضل", "description": "حدد الاسم والظهور والترتيب والصورة وأنواع المتاجر.", "name": "الاسم بالإنجليزية", "namePlaceholder": "مثال: Pizza", "translations": "الأسماء المترجمة", "translationsDescription": "أضف أسماء للغات المفعلة. القيم الفارغة تستخدم الإنجليزية.", "translationPlaceholder": "الاسم باللغة {language}", "shopTypes": "أنواع المتاجر", "shopTypesPlaceholder": "اختر نوعًا واحدًا أو أكثر", "displayOrder": "ترتيب العرض", "displayOrderHelp": "تظهر الأرقام الأصغر أولاً.", "image": "الصورة", "imageHelp": "PNG أو JPG أو WebP بحد أقصى 5 ميغابايت.", "removeImage": "إزالة الصورة الحالية", "status": "الظهور للعملاء" },
-    "validation": { "nameRequired": "الاسم الإنجليزي مطلوب", "shopTypeRequired": "اختر نوع متجر واحدًا على الأقل", "orderInteger": "يجب أن يكون الترتيب عددًا صحيحًا", "orderMinimum": "لا يمكن أن يكون الترتيب سالبًا" },
-    "messages": { "created": "تم إنشاء الطعام المفضل", "updated": "تم تحديث الطعام المفضل", "deleted": "تم حذف الطعام المفضل", "statusUpdated": "تم تحديث الحالة" },
-    "errors": { "loadTitle": "تعذر تحميل الأطعمة المفضلة", "loadMessage": "يرجى المحاولة مرة أخرى." },
-    "deleteDialog": { "title": "حذف الطعام المفضل", "subtitle": "هل تريد حذف {name}؟", "description": "سيتم إخفاؤه دون حذف سجل المنتجات الحالي." }
+    "title": "الأطعمة المفضلة",
+    "subtitle": "إدارة وسوم الاستكشاف وربطها بنوع متجر واحد أو أكثر.",
+    "addButton": "إضافة طعام مفضل",
+    "empty": "لم يتم العثور على أطعمة مفضلة",
+    "filters": {
+      "search": "البحث في الأطعمة المفضلة",
+      "status": "كل الحالات",
+      "shopType": "كل أنواع المتاجر"
+    },
+    "table": {
+      "image": "الصورة",
+      "name": "الاسم",
+      "shopTypes": "أنواع المتاجر",
+      "order": "ترتيب العرض",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "create": "إنشاء",
+      "save": "حفظ التغييرات",
+      "cancel": "إلغاء",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "toggleStatus": "تغيير حالة {name}"
+    },
+    "form": {
+      "createTitle": "إضافة طعام مفضل",
+      "editTitle": "تعديل الطعام المفضل",
+      "description": "حدد الاسم والظهور والترتيب والصورة وأنواع المتاجر.",
+      "name": "الاسم بالإنجليزية",
+      "namePlaceholder": "مثال: Pizza",
+      "translations": "الأسماء المترجمة",
+      "translationsDescription": "أضف أسماء للغات المفعلة. القيم الفارغة تستخدم الإنجليزية.",
+      "translationPlaceholder": "الاسم باللغة {language}",
+      "shopTypes": "أنواع المتاجر",
+      "shopTypesPlaceholder": "اختر نوعًا واحدًا أو أكثر",
+      "displayOrder": "ترتيب العرض",
+      "displayOrderHelp": "تظهر الأرقام الأصغر أولاً.",
+      "image": "الصورة",
+      "imageHelp": "PNG أو JPG أو WebP بحد أقصى 5 ميغابايت.",
+      "removeImage": "إزالة الصورة الحالية",
+      "status": "الظهور للعملاء"
+    },
+    "validation": {
+      "nameRequired": "الاسم الإنجليزي مطلوب",
+      "shopTypeRequired": "اختر نوع متجر واحدًا على الأقل",
+      "orderInteger": "يجب أن يكون الترتيب عددًا صحيحًا",
+      "orderMinimum": "لا يمكن أن يكون الترتيب سالبًا"
+    },
+    "messages": {
+      "created": "تم إنشاء الطعام المفضل",
+      "updated": "تم تحديث الطعام المفضل",
+      "deleted": "تم حذف الطعام المفضل",
+      "statusUpdated": "تم تحديث الحالة"
+    },
+    "errors": {
+      "loadTitle": "تعذر تحميل الأطعمة المفضلة",
+      "loadMessage": "يرجى المحاولة مرة أخرى."
+    },
+    "deleteDialog": {
+      "title": "حذف الطعام المفضل",
+      "subtitle": "هل تريد حذف {name}؟",
+      "description": "سيتم إخفاؤه دون حذف سجل المنتجات الحالي."
+    }
   },
   "Schemas": {
     "customerLoyalty": {
@@ -5908,6 +6043,7 @@
       "discountValueRequired": "قيمة الفرز مطلوبة",
       "discountValueMustBeNumber": "قيمة الخصم يجب أن تكون رقم",
       "discountValueGreaterThanZero": "قيمة الخصم يجب أن تكون أكبر من صفر",
+      "discountValuePercentageMax": "لا يمكن أن يتجاوز الخصم بالنسبة المئوية 100%",
       "maxDiscountCapRequiredForFixed": "الحد الأقصى للخصوم مطلوب للخصوم الثابتة",
       "maxDiscountCapGreaterThanZero": "الحد الأقصى للخصوم يجب أن يكون أكبر من صفر",
       "minOrderValueRequired": "القيمة الدنيا للحجز مطلوبة",
@@ -5990,14 +6126,14 @@
       "phoneRequired": "رقم الهاتف مطلوب",
       "phoneMinLength": "من فضلك أدخل رقم هاتف صالح",
       "imageRequired": "التصوير مطلوب",
-      "fileTypeAllowed": "Only PNG/JPG/WebP allowed",
+      "fileTypeAllowed": "يُسمح فقط بملفات PNG/JPG/WebP",
       "fileSizeAllowed": "ماكس {maxMb}MB المسموح به",
       "mustBeInteger": "يجب أن يكون ثلاجة",
       "tooOld": "كبير السن",
       "tooHigh": "مرتفع جدا",
       "isFourWheelerRequired": "هو أربعة ويلر مطلوب",
       "airConditioningRequired": "التكييف الجوي مطلوب",
-      "noCosmeticDamageRequired": "No Cosmetic Damage is required",
+      "noCosmeticDamageRequired": "حقل عدم وجود أضرار شكلية مطلوب",
       "rideTypeRequired": "النوع العادي مطلوب",
       "licenseNumberRequired": "العدد المطلوب",
       "vehicleNameRequired": "اسم المركبات مطلوب",
@@ -6026,7 +6162,7 @@
       "passwordSpecial": "كلمة السر يجب أن تحتوي على شخص خاص واحد على الأقل",
       "zoneRequired": "المنطقة/المدينة مطلوبة",
       "imageRequired": "المطلوب",
-      "fileTypeAllowed": "Only PNG/JPG/WebP allowed",
+      "fileTypeAllowed": "يُسمح فقط بملفات PNG/JPG/WebP",
       "fileSizeAllowed": "ماكس {maxMb}MB المسموح به",
       "businessTrademarkRequired": "العلامة التجارية مطلوبة",
       "businessLicenseFrontRequired": "الرخصة التجارية مطلوبة",
@@ -6099,7 +6235,7 @@
       "phoneRequired": "رقم الهاتف مطلوب",
       "phoneMinLength": "من فضلك أدخل رقم هاتف صالح",
       "logoRequired": "لوغو مطلوب",
-      "fileTypeAllowed": "Only PNG/JPG/WebP allowed",
+      "fileTypeAllowed": "يُسمح فقط بملفات PNG/JPG/WebP",
       "fileSizeAllowed": "ماكس {maxMb}MB المسموح به",
       "emailRequired": "الإيميل مطلوب",
       "passwordRequired": "كلمة السر مطلوبة",
@@ -6246,7 +6382,7 @@
     "wallet": {
       "summaryLabel": "موجز حافظة التخزين",
       "balance": "الرصيد الجداري",
-      "available": "Available to Withdraw",
+      "available": "متاح للسحب",
       "pending": "انتظار الانسحاب",
       "pendingNotice": "ولا يزال طلب الانسحاب معلقا. يمكنك خلق طلب آخر بعد تجهيزه"
     },
@@ -6254,13 +6390,13 @@
       "all": "كل شيء",
       "pending": "تنتهي",
       "approved": "الوظائف المعتمدة",
-      "rejected": "Rejected",
+      "rejected": "مرفوض",
       "loading": "التعبئة...",
       "withdrawalRequests": "طلبات الانسحاب",
       "payrolls": "كشوف المرتبات",
       "vendorWithdrawals": "البائعون",
       "storeWithdrawals": "سرقة",
-      "riderWithdrawals": "Rider Withdrawals",
+      "riderWithdrawals": "سحوبات المندوبين",
       "serviceCenterWithdrawals": "مركز الخدمات",
       "workerWithdrawals": "العمال",
       "vendorPayrolls": "رواتب البائعين",
@@ -6282,35 +6418,35 @@
       "paymentMethod": "طريقة الدفع",
       "selectPaymentMethod": "طريقة الدفع المختارة",
       "withdrawalTypeOptionVendor": "البائع",
-      "withdrawalTypeOptionStore": "Store",
+      "withdrawalTypeOptionStore": "المتجر",
       "withdrawalTypeOptionRider": "ريدر",
       "withdrawalTypeOptionServiceCenter": "مركز الخدمات",
       "withdrawalTypeOptionWorker": "العامل",
       "statusOptionApproved": "الوظائف المعتمدة",
       "statusOptionPending": "تنتهي",
-      "statusOptionRejected": "Rejected",
+      "statusOptionRejected": "مرفوض",
       "statusOptionTransfered": "محولة",
       "statusOptionRequested": "الطلب",
       "statusOptionCancelled": "ألغيت",
       "paymentMethodOptionBank": "المصرف",
-      "paymentMethodOptionCard": "Card",
+      "paymentMethodOptionCard": "بطاقة",
       "paymentMethodOptionWallet": "الجدار",
       "withdrawalTypeOptions": {
         "vendor": "البائع",
-        "store": "Store",
+        "store": "المتجر",
         "rider": "ريدر"
       },
       "statusOptions": {
         "approved": "الوظائف المعتمدة",
         "pending": "تنتهي",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "transfered": "محولة",
         "requested": "الطلب",
         "cancelled": "ألغيت"
       },
       "paymentMethodOptions": {
         "bank": "المصرف",
-        "card": "Card",
+        "card": "بطاقة",
         "wallet": "الجدار"
       }
     },
@@ -6332,7 +6468,7 @@
       "copyRequestIdAriaLabel": "طلب نسخ الهوية",
       "requestIdCopied": "طلب بطاقة هوية مستنسخة",
       "approve": "الموافقة",
-      "reject": "Reject",
+      "reject": "رفض",
       "approvalDetails": "تفاصيل الموافقة",
       "rejectionDetails": "تفاصيل الرفض",
       "viewDetails": "التفاصيل",
@@ -6342,17 +6478,17 @@
       "serviceCenterBalance": "مركز الخدمات",
       "workerBalance": "رصيد العاملين",
       "zone": "المنطقة",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "amount": "المبلغ",
       "paymentMethod": "طريقة الدفع",
       "status": "الحالة",
       "dateTime": "التاريخ",
-      "bankWallet": "Bank / Wallet",
+      "bankWallet": "البنك / المحفظة",
       "action": "الإجراء",
-      "view": "View",
+      "view": "عرض",
       "approveTooltip": "الموافقة على الانسحاب",
       "rejectTooltip": "رفض الانسحاب",
-      "noData": "No withdrawal requests found.",
+      "noData": "لا توجد طلبات سحب.",
       "noDataSubtitle": "حاول تعديل مرشحات أو تفقدها لاحقاً",
       "errorTitle": "طلبات سحب الرهن",
       "errorMessage": "غير قادر على تحميل طلبات الانسحاب. حاول مرة أخرى",
@@ -6385,7 +6521,7 @@
       "reasonLabel": "سبب الرفض",
       "reasonPlaceholder": "أرجوك أكتب سبب الرفض",
       "cancel": "إلغاء",
-      "reject": "Reject",
+      "reject": "رفض",
       "success": "رفض الانسحاب بنجاح",
       "validation": {
         "reasonRequired": "سبب الرفض مطلوب",
@@ -6419,7 +6555,7 @@
       "workerName": "اسم العمال",
       "storeName": "الاسم المسروق",
       "vendorName": "اسم البائع",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "zone": "المنطقة",
       "requestDate": "التاريخ",
       "bankAccountDetails": "حساب مصرفي",
@@ -6497,13 +6633,13 @@
         "id": "الهوية",
         "phone": "رقم الهاتف",
         "regMethod": "طريقة التسجيل",
-        "regMethodPhone": "Phone",
+        "regMethodPhone": "الهاتف",
         "regMethodGoogle": "Google",
         "regDate": "تاريخ التسجيل",
         "derivedFrom": "مأخوذة من",
         "accountStatus": "الحساب",
         "statusActive": "النشاط",
-        "statusInactive": "In Active",
+        "statusInactive": "غير نشط",
         "lastLogin": "آخر لوجين",
         "securityAudit": "الأمن ومراجعة الحسابات",
         "status": "الحالة",
@@ -6541,10 +6677,10 @@
     }
   },
   "rides": {
-    "title": "Rides",
+    "title": "الرحلات",
     "rideDetailsTitle": "التفاصيل الجانبية{rideId}",
     "tabs": {
-      "allRides": "All Rides",
+      "allRides": "جميع الرحلات",
       "assigned": "استقال",
       "inProgress": "التقدم المحرز",
       "completed": "مكتملة",
@@ -6590,11 +6726,11 @@
     "title": "إدارة السائق",
     "addDriverButton": "سائق",
     "addDriverTitle": "سائق",
-    "editDriverTitle": "Edit Driver",
-    "ridersPageTitle": "Riders",
+    "editDriverTitle": "تعديل السائق",
+    "ridersPageTitle": "المندوبون",
     "addRiderButton": "أضف ريدر",
     "addRiderTitle": "أضف ريدر",
-    "editRiderTitle": "Edit Rider",
+    "editRiderTitle": "تعديل المندوب",
     "addDriver": {
       "step1": {
         "title": "المعلومات الشخصية",
@@ -6636,20 +6772,20 @@
         "licenseNumberLabel": "العدد",
         "licenseNumberPlaceholder": "رقم رخصة الدخول",
         "vehicleNameLabel": "اسم المركبات",
-        "vehicleNamePlaceholder": "e.g., Toyota Camry",
+        "vehicleNamePlaceholder": "مثال: تويوتا كامري",
         "vehicleColourLabel": "المركبات",
         "vehicleColourPlaceholder": "(مثل (بلاك",
         "vehicleNoLabel": "عدد المركبات",
-        "vehicleNoPlaceholder": "e.g., ABC-1234",
+        "vehicleNoPlaceholder": "مثال: ABC-1234",
         "isFourWheeler": "أربعة ويلر",
         "airConditioning": "تكييف الهواء",
-        "noCosmeticDamage": "No Cosmetic Damage",
+        "noCosmeticDamage": "لا توجد أضرار شكلية",
         "helmet": "الخوذة",
         "vehicleInGoodCondition": "مركبة في حالة جيدة",
         "insulatedDeliveryBag": "حقيبة تسليم معزولة",
         "backButton": "العودة",
         "nextButton": "التالي",
-        "submitButton": "Submit",
+        "submitButton": "إرسال",
         "completeStep1Error": "يرجى استكمال الخطوة 1 (المعلومات الأساسية).",
         "completeStep2Error": "يرجى استكمال الخطوة 2 (النسخة المطلوبة من الوثائق).",
         "uploadAllDocumentsError": "يرجى تحميل جميع الوثائق المطلوبة قبل تقديمها.",
@@ -6658,7 +6794,7 @@
         "missingRequiredDocumentError": "الوثائق المطلوبة المفقودة: {label}"
       },
       "step4": {
-        "title": "Commission and COD Settings",
+        "title": "إعدادات العمولة والدفع عند الاستلام",
         "description": "جهزوا لجنة تسليم الراكبين وتحكموا بالوحدة",
         "platformCommissionLabel": "عمولة التوصيل",
         "platformCommissionHelper": "ويحتفظ المنبر بهذه النسبة المئوية لكل رسم تسليم. الراكب يتلقى الباقي بالإضافة إلى 100% من النصيحة",
@@ -6668,7 +6804,7 @@
         "platformCommissionRequiredError": "عمولة التوصيل مطلوبة",
         "enableCodLimitLabel": "الحد المسموح به",
         "enableCodLimitDescription": "عندما يكون معاقاً، الراكب لديه قدرة غير محدودة على التخلص من الذخائر العنقودية.",
-        "codLimitAmountLabel": "COD Limit Amount (PKR)",
+        "codLimitAmountLabel": "حد مبلغ الدفع عند الاستلام (PKR)",
         "codLimitAmountPlaceholder": "e.g. 10000",
         "codLimitAmountHelper": "الحد الأقصى للمبلغ المتبقي من الذخائر العنقودية قبل إغلاق أوامر الإبطال الجديدة",
         "warningThresholdLabel": "(نسبة مئوية)",
@@ -6687,7 +6823,7 @@
         "allowOnlinePaymentsWhenCodBlockedDescription": "ولا يزال بوسع السفاح قبول أوامر الدفع عبر الإنترنت/البطاقات حتى عندما تُحجب الذخائر العنقودية.",
         "completeStep3Error": "يرجى استكمال الخطوة 3 (متطلبات المركبات).",
         "backButton": "العودة",
-        "submitButton": "Submit"
+        "submitButton": "إرسال"
       },
       "vehicleTypeSelect": {
         "label": "نوع المركبات",
@@ -6733,11 +6869,11 @@
       "licenseNumberLabel": "العدد",
       "licenseNumberPlaceholder": "رقم رخصة الدخول",
       "vehicleNameLabel": "اسم المركبات",
-      "vehicleNamePlaceholder": "e.g., Toyota Camry",
+      "vehicleNamePlaceholder": "مثال: تويوتا كامري",
       "vehicleColourLabel": "المركبات",
       "vehicleColourPlaceholder": "(مثل (بلاك",
       "vehicleNoLabel": "عدد المركبات",
-      "vehicleNoPlaceholder": "e.g., ABC-1234",
+      "vehicleNoPlaceholder": "مثال: ABC-1234",
       "modelYearLimitLabel": "السنة النموذجية",
       "modelYearLimitPlaceholder": "e.g., 2015",
       "vehicleTypeLabel": "نوع المركبات",
@@ -6752,7 +6888,7 @@
       "helmet": "الخوذة",
       "vehicleInGoodCondition": "مركبة في حالة جيدة",
       "insulatedDeliveryBag": "حقيبة تسليم معزولة",
-      "noCosmeticDamage": "No Cosmetic Damage",
+      "noCosmeticDamage": "لا توجد أضرار شكلية",
       "platformCommissionTitle": "لجنة التنفيذ",
       "platformCommissionDescription": "حدد حصة المنصات عندما يكمل هذا الراكب التسليم",
       "platformCommissionLabel": "عمولة التوصيل",
@@ -6761,11 +6897,11 @@
       "platformCommissionMinError": "لا يمكن أن تقل عمولة التوصيل عن 0%",
       "platformCommissionMaxError": "لا يمكن أن تتجاوز عمولة التوصيل 100%",
       "platformCommissionRequiredError": "عمولة التوصيل مطلوبة",
-      "codLimitTitle": "COD Limit Settings",
+      "codLimitTitle": "إعدادات حد الدفع عند الاستلام",
       "codLimitDescription": "حدود الثقة وتصرفات التسوية لهذا الراكب",
       "enableCodLimitLabel": "الحد المسموح به",
       "enableCodLimitDescription": "عندما يكون معاقاً، الراكب لديه قدرة غير محدودة على التخلص من الذخائر العنقودية.",
-      "codLimitAmountLabel": "COD Limit Amount (PKR)",
+      "codLimitAmountLabel": "حد مبلغ الدفع عند الاستلام (PKR)",
       "codLimitAmountPlaceholder": "e.g. 10000",
       "codLimitAmountHelper": "الحد الأقصى للمبلغ المتبقي من الذخائر العنقودية قبل إغلاق أوامر الإبطال الجديدة",
       "warningThresholdLabel": "(نسبة مئوية)",
@@ -6830,7 +6966,7 @@
       },
       "profileSection": {
         "blockedStatus": "مقفلة",
-        "deactivatedStatus": "Deactivated",
+        "deactivatedStatus": "معطّل",
         "activeStatus": "النشاط",
         "forceLogout": "القوة",
         "activateAccount": "Activat(هـ)",
@@ -6857,7 +6993,7 @@
         "phoneNumberLabel": "رقم الهاتف",
         "nameLabel": "الاسم",
         "zoneLabel": "المنطقة",
-        "emailLabel": "Email",
+        "emailLabel": "البريد الإلكتروني",
         "accountStatusLabel": "الحساب",
         "vehicleTypeLabel": "نوع المركبات",
         "licenseNumberLabel": "العدد",
@@ -6870,7 +7006,7 @@
         "modelYearLimitLabel": "السنة النموذجية",
         "fourWheelerLabel": "أربعة ويلر",
         "airConditioningLabel": "تكييف الهواء",
-        "noCosmeticDamageLabel": "No Cosmetic Damage",
+        "noCosmeticDamageLabel": "لا توجد أضرار شكلية",
         "rideTypeLabel": "النوع العادي",
         "documentsSectionTitle": "الوثائق",
         "driverLicenseFront": "رخصة القيادة (فرونت)",
@@ -6923,15 +7059,15 @@
         "selectZone": "المنطقة المختارة",
         "vehicleType": "نوع المركبات",
         "selectVehicleType": "نوع المركبات المختارة",
-        "kycStatus": "KYC Status",
-        "selectKycStatus": "Select KYC Status",
+        "kycStatus": "حالة التحقق من الهوية",
+        "selectKycStatus": "اختر حالة التحقق من الهوية",
         "ratings": "التقييمات",
         "selectRating": "الاختيار"
       },
       "downloadColumns": {
         "name": "الاسم",
-        "phone": "Phone",
-        "email": "Email",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
         "riderType": "نوع السفينة",
         "comment": "التعليق",
         "status": "الحالة",
@@ -6941,13 +7077,13 @@
         "totalDeliveries": "المجموع",
         "totalEarnings": "مجموع الإيرادات",
         "ratings": "التقييمات",
-        "kycStatus": "KYC Status",
-        "blockStatus": "Block Status"
+        "kycStatus": "حالة التحقق من الهوية",
+        "blockStatus": "حالة الحظر"
       },
       "tableHeaders": {
         "name": "الاسم",
         "phoneNumber": "رقم الهاتف",
-        "email": "Email",
+        "email": "البريد الإلكتروني",
         "riderType": "نوع السفينة",
         "comment": "التعليق",
         "status": "الحالة",
@@ -6957,8 +7093,8 @@
         "totalDeliveries": "المجموع",
         "totalEarnings": "مجموع الإيرادات",
         "ratings": "التقييمات",
-        "kycStatus": "KYC Status",
-        "blockStatus": "Block Status",
+        "kycStatus": "حالة التحقق من الهوية",
+        "blockStatus": "حالة الحظر",
         "actions": "الإجراءات"
       },
       "notAvailable": "N/A",
@@ -6982,33 +7118,33 @@
       "rejectionReasonPlaceholder": "سبب رفض الدخول",
       "cancelButton": "إلغاء",
       "rejectDriverButton": "سائق مرسل",
-      "rejectRiderButton": "Reject Rider",
-      "rejectRiderDialogTitle": "Reject Rider",
+      "rejectRiderButton": "رفض المندوب",
+      "rejectRiderDialogTitle": "رفض المندوب",
       "rejectRiderReasonDescription": "يرجى تقديم سبب لرفض هذا الراكب. هذه المعلومات سترسل للراكب",
       "driverRejectedSuccess": "السائق رفض بنجاح",
       "riderRejectedSuccess": "(ريدر) رفض بنجاح",
       "driverDetailsDialogTitle": "تفاصيل السائق",
       "rejectionReasonCardTitle": "رفض",
-      "rejectedStatus": "Rejected",
+      "rejectedStatus": "مرفوض",
       "noReasonProvided": "لم يقدم أي سبب.",
       "copyButton": "نسخ",
       "copyReason": "سبب الوفاة",
-      "phoneCardLabel": "Phone",
-      "emailCardLabel": "Email",
+      "phoneCardLabel": "الهاتف",
+      "emailCardLabel": "البريد الإلكتروني",
       "vehicleDetailsTitle": "تفاصيل المركبات",
       "vehicleBrandLabel": "مركبة براند:",
       "modelYearLabel": "السنة النموذجية:",
       "vehicleTypeLabel": "نوع المركبات:",
       "vehicleNumberLabel": "عدد المركبات:",
       "vehicleColorLabel": "ملوث المركبات:",
-      "insulatedDeliveryBagLabel": "Insulated Delivery Bag:",
+      "insulatedDeliveryBagLabel": "حقيبة توصيل معزولة:",
       "airConditioningLabel": "تكييف الهواء:",
       "helmetLabel": "الخوذة:",
-      "codLimitSettingsTitle": "COD Limit Settings",
-      "codLimitEnabledLabel": "COD Limit Enabled:",
-      "codLimitAmountLabel": "COD Limit Amount:",
+      "codLimitSettingsTitle": "إعدادات حد الدفع عند الاستلام",
+      "codLimitEnabledLabel": "تفعيل حد الدفع عند الاستلام:",
+      "codLimitAmountLabel": "حد مبلغ الدفع عند الاستلام:",
       "codWarningThresholdLabel": "تحذير ثريسولد:",
-      "codAutoSettlementCycleLabel": "Auto Settlement Cycle:",
+      "codAutoSettlementCycleLabel": "دورة التسوية التلقائية:",
       "codAllowOnlinePaymentsLabel": "(ب) السماح بالمدفوعات بالاتصال الحاسوبي المباشر عندما تغلق وحدة الذخائر العنقودية:",
       "codLimitDisabledValue": "المعاقون (الوحدة المحدودة للدفاع عن النفس)",
       "notApplicable": "N/A",
@@ -7041,7 +7177,7 @@
       "failedToFetchDeliveredOrders": "فشل في جلب الأوامر",
       "orderIdLabel": "رمز الهوية",
       "customerLabel": "زبون",
-      "storeLabel": "Store",
+      "storeLabel": "المتجر",
       "orderAmountLabel": "المبلغ المطلوب",
       "deliveryFeeLabel": "رسوم التسليم",
       "riderTipLabel": "بقشيش",
@@ -7052,15 +7188,15 @@
       "allDriversTab": "جميع السائقين",
       "pendingTab": "تنتهي",
       "approvedTab": "الوظائف المعتمدة",
-      "rejectedTab": "Rejected",
+      "rejectedTab": "مرفوض",
       "blockedTab": "مقفلة",
       "loading": "التعبئة...",
-      "viewProfile": "View Profile",
-      "editDriver": "Edit Driver",
+      "viewProfile": "عرض الملف الشخصي",
+      "editDriver": "تعديل السائق",
       "approveAction": "الموافقة",
-      "rejectAction": "Reject",
-      "blockAction": "Block",
-      "unblockAction": "Unblock",
+      "rejectAction": "رفض",
+      "blockAction": "حظر",
+      "unblockAction": "إلغاء الحظر",
       "deleteAction": "تحذف",
       "deleteRiderDialogTitle": "يحذف الرعد",
       "deleteRiderDialogSubtitle": "يحذف الرعد",
@@ -7072,15 +7208,15 @@
       "approveRiderDialogDescription": "هل أنت متأكد أنك تريد الموافقة {riderName}?",
       "approveRiderConfirmButton": "الموافقة",
       "riderApprovedSuccess": "تمت الموافقة عليه بنجاح",
-      "blockRiderDialogTitle": "Block Rider",
-      "blockRiderDialogSubtitle": "Block Rider",
+      "blockRiderDialogTitle": "حظر المندوب",
+      "blockRiderDialogSubtitle": "حظر المندوب",
       "blockRiderDialogDescription": "هل أنت متأكد أنك تريد أن تحجب {riderName}? ",
-      "blockRiderConfirmButton": "Block",
+      "blockRiderConfirmButton": "حظر",
       "riderBlockedSuccess": "(ريدر) حجب بنجاح",
       "unblockRiderDialogTitle": "مقبض مفتوح",
       "unblockRiderDialogSubtitle": "مقبض مفتوح",
       "unblockRiderDialogDescription": "هل أنت متأكد أنك تريد فتح الباب {riderName}?",
-      "unblockRiderConfirmButton": "Unblock",
+      "unblockRiderConfirmButton": "إلغاء الحظر",
       "riderUnblockedSuccess": "تم إطلاق النار بنجاح"
     }
   },
@@ -7133,7 +7269,7 @@
     "customerInformation": {
       "customerId": "هوية العملاء",
       "customerName": "اسم العملاء",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "contactNumber": "رقم الاتصال",
       "rating": "التقييم",
       "chatWithCustomer": "تحد مع العملاء"
@@ -7144,7 +7280,7 @@
     "driverInformation": {
       "driverId": "هوية السائق",
       "driverName": "اسم السائق",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "contactNumber": "رقم الاتصال",
       "rating": "التقييم",
       "chatWithDriver": "تحد مع السائق"
@@ -7198,9 +7334,9 @@
       "ratePerKm": "المعدل/كم",
       "ratePerMin": "المعدل/المعدل",
       "hourlyRate": "هوurlالنسبة",
-      "waitingChargePerMin": "Waiting Charge/min",
+      "waitingChargePerMin": "رسوم الانتظار/دقيقة",
       "basePickupFee": "قاعدة بيكب في",
-      "minFare": "Min Fare",
+      "minFare": "الحد الأدنى للأجرة",
       "nightSurgePercentage": "الباحث الليلي (%)",
       "status": "الحالة",
       "actions": "الإجراءات",
@@ -7227,7 +7363,7 @@
       "vehicleTypeAddedSuccessfully": "نوع المركبات المضافة بنجاح",
       "pleaseUploadVehicleIcon": "من فضلك تحميل أيكون سيارة",
       "vehicleTypeNameLabel": "اسم المركبات",
-      "vehicleTypeNamePlaceholder": "e.g., Sedan, SUV, Luxury",
+      "vehicleTypeNamePlaceholder": "مثال: سيدان، دفع رباعي، فاخرة",
       "descriptionLabel": "الوصف",
       "descriptionPlaceholder": "وصف نوع المركبة",
       "seatCountLabel": "Seat count",
@@ -7238,7 +7374,7 @@
       "ratePerMinPlaceholder": "0.00",
       "hourlyRateLabel": "هوurlالنسبة",
       "hourlyRatePlaceholder": "0.00",
-      "waitingChargePerMinLabel": "Waiting Charge per Min",
+      "waitingChargePerMinLabel": "رسوم الانتظار لكل دقيقة",
       "waitingChargePerMinPlaceholder": "0.00",
       "nightSurgePercentageLabel": "النسبة المئوية",
       "nightSurgePercentagePlaceholder": "0",
@@ -7249,7 +7385,7 @@
     "editVehicleForm": {
       "vehicleTypeUpdatedSuccessfully": "تحديث نوع المركبات بنجاح",
       "vehicleTypeNameLabel": "اسم المركبات",
-      "vehicleTypeNamePlaceholder": "e.g., Sedan, SUV, Luxury",
+      "vehicleTypeNamePlaceholder": "مثال: سيدان، دفع رباعي، فاخرة",
       "descriptionLabel": "الوصف",
       "descriptionPlaceholder": "وصف نوع المركبة",
       "seatCountLabel": "Seat count",
@@ -7260,11 +7396,11 @@
       "ratePerMinPlaceholder": "0.00",
       "hourlyRateLabel": "هوurlالنسبة",
       "hourlyRatePlaceholder": "0.00",
-      "waitingChargePerMinLabel": "Waiting Charge per Min",
+      "waitingChargePerMinLabel": "رسوم الانتظار لكل دقيقة",
       "waitingChargePerMinPlaceholder": "0.00",
       "basePickupFeeLabel": "قاعدة بيكب في",
       "basePickupFeePlaceholder": "0.00",
-      "minFareLabel": "Min Fare",
+      "minFareLabel": "الحد الأدنى للأجرة",
       "minFarePlaceholder": "0.00",
       "nightSurgePercentageLabel": "النسبة المئوية",
       "nightSurgePercentagePlaceholder": "0",
@@ -7317,7 +7453,7 @@
       "statusPlaceholder": "عرض حسب الحالة"
     },
     "table": {
-      "icon": "Icon",
+      "icon": "أيقونة",
       "name": "الاسم",
       "description": "الوصف",
       "status": "الحالة",
@@ -7328,7 +7464,7 @@
       "notAvailable": "N/A"
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     },
     "dialogs": {
@@ -7349,7 +7485,7 @@
       "fields": {
         "nameLabel": "الاسم",
         "namePlaceholder": "اسم نوع الخدمة",
-        "iconLabel": "Icon Upload",
+        "iconLabel": "رفع الأيقونة",
         "iconHelperText": "صورة المتجر",
         "descriptionLabel": "الوصف",
         "descriptionPlaceholder": "وصف الدخول",
@@ -7369,7 +7505,7 @@
       "fields": {
         "nameLabel": "الاسم",
         "namePlaceholder": "اسم نوع الخدمة",
-        "iconLabel": "Icon Upload",
+        "iconLabel": "رفع الأيقونة",
         "iconHelperText": "صورة المتجر",
         "descriptionLabel": "الوصف",
         "descriptionPlaceholder": "وصف الدخول",
@@ -7411,11 +7547,11 @@
       "scheduled": "الجدول الزمني",
       "pickedUp": "التقطت",
       "arrived": "وصلت",
-      "rejected": "Rejected"
+      "rejected": "مرفوض"
     },
     "paymentMethods": {
       "cash": "النقدية",
-      "card": "Card",
+      "card": "بطاقة",
       "wallet": "الجدار",
       "paypal": "PayPal"
     },
@@ -7459,7 +7595,7 @@
           "orderType": "النوع",
           "product": "المنتجات",
           "orderStatus": "الوضع",
-          "store": "Store",
+          "store": "المتجر",
           "vendor": "البائع",
           "zoneCity": "المنطقة/المدينة",
           "paymentMethod": "طريقة الدفع"
@@ -7469,7 +7605,7 @@
           "product": "المنتجات المختارة",
           "orderStatus": "الوضع الوظيفي",
           "store": "Sect Store",
-          "vendor": "Select Vendor",
+          "vendor": "اختر البائع",
           "zoneCity": "المنطقة المختارة/المدينة",
           "paymentMethod": "طريقة الدفع المختارة"
         },
@@ -7495,14 +7631,14 @@
           "outForDelivery": "خارج للتسليم",
           "arrived": "وصلت",
           "delivered": "المبلغ",
-          "rejected": "Rejected",
+          "rejected": "مرفوض",
           "failed": "فشل",
           "completed": "مكتملة",
           "cancelled": "ألغيت"
         },
         "paymentMethodOptions": {
           "cash": "النقدية",
-          "card": "Card",
+          "card": "بطاقة",
           "wallet": "الجدار",
           "paypal": "PayPal"
         }
@@ -7513,7 +7649,7 @@
       "customerName": "اسم العملاء",
       "orderType": "النوع",
       "vendor": "البائع",
-      "store": "Store",
+      "store": "المتجر",
       "product": "المنتجات",
       "amount": "المبلغ",
       "zone": "المنطقة",
@@ -7523,7 +7659,7 @@
       "delete": "تحذف",
       "status": "الحالة",
       "dateTime": "التاريخ",
-      "riders": "Riders",
+      "riders": "المندوبون",
       "assignRider": "مركبة مصفحة",
       "actions": "الإجراءات",
       "liveTracking": "المسار الحي",
@@ -7573,8 +7709,8 @@
         "fallbackStatus": "الحالة",
         "actors": {
           "customer": "زبون",
-          "store": "Store",
-          "admin": "Admin",
+          "store": "المتجر",
+          "admin": "المسؤول",
           "rider": "ريدر"
         },
         "steps": {
@@ -7626,11 +7762,11 @@
         "headers": {
           "itemServiceName": "البند/الطلب",
           "price": "السعر",
-          "addon": "Add-on",
+          "addon": "إضافة",
           "finalPrice": "السعر النهائي"
         },
-        "quantityLabel": "Qty:",
-        "viewButton": "View",
+        "quantityLabel": "الكمية:",
+        "viewButton": "عرض",
         "noItems": "لا توجد بنود متاحة.",
         "totalAmount": "المجموع"
       },
@@ -7643,24 +7779,24 @@
         "headers": {
           "service": "الخدمات",
           "price": "السعر",
-          "addon": "Add-on",
+          "addon": "إضافة",
           "notes": "الحواشي"
         },
         "durationLabel": "المدة:"
       },
       "homeVisit": {
-        "title": "Home-Visit",
+        "title": "زيارة منزلية",
         "headers": {
           "service": "الخدمات",
           "baseFee": "قاعدة Fee",
-          "addon": "Add-on",
+          "addon": "إضافة",
           "notes": "الحواشي"
         },
         "durationLabel": "المدة:"
       },
       "riderInformation": {
         "title": "المعلومات الريادية",
-        "noRiderAssigned": "No Rider Assigned",
+        "noRiderAssigned": "لم يتم تعيين مندوب",
         "assignRider": "مركبة مصفحة",
         "vehicleLabel": "مركبة:",
         "phoneNumberLabel": "رقم الهاتف:",
@@ -7671,11 +7807,11 @@
         "title": "مركبة مصفحة",
         "description": "نختار طريقة عمل الراكب ونعين راكب لهذا الأمر",
         "tabs": {
-          "auto": "Auto Assign",
+          "auto": "تعيين تلقائي",
           "manual": "التوجيه اليدوي"
         },
         "auto": {
-          "title": "Auto-Assign Nearest Available Rider",
+          "title": "تعيين أقرب مندوب متاح تلقائيًا",
           "description": "وسيخصص النظام تلقائياً أفضل راكب على أساس المسافة والتوافر والتصنيف.",
           "criteriaTitle": "معايير الإحالة:",
           "button": "أوتوماتيكية"
@@ -7687,7 +7823,7 @@
           "correctVehicleType": "نوع السيارة الصحيح"
         },
         "status": {
-          "available": "Available",
+          "available": "متاح",
           "busy": "مشغولة"
         },
         "loadingRiders": "رعاة التعبئة...",
@@ -7695,13 +7831,13 @@
         "assigning": "تعيين...",
         "successAssigned": "تم تعيين ريدر بنجاح",
         "successAutoAssigned": "تم تعيين ريدر آلي بنجاح",
-        "assignButton": "Assign",
+        "assignButton": "تعيين",
         "reviewSingular": "الاستعراض",
         "reviewPlural": "الاستعراضات"
       },
       "customerInformation": {
         "title": "معلومات العملاء",
-        "emailLabel": "Email:",
+        "emailLabel": "البريد الإلكتروني:",
         "phoneNumberLabel": "رقم الهاتف:",
         "pastOrdersLabel": "الأوامر السابقة:",
         "totalSpendingLabel": "مجموع الإنفاق:",
@@ -7716,6 +7852,7 @@
         "taxesLabel": "الضرائب:",
         "discountsLabel": "الحسابات:",
         "deliveryFeeLabel": "رسوم التسليم:",
+        "packingChargesLabel": "رسوم التغليف:",
         "riderTipLabel": "ريدر تيب:",
         "riderDeliverySplitTitle": "قسم رسوم التنفيذ",
         "riderDeliveryEarningLabel": "التسليم بالسلاح",
@@ -7726,19 +7863,26 @@
         "commissionBreakdownTitle": "اللجنة",
         "commissionBreakdownHint": "تُخصم اللجنة من حصائل المخزن، ولا تُضاف إلى مجموع الزبائن.",
         "commissionNetLabel": "SIPP اللجنة",
-        "vatOnCommissionLabel": "VAT on commission",
+        "vatOnCommissionLabel": "ضريبة القيمة المضافة على العمولة",
         "vatOnCommissionNotChargedLabel": "VAT عضو في اللجنة (غير مكلف)",
         "totalCommissionDebitLabel": "مجموع الخصم",
         "sippAbsorbedVatLabel": "VAT المشمولة SIPP",
         "storeEarningsLabel": "المخزن:",
-        "notAvailable": "---"
+        "notAvailable": "---",
+        "couponTitle": "قسيمة",
+        "couponBorneByAdmin": "يتحملها المسؤول",
+        "couponBorneByStore": "يتحملها المتجر",
+        "couponDiscountLabel": "خصم القسيمة",
+        "commissionBeforeCouponLabel": "العمولة قبل القسيمة",
+        "adminCouponFromCommissionLabel": "مغطاة من العمولة",
+        "adminCouponExtraPaidLabel": "مبلغ إضافي دفعه المسؤول للمتجر"
       },
       "productDeliveryInformation": {
         "title": "Information Delivery",
         "pickupLabel": "بيبي:",
         "dropoffLabel": "إسقاط:",
         "distanceLabel": "المسافة:",
-        "etaLabel": "ETA:",
+        "etaLabel": "الوصول المتوقع:",
         "notesLabel": "الحواشي:",
         "notAvailable": "N/A"
       },
@@ -7775,7 +7919,7 @@
   "generalBookingsPages": {
     "bookings": {
       "title": "الكتب",
-      "detailTitle": "Booking Detail",
+      "detailTitle": "تفاصيل الحجز",
       "summaryTitle": "موجز للكتاب",
       "logsTitle": "الحجز",
       "extraServicesItemsTitle": "الخدمات الإضافية/البنود",
@@ -7800,13 +7944,13 @@
     "pages": {
       "list": {
         "title": "البائعون",
-        "addVendor": "Add Vendor"
+        "addVendor": "إضافة بائع"
       },
       "add": {
-        "title": "Add Vendor"
+        "title": "إضافة بائع"
       },
       "edit": {
-        "title": "Edit Vendor"
+        "title": "تعديل البائع"
       },
       "detail": {
         "title": "تفاصيل البائعين"
@@ -7820,7 +7964,7 @@
     },
     "table": {
       "vendorName": "اسم البائع",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "phoneNumber": "رقم الهاتف",
       "registrationDate": "تاريخ التسجيل",
       "zone": "المنطقة",
@@ -7837,13 +7981,13 @@
       "placeholder": "البحث بالاسم، البريد الإلكتروني، الهاتف..."
     },
     "actions": {
-      "view": "View",
-      "edit": "Edit",
+      "view": "عرض",
+      "edit": "تعديل",
       "approve": "الموافقة",
-      "reject": "Reject",
+      "reject": "رفض",
       "delete": "تحذف",
-      "block": "Block",
-      "unblock": "Unblock"
+      "block": "حظر",
+      "unblock": "إلغاء الحظر"
     },
     "dialogs": {
       "delete": {
@@ -7854,14 +7998,14 @@
         "success": "البائع حذف بنجاح"
       },
       "approve": {
-        "title": "Approve Vendor",
+        "title": "الموافقة على البائع",
         "subtitle": "الموافقة على{name}\"?",
         "message": "وسيتم إقرار البائع وسيتمكن من الوصول إلى المنبر.",
         "confirm": "الموافقة",
         "success": "تمت الموافقة عليه بنجاح"
       },
       "reject": {
-        "title": "Reject Vendor",
+        "title": "رفض البائع",
         "subtitle": "رفض{name}\"?",
         "description": "يرجى تقديم سبب لرفض هذا البائع. وسيرسل هذا السبب إلى البائع.",
         "reasonLabel": "رفض",
@@ -7870,28 +8014,28 @@
         "success": "رفض البائع بنجاح"
       },
       "block": {
-        "title": "Block Vendor",
+        "title": "حظر البائع",
         "subtitle": "قفل{name}\"?",
         "message": "وسيُمنع البائع ويفقد إمكانية الوصول إلى المنبر.",
-        "confirm": "Block",
+        "confirm": "حظر",
         "success": "قام البائع بإغلاقه بنجاح"
       },
       "unblock": {
-        "title": "Unblock Vendor",
+        "title": "إلغاء حظر البائع",
         "subtitle": "افتح الباب{name}\"?",
         "message": "وسيفتح البائع ويستعيد إمكانية الوصول إلى المنبر.",
-        "confirm": "Unblock",
+        "confirm": "إلغاء الحظر",
         "success": "فُتح البائع بنجاح"
       },
       "detail": {
         "title": "تفاصيل البائعين",
         "rejectionReason": "رفض",
-        "rejected": "Rejected",
+        "rejected": "مرفوض",
         "copy": "نسخ",
         "copyReason": "سبب الوفاة",
-        "approveVendor": "Approve Vendor",
-        "rejectVendor": "Reject Vendor",
-        "unblockVendor": "Unblock Vendor",
+        "approveVendor": "الموافقة على البائع",
+        "rejectVendor": "رفض البائع",
+        "unblockVendor": "إلغاء حظر البائع",
         "approvedSuccess": "تمت الموافقة عليه بنجاح",
         "unblockedSuccess": "فُتح البائع بنجاح",
         "rejectedSuccess": "رفض البائع بنجاح"
@@ -7901,8 +8045,8 @@
       "documentCardFront": "الجبهة",
       "documentCardBack": "العودة",
       "sections": {
-        "phone": "Phone",
-        "email": "Email",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
         "bankDetails": "التفاصيل المصرفية",
         "bankName": "الاسم المصرفي",
         "branchCode": "قانون الفرع",
@@ -7919,8 +8063,8 @@
         "title": "المعلومات الأساسية",
         "description": "تحديث التفاصيل الأساسية للبائع أدناه.",
         "vendorName": "اسم البائع",
-        "email": "Email",
-        "phone": "Phone",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
         "zone": "المنطقة/المدينة",
         "password": "كلمة السر",
         "vendorNamePlaceholder": "الاسم الكامل",
@@ -7946,16 +8090,16 @@
         "step2Desc": "الوثائق المطلوبة"
       },
       "fields": {
-        "autoGeneratePassword": "Auto-generate Password",
+        "autoGeneratePassword": "إنشاء كلمة مرور تلقائيًا",
         "sendCredentials": "إرسال وثائق تفويض لوجين عن طريق البريد الإلكتروني",
         "allowPasswordChange": "السماح للمورد بتغيير كلمة السر"
       },
       "buttons": {
         "next": "التالي",
         "back": "العودة",
-        "submit": "Submit",
+        "submit": "إرسال",
         "cancel": "إلغاء",
-        "update": "Update Vendor"
+        "update": "تحديث البائع"
       },
       "errors": {
         "fillStep1First": "يرجى ملء الخطوة الأولى",
@@ -7970,7 +8114,7 @@
     },
     "download": {
       "vendorName": "اسم البائع",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "phoneNumber": "رقم الهاتف",
       "registrationDate": "تاريخ التسجيل",
       "zone": "المنطقة",
@@ -8002,7 +8146,7 @@
       "pending": "تنتهي",
       "approved": "الوظائف المعتمدة",
       "blocked": "مقفلة",
-      "rejected": "Rejected"
+      "rejected": "مرفوض"
     },
     "table": {
       "serviceName": "مركز الخدمات",
@@ -8018,12 +8162,12 @@
       "fileName": "الخدمات - المراكز - التقارير"
     },
     "actions": {
-      "view": "View",
-      "edit": "Edit",
+      "view": "عرض",
+      "edit": "تعديل",
       "approve": "الموافقة",
-      "reject": "Reject",
-      "block": "Block",
-      "unblock": "Unblock",
+      "reject": "رفض",
+      "block": "حظر",
+      "unblock": "إلغاء الحظر",
       "delete": "تحذف"
     },
     "dialogs": {
@@ -8047,16 +8191,16 @@
         "confirm": "رفض"
       },
       "block": {
-        "title": "Block Service Center",
-        "subTitle": "Block {name}?",
+        "title": "حظر مركز الخدمة",
+        "subTitle": "حظر {name}؟",
         "description": "ولن يتمكن المستخدمون من الوصول إلى هذه الخدمة.",
-        "confirm": "Block"
+        "confirm": "حظر"
       },
       "unblock": {
-        "title": "Unblock Service Center",
-        "subTitle": "Unblock {name}?",
+        "title": "إلغاء حظر مركز الخدمة",
+        "subTitle": "إلغاء حظر {name}؟",
         "description": "هذا سيعيد الوصول",
-        "confirm": "Unblock"
+        "confirm": "إلغاء الحظر"
       }
     },
     "form": {
@@ -8065,16 +8209,16 @@
         "description": "أضف تفاصيلك الأساسية",
         "serviceNameLabel": "اسم الخدمة",
         "vendorLabel": "البائع",
-        "phoneLabel": "Phone",
+        "phoneLabel": "الهاتف",
         "logoLabel": "لوجو",
-        "bannerLabel": "Banner",
-        "emailLabel": "Email",
+        "bannerLabel": "لافتة",
+        "emailLabel": "البريد الإلكتروني",
         "passwordLabel": "كلمة السر",
-        "autoGeneratePasswordLabel": "Auto-generate Password",
+        "autoGeneratePasswordLabel": "إنشاء كلمة مرور تلقائيًا",
         "mailLoginCredentialsLabel": "إرسال وثائق تفويض لوجين عن طريق البريد الإلكتروني",
         "changePasswordLabel": "السماح للبائع بتغيير كلمة السر",
         "zoneLabel": "المنطقة",
-        "tagLineLabel": "Tag Line",
+        "tagLineLabel": "الشعار النصي",
         "descriptionLabel": "الوصف",
         "addressLabel": "العنوان",
         "storeNamePlaceholder": "اسم مركز الخدمات",
@@ -8117,13 +8261,13 @@
         "title": "التفاصيل المصرفية",
         "description": "التفاصيل المصرفية للدخول",
         "backButton": "العودة",
-        "submitButton": "Submit"
+        "submitButton": "إرسال"
       },
       "buttons": {
         "cancel": "إلغاء",
         "back": "العودة",
         "saveNext": "أنقذوا التالي",
-        "submit": "Submit",
+        "submit": "إرسال",
         "update": "مركز الخدمات المستكمل"
       },
       "noChangesDetected": "لم تكتشف أي تغييرات",
@@ -8134,20 +8278,20 @@
         "title": "المعلومات الأساسية",
         "serviceNameLabel": "مركز الخدمات",
         "serviceNamePlaceholder": "اسم مركز الخدمات",
-        "emailLabel": "Email",
+        "emailLabel": "البريد الإلكتروني",
         "emailPlaceholder": "البريد الإلكتروني",
         "emailDisabledText": "البريد الإلكتروني لا يمكن تغييره",
-        "phoneLabel": "Phone",
+        "phoneLabel": "الهاتف",
         "phonePlaceholder": "رقم الهاتف",
         "vendorNameLabel": "اسم البائع",
         "vendorNamePlaceholder": "اسم البائعين",
         "vendorDisabledText": "لا يمكن تغيير البائع",
         "logoLabel": "لوجو",
-        "bannerLabel": "Banner",
+        "bannerLabel": "لافتة",
         "zoneLabel": "المنطقة",
         "zonePlaceholder": "المنطقة المختارة",
         "zoneLoadingText": "مناطق الهبوط",
-        "tagLineLabel": "Tag Line",
+        "tagLineLabel": "الشعار النصي",
         "tagLinePlaceholder": "خط بطاقات الدخول",
         "descriptionLabel": "الوصف",
         "descriptionPlaceholder": "وصف الدخول",
@@ -8220,7 +8364,7 @@
       }
     },
     "table": {
-      "icon": "Icon",
+      "icon": "أيقونة",
       "name": "الاسم",
       "description": "الوصف",
       "status": "الحالة",
@@ -8230,7 +8374,7 @@
       "notAvailable": "N/A"
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     },
     "dialogs": {
@@ -8248,7 +8392,7 @@
       "editLabel": "نوع الخدمة",
       "name": "الاسم",
       "namePlaceholder": "اسم نوع الخدمة",
-      "icon": "Icon",
+      "icon": "أيقونة",
       "iconHelper": "تحميل أيقونة لهذا النوع من الخدمات",
       "description": "الوصف",
       "descriptionPlaceholder": "وصف الدخول",
@@ -8285,7 +8429,7 @@
     },
     "tabs": {
       "serviceItems": "بنود الخدمات",
-      "purchaseLogs": "Purchase Logs",
+      "purchaseLogs": "سجلات الشراء",
       "addButton": "بند الخدمات",
       "addButtonAriaLabel": "إضافة بند خدمات"
     },
@@ -8326,7 +8470,7 @@
       "image": "الصورة",
       "category": "الفئة",
       "subcategory": "الفئة الفرعية",
-      "noImageAlt": "No img",
+      "noImageAlt": "لا توجد صورة",
       "genericError": "وقع خطأ",
       "itemName": "البند الاسم",
       "serviceCenter": "مركز الخدمات",
@@ -8340,10 +8484,10 @@
       "notAvailable": "N/A"
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
-      "toggleStock": "Toggle Stock",
-      "toggleStatus": "Toggle Status",
+      "toggleStock": "تبديل المخزون",
+      "toggleStatus": "تبديل الحالة",
       "menuAriaLabel": "قائمة بالإجراءات المفتوحة"
     },
     "dialogs": {
@@ -8412,7 +8556,7 @@
       },
       "paidByOptions": {
         "employee": "الموظفون",
-        "freelancer": "Freelancer",
+        "freelancer": "عامل مستقل",
         "customer": "زبون",
         "unknown": "غير معروف"
       },
@@ -8454,7 +8598,7 @@
         "unpaid": "غير مدفوعة"
       },
       "deleteDialog": {
-        "title": "Delete Purchase Log",
+        "title": "حذف سجل الشراء",
         "subTitle": "هل أنت متأكد أنك تريد حذف سجل الشراء هذا؟",
         "description": "هذا العمل لا يمكن أن يزول.",
         "confirmLabel": "تحذف"
@@ -8472,8 +8616,8 @@
   "fixrightBanners": {
     "pages": {
       "list": {
-        "title": "Banners",
-        "addButton": "Add Banner"
+        "title": "اللافتات",
+        "addButton": "إضافة لافتة"
       }
     },
     "table": {
@@ -8488,9 +8632,9 @@
       "notAvailable": "N/A"
     },
     "form": {
-      "titleLabel": "Add Banner",
-      "editLabel": "Edit Banner",
-      "bannerTitle": "Banner Title",
+      "titleLabel": "إضافة لافتة",
+      "editLabel": "تعديل اللافتة",
+      "bannerTitle": "عنوان اللافتة",
       "bannerTitlePlaceholder": "عنوان إعلانات الدخول هنا",
       "description": "الوصف",
       "descriptionPlaceholder": "وصف اللوحة هنا",
@@ -8501,7 +8645,7 @@
       "bannerImage": "طراز Banner Image",
       "buttons": {
         "cancel": "إلغاء",
-        "submit": "Submit"
+        "submit": "إرسال"
       },
       "toasts": {
         "addSuccess": "البنر أضاف بنجاح",
@@ -8519,7 +8663,7 @@
       }
     },
     "actions": {
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف"
     },
     "dialogs": {
@@ -8532,10 +8676,10 @@
     },
     "sheets": {
       "add": {
-        "title": "Add Banner"
+        "title": "إضافة لافتة"
       },
       "edit": {
-        "title": "Edit Banner"
+        "title": "تعديل اللافتة"
       }
     },
     "actionTypes": {
@@ -8594,7 +8738,7 @@
     "options": {
       "workerType": {
         "employee": "الموظفون",
-        "freelancer": "Freelancer"
+        "freelancer": "عامل مستقل"
       }
     },
     "statusOptions": {
@@ -8603,18 +8747,18 @@
       "confirmed": "تم تأكيدها",
       "worker_assigned": "العامل المعين",
       "on_my_way": "في طريقي",
-      "reached": "Reached",
+      "reached": "تم الوصول",
       "service_started": "الخدمة التي بدأت",
       "in_progress": "التقدم المحرز",
       "marked_complete": "تم إنجازه",
       "payment_requested": "المدفوعات المطلوبة",
       "completed": "مكتملة",
       "cancelled": "ألغيت",
-      "rejected": "Rejected",
+      "rejected": "مرفوض",
       "failed": "فشل"
     },
     "actions": {
-      "view": "View",
+      "view": "عرض",
       "delete": "تحذف",
       "assignWorker": "عامل مكلف"
     },
@@ -8632,7 +8776,7 @@
         "placeholder": "الفئة المختارة",
         "options": {
           "plumbing": "اللغم",
-          "acRepair": "AC Repair",
+          "acRepair": "إصلاح المكيفات",
           "electrical": "الكهرباء",
           "carpentry": "النجارة",
           "painting": "الطلاء"
@@ -8652,7 +8796,7 @@
         "placeholder": "نوع العامل المختار",
         "options": {
           "employee": "الموظفون",
-          "freelancer": "Freelancer"
+          "freelancer": "عامل مستقل"
         }
       },
       "status": {
@@ -8690,7 +8834,7 @@
         "title": "عامل مكلف",
         "selectWorkerLabel": "عامل مختار",
         "selectWorkerPlaceholder": "اختيار العامل",
-        "confirmButton": "Assign",
+        "confirmButton": "تعيين",
         "success": "عامل تم تعيينه بنجاح",
         "error": "عدم تعيين عامل"
       }
@@ -8713,7 +8857,7 @@
       "services": {
         "title": "الخدمات",
         "serviceName": "اسم الخدمة",
-        "quantity": "Qty",
+        "quantity": "الكمية",
         "price": "السعر",
         "finalPrice": "السعر النهائي",
         "noServicesFound": "لا توجد خدمات",
@@ -8724,7 +8868,7 @@
       "customer": {
         "title": "معلومات العملاء",
         "reviews": "الاستعراضات",
-        "email": "Email",
+        "email": "البريد الإلكتروني",
         "phoneNumber": "رقم الهاتف",
         "pastBookings": "كتابات الماضي",
         "totalSpending": "مجموع النفقات"
@@ -8745,7 +8889,7 @@
       },
       "worker": {
         "title": "معلومات العمال",
-        "noWorkerAssigned": "No Worker Assigned",
+        "noWorkerAssigned": "لم يتم تعيين عامل",
         "assignWorker": "عامل مكلف",
         "reviews": "الاستعراضات",
         "role": "الدور",
@@ -8843,7 +8987,7 @@
         },
         "jobLogs": {
           "title": "أماكن العمل",
-          "timestamp": "Timestamp",
+          "timestamp": "الطابع الزمني",
           "by": "من قبل",
           "date": "التاريخ",
           "ipDevice": "IP/ Device",
@@ -8857,8 +9001,8 @@
         "customerInfo": {
           "title": "معلومات العملاء",
           "name": "الاسم",
-          "phone": "Phone",
-          "email": "Email",
+          "phone": "الهاتف",
+          "email": "البريد الإلكتروني",
           "address": "العنوان",
           "notAvailable": "N/A"
         },
@@ -8872,16 +9016,16 @@
           "deliveryDate": "تاريخ التسليم",
           "deliveryTime": "وقت التنفيذ",
           "distance": "المسافة",
-          "eta": "ETA",
+          "eta": "الوقت المتوقع للوصول",
           "notes": "الحواشي",
           "notAvailable": "N/A"
         },
         "workerInfo": {
           "title": "معلومات العمال",
           "name": "الاسم",
-          "phone": "Phone",
-          "email": "Email",
-          "earning": "Earning",
+          "phone": "الهاتف",
+          "email": "البريد الإلكتروني",
+          "earning": "الأرباح",
           "notAvailable": "N/A"
         },
         "paymentInfo": {
@@ -8914,7 +9058,7 @@
       "loadingWorkers": "عمال التعبئة...",
       "noWorkers": "لا يوجد عمال",
       "loadWorkersFailed": "فشل في تحميل عمال التعقب الحي.",
-      "mapView": "Map View",
+      "mapView": "عرض الخريطة",
       "viewJobDetails": "معلومات عن الوظائف",
       "statusFilterAll": "جميع العمال{count})",
       "statusFilterActive": "ناشط{count})",
@@ -8922,7 +9066,7 @@
       "statusFilterOffline": "(هـ){count})",
       "statusActive": "النشاط",
       "statusBusy": "مشغولة",
-      "statusOffline": "Offline",
+      "statusOffline": "غير متصل",
       "reviewsCount": "({count, plural, one {# مراجعة} other {# مراجعات}})",
       "notAvailable": "غير متاحة",
       "missingApiKeyMessage": "ضع النص الانكليزيGOOGLEAPIلتحميل التتبع الحي",
@@ -8935,8 +9079,8 @@
         "description": "راجع آخر معلومات التتبع الخاصة بالعامل المختار",
         "workerInfoTitle": "معلومات العمال",
         "workerName": "اسم العمال",
-        "phone": "Phone",
-        "email": "Email",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
         "profession": "المهنة",
         "secondaryProfession": "المهنة الثانوية",
         "employmentType": "نوع العمل",
@@ -8944,7 +9088,7 @@
         "rating": "التقييم",
         "ratingValue": "{rating} ({count} الاستعراضات",
         "accountStatus": "الحساب",
-        "kycStatus": "KYC Status",
+        "kycStatus": "حالة التحقق من الهوية",
         "serviceCenter": "مركز الخدمات",
         "vendor": "البائع",
         "activeJobTitle": "العمل النشط(ب)",
@@ -8968,7 +9112,7 @@
         "error": "عدم إضافة عامل"
       },
       "edit": {
-        "title": "Edit Worker",
+        "title": "تعديل العامل",
         "success": "استكمال العمل بنجاح",
         "error": "عدم استكمال العمل",
         "noChanges": "لم تكتشف أي تغييرات"
@@ -8985,7 +9129,7 @@
         "tabLabel": "الموظفون الدائمون",
         "addButton": "يضاف عامل",
         "addPageTitle": "يضاف عامل",
-        "editPageTitle": "Edit Worker",
+        "editPageTitle": "تعديل العامل",
         "profileTitle": "موجز الموظفين الدائمين",
         "exportFileName": "الزملاء المصلحون",
         "tableValueHeader": "المرتبات",
@@ -8994,11 +9138,11 @@
         "profileHoursLabel": "الحد الأدنى من ساعات العمل"
       },
       "freelancer": {
-        "label": "Freelancers",
-        "tabLabel": "Freelancers",
+        "label": "العمال المستقلون",
+        "tabLabel": "العمال المستقلون",
         "addButton": "يضاف Freelancer",
         "addPageTitle": "يضاف Freelancer",
-        "editPageTitle": "Edit Freelancer",
+        "editPageTitle": "تعديل العامل المستقل",
         "profileTitle": "موجز بيانات العاملين",
         "exportFileName": "خالي من الحقائب",
         "tableValueHeader": "اللجنة",
@@ -9011,7 +9155,7 @@
       "all": "كل شيء",
       "approved": "الوظائف المعتمدة",
       "pending": "تنتهي",
-      "rejected": "Rejected"
+      "rejected": "مرفوض"
     },
     "stepper": {
       "step1": {
@@ -9046,7 +9190,7 @@
         "description": "أضف التفاصيل الأساسية لهذا العامل",
         "fullName": "الاسم الكامل",
         "fullNamePlaceholder": "الاسم الكامل",
-        "email": "Email",
+        "email": "البريد الإلكتروني",
         "emailPlaceholder": "worker@example.com",
         "phoneNumber": "رقم الهاتف",
         "phonePlaceholder": "+923001234567",
@@ -9102,7 +9246,7 @@
       "buttons": {
         "saveNext": "أنقذوا التالي",
         "previous": "سابقا",
-        "submit": "Submit",
+        "submit": "إرسال",
         "cancel": "إلغاء"
       }
     },
@@ -9112,18 +9256,18 @@
       "zone": "المنطقة",
       "salary": "المرتبات",
       "commission": "اللجنة",
-      "assignedBy": "Assigned By",
+      "assignedBy": "عُيّن بواسطة",
       "status": "الحالة",
       "minWorkingHours": "ساعات عمل",
       "availability": "التوافر",
       "kyc": "KYC",
       "actions": "الإجراءات",
       "action": "الإجراء",
-      "view": "View",
-      "edit": "Edit",
+      "view": "عرض",
+      "edit": "تعديل",
       "delete": "تحذف",
       "approve": "الموافقة",
-      "reject": "Reject",
+      "reject": "رفض",
       "noData": "لا يوجد عمال",
       "fetchError": "فشل في جلب العمال",
       "loading": "التعبئة...",
@@ -9158,13 +9302,13 @@
         "title": "عامل القفل",
         "subTitle": "هل أنت متأكد أنك تريد أن تحجب {workerName}?",
         "description": "هذا سيغير وضع المستخدم النشط",
-        "confirmLabel": "Block"
+        "confirmLabel": "حظر"
       },
       "unblock": {
         "title": "عامل مفتوح",
         "subTitle": "هل أنت متأكد أنك تريد فتح الباب {workerName}?",
         "description": "هذا سيعيد وضع المستخدم النشط",
-        "confirmLabel": "Unblock"
+        "confirmLabel": "إلغاء الحظر"
       },
       "updateProfile": {
         "title": "آخر موجز",
@@ -9182,7 +9326,7 @@
     "profile": {
       "id": "الهوية",
       "name": "الاسم",
-      "email": "Email",
+      "email": "البريد الإلكتروني",
       "workerType": "نوع العامل",
       "employmentType": "نوع العمل",
       "secondarySkills": "المهارات الثانوية",
@@ -9195,7 +9339,7 @@
       "experienceLevel": "الخبرة",
       "lastLogin": "آخر لوجين",
       "employee": "الموظفون",
-      "freelancer": "Freelancer",
+      "freelancer": "عامل مستقل",
       "active": "النشاط",
       "blocked": "مقفلة",
       "pending": "تنتهي",
@@ -9209,7 +9353,7 @@
       "status": "الحالة",
       "size": "الحجم",
       "actions": "الإجراءات",
-      "view": "View",
+      "view": "عرض",
       "download": "تحميل",
       "delete": "تحذف",
       "nationalIdCard": "بطاقة الهوية الوطنية",
@@ -9224,7 +9368,7 @@
       "blocked": "مقفلة",
       "pending": "تنتهي",
       "approved": "الوظائف المعتمدة",
-      "rejected": "Rejected",
+      "rejected": "مرفوض",
       "accountActive": "النشاط",
       "accountBlocked": "مقفلة",
       "accountPending": "تنتهي"
@@ -9232,17 +9376,17 @@
     "options": {
       "employmentType": {
         "employee": "الموظفون",
-        "freelancer": "Freelancer"
+        "freelancer": "عامل مستقل"
       },
       "experienceLevel": {
         "experienced": "الخبرة المكتسبة",
         "intermediate": "الوسيط",
-        "beginner": "Beginner"
+        "beginner": "مبتدئ"
       },
       "assignedBy": {
-        "store": "Store",
+        "store": "المتجر",
         "vendor": "البائع",
-        "admin": "Admin",
+        "admin": "المسؤول",
         "none": "لا شيء"
       }
     },
@@ -9279,25 +9423,25 @@
   "fixrightCoupons": {
     "pages": {
       "list": {
-        "title": "Coupons"
+        "title": "القسائم"
       },
       "add": {
-        "title": "Add Coupon"
+        "title": "إضافة قسيمة"
       },
       "edit": {
-        "title": "Edit Coupon"
+        "title": "تعديل القسيمة"
       }
     },
-    "addButton": "Add Coupon",
+    "addButton": "إضافة قسيمة",
     "table": {
       "discountCode": "الرمز",
       "discountType": "الرمز",
       "value": "القيمة",
       "usageLimit": "الحد الأقصى",
       "usageTotal": "المجموع",
-      "usagePerUser": "Per User",
+      "usagePerUser": "لكل مستخدم",
       "validityFrom": "Valid from",
-      "validityTo": "Valid To",
+      "validityTo": "صالح حتى",
       "appliedTo": "Applied",
       "serviceCenters": "مراكز الخدمات",
       "status": "الحالة",
@@ -9325,7 +9469,7 @@
         "title": "المعلومات الأساسية",
         "description": "اسم الكوبونات و الرمز و الوصف",
         "couponNameLabel": "اسم كوبون",
-        "couponNamePlaceholder": "Enter coupon name",
+        "couponNamePlaceholder": "أدخل اسم القسيمة",
         "couponCodeLabel": "قانون الأزواج",
         "couponCodePlaceholder": "رمز الكوبونات",
         "couponDescriptionLabel": "الوصف",
@@ -9334,7 +9478,7 @@
         "saveNextButton": "أنقذوا التالي"
       },
       "step2": {
-        "title": "Discount Settings",
+        "title": "إعدادات الخصم",
         "description": "تحديد نوع الخصم والقيمة والحدود",
         "discountType": "الرمز",
         "discountTypePlaceholder": "نوع الخصم المختارة",
@@ -9377,10 +9521,10 @@
         "deliveryTypesPlaceholder": "أنواع التسليم المختارة",
         "forNewUsers": "للمستعملين الجدد فقط",
         "forPremiumShops": "لـ (بريميوم شوبس) فقط",
-        "premiumShop": "Premium Shop",
+        "premiumShop": "متجر مميز",
         "premiumShopPlaceholder": "محل أقساط مختارة",
         "backButton": "العودة",
-        "submitButton": "Submit"
+        "submitButton": "إرسال"
       }
     },
     "editCoupon": {
@@ -9389,7 +9533,7 @@
         "description": "إيديت كوميون التفاصيل الأساسية"
       },
       "discountSetting": {
-        "title": "Discount Settings",
+        "title": "إعدادات الخصم",
         "description": "قيمة الخصم والحدود"
       },
       "appliedTo": {
@@ -9407,7 +9551,7 @@
         "description": "القيود المفروضة على دفع الإقرارات والتسليم"
       },
       "buttons": {
-        "update": "Update Coupon",
+        "update": "تحديث القسيمة",
         "cancel": "إلغاء"
       },
       "messages": {
@@ -9466,14 +9610,14 @@
       "exampleLine1": "{points} النقاط = {currency} {reward}",
       "exampleLine2": "{points} النقاط = {currency} {reward}",
       "cancelButton": "إلغاء",
-      "saveButton": "Save Changes",
+      "saveButton": "حفظ التغييرات",
       "savingButton": "إنقاذ...",
       "successMessage": "تحديث معدل التحويل بنجاح"
     },
     "referPointConversion": {
       "title": "نقاط الإحالة",
       "description": "تحديد عدد نقاط المكافأة الممنوحة لكل إحالة ناجحة.",
-      "editButton": "Edit",
+      "editButton": "تعديل",
       "currentRate": "المعدل الحالي",
       "onePerson": "1 شخص",
       "points": "النقاط",
@@ -9486,7 +9630,7 @@
         "pointsAwardedPlaceholder": "نقاط الدخول",
         "pointsAwardedHelper": "عدد النقاط الممنوحة لكل إحالة ناجحة.",
         "cancelButton": "إلغاء",
-        "saveButton": "Save Changes"
+        "saveButton": "حفظ التغييرات"
       }
     },
     "referralRules": {
@@ -9494,15 +9638,15 @@
       "description": "رصد نمو الولاء وتوزيع المكافآت على جميع مستويات العملاء",
       "createButton": "إنشاء قاعدة",
       "points": "النقاط",
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
       "deleteSuccessMessage": "حذفت قاعدة الإحالة بنجاح.",
-      "noRules": "No referral rules found",
+      "noRules": "لا توجد قواعد إحالة",
       "errorLoading": "قواعد الإحالة",
       "triggerEvents": {
         "onSignup": "عند التوقيع",
         "onFirstRide": "على الرصيف الأول",
-        "onFirstOrder": "On First Order"
+        "onFirstOrder": "على الطلب الأول"
       },
       "createSheet": {
         "title": "إنشاء قاعدة الإحالة",
@@ -9544,14 +9688,14 @@
       "noData": "لا توجد بيانات مفصلة",
       "errorLoading": "فشل في تعطل نقاط الشحن",
       "table": {
-        "spendingRange": "Spending Range",
+        "spendingRange": "نطاق الإنفاق",
         "percentage": "النسبة المئوية (نسبة مئوية)",
         "points": "النقاط",
         "pointsWorth": "النقاط Worth",
         "tier": "النمور",
         "rideCount": "العد التنازلي",
         "actions": "الإجراءات",
-        "edit": "Edit",
+        "edit": "تعديل",
         "delete": "تحذف",
         "noData": "لا توجد بيانات",
         "noDataTitle": "لم يتم العثور على بيانات مفصلة",
@@ -9563,21 +9707,21 @@
         "description": "إضافة بند جديد"
       },
       "editSheet": {
-        "title": "Edit Breakdown",
+        "title": "تعديل التفصيل",
         "description": "تعديل المدخل"
       },
       "form": {
         "rangeFromLabel": "رانج من",
         "rangeFromPlaceholder": "مثلا، صفر",
-        "rangeToLabel": "Range To",
+        "rangeToLabel": "النطاق إلى",
         "rangeToPlaceholder": "مثلا، 10",
         "tierLabel": "النمور",
         "tierPlaceholder": "إختارْ a tier",
         "tiers": {
-          "bronze": "Bronze",
+          "bronze": "برونزي",
           "silver": "الفضة",
           "gold": "الذهب",
-          "platinum": "Platinum"
+          "platinum": "بلاتيني"
         },
         "rideCountLabel": "العد التنازلي",
         "rideCountPlaceholder": "مثلا، 10",
@@ -9589,7 +9733,7 @@
         "pointsWorthPlaceholder": "على سبيل المثال، 5.00",
         "cancelButton": "إلغاء",
         "addButton": "إضافة",
-        "updateButton": "Update Breakdown"
+        "updateButton": "تحديث التفصيل"
       },
       "deleteDialog": {
         "title": "تحذف",
@@ -9623,7 +9767,7 @@
         "totalPoints": "مجموع النقاط",
         "type": "النوع",
         "lastPurchase": "آخر شراء",
-        "noData": "No history data available",
+        "noData": "لا يوجد سجل متاح",
         "noDataSubtitle": "حاول أن تعدّل المرشّحات النشطة لترى المزيد من النشاط",
         "types": {
           "referral": "الإحالة",
@@ -9671,7 +9815,7 @@
       "exampleLine1": "{points} النقاط = {currency} {reward}",
       "exampleLine2": "{points} النقاط = {currency} {reward}",
       "cancelButton": "إلغاء",
-      "saveButton": "Save Changes",
+      "saveButton": "حفظ التغييرات",
       "savingButton": "إنقاذ...",
       "successMessage": "تحديث معدل التحويل بنجاح"
     },
@@ -9680,14 +9824,14 @@
       "description": "إجراء تعديلات على مراكز إحالة العملاء والراكبين",
       "createButton": "إنشاء قاعدة",
       "points": "النقاط",
-      "edit": "Edit",
+      "edit": "تعديل",
       "delete": "تحذف",
-      "noRules": "No referral rules found",
+      "noRules": "لا توجد قواعد إحالة",
       "errorLoading": "قواعد الإحالة",
       "triggerEvents": {
         "onSignup": "عند التوقيع",
         "onFirstRide": "على الرصيف الأول",
-        "onFirstOrder": "On First Order"
+        "onFirstOrder": "على الطلب الأول"
       },
       "createSheet": {
         "title": "إنشاء قاعدة الإحالة",
@@ -9719,18 +9863,18 @@
       }
     },
     "loyalPointsBreakdown": {
-      "title": "Customer Loyalty Points Range",
+      "title": "نطاق نقاط ولاء العملاء",
       "description": "انظر كيف يترجم الإنفاق إلى نقاط مكافأة.",
       "addButton": "إضافة",
       "noData": "لا توجد بيانات مفصلة",
       "errorLoading": "فشل في تعطل نقاط الشحن",
       "table": {
-        "spendingRange": "Spending Range",
+        "spendingRange": "نطاق الإنفاق",
         "percentage": "النسبة المئوية (نسبة مئوية)",
         "points": "النقاط",
         "pointsWorth": "النقاط Worth",
         "actions": "الإجراءات",
-        "edit": "Edit",
+        "edit": "تعديل",
         "delete": "تحذف",
         "noData": "لا توجد بيانات"
       },
@@ -9739,13 +9883,13 @@
         "description": "إضافة بند جديد"
       },
       "editSheet": {
-        "title": "Edit Breakdown",
+        "title": "تعديل التفصيل",
         "description": "تعديل المدخل"
       },
       "form": {
         "rangeFromLabel": "رانج من",
         "rangeFromPlaceholder": "مثلا، صفر",
-        "rangeToLabel": "Range To",
+        "rangeToLabel": "النطاق إلى",
         "rangeToPlaceholder": "مثلا، 10",
         "tierLabel": "النمور",
         "tierPlaceholder": "إختارْ a tier",
@@ -9759,7 +9903,7 @@
         "pointsWorthPlaceholder": "على سبيل المثال، 5.00",
         "cancelButton": "إلغاء",
         "addButton": "إضافة",
-        "updateButton": "Update Breakdown"
+        "updateButton": "تحديث التفصيل"
       },
       "deleteDialog": {
         "title": "تحذف",
@@ -9793,7 +9937,7 @@
         "totalPoints": "مجموع النقاط",
         "type": "النوع",
         "lastPurchase": "آخر شراء",
-        "noData": "No history data available",
+        "noData": "لا يوجد سجل متاح",
         "types": {
           "referral": "الإحالة",
           "loyalty": "الولاء"
@@ -9852,7 +9996,7 @@
         "unpaid": "غير مدفوعة",
         "payNow": "ادفع الآن",
         "approve": "الموافقة",
-        "reject": "Reject"
+        "reject": "رفض"
       }
     },
     "detailsSheet": {
@@ -9872,7 +10016,7 @@
       "paymentStatus": "المدفوعات",
       "ibanAccount": "IBAN / حساب",
       "notes": "الحواشي",
-      "noNotes": "No notes provided",
+      "noNotes": "لا توجد ملاحظات",
       "paymentProof": "دليل الدفع",
       "statusPaid": "دفع",
       "statusPending": "تنتهي",
@@ -9896,7 +10040,7 @@
       "transactionIdLabel": "هوية المعاملات",
       "proofLabel": "دليل الدفع",
       "notesLabel": "الحواشي",
-      "confirm": "Confirm",
+      "confirm": "تأكيد",
       "employeesPlaceholder": "الموظفون المعينون",
       "amountPlaceholder": "المبلغ المستخدم",
       "cashLabel": "النقدية",
@@ -9923,7 +10067,7 @@
           "comment": "التعليق",
           "date": "التاريخ"
         },
-        "noData": "No reviews found",
+        "noData": "لا توجد مراجعات",
         "noDataSubtitle": "حاول تعديل بحثك أو مرشحيك",
         "notAvailable": "N/A",
         "filters": {
@@ -9933,9 +10077,9 @@
           "clear": "آمن",
           "ratingOptions": {
             "fiveStars": "5 نجوم",
-            "fourStars": "4+ Stars",
-            "threeStars": "3+ Stars",
-            "twoStars": "2+ Stars",
+            "fourStars": "+4 نجوم",
+            "threeStars": "+3 نجوم",
+            "twoStars": "+2 نجوم",
             "oneStar": "1+ النجوم"
           }
         },
@@ -9957,10 +10101,10 @@
         "fallbackServiceCenterName": "مركز الخدمات",
         "errorTitle": "استعراضات لجلب الأخطاء",
         "errorFallback": "فشل في الحصول على التقديرات والاستعراضات. حاول مرة أخرى",
-        "hiddenLabel": "Hidden",
+        "hiddenLabel": "مخفي",
         "jobIdLabel": "الهوية الوظيفية",
         "notAvailable": "N/A",
-        "noData": "No reviews found",
+        "noData": "لا توجد مراجعات",
         "noDataSubtitle": "حاول تعديل بحثك أو مرشحيك",
         "filters": {
           "searchPlaceholder": "البحث بالاسم، الهوية...",
@@ -9969,16 +10113,16 @@
           "clear": "آمن",
           "ratingOptions": {
             "fiveStars": "5 نجوم",
-            "fourStars": "4+ Stars",
-            "threeStars": "3+ Stars",
-            "twoStars": "2+ Stars",
+            "fourStars": "+4 نجوم",
+            "threeStars": "+3 نجوم",
+            "twoStars": "+2 نجوم",
             "oneStar": "1+ النجوم"
           }
         },
         "actions": {
           "open": "إجراءات الاستعراض المفتوح",
           "hide": "اختبئ",
-          "unhide": "Unhide",
+          "unhide": "إظهار",
           "delete": "تحذف"
         },
         "dialogs": {
@@ -9989,10 +10133,10 @@
             "confirm": "اختبئ"
           },
           "unhide": {
-            "title": "Unhide Review",
+            "title": "إظهار المراجعة",
             "subTitle": "جعل هذا الاستعراض واضح مرة أخرى؟",
-            "description": "This will make the review visible in the list again.",
-            "confirm": "Unhide"
+            "description": "سيؤدي هذا إلى إظهار المراجعة في القائمة مرة أخرى.",
+            "confirm": "إظهار"
           },
           "delete": {
             "title": "يحذف الاستعراض",
@@ -10010,7 +10154,7 @@
     },
     "earningsReports": {
       "page": {
-        "title": "Earnings Report"
+        "title": "تقرير الأرباح"
       },
       "filters": {
         "periodPlaceholder": "الفترة المختارة",
@@ -10031,7 +10175,7 @@
         "totalSales": "المجموع"
       },
       "table": {
-        "title": "Earnings View",
+        "title": "عرض الأرباح",
         "loadError": "عدم تحميل بيانات الإيرادات",
         "noData": "لا توجد بيانات عن الإيرادات",
         "noDataSubtitle": "حاول تعديل مرشحات أو تفقدها لاحقاً",
@@ -10115,7 +10259,7 @@
           }
         },
         "earningsPerZone": {
-          "earningsLabel": "Earnings",
+          "earningsLabel": "الأرباح",
           "title": "المنطقة الواحدة",
           "description": "مشاهدة مجموع الإيرادات عبر مختلف المناطق لتتبع الأداء ومقارنةه.",
           "noData": "لا توجد بيانات",
@@ -10125,7 +10269,7 @@
           }
         },
         "earningsPerStore": {
-          "earningsLabel": "Earnings",
+          "earningsLabel": "الأرباح",
           "title": "الخدمات - الخدمات",
           "description": "مشاهدة مجموع الإيرادات في مختلف فئات الخدمات.",
           "noData": "لا توجد بيانات",
@@ -10164,8 +10308,33 @@
       "unlimitedOrders": "الأوامر غير المحدودة",
       "features": "المعالم",
       "loadingFeatures": "ملامح التعبئة...",
-      "noFeaturesAvailable": "No features available",
+      "noFeaturesAvailable": "لا توجد ميزات متاحة",
       "featureApiHint": "ويمكن تحديث نقطة نهاية القائمة فور تقديمها.",
+      "featuresManager": {
+        "open": "إدارة الميزات",
+        "title": "ميزات الخطة",
+        "description": "الميزات التي يمكن أن تتضمنها خطط الاشتراك. لا يمكن حذف ميزة تستخدمها خطة.",
+        "titleLabel": "الميزة",
+        "titlePlaceholder": "مثال: ظهور مميز في الصفحة الرئيسية",
+        "typeLabel": "النوع",
+        "add": "إضافة ميزة",
+        "loading": "جارٍ تحميل الميزات…",
+        "empty": "لا توجد ميزات بعد. أضف أول ميزة أعلاه.",
+        "edit": "تعديل الميزة",
+        "delete": "حذف الميزة",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "created": "تمت إضافة الميزة",
+        "updated": "تم تحديث الميزة",
+        "deleted": "تم حذف الميزة",
+        "types": {
+          "promotions": "العروض",
+          "support": "الدعم",
+          "analytics": "التحليلات",
+          "ranking": "الترتيب",
+          "store": "المتجر"
+        }
+      },
       "recommended": "الموصى بها",
       "commission": "اللجنة",
       "freeOrders": "الأوامر الحرة",
@@ -10223,9 +10392,9 @@
       }
     },
     "banners": {
-      "title": "Banners",
-      "addButton": "Add Banner",
-      "editButton": "Edit",
+      "title": "اللافتات",
+      "addButton": "إضافة لافتة",
+      "editButton": "تعديل",
       "deleteButton": "تحذف",
       "deleteTitle": "يحذف بندر",
       "deleteSubtitle": "هل أنت متأكد",
@@ -10241,12 +10410,12 @@
         "media": "وسائط الإعلام",
         "actionType": "النوع",
         "relatedTo": "ذات الصلة",
-        "createdAt": "Created At"
+        "createdAt": "تاريخ الإنشاء"
       },
       "form": {
-        "addTitle": "Add Banner",
-        "editTitle": "Edit Banner",
-        "bannerTitle": "Banner Title",
+        "addTitle": "إضافة لافتة",
+        "editTitle": "تعديل اللافتة",
+        "bannerTitle": "عنوان اللافتة",
         "bannerTitlePlaceholder": "عنوان إعلانات الدخول هنا",
         "description": "الوصف",
         "descriptionPlaceholder": "وصف اللوحة هنا",
@@ -10256,8 +10425,8 @@
         "actionsPlaceholder": "الإجراءات المختارة",
         "bannerImage": "طراز Banner Image",
         "cancel": "إلغاء",
-        "addSubmit": "Add Banner",
-        "editSubmit": "Update Banner",
+        "addSubmit": "إضافة لافتة",
+        "editSubmit": "تحديث اللافتة",
         "actionType": "النوع",
         "actionTypePlaceholder": "نوع الإجراءات المختارة",
         "relatedStore": "التخزين ذو الصلة",
@@ -10268,11 +10437,11 @@
         "relatedShopTypePlaceholder": "نوع المتاجر المختارة",
         "shopTypeActionHint": "اختيار مطاعم لفتح قائمة المطعم كاملة عندما يتم رسم هذا الراية",
         "allRestaurantsActionHint": "يفتح كل المطاعم ولا حاجة إلى أي بند ذي صلة.",
-        "bannerVideo": "Banner Video",
+        "bannerVideo": "فيديو اللافتة",
         "mediaHint": "تحميل إما صورة أو فيديو (ليس كلاهما).",
         "actionTypes": {
           "none": "لا شيء",
-          "store": "Store",
+          "store": "المتجر",
           "product": "المنتجات",
           "shopType": "النوع",
           "allRestaurants": "جميع المطاعم"
@@ -10316,23 +10485,23 @@
         "noData": "لا توجد بيانات عن اتجاه الحجز",
         "legend": {
           "totalBookings": "مجموع الكتب",
-          "inProgressBookings": "In-Progress Bookings",
+          "inProgressBookings": "الحجوزات قيد التنفيذ",
           "pendingBookings": "الكتب المعلقة",
           "completedBookings": "الكتب المنجزة"
         }
       },
       "peakHours": {
-        "title": "Peak Hours",
+        "title": "ساعات الذروة",
         "description": "تحديد الساعات العالية الطلب من أجل تحسين ملاك الموظفين والإعداد.",
         "noData": "لا توجد بيانات عن ساعات الذروة",
         "datasetLabel": "الكتب",
         "tooltip": {
-          "hour": "Hour: {hour}",
+          "hour": "الساعة: {hour}",
           "bookings": "الحجز: {bookings}"
         }
       },
       "categoryWiseSales": {
-        "title": "Category-wise Sales",
+        "title": "المبيعات حسب الفئة",
         "description": "التوزيع الفعلي للمبيعات من الفئة.",
         "tooltip": {
           "category": "الفئة: {category}",
@@ -10355,7 +10524,7 @@
         "date": "التاريخ"
       },
       "noData": {
-        "title": "No recent bookings",
+        "title": "لا توجد حجوزات حديثة",
         "subtitle": "الحجز سيظهر هنا بمجرد توافره"
       }
     }
@@ -10367,7 +10536,7 @@
         "tabLabel": "الموظفون الدائمون",
         "addButtonLabel": "يضاف عامل",
         "addPageTitle": "يضاف عامل",
-        "editPageTitle": "Edit Worker",
+        "editPageTitle": "تعديل العامل",
         "profileTitle": "موجز الموظفين الدائمين",
         "exportFileName": "مركز الخدمات",
         "tableValueHeader": "المرتبات",
@@ -10376,10 +10545,10 @@
         "profileHoursLabel": "الحد الأدنى من ساعات العمل"
       },
       "freelancer": {
-        "tabLabel": "Freelancers",
+        "tabLabel": "العمال المستقلون",
         "addButtonLabel": "يضاف عامل",
         "addPageTitle": "يضاف Freelancer",
-        "editPageTitle": "Edit Freelancer",
+        "editPageTitle": "تعديل العامل المستقل",
         "profileTitle": "موجز بيانات العاملين",
         "exportFileName": "محررو الخدمات",
         "tableValueHeader": "اللجنة",
@@ -10397,10 +10566,10 @@
     "averageRating": "المتوسط",
     "totalReviews": "مجموع الاستعراضات",
     "filterByRating": "التصوير بالتقدير",
-    "allRatings": "All Ratings",
+    "allRatings": "جميع التقييمات",
     "verified": "مصدق عليه",
     "sortBy": "نوعا ما",
-    "newest": "Newest",
+    "newest": "الأحدث",
     "oldest": "أقدم",
     "highest": "أعلى رات",
     "lowest": "منخفض الجرذان"
@@ -10408,13 +10577,13 @@
   "serviceCenterSidebar": {
     "dashboard": "لوحة",
     "serviceCenter": "مركز الخدمات",
-    "profile": "Profile",
+    "profile": "الملف الشخصي",
     "timings": "التوقيتات",
     "location": "الموقع",
     "payment": "المدفوعات",
     "servicesManagement": "إدارة الخدمات",
     "services": "الخدمات",
-    "categories": "Categories",
+    "categories": "الفئات",
     "subCategories": "المجموعات الفرعية",
     "additionalServices": "الخدمات الإضافية",
     "serviceOptions": "خيارات الخدمات",
@@ -10424,9 +10593,9 @@
     "jobs": "الوظائف",
     "workers": "العمال",
     "ratingReviews": "استعراضات التقييمات",
-    "coupons": "Coupons",
+    "coupons": "القسائم",
     "wallet": "الجدار",
-    "earningReports": "Earning Reports",
+    "earningReports": "تقارير الأرباح",
     "withdrawalRequests": "طلبات الانسحاب",
     "payrolls": "كشوف المرتبات",
     "back": "العودة إلى مراكز الخدمات"
@@ -10437,7 +10606,7 @@
     "owners": {
       "customer": "زبون",
       "rider": "ريدر",
-      "store": "Store"
+      "store": "المتجر"
     },
     "actions": {
       "walletTransaction": "المعاملات الجدارية"
@@ -10491,10 +10660,10 @@
       "title": "المعاملة",
       "description": "إئتمان أو خصم هذه المحفظة ويظهر الدخول في تاريخ المعاملات على الفور.",
       "descriptionLabel": "الوصف",
-      "descriptionPlaceholder": "e.g. Compensation for a delayed payout",
+      "descriptionPlaceholder": "مثال: تعويض عن تأخر الدفع",
       "descriptionHelper": "عرض على صاحب الحساب في تاريخ معاملاته.",
       "amountLabel": "المبلغ",
-      "amountPlaceholder": "e.g. 25.00 or -25.00",
+      "amountPlaceholder": "مثال: 25.00 أو ‎-25.00",
       "amountHelper": "إدخال مبلغ إيجابي لإضافة أموال أو مبلغ سلبي لخصم الأموال.",
       "creditPreview": "الإضافات {amount} إلى المحفظة",
       "debitPreview": "الخصم {amount} من المحفظة",
@@ -10514,5 +10683,134 @@
       "amountRange": "يجب أن يكون المبلغ بين 000 1 و 000 1",
       "insufficientBalance": "خصم يتجاوز الرصيد المتاح {amount}"
     }
+  },
+  "storeMenuControl": {
+    "editorEyebrow": "مساحة عمل المتجر",
+    "title": "إدارة القائمة",
+    "description": "رتّب الفئات والمنتجات كما يراها العملاء، ثم انشر القائمة كاملة.",
+    "loading": "جارٍ تحميل القائمة…",
+    "loadError": "تعذّر تحميل القائمة.",
+    "catalogError": "تعذّر تحميل المنتجات.",
+    "retry": "إعادة المحاولة",
+    "publish": "نشر القائمة",
+    "published": "تم نشر القائمة",
+    "publishError": "تعذّر نشر القائمة. لا تزال القائمة السابقة منشورة.",
+    "saveError": "تعذّر حفظ هذا التغيير.",
+    "conflict": "قام محرر آخر بتعديل هذه المسودة. تمت إعادة تحميلها.",
+    "saving": "جارٍ حفظ مسودة القائمة",
+    "publishing": "جارٍ نشر القائمة",
+    "savingHint": "جارٍ تجهيز أحدث معاينة…",
+    "unpublished": "تغييرات غير منشورة",
+    "upToDate": "منشور",
+    "draft": "معاينة المسودة",
+    "previewTitle": "قائمة المتجر",
+    "previewHint": "تُعرض هنا أول 24 منتجًا في كل قسم.",
+    "visibleCategories": "فئات ظاهرة",
+    "activeProducts": "منتجات نشطة",
+    "hiddenCount": "فئات مخفية",
+    "moveHint": "اسحب المقبض أو استخدم أزرار الأسهم لتغيير الترتيب.",
+    "sectionCount": "{count} قسم",
+    "productsCount": "{count} منتج",
+    "expandCategory": "توسيع {name}",
+    "collapseCategory": "طي {name}",
+    "categoryNavigation": "فئات القائمة",
+    "emptyMenu": "لا توجد فئات ظاهرة في هذه القائمة.",
+    "emptyCategory": "لا تحتوي هذه الفئة على منتجات نشطة.",
+    "emptySection": "لا توجد منتجات نشطة في هذا القسم.",
+    "showing": "عرض {visible} من {total}",
+    "hide": "إخفاء",
+    "hiddenTitle": "الفئات المخفية",
+    "hiddenHint": "تبقى هذه خارج قائمة العملاء حتى تتم استعادتها ونشرها.",
+    "restore": "استعادة",
+    "noHidden": "ستظهر الفئات المخفية هنا لتسهيل استعادتها.",
+    "findAndPlace": "بحث ووضع",
+    "finderHint": "اختر قسمًا وموضعًا، ثم ابحث عن أي منتج في ذلك القسم.",
+    "sectionLabel": "قسم القائمة",
+    "placementHint": "سيظهر المنتج في الموضع {position} في هذا القسم.",
+    "inPosition": "في مكانه",
+    "chooseSection": "اختر \"بحث ووضع\" في قسم من القائمة للبحث في جميع منتجاته.",
+    "positionLabel": "إدراج في",
+    "position": "الموضع {position}",
+    "search": "البحث عن المنتجات",
+    "results": "المنتجات",
+    "place": "وضع",
+    "placeProduct": "وضع {name} في الموضع {position}",
+    "noResults": "لا توجد منتجات مطابقة.",
+    "previous": "السابق",
+    "next": "التالي",
+    "moveUp": "نقل {name} للأعلى",
+    "moveDown": "نقل {name} للأسفل",
+    "dragCategory": "سحب فئة {name}",
+    "dragSection": "سحب قسم {name}",
+    "dropAtEnd": "أفلت فئة هنا لنقلها إلى النهاية",
+    "dropSectionAtEnd": "أفلت قسمًا هنا لنقله إلى النهاية",
+    "dropProductAtEnd": "أفلت منتجًا هنا لنقله إلى النهاية"
+  },
+  "homeSequenceEditor": {
+    "title": "ترتيب الرئيسية",
+    "description": "رتّب تبويب الرئيسية للعملاء، وراجع موقعًا، ثم انشر المسودة كاملة.",
+    "publish": "نشر التغييرات",
+    "published": "تم نشر ترتيب الرئيسية",
+    "loading": "جارٍ تحميل ترتيب الرئيسية…",
+    "loadError": "تعذّر تحميل ترتيب الرئيسية.",
+    "saveError": "تعذّر حفظ هذا التغيير.",
+    "refreshError": "تم حفظ النقل، لكن تعذّر تحديث المسودة. أعد تحميل الصفحة قبل النشر.",
+    "savingDraft": "جارٍ حفظ الترتيب الجديد",
+    "savingHint": "جارٍ تحديث المسودة والتجهيز للنشر…",
+    "publishing": "جارٍ نشر تخطيط الرئيسية",
+    "publishingHint": "جارٍ تحديث التخطيط المنشور…",
+    "readyToPublish": "المسودة جاهزة للنشر",
+    "conflict": "قام مسؤول آخر بتعديل المسودة. تمت إعادة تحميلها.",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "allLocations": "عرض جميع المواقع",
+    "locationHint": "ابحث عن عنوان لمعرفة العناصر التي يراها العملاء هناك.",
+    "previewLocation": "موقع المعاينة",
+    "previewingLocation": "عرض التوفر بالقرب من هذا العنوان",
+    "allLocationsHint": "عرض العناصر المؤهلة من جميع المواقع",
+    "searchAddress": "ابحث عن عنوان",
+    "clearLocation": "مسح عنوان المعاينة",
+    "searchingPlaces": "جارٍ البحث عن العناوين…",
+    "placesError": "تعذّر البحث عن العناوين.",
+    "placeDetailsError": "تعذّر تحميل هذا العنوان. جرّب نتيجة أخرى.",
+    "noPlaces": "لا توجد عناوين مطابقة.",
+    "selectAddressHint": "اختر عنوانًا من الاقتراحات لمعاينة التوفر المحلي.",
+    "selectedLocationHint": "ترتيب المسودة لم يتغير؛ تعرض هذه المعاينة العناصر المتاحة في المنطقة فقط.",
+    "invalidLocation": "أدخل خط عرض وخط طول صالحين معًا.",
+    "previewHint": "أول عشرة عناصر في كل قسم من الرئيسية. اسحب المقبض أو استخدم أزرار الأسهم لتغيير الترتيب.",
+    "previewError": "تعذّر تحميل المعاينة. مسودتك محفوظة.",
+    "retry": "إعادة المحاولة",
+    "showingItems": "عرض {visible} من {total}",
+    "findAndPlace": "بحث ووضع",
+    "closeSearch": "إغلاق البحث عن العناصر",
+    "positionLabel": "إدراج في",
+    "positionOption": "الموضع {position}",
+    "positionHint": "اختر موضعًا في صف الرئيسية الظاهر، ثم ابحث في الكتالوج الكامل.",
+    "localPlacementHint": "يشمل البحث جميع المتاجر المعتمدة. قد يختفي متجر خارج هذا الموقع من المعاينة بعد وضعه، لكن أولويته العامة تُحفظ.",
+    "catalogCount": "{count} عنصر مطابق",
+    "results": "العناصر",
+    "place": "وضع",
+    "placeItem": "وضع {name} في الموضع {position}",
+    "searchGuidance": "اختر \"بحث ووضع\" في قسم للبحث في جميع العناصر المؤهلة ونقل أحدها إلى الصف الظاهر.",
+    "preview": "معاينة العميل",
+    "homeTab": "تبويب الرئيسية",
+    "draft": "مسودة",
+    "dragSection": "سحب قسم {name}",
+    "moveUp": "نقل {name} للأعلى",
+    "moveDown": "نقل {name} للأسفل",
+    "noItems": "لا توجد عناصر لعرضها هنا.",
+    "manageAll": "إدارة جميع العناصر ({count})",
+    "personalSection": "تبقى العناصر الخاصة بكل عميل مخصصة.",
+    "fixedActions": "تحتفظ أزرار الإجراءات السريعة بترتيبها الحالي.",
+    "browse": "تصفح",
+    "deals": "العروض",
+    "orders": "الطلبات",
+    "favourites": "المفضلة",
+    "dropAtEnd": "أفلت قسمًا هنا لنقله إلى النهاية",
+    "allItems": "جميع العناصر",
+    "chooseSection": "اختر قسمًا لإدارة كتالوجه الكامل.",
+    "search": "البحث عن العناصر",
+    "previous": "السابق",
+    "next": "التالي"
   }
 }

@@ -72,7 +72,7 @@ export const ZoneCommissionTable = ({
     defaultCommission: formatCommissionRate(item.commission_rate),
     shopTypeCommission: '',
     minimumPayout: '',
-    status: item.status === 'active' ? 'Active' : 'Inactive',
+    status: item.status === 'inherited' ? 'Inherited' : item.status === 'active' ? 'Active' : 'Inactive',
   }));
 
   const {
@@ -132,7 +132,11 @@ export const ZoneCommissionTable = ({
                   <TableCell className="pl-4 capitalize">{row?.zone}</TableCell>
                   <TableCell>{row?.defaultCommission}</TableCell>
                   <TableCell>
-                    <Status status={row?.status} />
+                    <Status
+                      status={row.status}
+                      label={row.status === 'Inherited' ? tTable('inherited') : undefined}
+                      className={row.status === 'Inherited' ? 'bg-amber-100 text-amber-800' : undefined}
+                    />
                   </TableCell>
                   <TableCell>
                     <DropdownMenu>

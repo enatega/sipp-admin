@@ -43,7 +43,7 @@ export const Step1Form = () => {
   };
 
   return (
-    <div className="md:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
+    <div className="lg:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-gray-900">{t('title')}</h2>
       </div>

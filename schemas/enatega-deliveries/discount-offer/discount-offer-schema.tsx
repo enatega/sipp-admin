@@ -24,7 +24,12 @@ export const getStep2Schema = (t: SchemaTranslator) =>
       )
       .typeError(t('discountValueMustBeNumber'))
       .positive(t('discountValueGreaterThanZero'))
-      .required(t('discountValueRequired')),
+      .required(t('discountValueRequired'))
+      // Catch it on this step; the API also rejects percentages above 100.
+      .when('discountType', {
+        is: 'PERCENTAGE',
+        then: (schema) => schema.max(100, t('discountValuePercentageMax')),
+      }),
 
     minOrderValue: Yup.number()
       .transform((value, originalValue) =>

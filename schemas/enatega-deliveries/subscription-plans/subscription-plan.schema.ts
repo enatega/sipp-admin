@@ -58,9 +58,8 @@ export const subscriptionPlanSchema = (t?: Translator) => {
     isActive: Yup.boolean().required(),
     isRecommended: Yup.boolean().required(),
     isUnlimitedOrders: Yup.boolean().required(),
-    planFeatureIds: Yup.array()
-      .of(Yup.string().required())
-      .min(1, tr('featuresRequired', 'Select at least one feature'))
-      .required(tr('featuresRequired', 'Select at least one feature')),
+    // Optional: no features are configured on the platform yet, and the API
+    // accepts an empty list, so requiring one made plans impossible to create.
+    planFeatureIds: Yup.array().of(Yup.string().required()).default([]),
   });
 };

@@ -15,7 +15,7 @@ export interface ZoneCommissionData {
   defaultCommission: string;
   shopTypeCommission: string;
   minimumPayout: string;
-  status: 'Active' | 'Inactive';
+  status: 'Active' | 'Inactive' | 'Inherited';
 }
 
 

@@ -5604,6 +5604,7 @@
       "zone": "Zona",
       "commissionRate": "Tasa de la Comisión",
       "status": "Situación",
+      "inherited": "Valor global",
       "action": "Medida",
       "loadFailedTitle": "No se pudo cargar la tabla de comisiones por zona",
       "noDataTitle": "No existen comisiones de zona",

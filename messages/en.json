@@ -5576,6 +5576,7 @@
       "zone": "Zone",
       "commissionRate": "Commission Rate",
       "status": "Status",
+      "inherited": "Global default",
       "action": "Action",
       "loadFailedTitle": "Failed to load zone commission table",
       "noDataTitle": "No zone commissions found",

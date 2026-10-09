@@ -5604,6 +5604,7 @@
       "zone": "Zone",
       "commissionRate": "Taux de la Commission",
       "status": "État",
+      "inherited": "Valeur globale",
       "action": "Décision",
       "loadFailedTitle": "Impossible de charger le tableau de commission de zone",
       "noDataTitle": "Aucune commission de zone trouvée",

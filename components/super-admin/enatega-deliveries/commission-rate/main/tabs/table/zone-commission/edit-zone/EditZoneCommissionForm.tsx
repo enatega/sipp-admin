@@ -36,7 +36,7 @@ export const EditZoneCommissionForm = ({
   const initialValues = {
     zone: row?.zone || '',
     commissionRate: initialCommission,
-    status: row?.status || 'Active',
+    status: row?.status === 'Inactive' ? 'Inactive' : 'Active',
   };
 
   const handleSubmit = async (values: typeof initialValues) => {

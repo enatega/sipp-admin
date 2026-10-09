@@ -5951,6 +5951,7 @@
       "zone": "Zone",
       "commissionRate": "Provisionssatz",
       "status": "Status",
+      "inherited": "Globaler Standard",
       "action": "Aktion",
       "loadFailedTitle": "Zonenprovisionstabelle konnte nicht geladen werden",
       "noDataTitle": "Keine Zonenprovisionen gefunden",

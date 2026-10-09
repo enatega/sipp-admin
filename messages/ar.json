@@ -5604,6 +5604,7 @@
       "zone": "المنطقة",
       "commissionRate": "معدل اللجنة",
       "status": "الحالة",
+      "inherited": "القيمة العامة",
       "action": "الإجراء",
       "loadFailedTitle": "فشل في تحميل طاولة لجنة المنطقة",
       "noDataTitle": "لا توجد عمولات مناطق",

@@ -18,6 +18,7 @@ import {
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
 import { cn } from '@/lib/utils';
 import { useUpdateCommissionRate } from '@/hooks/api/super-admin/enatega-deliveries/commission-rate';
+import { useCurrency } from '@/hooks/use-currency';
 import {
   Card,
   CardAction,
@@ -46,6 +47,7 @@ export function GlobalCommissionSettings({
   const t = useTranslations('commission-rate.globalSettings');
   const tSchema = useTranslations('Schemas.commissionRate');
   const tCommon = useTranslations('common');
+  const { currencyCode } = useCurrency();
   const isZoneBased = activeTab === 'zone-based';
   const [isEditing, setIsEditing] = useState(true);
   const { mutateAsync: updateCommissionRate, isPending } =
@@ -69,7 +71,7 @@ export function GlobalCommissionSettings({
   }
 
   const initialValues = {
-    currency: data?.currency ?? '',
+    currency: currencyCode,
     commissionRate: commissionRateToPercentage(data?.commission_rate),
   };
 
@@ -138,7 +140,7 @@ export function GlobalCommissionSettings({
                 <AppInput
                   label={t('currencyLabel')}
                   name="currency"
-                  placeholder={t('currencyPlaceholder')}
+                  placeholder={currencyCode}
                   type="text"
                   disabled
                 />

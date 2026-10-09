@@ -15,12 +15,12 @@ export function CommissionRateMain() {
   const { data, isLoading, error } = useGetCommissionRate();
 
   const TAB_DEFS: TabDef[] = [
-    { value: 'zone-based', label: tTabs('zoneBased') },
     { value: 'store-level', label: tTabs('storeLevel') },
+    { value: 'zone-based', label: tTabs('zoneBased') },
   ];
 
   const { active: activeTab, setActive: setActiveTab } = useSyncedTab(TAB_DEFS, {
-    defaultValue: 'zone-based',
+    defaultValue: 'store-level',
     paramName: 'tab',
     mode: 'url-only',
     syncParamsOnChange: { page: '1' },

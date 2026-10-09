@@ -3,7 +3,6 @@
 import { useGetDeliveryFees } from '@/hooks/api/super-admin/enatega-deliveries/delivery-fee';
 import { DistanceBaseFeeForm } from './DistanceBaseFeeForm';
 import { FixedDeliveryFeeForm } from './FixedDeliveryFeeForm';
-import { OrderValueBaseFeeForm } from './OrderValueBaseFeeForm';
 import { DeliveryFeeCalculatorSheet } from './DeliveryFeeCalculatorSheet';
 
 export const DeliveryFeeSettings = () => {
@@ -23,11 +22,6 @@ export const DeliveryFeeSettings = () => {
         error={error}
       />
       <DistanceBaseFeeForm
-        feeData={data}
-        isLoading={isLoading}
-        error={error}
-      />
-      <OrderValueBaseFeeForm
         feeData={data}
         isLoading={isLoading}
         error={error}

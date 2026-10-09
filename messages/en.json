@@ -1621,6 +1621,7 @@
       "status": "Status",
       "creationDate": "Created Date",
       "actionHeader": "Actions",
+      "actionsColumn": "Actions",
       "actions": {
         "view": "View",
         "edit": "Edit",
@@ -2118,6 +2119,8 @@
       "deleteAddonTitle": "Delete Add-on",
       "deleteVariationTitle": "Delete Variation",
       "deleteAddonDescription": "Are you sure you want to delete this add-on?",
+      "detach": "Detach from this product",
+      "deleteAddonStoreWideDescription": "This permanently deletes the add-on from every product in this store. To remove it from this product only, use \"Detach from this product\" instead.",
       "deleteVariationDescription": "Are you sure you want to delete this variation?"
     },
     "form": {
@@ -2316,7 +2319,8 @@
     "success": {
       "create": "Product created successfully!",
       "update": "Product updated successfully!",
-      "delete": "Product deleted successfully!"
+      "delete": "Product deleted successfully!",
+      "detach": "Add-on detached from this product"
     },
     "errors": {
       "fetchFailed": "Failed to fetch products",
@@ -5944,6 +5948,7 @@
       "discountValueRequired": "Discount value is required",
       "discountValueMustBeNumber": "Discount value must be a number",
       "discountValueGreaterThanZero": "Discount value must be greater than 0",
+      "discountValuePercentageMax": "Percentage discount cannot be more than 100%",
       "maxDiscountCapRequiredForFixed": "Max discount cap is required for fixed discounts",
       "maxDiscountCapGreaterThanZero": "Max discount cap must be greater than 0",
       "minOrderValueRequired": "Minimum booking value is required",
@@ -7750,6 +7755,7 @@
         "taxesLabel": "Taxes:",
         "discountsLabel": "Discounts:",
         "deliveryFeeLabel": "Delivery Fee:",
+        "packingChargesLabel": "Packing Charges:",
         "riderTipLabel": "Rider Tip:",
         "riderDeliverySplitTitle": "Delivery fee split",
         "riderDeliveryEarningLabel": "Rider delivery earning",
@@ -10207,6 +10213,31 @@
       "loadingFeatures": "Loading features...",
       "noFeaturesAvailable": "No features available",
       "featureApiHint": "Feature list endpoint can be updated once provided.",
+      "featuresManager": {
+        "open": "Manage features",
+        "title": "Plan features",
+        "description": "Features that subscription plans can include. A feature used by a plan cannot be deleted.",
+        "titleLabel": "Feature",
+        "titlePlaceholder": "e.g. Featured placement on home",
+        "typeLabel": "Type",
+        "add": "Add feature",
+        "loading": "Loading features…",
+        "empty": "No features yet. Add the first one above.",
+        "edit": "Edit feature",
+        "delete": "Delete feature",
+        "save": "Save",
+        "cancel": "Cancel",
+        "created": "Feature added",
+        "updated": "Feature updated",
+        "deleted": "Feature deleted",
+        "types": {
+          "promotions": "Promotions",
+          "support": "Support",
+          "analytics": "Analytics",
+          "ranking": "Ranking",
+          "store": "Store"
+        }
+      },
       "recommended": "Recommended",
       "commission": "Commission",
       "freeOrders": "Free Orders",

@@ -149,6 +149,7 @@ export interface PaymentInfo {
     taxes?: number;
     discounts?: number;
     deliveryFee?: number;
+    packingCharges?: number;
     riderTip?: number;
     riderDeliveryEarning?: number;
     riderPlatformCommission?: number;
@@ -238,6 +239,7 @@ export interface OrderDetail {
     taxes?: number;
     discounts?: number;
     deliveryFee?: number;
+    packingCharges?: number;
     riderTip?: number;
     riderEarnings?: number;
     riderDeliveryEarning?: number;

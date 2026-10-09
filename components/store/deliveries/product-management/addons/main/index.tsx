@@ -37,6 +37,15 @@ export function AddonsModule() {
     setIsAddDrawerOpen(true);
   };
 
+  // Only multi-select groups take limits; blank means no limit (0).
+  const selectionLimits = (values: AddonFormValues) =>
+    values.selectionType === 'multi'
+      ? {
+          minSelect: Number(values.minSelect || 0),
+          maxSelect: Number(values.maxSelect || 0),
+        }
+      : {};
+
   const handleSubmitAddon = async (values: AddonFormValues) => {
     if (!storeId) {
       return;
@@ -53,6 +62,7 @@ export function AddonsModule() {
           selectionType: values.selectionType as 'single' | 'multi',
           type: 'add-on',
           optionIds: values.optionIds,
+          ...selectionLimits(values),
         });
         toast.success(t('success.update'));
       } else {
@@ -64,6 +74,7 @@ export function AddonsModule() {
           selectionType: values.selectionType as 'single' | 'multi',
           type: 'add-on',
           optionIds: values.optionIds,
+          ...selectionLimits(values),
         });
         toast.success(t('success.create'));
       }

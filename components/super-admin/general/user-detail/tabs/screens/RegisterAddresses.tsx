@@ -93,8 +93,16 @@ export function RegisterAddresses({ userId }: AddressesProps) {
 
               {/* Address Details */}
               <div className="flex-1">
-                <h4 className="text-base capitalize font-semibold text-black mb-1">
-                  {getTypeLabel(address.type)}
+                <h4 className="text-base font-semibold text-black mb-1 flex flex-wrap items-center gap-2">
+                  {/* Show the customer's own label; the type is secondary. */}
+                  <span className={address.location_name?.trim() ? '' : 'capitalize'}>
+                    {address.location_name?.trim() || getTypeLabel(address.type)}
+                  </span>
+                  {address.location_name?.trim() ? (
+                    <span className="rounded-full border px-2 py-0.5 text-xs font-medium text-mute capitalize">
+                      {getTypeLabel(address.type)}
+                    </span>
+                  ) : null}
                 </h4>
                 <p className="text-sm text-mute">{address.address}</p>
               </div>

@@ -25,6 +25,7 @@ const EMPTY_STEP1: RiderStep1Data = {
   email: '',
   phone: '',
   zone_id: '',
+  platform_commission_percentage: 15,
   password: '',
   confirm_password: '',
   send_login_credentials_email: false,
@@ -32,6 +33,7 @@ const EMPTY_STEP1: RiderStep1Data = {
 
 export const Step1Form = () => {
   const t = useTranslations('driverManagement.addDriver.step1');
+  const tCommission = useTranslations('driverManagement.addDriver.step4');
   const tZone = useTranslations('driverManagement.addDriver.zoneSelect');
   const { nextStep, setStep1Data, formData } = useRiderFormContext();
   const [autoGenerate, setAutoGenerate] = React.useState(false);
@@ -76,7 +78,7 @@ export const Step1Form = () => {
       <Formik
         initialValues={initialValues}
         enableReinitialize
-        validationSchema={RiderFormStep1Schema}
+        validationSchema={RiderFormStep1Schema(tCommission)}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, setFieldValue }) => {
@@ -144,6 +146,20 @@ export const Step1Form = () => {
                 loading={isLoadingZones}
                 requiredAsterisk
               />
+
+              <div className="border-t border-gray-200 pt-5">
+                <AppInputField
+                  label={tCommission('platformCommissionLabel')}
+                  name="platform_commission_percentage"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="0.01"
+                  postfix="%"
+                  requiredAsterisk
+                  helperText={tCommission('platformCommissionHelper')}
+                />
+              </div>
 
               <AppCheckBox
                 name="send_login_credentials_email"

@@ -4,7 +4,6 @@ import { useRiderFormContext } from '@/contexts/super-admin/enatega-deliveries/r
 import { Step1Form } from './Step1';
 import { Step2Form } from './Step2';
 import { Step3Form } from './Step3';
-import { Step4Form } from './Step4';
 
 export const AddRiderForm = () => {
   const { currentStep } = useRiderFormContext();
@@ -17,8 +16,6 @@ export const AddRiderForm = () => {
         <Step2Form />
       ) : currentStep === 3 ? (
         <Step3Form />
-      ) : currentStep === 4 ? (
-        <Step4Form />
       ) : (
         ''
       )}

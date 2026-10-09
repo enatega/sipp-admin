@@ -3,14 +3,19 @@
 import * as Yup from 'yup';
 import { ApiErrorResponse } from '@/types';
 import { Form, Formik } from 'formik';
+import { useMemo } from 'react';
 import toast from 'react-hot-toast';
-import { handleApiError } from '@/lib/toast-error';
-import { usePostDeliveriesZone } from '@/hooks/api/super-admin/general/deliveries-zones';
+import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import {
+  useGetDeliveriesZoneBoundaries,
+  usePostDeliveriesZone,
+} from '@/hooks/api/super-admin/general/deliveries-zones';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import InteractiveMap from '@/components/super-admin/general/zones/common/InteractiveMap';
 import {
   convertZoneDataToCreateShape,
+  convertZoneToZoneData,
   DeliveriesZoneFormValues,
 } from '../utils';
 
@@ -33,10 +38,30 @@ const validationSchema = Yup.object({
 export default function AddZoneForm({ onClose }: AddZoneFormProps) {
   const { mutateAsync: postZone, isPending: isPostingZone } =
     usePostDeliveriesZone();
+  const {
+    data: boundaries,
+    isLoading: boundariesLoading,
+    isError: boundariesError,
+    refetch,
+  } = useGetDeliveriesZoneBoundaries();
+  const existingZones = useMemo(
+    () =>
+      boundaries?.flatMap((zone) => {
+        const data = convertZoneToZoneData(zone);
+        return data ? [{ id: zone.id, title: zone.title, data }] : [];
+      }) ?? [],
+    [boundaries],
+  );
 
   const handleSubmit = async (
     values: DeliveriesZoneFormValues,
-    { setSubmitting }: { setSubmitting: (state: boolean) => void },
+    {
+      setSubmitting,
+      setFieldError,
+    }: {
+      setSubmitting: (state: boolean) => void;
+      setFieldError: (field: string, message: string) => void;
+    },
   ) => {
     try {
       const shape = convertZoneDataToCreateShape(values.zoneData);
@@ -56,6 +81,10 @@ export default function AddZoneForm({ onClose }: AddZoneFormProps) {
       toast.success('Zone created successfully');
       onClose();
     } catch (error) {
+      const message = returnErrorMessage(error as ApiErrorResponse);
+      if (message.includes('overlaps')) {
+        setFieldError('zoneData', message);
+      }
       handleApiError(error as ApiErrorResponse);
     } finally {
       setSubmitting(false);
@@ -68,7 +97,7 @@ export default function AddZoneForm({ onClose }: AddZoneFormProps) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, isSubmitting, setFieldValue, touched, values }) => (
+      {({ errors, isSubmitting, setFieldValue, values }) => (
         <Form className="space-y-4">
           <AppInputField
             id="deliveries_zone_title"
@@ -86,11 +115,34 @@ export default function AddZoneForm({ onClose }: AddZoneFormProps) {
           />
 
           <div className="space-y-2 py-3">
+            {boundariesLoading && (
+              <p className="text-sm text-muted-foreground">
+                Loading existing zone boundaries…
+              </p>
+            )}
+            {boundariesError && (
+              <div
+                role="alert"
+                className="flex flex-wrap items-center justify-between gap-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-800"
+              >
+                <span>
+                  Existing zones could not be loaded. Retry before drawing a new zone.
+                </span>
+                <button
+                  type="button"
+                  className="font-semibold underline underline-offset-2"
+                  onClick={() => void refetch()}
+                >
+                  Try again
+                </button>
+              </div>
+            )}
             <InteractiveMap
               value={values.zoneData}
               onChange={(value) => setFieldValue('zoneData', value)}
+              existingZones={existingZones}
             />
-            {touched.zoneData && errors.zoneData ? (
+            {errors.zoneData ? (
               <div className="text-destructive text-sm">
                 {errors.zoneData as string}
               </div>
@@ -110,7 +162,9 @@ export default function AddZoneForm({ onClose }: AddZoneFormProps) {
               type="submit"
               className="px-14"
               isLoading={isSubmitting || isPostingZone}
-              disabled={isSubmitting || isPostingZone}
+              disabled={
+                isSubmitting || isPostingZone || boundariesLoading || boundariesError
+              }
             >
               Add Zone
             </AppButton>

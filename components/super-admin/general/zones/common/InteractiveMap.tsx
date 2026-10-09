@@ -90,12 +90,28 @@ const SHAPE_OPTIONS = {
   zIndex: 2,
 };
 
+const EXISTING_ZONE_COLORS = [
+  '#2563EB',
+  '#0D9488',
+  '#7C3AED',
+  '#C026D3',
+  '#0284C7',
+];
+
 export interface ZoneData {
   type: 'circle' | 'polygon' | 'polyline' | 'marker' | null;
   center?: { lat: number; lng: number };
   radius?: number;
   path?: { lat: number; lng: number }[];
 }
+
+export interface ExistingZoneOverlay {
+  id: string;
+  title: string;
+  data: ZoneData;
+}
+
+const EMPTY_EXISTING_ZONES: ExistingZoneOverlay[] = [];
 
 export interface AddressZoneShape {
   type: 'Polygon' | 'Circle' | 'Point' | 'LineString';
@@ -112,6 +128,7 @@ export interface ExactStoreLocation {
 interface InteractiveMapProps {
   value: ZoneData | null;
   onChange: (value: ZoneData | null) => void;
+  existingZones?: ExistingZoneOverlay[];
   hideZoomControls?: boolean;
   searchSelectsMarker?: boolean;
   exactStoreLocation?: ExactStoreLocation | null;
@@ -228,6 +245,7 @@ const getZoneCenter = (zone: ZoneData | null): ExactStoreLocation | null => {
 export default function InteractiveMap({
   value,
   onChange,
+  existingZones = EMPTY_EXISTING_ZONES,
   hideZoomControls = false,
   searchSelectsMarker = false,
   exactStoreLocation = null,
@@ -296,6 +314,78 @@ export default function InteractiveMap({
     [zoneValueCenterLat, zoneValueCenterLng],
   );
   const stableZonePath = value?.path ?? null;
+
+  useEffect(() => {
+    if (!map || existingZones.length === 0) return;
+
+    const overlays: Array<
+      | google.maps.Circle
+      | google.maps.Polygon
+      | google.maps.Polyline
+      | google.maps.Marker
+    > = [];
+
+    existingZones.forEach((zone, index) => {
+      const color = EXISTING_ZONE_COLORS[index % EXISTING_ZONE_COLORS.length];
+      const options = {
+        map,
+        clickable: false,
+        editable: false,
+        draggable: false,
+        strokeColor: color,
+        strokeOpacity: 0.95,
+        strokeWeight: 2,
+        zIndex: 1,
+      };
+
+      if (zone.data.type === 'circle' && zone.data.center && zone.data.radius) {
+        overlays.push(
+          new google.maps.Circle({
+            ...options,
+            center: zone.data.center,
+            radius: zone.data.radius,
+            fillColor: color,
+            fillOpacity: 0.13,
+          }),
+        );
+      } else if (zone.data.type === 'polygon' && zone.data.path) {
+        overlays.push(
+          new google.maps.Polygon({
+            ...options,
+            paths: normalizePolygonPath(zone.data.path),
+            fillColor: color,
+            fillOpacity: 0.13,
+          }),
+        );
+      } else if (zone.data.type === 'polyline' && zone.data.path) {
+        overlays.push(
+          new google.maps.Polyline({
+            ...options,
+            path: zone.data.path,
+          }),
+        );
+      } else if (zone.data.type === 'marker' && zone.data.center) {
+        overlays.push(
+          new google.maps.Marker({
+            map,
+            position: zone.data.center,
+            title: zone.title,
+            clickable: false,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              fillColor: color,
+              fillOpacity: 1,
+              strokeColor: '#FFFFFF',
+              strokeWeight: 2,
+              scale: 7,
+            },
+          }),
+        );
+      }
+    });
+
+    return () => overlays.forEach((overlay) => overlay.setMap(null));
+  }, [existingZones, map]);
 
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -1647,6 +1737,32 @@ export default function InteractiveMap({
         }}
         mapContainerClassName="rounded-md"
       />
+      {existingZones.length > 0 && (
+        <div className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm">
+          <p className="mb-2 font-medium text-slate-800">
+            Existing zones · {existingZones.length}
+          </p>
+          <div className="flex max-h-24 flex-wrap gap-2 overflow-y-auto" aria-label="Existing zones on the map">
+            {existingZones.map((zone, index) => (
+              <span
+                key={zone.id}
+                className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-slate-700 ring-1 ring-slate-200"
+                title={zone.title}
+              >
+                <span
+                  className="size-2.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: EXISTING_ZONE_COLORS[index % EXISTING_ZONE_COLORS.length] }}
+                  aria-hidden="true"
+                />
+                <span className="truncate">{zone.title}</span>
+              </span>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-slate-600">
+            Orange is your current boundary. The other colors show existing zones.
+          </p>
+        </div>
+      )}
       {betweenMapAndExactLocation}
       {onExactStoreLocationChange && (
         <div className="space-y-3">

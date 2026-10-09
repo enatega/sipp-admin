@@ -4,6 +4,8 @@ import { EnategaDeliveriesDashboardRecentOrder } from '@/types/api/super-admin/e
 import { useTranslations } from 'next-intl';
 import { useCurrency } from '@/hooks/use-currency';
 import { useSortableData } from '@/hooks/use-sortable-data';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { useGetZonesSimple } from '@/hooks/api/super-admin/general/zones';
 import {
   Table,
   TableBody,
@@ -18,6 +20,13 @@ import Status from '@/components/shared/Status';
 import TableHeaderCell from '@/components/shared/TableHeaderCell';
 import { TableShimmer } from '@/components/shared/TableShimmer';
 import CopyButton from '@/components/shared/CopyButton';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface RecentOrdersTableProps {
   data?: EnategaDeliveriesDashboardRecentOrder[];
@@ -34,6 +43,9 @@ export function RecentOrdersTable({
 }: RecentOrdersTableProps) {
   const t = useTranslations('lumiFood.dashboard.tables.recentOrders');
   const { currencySymbol } = useCurrency();
+  const { getParam, setParams } = useQueryParams();
+  const { data: zones, isLoading: zonesLoading, isError: zonesError } = useGetZonesSimple();
+  const selectedZoneId = getParam('recentOrdersZoneId');
   const orders = data ?? [];
   const notAvailable = t('notAvailable');
   const notAssigned = t('notAssigned');
@@ -43,59 +55,45 @@ export function RecentOrdersTable({
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-lg border p-3 sm:p-4">
-        <div>
-          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3 sm:mb-4">
+          <h3 className="text-base sm:text-lg font-semibold">
             {t('title')}
           </h3>
+          <div>
+            <label htmlFor="recent-orders-zone" className="sr-only">
+              {t('zoneFilterLabel')}
+            </label>
+            <Select
+              value={selectedZoneId || 'all'}
+              onValueChange={(value) =>
+                setParams({ recentOrdersZoneId: value === 'all' ? null : value })
+              }
+              disabled={zonesLoading || zonesError}
+            >
+              <SelectTrigger id="recent-orders-zone" className="w-[190px] max-w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('allZones')}</SelectItem>
+                {zones?.map((zone) => (
+                  <SelectItem key={zone.id} value={zone.id}>
+                    {zone.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="mb-4">
           <div className="rounded-md border overflow-auto">
-            <Table className="min-w-[900px]">
+            <Table className="min-w-[720px]">
               <TableHeader className="bg-accent rounded-t-md">
                 <TableRow>
-                  <TableHeaderCell
-                    label={t('orderId')}
-                    sortKey={'orderId'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('module')}
-                    sortKey={'module'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('serviceType')}
-                    sortKey={'serviceType'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('customer')}
-                    sortKey={'customer.user.name'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('workerRider')}
-                    sortKey={'workerRider.user.name'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
-                  <TableHeaderCell
-                    label={t('location')}
-                    sortKey={'location'}
-                    requestSort={requestSort}
-                    sortConfig={sortConfig}
-                    containerClass="pl-3"
-                  />
+                  <TableHead className="pl-3 py-4">{t('orderId')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('customer')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('workerRider')}</TableHead>
+                  <TableHead className="pl-3 py-4">{t('location')}</TableHead>
                   <TableHeaderCell
                     label={t('amount')}
                     sortKey={'amount'}
@@ -116,10 +114,10 @@ export function RecentOrdersTable({
 
               <TableBody>
                 {isLoading ? (
-                  <TableShimmer limit={10} columns={9} />
+                  <TableShimmer limit={10} columns={7} />
                 ) : isError ? (
                   <TableRow>
-                    <TableCell colSpan={9}>
+                    <TableCell colSpan={7}>
                       <DisplayError
                         title={t('loadFailedTitle')}
                         message={errorMessage}
@@ -129,7 +127,7 @@ export function RecentOrdersTable({
                   </TableRow>
                 ) : orders.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={9}>
+                    <TableCell colSpan={7}>
                       <NoDataFound
                         title={t('noDataTitle')}
                         subtitle={t('noDataSubtitle')}
@@ -151,10 +149,6 @@ export function RecentOrdersTable({
                           </span>
                           {item.orderId ? <CopyButton text={item.orderId} /> : null}
                         </div>
-                      </TableCell>
-                      <TableCell>{item.module}</TableCell>
-                      <TableCell>
-                        <span>{item.serviceType}</span>
                       </TableCell>
                       <TableCell>
                         <span>{item.customer?.user?.name || notAvailable}</span>

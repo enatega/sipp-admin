@@ -1,19 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ApiErrorResponse, DeliveryStore } from '@/types';
-import { Star } from 'lucide-react';
+import { CircleAlert, Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { formatDateTime } from '@/lib/formatDateTime';
 import { handleApiError } from '@/lib/toast-error';
-import { useToggleStoreAvailability } from '@/hooks/api/super-admin/enatega-deliveries/stores';
+import { hasNamedPermission } from '@/lib/user';
+import {
+  useActivateStoreAccount,
+  useToggleStoreAvailability,
+} from '@/hooks/api/super-admin/enatega-deliveries/stores';
 import { useCurrency } from '@/hooks/use-currency';
 import { Switch } from '@/components/ui/switch';
 import { TableCell, TableRow } from '@/components/ui/table';
 import Status from '@/components/shared/Status';
 import TooltipText from '@/components/shared/TooltipText';
+import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import StoreActions from './StoreActions';
 
 interface StoreRowProps {
@@ -27,6 +32,19 @@ export default function StoreRow({ store }: StoreRowProps) {
 
   // Optimistic UI state for availability
   const [isAvailable, setIsAvailable] = useState(store?.isavailable);
+  const [isAccountActive, setIsAccountActive] = useState(store.isactive);
+  const [confirmation, setConfirmation] = useState<'activate' | 'enable' | null>(
+    null,
+  );
+  const canActivateAccount = hasNamedPermission('toggle_store_availability');
+
+  useEffect(() => {
+    setIsAvailable(store.isavailable);
+  }, [store.isavailable]);
+
+  useEffect(() => {
+    setIsAccountActive(store.isactive);
+  }, [store.isactive]);
 
   const { mutate: toggleAvailability, isPending } = useToggleStoreAvailability({
     onMutate: async () => {
@@ -34,27 +52,53 @@ export default function StoreRow({ store }: StoreRowProps) {
       setIsAvailable((prev) => !prev);
     },
     onError: (error) => {
-      // Revert on error
-      setIsAvailable((prev) => !prev);
+      setIsAvailable(store.isavailable);
       handleApiError(error as ApiErrorResponse);
     },
-    onSuccess: () => {
+    onSuccess: (updatedStore) => {
+      setIsAvailable(updatedStore.store_available);
+      if (updatedStore.store_available) setIsAccountActive(true);
       toast.success(
-        isAvailable
-          ? tAvailability('markedAvailable')
+        updatedStore.store_available
+          ? tAvailability(
+              isAccountActive ? 'markedAvailable' : 'markedAvailableAndActivated',
+            )
           : tAvailability('markedUnavailable'),
       );
     },
   });
 
-  const handleToggleAvailability = () => {
+  const { mutate: activateAccount, isPending: isActivatingAccount } =
+    useActivateStoreAccount();
+
+  const handleActivateAccount = () => {
+    activateAccount(store.id, {
+      onSuccess: () => {
+        setIsAccountActive(true);
+        setConfirmation(null);
+        toast.success(t('storeAccountActivated'));
+      },
+      onError: (error) => handleApiError(error as ApiErrorResponse),
+    });
+  };
+
+  const handleToggleAvailability = (checked: boolean) => {
+    if (checked && !isAccountActive) {
+      setConfirmation('enable');
+      return;
+    }
     toggleAvailability(store.id);
   };
 
   const displayStatus = store.isblocked ? 'blocked' : store.status;
+  const cannotEnableInactiveAccount =
+    !isAvailable &&
+    !isAccountActive &&
+    (store.isblocked || store.status !== 'approved');
 
   return (
-    <TableRow className="h-[55px]! cursor-pointer">
+    <>
+      <TableRow className="h-[55px]!">
       <TableCell className="min-w-[200px] truncate">
         <div className="flex items-center gap-2">
           {store?.storeimage ? (
@@ -106,11 +150,33 @@ export default function StoreRow({ store }: StoreRowProps) {
           : t('notAvailable')}
       </TableCell>
       <TableCell onClick={(e) => e.stopPropagation()}>
-        <Switch
-          checked={isAvailable}
-          onCheckedChange={handleToggleAvailability}
-          disabled={isPending}
-        />
+        <div className="flex min-w-[150px] flex-col items-start gap-1.5 py-1">
+          <Switch
+            checked={isAvailable}
+            onCheckedChange={handleToggleAvailability}
+            disabled={isPending || isActivatingAccount || cannotEnableInactiveAccount}
+            aria-label={`${store.storename}: ${t('table.availability')}`}
+            title={cannotEnableInactiveAccount ? t('activateAccountDialog.requireApproval') : undefined}
+          />
+          {!isAccountActive && (
+            <div className="flex flex-col items-start gap-0.5">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-800">
+                <CircleAlert className="size-3.5 shrink-0" aria-hidden="true" />
+                {t('storeAccountInactive')}
+              </span>
+              {canActivateAccount && !store.isblocked && store.status === 'approved' && (
+                <button
+                  type="button"
+                  className="rounded-sm text-xs font-medium text-primary underline underline-offset-2 hover:text-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+                  onClick={() => setConfirmation('activate')}
+                  disabled={isPending || isActivatingAccount}
+                >
+                  {t('activateAccountDialog.confirm')}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </TableCell>
       <TableCell>
         <Status status={displayStatus ?? 'pending'} />
@@ -125,6 +191,43 @@ export default function StoreRow({ store }: StoreRowProps) {
       <TableCell onClick={(e) => e.stopPropagation()}>
         <StoreActions store={store} />
       </TableCell>
-    </TableRow>
+      </TableRow>
+      <AppAlertDialog
+        open={confirmation !== null}
+        onOpenChange={(open) => !open && setConfirmation(null)}
+        title={t(
+          confirmation === 'enable'
+            ? 'enableAndActivateDialog.title'
+            : 'activateAccountDialog.title',
+        )}
+        subTitle={t(
+          confirmation === 'enable'
+            ? 'enableAndActivateDialog.subTitle'
+            : 'activateAccountDialog.subTitle',
+          { name: store.storename },
+        )}
+        description={t(
+          confirmation === 'enable'
+            ? 'enableAndActivateDialog.description'
+            : 'activateAccountDialog.description',
+        )}
+        variant="primary"
+        size="md"
+        confirmLabel={t(
+          confirmation === 'enable'
+            ? 'enableAndActivateDialog.confirm'
+            : 'activateAccountDialog.confirm',
+        )}
+        onConfirm={() => {
+          if (confirmation === 'enable') {
+            setConfirmation(null);
+            toggleAvailability(store.id);
+          } else if (confirmation === 'activate') {
+            handleActivateAccount();
+          }
+        }}
+        loading={isPending || isActivatingAccount}
+      />
+    </>
   );
 }

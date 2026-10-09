@@ -217,7 +217,7 @@ export default function DeliveriesZonesTable() {
           className="!w-[850px]"
           title="Delete Deliveries Zone"
           subTitle="Delete Deliveries Zone"
-          description="Are you sure you want to delete this zone? This action cannot be undone."
+          description={`Are you sure you want to delete “${deletingZone.title}”? This action cannot be undone.`}
           open={!!deletingZone}
           onOpenChange={() => setDeletingZone(null)}
           variant="delete"

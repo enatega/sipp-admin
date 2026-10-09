@@ -1,5 +1,4 @@
 import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
-import { Star } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { EnategaDeliveriesDashboardTopVendor } from '@/types/api/super-admin/enatega-deliveries/dashboard.api';
 import { useCurrency } from '@/hooks/use-currency';
@@ -63,22 +62,15 @@ export default function TopVendorTable({
                 sortConfig={sortConfig}
                 containerClass="pl-3"
               />
-              <TableHeaderCell
-                label={t('rating')}
-                sortKey={'rating'}
-                requestSort={requestSort}
-                sortConfig={sortConfig}
-                containerClass="pl-3"
-              />
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {isLoading ? (
-              <TableShimmer limit={10} columns={4} />
+              <TableShimmer limit={10} columns={3} />
             ) : isError ? (
               <TableRow>
-                <TableCell colSpan={4}>
+                <TableCell colSpan={3}>
                   <DisplayError
                     title={t('loadFailedTitle')}
                     message={errorMessage}
@@ -88,7 +80,7 @@ export default function TopVendorTable({
               </TableRow>
             ) : vendors.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4}>
+                <TableCell colSpan={3}>
                   <NoDataFound
                     title={t('noDataTitle')}
                     subtitle={t('noDataSubtitle')}
@@ -108,14 +100,6 @@ export default function TopVendorTable({
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
-                  </TableCell>
-                  <TableCell>
-                    <Star
-                      className="inline mr-2 fill-current text-orange-500"
-                      height={17}
-                      width={17}
-                    />
-                    <span>{item.rating ?? 0}</span>
                   </TableCell>
                 </TableRow>
               ))

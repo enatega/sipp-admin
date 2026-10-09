@@ -223,7 +223,7 @@ export const REPORT_PAGE_CONFIGS: Record<
       {
         key: 'restaurants/financial-summary',
         label: 'Restaurant Financial Summary',
-        description: 'Sales, deductions, withdrawals and current wallet balance by restaurant.',
+        description: 'Sales, deductions, withdrawals and current wallet balance by restaurant. Each row adds up to the current wallet balance.',
         fileName: 'restaurant-financial-summary-report',
         columns: [
           store,
@@ -234,11 +234,15 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Commission VAT', keys: ['commissionVat'], format: 'currency' },
           { label: 'Total commission deduction', keys: ['totalCommissionDeduction'], format: 'currency' },
           adminCouponExtraPaid,
+          // Reads left to right as: net earnings - withdrawals - refund
+          // deductions + adjustments + other = current wallet balance.
           { label: 'Store net earnings', keys: ['storeNetEarnings'], format: 'currency' },
-          { label: 'Approved withdrawals', keys: ['approvedWithdrawals'], format: 'currency' },
+          { label: 'Approved withdrawals (-)', keys: ['approvedWithdrawals'], format: 'currency' },
+          { label: 'Refund deductions (-)', keys: ['refundDeductions'], format: 'currency' },
+          { label: 'Admin adjustments (+/-)', keys: ['adminAdjustments'], format: 'currency' },
+          { label: 'Other / outside period (+/-)', keys: ['otherWalletMovements'], format: 'currency' },
+          { label: 'Current wallet balance (=)', keys: ['currentWalletBalance'], format: 'currency' },
           { label: 'Pending withdrawals', keys: ['pendingWithdrawals'], format: 'currency' },
-          { label: 'Refund deductions', keys: ['refundDeductions'], format: 'currency' },
-          { label: 'Current wallet balance', keys: ['currentWalletBalance'], format: 'currency' },
         ],
       },
       {

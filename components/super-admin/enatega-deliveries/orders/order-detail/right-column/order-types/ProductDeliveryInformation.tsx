@@ -14,6 +14,9 @@ export const ProductDeliveryInformation: React.FC<
   IProductDeliveryInformationProps
 > = ({ order }) => {
   const t = useTranslations('orders.orderDetail.productDeliveryInformation');
+  const isFinished = ['delivered', 'cancelled', 'rejected', 'failed'].includes(
+    (order.status ?? order.summary?.status ?? '').toLowerCase(),
+  );
   const fmt = (v: unknown) => {
     if (v === null || v === undefined) return t('notAvailable');
     if (typeof v === 'string') {
@@ -64,10 +67,12 @@ export const ProductDeliveryInformation: React.FC<
           <span className="font-normal text-mute">{fmt(order?.deliveryInfo?.distance ?? order?.delivery?.distance ?? order?.distance)}</span>
         </div>
 
-        <div className="flex justify-between items-center text-sm">
-          <span className="text-black font-semibold text-[16px]">{t('etaLabel')}</span>
-          <span className="font-normal text-mute">{fmt(order?.deliveryInfo?.eta ?? order?.delivery?.eta ?? order?.eta)}</span>
-        </div>
+        {!isFinished && (
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-black font-semibold text-[16px]">{t('etaLabel')}</span>
+            <span className="font-normal text-mute">{fmt(order?.deliveryInfo?.eta ?? order?.delivery?.eta ?? order?.eta)}</span>
+          </div>
+        )}
 
         
       </div>

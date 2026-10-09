@@ -41,9 +41,6 @@ export function OrderLogs({ logs }: OrderLogsProps) {
                 {tHeaders('date')}
               </TableHead>
               <TableHead className="p-4 text-black font-medium text-sm">
-                {tHeaders('ipDevice')}
-              </TableHead>
-              <TableHead className="p-4 text-black font-medium text-sm">
                 {tHeaders('notes')}
               </TableHead>
             </TableRow>
@@ -72,9 +69,6 @@ export function OrderLogs({ logs }: OrderLogsProps) {
                     {log?.date || t('notAvailable')}
                   </TableCell>
                   <TableCell className="p-4 text-black text-sm">
-                    {log?.ipDevice || t('notAvailable')}
-                  </TableCell>
-                  <TableCell className="p-4 text-black text-sm">
                     {log?.notes || t('notAvailable')}
                   </TableCell>
                 </TableRow>
@@ -82,7 +76,7 @@ export function OrderLogs({ logs }: OrderLogsProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={5}
+                  colSpan={4}
                   className="p-8 text-center text-mute text-sm"
                 >
                   {t('noLogs')}

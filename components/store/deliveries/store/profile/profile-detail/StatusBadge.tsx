@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import { useStoreProfileViewModel } from './profileData';
+import { hasAdminProfile } from '@/lib/user';
 
 export default function StatusBadge() {
   // UI helpers
@@ -128,6 +129,20 @@ export default function StatusBadge() {
   const dialogProps = getDialogProps();
 
   const statusConfig = getStatusConfig();
+
+  // Approve / reject / block are admin moderation actions; store owners only
+  // see their status.
+  if (!hasAdminProfile()) {
+    return (
+      <span
+        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-sm font-medium ${statusConfig.color}`}
+      >
+        <CheckCircle className="w-4 h-4" />
+        {statusConfig.text}
+      </span>
+    );
+  }
+
   return (
     <div>
       <DropdownMenu>

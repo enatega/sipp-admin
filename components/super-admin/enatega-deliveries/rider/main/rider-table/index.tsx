@@ -111,10 +111,6 @@ export function RiderTable() {
                   `${currencySymbol} ${rider.totalEarnings ?? 0}`,
               },
               {
-                dataKey: 'averageRating',
-                header: tHeaders('ratings'),
-              },
-              {
                 dataKey: 'created_at',
                 header: tHeaders('registrationDate'),
               },
@@ -209,12 +205,6 @@ export function RiderTable() {
                 requestSort={requestSort}
                 sortConfig={sortConfig}
               />
-              <TableHeaderCell
-                label={tHeaders('ratings')}
-                sortKey={'averageRating'}
-                requestSort={requestSort}
-                sortConfig={sortConfig}
-              />
               <TableHead>{tHeaders('kycStatus')}</TableHead>
               <TableHead>{tHeaders('blockStatus')}</TableHead>
               <TableHead>{tHeaders('actions')}</TableHead>
@@ -222,10 +212,10 @@ export function RiderTable() {
           </TableHeader>
           <TableBody>
             {showTableLoading ? (
-              <TableShimmer limit={limit as TLimitType} columns={12} />
+              <TableShimmer limit={limit as TLimitType} columns={11} />
             ) : isError ? (
               <TableRow>
-                <TableCell colSpan={12} className="p-4">
+                <TableCell colSpan={11} className="p-4">
                   <DisplayError
                     title={t('failedToFetchRiders')}
                     message={
@@ -237,7 +227,7 @@ export function RiderTable() {
               </TableRow>
             ) : items.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={12} className="text-center p-4">
+                <TableCell colSpan={11} className="text-center p-4">
                   <NoDataFound title={t('noRiderFound')} />
                 </TableCell>
               </TableRow>
@@ -282,10 +272,6 @@ export function RiderTable() {
                       ? `${currencySymbol}${rider.totalEarnings}`
                       : t('notAvailable')}
                   </TableCell>
-                  <TableCell>
-                    {rider.averageRating ?? t('notAvailable')}
-                  </TableCell>
-
                   <TableCell>
                     <Status status={rider.status.toLowerCase()} />
                   </TableCell>

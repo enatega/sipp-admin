@@ -3,7 +3,6 @@
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 import { ClearFiltersButton } from '@/components/shared/filters/ClearFiltersButton';
-import { RatingSelectFilter } from '@/components/shared/filters/RatingSelectFilter';
 import { StatusSelectFilter } from '@/components/shared/filters/StatusSelectFilter';
 import { VehicleTypeSelectFilter } from '@/components/shared/filters/VehicleTypeSelectFilter';
 import { ZoneSelectFilter } from '@/components/shared/filters/ZoneSelectFilter';
@@ -71,11 +70,6 @@ export default function AdvanceFiltersDialog({
           label={t('kycStatus')}
           placeholder={t('selectKycStatus')}
           options={kycStatusOptions}
-        />
-        <RatingSelectFilter
-          paramKey="rating"
-          label={t('ratings')}
-          placeholder={t('selectRating')}
         />
       </div>
     </AppDialog>

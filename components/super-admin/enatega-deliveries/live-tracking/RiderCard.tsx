@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { Star } from 'lucide-react';
 import Status from '@/components/shared/Status';
 import { cn } from '@/lib/utils';
 import type { RiderTrackingItem } from './types';
@@ -41,11 +40,6 @@ export function RiderCard({ item, isSelected, onClick }: RiderCardProps) {
             <p className="truncate text-sm font-semibold text-foreground">
               {item.riderName}
             </p>
-            <div className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-              <span>{item.riderRating.toFixed(1)}</span>
-              <span>({item.riderReviews} reviews)</span>
-            </div>
           </div>
         </div>
 

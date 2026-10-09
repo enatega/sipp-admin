@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { ApiErrorResponse, SubscriptionPlan } from '@/types';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, ListChecks } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
@@ -20,6 +20,7 @@ import NoDataFound from '@/components/shared/NoDataFound';
 import AppLoader from '@/components/shared/AppLoader';
 import { SubscriptionPlanCard } from './SubscriptionPlanCard';
 import { SubscriptionPlanDialog } from './SubscriptionPlanDialog';
+import { ManageFeaturesDialog } from './ManageFeaturesDialog';
 
 export function SubscriptionPlansPage() {
   const t = useTranslations('enategaDeliveriesPages.subscriptionPlans');
@@ -27,6 +28,7 @@ export function SubscriptionPlansPage() {
 
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isFeaturesOpen, setIsFeaturesOpen] = useState(false);
   const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null);
   const [deletingPlan, setDeletingPlan] = useState<SubscriptionPlan | null>(null);
 
@@ -116,6 +118,9 @@ export function SubscriptionPlansPage() {
             </button>
           </div>
 
+          <AppButton variant="secondary" leftIcon={<ListChecks className="size-4" />} onClick={() => setIsFeaturesOpen(true)}>
+            {t('featuresManager.open')}
+          </AppButton>
           <AppButton leftIcon={<CirclePlus className="size-4" />} onClick={handleOpenCreate}>
             {t('createNewPlan')}
           </AppButton>
@@ -192,6 +197,7 @@ export function SubscriptionPlansPage() {
         onConfirm={handleDelete}
         loading={isDeleting}
       />
+      <ManageFeaturesDialog open={isFeaturesOpen} onOpenChange={setIsFeaturesOpen} />
     </div>
   );
 }

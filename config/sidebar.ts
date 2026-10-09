@@ -172,13 +172,14 @@ export const sidebarMenus: SidebarMenu[] = [
         path: adminRoutes.deliveries.customerLoyaltyAndReferrals,
         permission: 'general-delivery.loyalty_referral',
       },
-      {
-        id: 3.13,
-        name: 'Subscription Plans',
-        translationKey: 'sidebar.subscriptionPlans',
-        path: adminRoutes.deliveries.subscriptionPlans,
-        permission: 'general-delivery.subscription_plans',
-      },
+      // Subscription plans are out of scope for now; restore this entry if the client asks for them.
+      // {
+      //   id: 3.13,
+      //   name: 'Subscription Plans',
+      //   translationKey: 'sidebar.subscriptionPlans',
+      //   path: adminRoutes.deliveries.subscriptionPlans,
+      //   permission: 'general-delivery.subscription_plans',
+      // },
       {
         id: 3.14,
         name: 'Banners',

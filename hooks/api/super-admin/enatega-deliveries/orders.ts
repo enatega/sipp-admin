@@ -198,6 +198,7 @@ export const useGetOrderDetail = (
                 taxes: payment?.taxes ?? 0,
                 discounts: payment?.discounts ?? 0,
                 deliveryFee: payment?.deliveryFee ?? 0,
+                packingCharges: payment?.packingCharges ?? 0,
                 riderTip: payment?.riderTip ?? 0,
                 riderEarnings: summary.riderEarnings ?? 0,
                 riderDeliveryEarning:

@@ -115,9 +115,14 @@ export default function StoreRow({ store }: StoreRowProps) {
             </div>
           )}
           {store?.storename ? (
-            <TooltipText content={store.storename}>
-              <span className="truncate">{store.storename}</span>
-            </TooltipText>
+            <div className="flex min-w-0 flex-col">
+              <TooltipText content={store.storename}>
+                <span className="truncate">{store.storename}</span>
+              </TooltipText>
+              {store.storephone ? (
+                <span className="truncate text-xs text-mute">{store.storephone}</span>
+              ) : null}
+            </div>
           ) : (
             <span>{t('notAvailable')}</span>
           )}

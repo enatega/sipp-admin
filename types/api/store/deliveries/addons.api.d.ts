@@ -42,6 +42,8 @@ export interface CreateAddonPayload {
   selectionType: AddonSelectionType;
   type: 'add-on';
   optionIds: string[];
+  minSelect?: number;
+  maxSelect?: number;
 }
 
 export interface CreateAddonRequest {
@@ -77,6 +79,8 @@ export interface UpdateAddonPayload {
   selectionType: AddonSelectionType;
   type: 'add-on';
   optionIds: string[];
+  minSelect?: number;
+  maxSelect?: number;
 }
 
 export interface UpdateAddonResponse extends AddonBaseCreated {

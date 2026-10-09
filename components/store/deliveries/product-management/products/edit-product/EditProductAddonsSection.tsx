@@ -15,6 +15,8 @@ interface EditProductAddonsSectionProps {
   onCreate: () => void;
   onEdit: (group: ProductCustomizationGroup) => void;
   onDelete: (group: ProductCustomizationGroup) => void;
+  detachLabel?: string;
+  onDetach?: (group: ProductCustomizationGroup) => void;
 }
 
 export function EditProductAddonsSection({
@@ -26,6 +28,8 @@ export function EditProductAddonsSection({
   onCreate,
   onEdit,
   onDelete,
+  detachLabel,
+  onDetach,
 }: EditProductAddonsSectionProps) {
   const tForm = useTranslations('products.form');
   const tDetailFields = useTranslations('products.detail.fields');
@@ -68,6 +72,8 @@ export function EditProductAddonsSection({
                   deleteLabel={deleteLabel}
                   onEdit={() => onEdit(addOn)}
                   onDelete={() => onDelete(addOn)}
+                  detachLabel={detachLabel}
+                  onDetach={onDetach ? () => onDetach(addOn) : undefined}
                 />
               </div>
 

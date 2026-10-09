@@ -1,6 +1,6 @@
 'use client';
 
-import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
+import { MoreVertical, Pencil, Trash2, Unlink } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,8 @@ interface CustomizationRowActionsProps {
   deleteLabel: string;
   onEdit: () => void;
   onDelete: () => void;
+  detachLabel?: string;
+  onDetach?: () => void;
 }
 
 export function CustomizationRowActions({
@@ -22,6 +24,8 @@ export function CustomizationRowActions({
   deleteLabel,
   onEdit,
   onDelete,
+  detachLabel,
+  onDetach,
 }: CustomizationRowActionsProps) {
   return (
     <DropdownMenu>
@@ -34,7 +38,7 @@ export function CustomizationRowActions({
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        className="w-[160px] p-0 rounded-xl overflow-hidden shadow-lg"
+        className="w-[200px] p-0 rounded-xl overflow-hidden shadow-lg"
       >
         <DropdownMenuItem
           className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
@@ -43,6 +47,15 @@ export function CustomizationRowActions({
           <Pencil className="size-[18px]" />
           <span className="text-sm">{editLabel}</span>
         </DropdownMenuItem>
+        {onDetach && detachLabel ? (
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+            onClick={onDetach}
+          >
+            <Unlink className="size-[18px]" />
+            <span className="text-sm">{detachLabel}</span>
+          </DropdownMenuItem>
+        ) : null}
         <DropdownMenuItem
           className="flex items-center gap-2 p-3 cursor-pointer rounded-none hover:bg-red-100!"
           onClick={onDelete}

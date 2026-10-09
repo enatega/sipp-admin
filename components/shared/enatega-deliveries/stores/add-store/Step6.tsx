@@ -35,7 +35,7 @@ export function SharedStep6Form({
   };
 
   return (
-    <div className="md:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
+    <div className="lg:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
       <div className="mb-4">
         <h2 className="text-2xl font-semibold">{t('title')}</h2>
         <p className="text-sm text-muted-foreground">{t('description')}</p>

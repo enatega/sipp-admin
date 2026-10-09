@@ -157,7 +157,7 @@ export function AdminNotificationCenter({ compact = false }: { compact?: boolean
         <Bell className="size-5" />
         {(countQuery.data ?? 0) > 0 && <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-sky-500 px-1 text-[11px] font-bold text-white">{Math.min(countQuery.data ?? 0, 99)}{(countQuery.data ?? 0) > 99 ? '+' : ''}</span>}
       </button>
-      {open && <div className="absolute right-0 z-50 mt-3 w-[min(400px,calc(100vw-32px))] rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-xl">
+      {open && <div className="absolute right-0 z-50 mt-3 w-[min(400px,calc(100vw-32px))] max-sm:fixed max-sm:inset-x-4 max-sm:w-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-xl">
         <div className="mb-3 flex items-center justify-between"><strong className="text-base text-slate-900">Notifications</strong><button type="button" onClick={() => { router.push('/general/operational-notifications'); setOpen(false); }} className="text-sm font-medium text-sky-600 hover:underline">View all</button></div>
         <div className="max-h-96 space-y-2 overflow-y-auto">
           {listQuery.isError ? <p className="py-6 text-center text-sm text-red-600">Couldn’t load notifications.</p> :

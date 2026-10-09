@@ -92,6 +92,12 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
               {order?.deliveryFee != null ? formatCurrency(order.deliveryFee, currency) : t('notAvailable')}
             </span>
           </div>
+          {Number(order?.packingCharges) > 0 && (
+            <div className="flex justify-between items-center text-[16px]">
+              <span className="text-black font-semibold">{t('packingChargesLabel')}</span>
+              <span className="text-mute font-normal">{formatCurrency(order.packingCharges ?? 0, currency)}</span>
+            </div>
+          )}
           <div className="flex justify-between items-center text-[16px]">
             <span className="text-black font-semibold">{t('riderTipLabel')}</span>
             <span className="text-mute font-normal">

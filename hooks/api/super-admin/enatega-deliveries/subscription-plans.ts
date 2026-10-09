@@ -215,3 +215,54 @@ export const useDeleteSubscriptionPlan = (
     ...options,
   });
 };
+
+export interface SubscriptionFeaturePayload {
+  title: string;
+  type: string;
+}
+
+const useInvalidateFeatures = () => {
+  const queryClient = useQueryClient();
+  return () =>
+    Promise.all([
+      queryClient.invalidateQueries({ queryKey: SUBSCRIPTION_PLAN_FEATURES_QUERY_KEY }),
+      queryClient.invalidateQueries({ queryKey: SUBSCRIPTION_PLANS_QUERY_KEY }),
+    ]);
+};
+
+export const useCreateSubscriptionFeature = () => {
+  const invalidate = useInvalidateFeatures();
+  return useMutation<{ message: string }, ApiErrorResponse, SubscriptionFeaturePayload>({
+    mutationFn: async (payload) => {
+      const { data } = await Axios.post('/deliveries/subscription-plan/feature', payload);
+      return data;
+    },
+    onSuccess: () => invalidate(),
+  });
+};
+
+export const useUpdateSubscriptionFeature = () => {
+  const invalidate = useInvalidateFeatures();
+  return useMutation<
+    { message: string },
+    ApiErrorResponse,
+    { id: string } & Partial<SubscriptionFeaturePayload>
+  >({
+    mutationFn: async ({ id, ...payload }) => {
+      const { data } = await Axios.patch(`/deliveries/subscription-plan/feature/${id}`, payload);
+      return data;
+    },
+    onSuccess: () => invalidate(),
+  });
+};
+
+export const useDeleteSubscriptionFeature = () => {
+  const invalidate = useInvalidateFeatures();
+  return useMutation<{ message: string }, ApiErrorResponse, string>({
+    mutationFn: async (id) => {
+      const { data } = await Axios.delete(`/deliveries/subscription-plan/feature/${id}`);
+      return data;
+    },
+    onSuccess: () => invalidate(),
+  });
+};

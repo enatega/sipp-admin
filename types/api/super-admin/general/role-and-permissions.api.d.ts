@@ -117,11 +117,12 @@ export interface InviteUserPayload {
     roleId?: string;
     email: string;
     fullName: string;
-    password?: string; // Password can be optional if system generates it
-    mustChangePassword: boolean;
 }
 
-export type InviteUserResponse = MessageResponse;
+export interface InviteUserResponse {
+    message: string;
+    emailSent: boolean;
+}
 
 export interface RoleItemForInvite {
     id: string;
@@ -132,4 +133,24 @@ export interface RoleItemForInvite {
 
 export interface GetAllRoleForInviteResponse {
     data: RoleItemForInvite[];
+}
+
+export interface PendingInvitation {
+    id: string;
+    email: string;
+    name: string;
+    invitation_status: 'pending';
+    invitation_expires_at: string | null;
+    pending_role_id: string | null;
+    role_name: string | null;
+}
+
+export interface PendingInvitationsResponse {
+    invitations: PendingInvitation[];
+}
+
+export interface ResendInvitationResponse {
+    message: string;
+    emailSent: boolean;
+    invitation_expires_at: string;
 }

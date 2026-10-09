@@ -352,6 +352,8 @@ export default function EditRoleForm({
       <InviteUserDialog
         open={inviteDialogOpen}
         onClose={() => setInviteDialogOpen(false)}
+        roleId={roleId}
+        roleName={roleData.name}
       />
     </>
   );

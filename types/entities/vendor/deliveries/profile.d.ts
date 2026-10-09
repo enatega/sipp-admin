@@ -22,6 +22,8 @@ export interface VendorProfile extends Record<string, unknown> {
     phone: string;
     profile_image: string | null;
     city: string | null;
+    zone_id: string | null;
+    zone_name: string | null;
     created_date: string; // ISO string
     status: VendorStatus;
     active_status: boolean;
@@ -37,5 +39,4 @@ export interface VendorProfile extends Record<string, unknown> {
     notes: string | null;
     total_stores: number;
 }
-
 

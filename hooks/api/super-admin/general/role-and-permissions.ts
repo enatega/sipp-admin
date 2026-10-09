@@ -13,6 +13,8 @@ import {
     InviteUserPayload,
     InviteUserResponse,
     PermissionsResponse,
+    PendingInvitationsResponse,
+    ResendInvitationResponse,
     RoleUsersParams,
     RoleUsersResponse,
     ToggleRoleStatusPayload,
@@ -341,4 +343,21 @@ export const useInviteUser = (
     });
 };
 
+export const usePendingInvitations = () =>
+    useQuery<PendingInvitationsResponse, ApiErrorResponse>({
+        queryKey: ['get-pending-invitations'],
+        queryFn: async () => {
+            const { data } = await Axios.get<PendingInvitationsResponse>('/roles/invitations');
+            return data;
+        },
+    });
 
+export const useResendInvitation = () =>
+    useMutation<ResendInvitationResponse, ApiErrorResponse, string>({
+        mutationFn: async (id) => {
+            const { data } = await Axios.post<ResendInvitationResponse>(
+                `/roles/invitations/${encodeURIComponent(id)}/resend`,
+            );
+            return data;
+        },
+    });

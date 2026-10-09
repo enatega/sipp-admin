@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { GetVendorProfileResponse } from '@/types';
-import { Star } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import Status from '@/components/shared/Status';
@@ -15,8 +14,6 @@ const ProfileDetail = ({
   const tDocuments = useTranslations('vendorProfile.detail.documents');
   const tSections = useTranslations('vendorProfile.detail.sections');
   const notAvailable = t('notAvailable');
-  const totalReviews = vendorProfile?.rating?.total_reviews || 0;
-  const averageRating = vendorProfile?.rating?.average_rating || 0;
 
   const createdDate = vendorProfile?.created_date
     ? moment(vendorProfile.created_date)
@@ -37,8 +34,8 @@ const ProfileDetail = ({
       value: formattedCreatedDate,
     },
     {
-      label: tFields('city'),
-      value: vendorProfile?.city || notAvailable,
+      label: tFields('zone'),
+      value: vendorProfile?.zone_name || notAvailable,
     },
   ];
 
@@ -81,18 +78,6 @@ const ProfileDetail = ({
           <p className="text-mute text-xs">
             {vendorProfile?.email || notAvailable}
           </p>
-          <div className="mt-1 flex items-center gap-2 text-sm text-mute">
-            <span className="font-medium text-foreground">{averageRating}</span>
-            <div className="flex items-center gap-0.5 text-orange-500">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`h-4 w-4 ${star <= averageRating ? 'fill-current' : ''}`}
-                />
-              ))}
-            </div>
-            <span>{t('reviewsLabel', { count: totalReviews })}</span>
-          </div>
         </div>
       </div>
       <div className="space-y-8 p-4 md:p-6">

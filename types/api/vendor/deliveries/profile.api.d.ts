@@ -11,6 +11,7 @@ export interface UpdateVendorProfilePayload {
     password?: string;
     phone?: string;
     city?: string;
+    zone_id?: string;
     bank_name?: string;
     account_title?: string;
     branch_code?: string;

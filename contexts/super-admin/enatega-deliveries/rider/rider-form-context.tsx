@@ -7,6 +7,7 @@ export interface RiderStep1Data {
   email: string;
   phone: string;
   zone_id: string; // city / zone
+  platform_commission_percentage: number | string;
   password: string;
   confirm_password: string;
   send_login_credentials_email: boolean;
@@ -36,20 +37,10 @@ export interface RiderStep3Data {
   helmet?: boolean;
 }
 
-export interface RiderStep4Data {
-  platform_commission_percentage: number | string;
-  cod_limit_enabled: boolean;
-  cod_limit_amount: number | string | null;
-  cod_warning_threshold: string;
-  cod_auto_settlement_cycle: string;
-  cod_allow_online_payments_when_blocked: boolean;
-}
-
 export interface RiderFormData {
   step1: RiderStep1Data | null;
   step2: RiderStep2Data | null;
   step3: RiderStep3Data | null;
-  step4: RiderStep4Data | null;
 }
 
 interface RiderFormContextType {
@@ -59,7 +50,6 @@ interface RiderFormContextType {
   setStep1Data: (data: RiderStep1Data) => void;
   setStep2Data: (data: RiderStep2Data) => void;
   setStep3Data: (data: RiderStep3Data) => void;
-  setStep4Data: (data: RiderStep4Data) => void;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: number) => void;
@@ -89,14 +79,13 @@ interface RiderFormProviderProps {
 
 export const RiderFormProvider: React.FC<RiderFormProviderProps> = ({
   children,
-  totalSteps = 4,
+  totalSteps = 3,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<RiderFormData>({
     step1: null,
     step2: null,
     step3: null,
-    step4: null,
   });
 
   const setStep1Data = (data: RiderStep1Data) => {
@@ -109,10 +98,6 @@ export const RiderFormProvider: React.FC<RiderFormProviderProps> = ({
 
   const setStep3Data = (data: RiderStep3Data) => {
     setFormData((prev) => ({ ...prev, step3: data }));
-  };
-
-  const setStep4Data = (data: RiderStep4Data) => {
-    setFormData((prev) => ({ ...prev, step4: data }));
   };
 
   const nextStep = () => {
@@ -139,7 +124,6 @@ export const RiderFormProvider: React.FC<RiderFormProviderProps> = ({
       step1: null,
       step2: null,
       step3: null,
-      step4: null,
     });
   };
 
@@ -153,7 +137,6 @@ export const RiderFormProvider: React.FC<RiderFormProviderProps> = ({
     setStep1Data,
     setStep2Data,
     setStep3Data,
-    setStep4Data,
     nextStep,
     prevStep,
     goToStep,

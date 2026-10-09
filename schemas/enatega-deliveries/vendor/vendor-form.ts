@@ -24,14 +24,15 @@ const createRequiredImageFile = (t: ReturnType<typeof useTranslations>) =>
       (file) => !!file && file instanceof File && file.size <= MAX_BYTES,
     );
 
-const createRequiredImageFileOrUrl = (t: ReturnType<typeof useTranslations>) =>
+const createOptionalImageFileOrUrl = (t: ReturnType<typeof useTranslations>) =>
   Yup.mixed<File | string>()
-    .required(t('Schemas.vendorForm.imageRequired'))
+    .nullable()
+    .notRequired()
     .test(
       'fileType',
       t('Schemas.vendorForm.fileTypeAllowed'),
       (value) => {
-        if (!value) return false;
+        if (!value) return true;
         if (typeof value === 'string') return value.trim().length > 0;
         if (value instanceof File) return IMAGE_TYPES.includes(value.type);
         return false;
@@ -41,7 +42,7 @@ const createRequiredImageFileOrUrl = (t: ReturnType<typeof useTranslations>) =>
       'fileSize',
       t('Schemas.vendorForm.fileSizeAllowed', { maxMb: MAX_MB }),
       (value) => {
-        if (!value) return false;
+        if (!value) return true;
         if (typeof value === 'string') return true;
         if (value instanceof File) return value.size <= MAX_BYTES;
         return false;
@@ -138,46 +139,51 @@ export const VendorFormStep3Schema = (
 
 export const EditVendorFormSchema = (
   t: ReturnType<typeof useTranslations>,
-) =>
-  Yup.object().shape({
-    name: Yup.string()
+  initialValues: EditVendorFormValues,
+) => {
+  const name = Yup.string()
+      .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .trim()
       .min(3, t('Schemas.vendorForm.nameMinLength'))
-      .max(50, t('Schemas.vendorForm.nameMaxLength'))
-      .required(t('Schemas.vendorForm.nameRequired')),
+      .max(50, t('Schemas.vendorForm.nameMaxLength'));
 
-    email: Yup.string()
+  const email = Yup.string()
+      .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .trim()
-      .email(t('Schemas.vendorForm.invalidEmailAddress'))
-      .required(t('Schemas.vendorForm.emailRequired')),
+      .email(t('Schemas.vendorForm.invalidEmailAddress'));
 
-    phone: Yup.string()
+  const phone = Yup.string()
+      .transform((value) => (typeof value === 'string' && !value.trim() ? undefined : value))
       .matches(/^[0-9+\-\s()]{7,20}$/, t('Schemas.vendorForm.phoneInvalid'))
       .test(
         'phoneMaxDigits',
         t('Schemas.vendorForm.phoneInvalid'),
         (value) => getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
-      )
-      .required(t('Schemas.vendorForm.phoneRequired')),
+      );
 
-    zone_id: Yup.string().required(t('Schemas.vendorForm.zoneRequired')),
+  // Existing values cannot be cleared. Fields missing in a legacy record remain
+  // optional so admins can update that vendor without inventing old documents/data.
+  return Yup.object().shape({
+    name: initialValues.name.trim()
+      ? name.required(t('Schemas.vendorForm.nameRequired'))
+      : name.notRequired(),
+    email: initialValues.email.trim()
+      ? email.required(t('Schemas.vendorForm.emailRequired'))
+      : email.notRequired(),
+    phone: initialValues.phone.trim()
+      ? phone.required(t('Schemas.vendorForm.phoneRequired'))
+      : phone.notRequired(),
+    zone_id: initialValues.zone_id.trim()
+      ? Yup.string().required(t('Schemas.vendorForm.zoneRequired'))
+      : Yup.string().notRequired(),
 
-    logo: createRequiredImageFileOrUrl(t).required(
-      t('Schemas.vendorForm.businessTrademarkRequired'),
-    ),
-    business_license_front: createRequiredImageFileOrUrl(t).required(
-      t('Schemas.vendorForm.businessLicenseFrontRequired'),
-    ),
-    business_license_back: createRequiredImageFileOrUrl(t).required(
-      t('Schemas.vendorForm.businessLicenseBackRequired'),
-    ),
-    national_id_passport_front: createRequiredImageFileOrUrl(t).required(
-      t('Schemas.vendorForm.nationalIdPassportFrontRequired'),
-    ),
-    national_id_passport_back: createRequiredImageFileOrUrl(t).required(
-      t('Schemas.vendorForm.nationalIdPassportBackRequired'),
-    ),
+    logo: createOptionalImageFileOrUrl(t),
+    business_license_front: createOptionalImageFileOrUrl(t),
+    business_license_back: createOptionalImageFileOrUrl(t),
+    national_id_passport_front: createOptionalImageFileOrUrl(t),
+    national_id_passport_back: createOptionalImageFileOrUrl(t),
   });
+};
 
 export interface EditVendorFormValues {
     name: string;

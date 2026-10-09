@@ -2,15 +2,19 @@
 
 import * as React from 'react';
 import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   RiderStep3Data,
   useRiderFormContext,
 } from '@/contexts/super-admin/enatega-deliveries/rider/rider-form-context';
 import { RiderFormStep3Schema } from '@/schemas/enatega-deliveries/riders/rider-form';
+import { ApiErrorResponse } from '@/types';
 import { Form, Formik } from 'formik';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useGetVehicleTypes } from '@/hooks/api/super-admin/enatega-deliveries/riders';
+import toast from 'react-hot-toast';
+import { handleApiError } from '@/lib/toast-error';
+import { useCreateDeliveryRider, useGetVehicleTypes } from '@/hooks/api/super-admin/enatega-deliveries/riders';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppCheckBox } from '@/components/shared/AppCheckBox';
 import { AppInputField } from '@/components/shared/form/AppInput';
@@ -31,10 +35,13 @@ const EMPTY_STEP3: RiderStep3Data = {
 
 export const Step3Form: React.FC = () => {
   const t = useTranslations('driverManagement.addDriver.step3');
+  const tStep2 = useTranslations('driverManagement.addDriver.step2');
   const tVehicle = useTranslations('driverManagement.addDriver.vehicleTypeSelect');
-  const { prevStep, formData, nextStep, setStep3Data } = useRiderFormContext();
+  const router = useRouter();
+  const { prevStep, formData, resetForm, setStep3Data } = useRiderFormContext();
   const { data: vehicleTypesData, isLoading: isLoadingVehicleTypes } =
     useGetVehicleTypes();
+  const { mutateAsync: createRider, isPending: isCreating } = useCreateDeliveryRider();
 
   const vehicleTypeOptions = useMemo(() => {
     return vehicleTypesData?.map((type) => ({
@@ -55,8 +62,75 @@ export const Step3Form: React.FC = () => {
   ) => {
     try {
       setSubmitting(true);
+      if (!formData.step1) {
+        toast.error(t('completeStep1Error'));
+        return;
+      }
+
+      if (!formData.step2) {
+        toast.error(t('completeStep2Error'));
+        return;
+      }
+
+      const requiredDocMappings = [
+        { key: 'driver_license_front', label: tStep2('driverLicenseFront') },
+        { key: 'driver_license_back', label: tStep2('driverLicenseBack') },
+        { key: 'national_id_front', label: tStep2('nationalIdPassportFront') },
+        { key: 'national_id_back', label: tStep2('nationalIdPassportBack') },
+        { key: 'vehicle_registration_front', label: tStep2('vehicleRegistrationFront') },
+        { key: 'vehicle_registration_back', label: tStep2('vehicleRegistrationBack') },
+      ] as const;
+
+      for (const { key, label } of requiredDocMappings) {
+        if (!formData.step2[key]) {
+          toast.error(t('missingRequiredDocumentError', { label }));
+          return;
+        }
+      }
+
       setStep3Data(values);
-      nextStep();
+      await createRider({
+        name: formData.step1.name,
+        email: formData.step1.email,
+        password: formData.step1.password,
+        phone: formData.step1.phone,
+        city: formData.step1.zone_id,
+        zone_id: formData.step1.zone_id,
+        change_password_allowed: formData.step1.send_login_credentials_email,
+        platformCommissionPercentage: Number(formData.step1.platform_commission_percentage),
+
+        driver_license_front: formData.step2.driver_license_front!,
+        driver_license_back: formData.step2.driver_license_back!,
+        national_id_passport_front: formData.step2.national_id_front!,
+        national_id_passport_back: formData.step2.national_id_back!,
+        vehicle_registration_front: formData.step2.vehicle_registration_front!,
+        vehicle_registration_back: formData.step2.vehicle_registration_back!,
+        company_commercial_registration: formData.step2.company_commercial_registration || undefined,
+        profile_image: formData.step2.profile_picture || undefined,
+
+        vehicle_type: values.vehicle_type,
+        vehicle_name: values.vehicle_brand,
+        model_year_limit:
+          values.model_year_limit !== '' && values.model_year_limit !== null
+            ? Number(values.model_year_limit)
+            : 2020,
+        vehicle_colour: values.vehicle_color,
+        vehicle_no: values.vehicle_number,
+        insulated_delivery_bag: values.insulated_delivery_bag,
+        bike_good_condition: values.vehicle_in_good_condition,
+        air_conditioning: values.air_conditioning,
+        helmet: values.helmet,
+        licenseNumber: '',
+
+        // COD is not offered in this flow; keep new riders explicitly disabled.
+        cod_limit_enabled: false,
+      });
+
+      toast.success(t('riderCreatedSuccess'));
+      resetForm();
+      router.back();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
     } finally {
       setSubmitting(false);
     }
@@ -172,11 +246,11 @@ export const Step3Form: React.FC = () => {
               </AppButton>
               <AppButton
                 type="submit"
-                isLoading={isSubmitting}
-                disabled={isSubmitting}
+                isLoading={isSubmitting || isCreating}
+                disabled={isSubmitting || isCreating}
                 className="px-12 rounded-[12px] mt-4"
               >
-                {t('nextButton')}
+                {t('submitButton')}
               </AppButton>
             </div>
             </Form>

@@ -15,12 +15,9 @@ import {
   useGetAllRoleForInvite,
   useInviteUser,
 } from '@/hooks/api/super-admin/general/role-and-permissions';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 import { AppInputField } from '@/components/shared/form/AppInput';
-import { AppPasswordField } from '@/components/shared/form/AppPasswordField';
 import { AppSelect } from '@/components/shared/form/AppSelect';
 import { Heading } from '@/components/shared/Heading';
 
@@ -28,12 +25,16 @@ interface InviteUserDialogProps {
   open: boolean;
   onClose: () => void;
   showRoleField?: boolean;
+  roleId?: string;
+  roleName?: string;
 }
 
 export function InviteUserDialog({
   open,
   onClose,
   showRoleField = true,
+  roleId,
+  roleName,
 }: InviteUserDialogProps) {
   const t = useTranslations('roleAndPermissions.inviteDialog');
   const tForm = useTranslations('roleAndPermissions.form');
@@ -41,7 +42,7 @@ export function InviteUserDialog({
   const queryClient = useQueryClient();
 
   const { data: rolesData, isLoading: isLoadingRoles } =
-    useGetAllRoleForInvite({ enabled: showRoleField });
+    useGetAllRoleForInvite({ enabled: showRoleField && !roleId });
   const inviteUserMutation = useInviteUser();
 
   const roleOptions =
@@ -53,23 +54,22 @@ export function InviteUserDialog({
   const initialValues: InviteUserFormValues = {
     fullName: '',
     email: '',
-    password: '',
-    role: '',
-    mustChangePassword: false,
+    role: roleId || '',
   };
 
   // ...
   const handleSubmit = async (values: InviteUserFormValues) => {
     try {
-      await inviteUserMutation.mutateAsync({
-        roleId: values.role || undefined,
+      const result = await inviteUserMutation.mutateAsync({
+        roleId: roleId || values.role || undefined,
         email: values.email,
         fullName: values.fullName,
-        password: values.password,
-        mustChangePassword: values.mustChangePassword ? true : false,
       });
-      toast.success(t('success'));
+      if (result.emailSent === false) toast.error(result.message);
+      else toast.success(t('success'));
       queryClient.invalidateQueries({ queryKey: ['get-role-users'] });
+      queryClient.invalidateQueries({ queryKey: ['get-pending-invitations'] });
+      queryClient.invalidateQueries({ queryKey: ['get-roles'] });
       onClose();
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
@@ -86,10 +86,11 @@ export function InviteUserDialog({
     >
       <Formik
         initialValues={initialValues}
+        enableReinitialize
         validationSchema={inviteUserValidationSchema(tSchema)}
         onSubmit={handleSubmit}
       >
-        {({ values, setFieldValue }) => (
+        {() => (
           <Form className="space-y-4">
             <div className="w-full flex flex-col items-center justify-center">
               <div className="mb-4">
@@ -115,15 +116,7 @@ export function InviteUserDialog({
               requiredAsterisk
             />
 
-            {/* Password */}
-            <AppPasswordField
-              name="password"
-              label={t('password')}
-              placeholder={t('passwordPlaceholder')}
-              requiredAsterisk
-            />
-
-            {showRoleField && (
+            {showRoleField && !roleId && (
               <AppSelect
                 name="role"
                 label={t('role')}
@@ -133,22 +126,11 @@ export function InviteUserDialog({
               />
             )}
 
-            {/* Must Change Password Checkbox */}
-            <div className="flex items-center space-x-2 pt-2">
-              <Checkbox
-                id="mustChangePassword"
-                checked={values.mustChangePassword}
-                onCheckedChange={(checked) =>
-                  setFieldValue('mustChangePassword', checked)
-                }
-              />
-              <Label
-                htmlFor="mustChangePassword"
-                className="text-sm font-normal cursor-pointer"
-              >
-                {t('changePassword')}
-              </Label>
-            </div>
+            {roleId && roleName && (
+              <p className="text-sm text-muted-foreground">
+                {t('role')}: <span className="font-medium text-foreground">{roleName}</span>
+              </p>
+            )}
 
             {/* Footer Buttons */}
             <div className="flex justify-end gap-3 pt-4">

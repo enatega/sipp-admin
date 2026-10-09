@@ -5896,6 +5896,7 @@
       "discountValueRequired": "قيمة الفرز مطلوبة",
       "discountValueMustBeNumber": "قيمة الخصم يجب أن تكون رقم",
       "discountValueGreaterThanZero": "قيمة الخصم يجب أن تكون أكبر من صفر",
+      "discountValuePercentageMax": "لا يمكن أن يتجاوز الخصم بالنسبة المئوية 100%",
       "maxDiscountCapRequiredForFixed": "الحد الأقصى للخصوم مطلوب للخصوم الثابتة",
       "maxDiscountCapGreaterThanZero": "الحد الأقصى للخصوم يجب أن يكون أكبر من صفر",
       "minOrderValueRequired": "القيمة الدنيا للحجز مطلوبة",

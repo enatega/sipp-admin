@@ -5924,6 +5924,7 @@
       "discountValueRequired": "Discount value is required",
       "discountValueMustBeNumber": "Discount value must be a number",
       "discountValueGreaterThanZero": "Discount value must be greater than 0",
+      "discountValuePercentageMax": "Percentage discount cannot be more than 100%",
       "maxDiscountCapRequiredForFixed": "Max discount cap is required for fixed discounts",
       "maxDiscountCapGreaterThanZero": "Max discount cap must be greater than 0",
       "minOrderValueRequired": "Minimum booking value is required",

@@ -5887,6 +5887,7 @@
       "discountValueRequired": "Une valeur d'actualisation est requise",
       "discountValueMustBeNumber": "La valeur d'actualisation doit être un nombre",
       "discountValueGreaterThanZero": "La valeur d'actualisation doit être supérieure à 0",
+      "discountValuePercentageMax": "La remise en pourcentage ne peut pas dépasser 100 %",
       "maxDiscountCapRequiredForFixed": "Un plafond de réduction maximal est requis pour les remises fixes",
       "maxDiscountCapGreaterThanZero": "Le plafond de réduction maximal doit être supérieur à 0",
       "minOrderValueRequired": "La valeur minimale de la réservation est requise",

@@ -5887,6 +5887,7 @@
       "discountValueRequired": "Se requiere un valor de descuento",
       "discountValueMustBeNumber": "Valor de descuento debe ser un número",
       "discountValueGreaterThanZero": "El valor de descuento debe ser superior a 0",
+      "discountValuePercentageMax": "El descuento porcentual no puede ser mayor al 100 %",
       "maxDiscountCapRequiredForFixed": "Para descuentos fijos se requiere un máximo de descuento",
       "maxDiscountCapGreaterThanZero": "Max de descuento debe ser mayor que 0",
       "minOrderValueRequired": "Se requiere un valor mínimo de reserva",

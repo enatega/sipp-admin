@@ -6249,6 +6249,7 @@
       "discountValueRequired": "Rabattwert ist erforderlich",
       "discountValueMustBeNumber": "Rabattwert muss eine Zahl sein",
       "discountValueGreaterThanZero": "Rabattwert muss größer als 0 sein",
+      "discountValuePercentageMax": "Der prozentuale Rabatt darf nicht mehr als 100 % betragen",
       "maxDiscountCapRequiredForFixed": "Maximale Rabattgrenze ist für feste Rabatte erforderlich",
       "maxDiscountCapGreaterThanZero": "Maximale Rabattgrenze muss größer als 0 sein",
       "minOrderValueRequired": "Mindestbuchungswert ist erforderlich",

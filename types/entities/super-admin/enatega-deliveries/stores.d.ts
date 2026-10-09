@@ -1,5 +1,7 @@
 export interface DeliveryStore extends Record<string, unknown> {
   id: string;
+  /** Store login phone; most migrated stores have none. */
+  storephone?: string | null;
   storeimage: string;
   coverimage: string;
   address: string | null;

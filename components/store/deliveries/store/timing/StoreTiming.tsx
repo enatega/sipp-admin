@@ -25,6 +25,15 @@ const WEEK_DAYS: TWeekDay[] = [
   'sunday',
 ];
 const TIME_24H_REGEX = /^([01]\d|2[0-3]):[0-5]\d$/;
+const TIME_WITH_ZERO_SECONDS_REGEX = /^([01]\d|2[0-3]):[0-5]\d:00$/;
+
+// Migrated MySQL TIME values can include zero seconds. The time input displays
+// only hours/minutes, so normalize before validating or submitting unchanged data.
+const normalizeEditorTime = (time: string, isClosingTime = false): string => {
+  if (TIME_WITH_ZERO_SECONDS_REGEX.test(time)) return time.slice(0, 5);
+  if (isClosingTime && time === '23:59:59') return '00:00';
+  return time;
+};
 
 interface EditableTimeSlot {
   id: string;
@@ -39,6 +48,15 @@ interface EditableDayTiming {
 
 type EditableStoreTiming = Record<TWeekDay, EditableDayTiming>;
 
+// Compare only fields sent to the API; row IDs exist solely for editing.
+const timingSnapshot = (timings: EditableStoreTiming): string =>
+  JSON.stringify(
+    WEEK_DAYS.map((day) => ({
+      is_active: timings[day].is_active,
+      slots: timings[day].slots.map(({ open, close }) => ({ open, close })),
+    })),
+  );
+
 const StoreTiming = () => {
   const t = useTranslations('storeTiming');
   const tCommon = useTranslations('common');
@@ -49,6 +67,12 @@ const StoreTiming = () => {
   const [weekTimings, setWeekTimings] = useState<EditableStoreTiming | null>(
     null,
   );
+  const [savedSnapshot, setSavedSnapshot] = useState<string | null>(null);
+  const currentSnapshot = weekTimings ? timingSnapshot(weekTimings) : null;
+  const hasChanges =
+    currentSnapshot !== null &&
+    savedSnapshot !== null &&
+    currentSnapshot !== savedSnapshot;
 
   // Initialize state from API
   useEffect(() => {
@@ -64,14 +88,15 @@ const StoreTiming = () => {
         slots:
           apiDay?.slots?.map((slot, index) => ({
             id: String(index + 1),
-            open: slot.open,
-            close: slot.close,
+            open: normalizeEditorTime(slot.open),
+            close: normalizeEditorTime(slot.close, true),
           })) ?? [],
       };
     });
 
     // Defer state update to next tick
     const timer = setTimeout(() => {
+      setSavedSnapshot(timingSnapshot(formatted));
       setWeekTimings((prev) => {
         const prevStr = JSON.stringify(prev);
         const newStr = JSON.stringify(formatted);
@@ -84,7 +109,9 @@ const StoreTiming = () => {
   }, [data]);
 
   const handleSave = async () => {
-    if (!weekTimings) return;
+    if (!weekTimings || !hasChanges || isPending) return;
+
+    const submittedSnapshot = timingSnapshot(weekTimings);
 
     const hasIncompleteActiveDay = WEEK_DAYS.some((day) => {
       const timing = weekTimings[day];
@@ -120,6 +147,7 @@ const StoreTiming = () => {
     };
     try {
       const response = await updateStore(payload);
+      setSavedSnapshot(submittedSnapshot);
       toast.success(response.message || t('updateSuccess'));
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
@@ -132,14 +160,14 @@ const StoreTiming = () => {
         <Heading title={t('title')} />
       </div>
 
-      {isLoading || !weekTimings ? (
-        <CardShimmer />
-      ) : isError ? (
+      {isError ? (
         <DisplayError
           title={t('fetchFailedTitle')}
           message={returnErrorMessage(error)}
           variant="error"
         />
+      ) : isLoading || !weekTimings ? (
+        <CardShimmer />
       ) : (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden xl:max-w-2/3">
           <div className="p-6 space-y-1">
@@ -155,7 +183,9 @@ const StoreTiming = () => {
             {/* Save Section */}
             <div className="flex justify-end pt-6 border-t mt-6">
               <AppButton
-                disabled={isPending}
+                isLoading={isPending}
+                disabled={!hasChanges}
+                aria-busy={isPending}
                 onClick={handleSave}
                 className="px-6 py-2 rounded-lg"
               >

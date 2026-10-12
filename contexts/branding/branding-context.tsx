@@ -137,8 +137,10 @@ function storeCachedBranding(branding: CachedBranding): void {
 
 export function BrandingProvider({
   children,
+  titleOverride,
 }: {
   children: React.ReactNode;
+  titleOverride?: string;
 }) {
   const isHydrated = useSyncExternalStore(
     () => () => {},
@@ -226,6 +228,7 @@ export function BrandingProvider({
   const isRefreshing =
     (isAdminSettingsFetching || isWebSettingsFetching) &&
     Boolean(cachedBranding || adminSettings || webSettings);
+  const pageTitle = titleOverride ?? resolvedBranding.brandTitle;
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -253,8 +256,8 @@ export function BrandingProvider({
   useEffect(() => {
     if (typeof document === 'undefined') return;
 
-    if (resolvedBranding.brandTitle) {
-      document.title = resolvedBranding.brandTitle;
+    if (pageTitle) {
+      document.title = pageTitle;
     }
 
     if (!resolvedBranding.favicon) return;
@@ -270,7 +273,7 @@ export function BrandingProvider({
     }
 
     faviconElement.href = resolvedBranding.favicon;
-  }, [resolvedBranding.brandTitle, resolvedBranding.favicon]);
+  }, [pageTitle, resolvedBranding.favicon]);
 
   useEffect(() => {
     if (!isHydrated) return;
@@ -287,9 +290,9 @@ export function BrandingProvider({
       appNameClassName: DEFAULT_APP_NAME_CLASS,
       isLoading,
       isRefreshing,
-      brandTitle: resolvedBranding.brandTitle,
+      brandTitle: pageTitle,
     }),
-    [isLoading, isRefreshing, resolvedBranding],
+    [isLoading, isRefreshing, pageTitle, resolvedBranding],
   );
 
   if (isLoading) {

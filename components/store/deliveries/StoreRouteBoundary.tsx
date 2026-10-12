@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { AdminBrandingProvider } from '@/contexts/super-admin/enatega-deliveries/settings/admin-branding-context';
+import { deployment } from '@/config/deployment';
 import { getLegacyStoreSuffixFromPath, getStoreIdFromPath } from '@/lib/store';
 import { ProtectedRoute } from '@/components/hoc/ProtectedRoute';
 import StoreLayout from '@/components/layouts/store/deliveries';
@@ -26,7 +27,7 @@ function StoreRouteBoundary({ children }: { children: React.ReactNode }) {
 
   return (
     <ProtectedRoute role="store" storeId={storeId} permission={permission}>
-      <AdminBrandingProvider>
+      <AdminBrandingProvider titleOverride={deployment.brand.titles.store}>
         <StoreLayout>{children}</StoreLayout>
       </AdminBrandingProvider>
     </ProtectedRoute>

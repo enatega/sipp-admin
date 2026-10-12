@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { AdminBrandingProvider } from '@/contexts/super-admin/enatega-deliveries/settings/admin-branding-context';
+import { deployment } from '@/config/deployment';
 import { ProtectedRoute } from '@/components/hoc/ProtectedRoute';
 import VendorLayout from '@/components/layouts/vendor/deliveries';
 
@@ -19,7 +20,7 @@ function VendorRouteBoundary({
 
   return (
     <ProtectedRoute role="vendor" vendorId={vendorId} permission={permission}>
-      <AdminBrandingProvider>
+      <AdminBrandingProvider titleOverride={deployment.brand.titles.vendor}>
         <VendorLayout>{children}</VendorLayout>
       </AdminBrandingProvider>
     </ProtectedRoute>

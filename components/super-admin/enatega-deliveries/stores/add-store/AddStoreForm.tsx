@@ -1,15 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAddStoreForm } from '@/contexts/super-admin/enatega-deliveries/store/use-add-store-form';
 import { ApiErrorResponse } from '@/types';
 import { useTranslations } from 'next-intl';
+import { ValidationError } from 'yup';
 import toast from 'react-hot-toast';
 import type { StoreFormData } from '@/types/entities/super-admin/enatega-deliveries/store-form';
 import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError } from '@/lib/toast-error';
 import { useCreateStore } from '@/hooks/api/super-admin/enatega-deliveries/stores';
+import {
+  Step5Schema,
+  StoreFormStep1Schema,
+  StoreFormStep2Schema,
+  StoreFormStep4Schema,
+} from '@/schemas/enatega-deliveries/stores/store-form';
+import StoreFormStepper from './Stepper';
+import type {
+  RegisterStepNavigation,
+  StepNavigationHandler,
+} from './StepNavigation';
 import { Step1Form } from './Step1';
 import { Step2Form } from './Step2';
 import { Step4Form } from './Step4';
@@ -20,12 +32,27 @@ const AddStoreForm = () => {
   const router = useRouter();
   const pathname = usePathname();
   const tStep4 = useTranslations('lumiFood.stores.addStore.step4');
+  const tSchema = useTranslations('Schemas.storeForm');
+  const tStepper = useTranslations('lumiFood.stores.addStore.stepper');
   const tAddStoreMessages = useTranslations(
     'lumiFood.stores.addStore.messages',
   );
-  const { currentStep, formData, nextStep, prevStep, setStepData, resetForm } =
+  const { currentStep, completedSteps, formData, nextStep, goToStep, setStepData, resetForm } =
     useAddStoreForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigationRef = useRef<StepNavigationHandler | null>(null);
+
+  const registerNavigation = useCallback<RegisterStepNavigation>((handler) => {
+    navigationRef.current = handler;
+  }, []);
+
+  const navigateToStep = (step: number) => {
+    if (isPending || isSubmitting || step >= currentStep || !completedSteps.includes(step)) return;
+    navigationRef.current?.(step);
+  };
+
+  const canSelectStep = (step: number) =>
+    step < currentStep && completedSteps.includes(step) && !isPending && !isSubmitting;
 
   const { mutate: createStore, isPending } = useCreateStore({
     onSuccess: (data) => {
@@ -87,11 +114,52 @@ const AddStoreForm = () => {
     step6Data: NonNullable<StoreFormData['step6']>,
   ) => {
     try {
+      const requiredSteps = [
+        {
+          number: 1,
+          title: tStepper('storeInfoTitle'),
+          data: formData.step1,
+          schema: StoreFormStep1Schema(tSchema),
+        },
+        {
+          number: 2,
+          title: tStepper('shopTypeTitle'),
+          data: formData.step2,
+          schema: StoreFormStep2Schema(tSchema),
+        },
+        {
+          number: 3,
+          title: tStepper('locationTitle'),
+          data: formData.step4,
+          schema: StoreFormStep4Schema(tSchema),
+        },
+        {
+          number: 4,
+          title: tStepper('documentsTitle'),
+          data: formData.step5,
+          schema: Step5Schema(tSchema),
+        },
+      ];
+
+      for (const step of requiredSteps) {
+        try {
+          step.schema.validateSync(step.data ?? {}, { abortEarly: true });
+        } catch (error) {
+          goToStep(step.number);
+          toast.error(
+            `${step.title}: ${error instanceof ValidationError ? error.message : tAddStoreMessages('prepareFailed')}`,
+          );
+          return;
+        }
+      }
+
       if (!formData.step4?.location) {
+        goToStep(3);
         toast.error(tStep4('locationRequired'));
         return;
       }
       if (!formData.step4?.exactStoreLocation) {
+        goToStep(3);
         toast.error(tStep4('exactStoreLocationRequired'));
         return;
       }
@@ -343,43 +411,51 @@ const AddStoreForm = () => {
   };
 
   return (
-    <div className="flex-1">
-      {currentStep === 1 && (
-        <Step1Form
-          initialData={formData.step1}
-          onSubmit={handleSubmit('step1')}
-        />
-      )}
-      {currentStep === 2 && (
-        <Step2Form
-          initialData={formData.step2}
-          onSubmit={handleSubmit('step2')}
-          onBack={prevStep}
-        />
-      )}
-      {currentStep === 3 && formData.step2 && (
-        <Step4Form
-          initialData={formData.step4}
-          onSubmit={handleSubmit('step4')}
-          onBack={prevStep}
-        />
-      )}
-      {currentStep === 4 && (
-        <Step5Form
-          initialData={formData.step5}
-          onSubmit={handleSubmit('step5')}
-          onBack={prevStep}
-        />
-      )}
-      {currentStep === 5 && (
-        <Step6Form
-          initialData={formData.step6}
-          onSubmit={handleSubmit('step6')}
-          onBack={prevStep}
-          isLoading={isPending}
-        />
-      )}
-    </div>
+    <>
+      <StoreFormStepper currentStep={currentStep} onStepClick={navigateToStep} canSelectStep={canSelectStep} />
+      <div className="flex-1">
+        {currentStep === 1 && (
+          <Step1Form
+            initialData={formData.step1}
+            onSubmit={handleSubmit('step1')}
+            registerNavigation={registerNavigation}
+          />
+        )}
+        {currentStep === 2 && (
+          <Step2Form
+            initialData={formData.step2}
+            onSubmit={handleSubmit('step2')}
+            onBack={() => navigateToStep(currentStep - 1)}
+            registerNavigation={registerNavigation}
+          />
+        )}
+        {currentStep === 3 && formData.step2 && (
+          <Step4Form
+            initialData={formData.step4}
+            onSubmit={handleSubmit('step4')}
+            onBack={() => navigateToStep(currentStep - 1)}
+            registerNavigation={registerNavigation}
+          />
+        )}
+        {currentStep === 4 && (
+          <Step5Form
+            initialData={formData.step5}
+            onSubmit={handleSubmit('step5')}
+            onBack={() => navigateToStep(currentStep - 1)}
+            registerNavigation={registerNavigation}
+          />
+        )}
+        {currentStep === 5 && (
+          <Step6Form
+            initialData={formData.step6}
+            onSubmit={handleSubmit('step6')}
+            onBack={() => navigateToStep(currentStep - 1)}
+            isLoading={isPending}
+            registerNavigation={registerNavigation}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

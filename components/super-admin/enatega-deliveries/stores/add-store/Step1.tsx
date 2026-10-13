@@ -2,11 +2,13 @@
 
 import * as React from 'react';
 import { StoreFormStep1Schema } from '@/schemas/enatega-deliveries/stores/store-form';
-import { Form, Formik } from 'formik';
+import { Form, Formik, type FormikHelpers } from 'formik';
+import { string as yupString } from 'yup';
 import { useTranslations } from 'next-intl';
 import type { Step1Data } from '@/types/entities/super-admin/enatega-deliveries/store-form';
 import { useGetZonesSimple } from '@/hooks/api/super-admin/general/zones';
 import { useGetAllVendorsSimple } from '@/hooks/api/super-admin/enatega-deliveries/vendors';
+import { isStoreEmailAvailable } from '@/hooks/api/super-admin/enatega-deliveries/stores';
 import { useCurrency } from '@/hooks/use-currency';
 import { generatePassword } from '@/lib/utils';
 import { AppButton } from '@/components/shared/AppButton';
@@ -20,11 +22,18 @@ import { AppSwitch } from '@/components/shared/form/AppSwitch';
 import { AppTextarea } from '@/components/shared/form/AppTextarea';
 import { StoreSlugField } from '@/components/shared/form/StoreSlugField';
 import { EMPTY_STEP1 } from './data';
+import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
 
 interface Step1FormProps {
   initialData: Step1Data | null;
   onSubmit: (data: Step1Data) => void;
+  registerNavigation: RegisterStepNavigation;
 }
+
+type EmailAvailability = {
+  email: string;
+  status: 'checking' | 'available' | 'taken' | 'error';
+};
 
 const AutoGeneratePasswordEffect: React.FC<{
   autoGeneratePassword?: boolean;
@@ -44,9 +53,38 @@ const AutoGeneratePasswordEffect: React.FC<{
 export const Step1Form: React.FC<Step1FormProps> = ({
   initialData,
   onSubmit,
+  registerNavigation,
 }) => {
   const t = useTranslations('lumiFood.stores.addStore.step1');
   const tSchema = useTranslations('Schemas.storeForm');
+  const [emailDraft, setEmailDraft] = React.useState(initialData?.email ?? '');
+  const [emailAvailability, setEmailAvailability] =
+    React.useState<EmailAvailability | null>(null);
+
+  React.useEffect(() => {
+    const email = emailDraft.trim().toLowerCase();
+    if (!yupString().email().required().isValidSync(email)) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setEmailAvailability({ email, status: 'checking' });
+      try {
+        const available = await isStoreEmailAvailable(email, controller.signal);
+        if (!controller.signal.aborted) {
+          setEmailAvailability({ email, status: available ? 'available' : 'taken' });
+        }
+      } catch {
+        if (!controller.signal.aborted) {
+          setEmailAvailability({ email, status: 'error' });
+        }
+      }
+    }, 400);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [emailDraft]);
 
   const { data: zones } = useGetZonesSimple();
   const { data: vendors } = useGetAllVendorsSimple();
@@ -70,8 +108,27 @@ export const Step1Form: React.FC<Step1FormProps> = ({
     [initialData],
   );
 
-  const handleSubmit = (values: Step1Data) => {
-    onSubmit(values);
+  const handleSubmit = async (
+    values: Step1Data,
+    { setFieldError, setFieldTouched, setSubmitting }: FormikHelpers<Step1Data>,
+  ) => {
+    const email = values.email.trim().toLowerCase();
+    try {
+      const available = await isStoreEmailAvailable(email);
+      if (!available) {
+        setEmailAvailability({ email, status: 'taken' });
+        await setFieldTouched('email', true, false);
+        setFieldError('email', t('emailAlreadyExists'));
+        return;
+      }
+      onSubmit(values);
+    } catch {
+      setEmailAvailability({ email, status: 'error' });
+      await setFieldTouched('email', true, false);
+      setFieldError('email', t('emailCheckFailed'));
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -87,8 +144,9 @@ export const Step1Form: React.FC<Step1FormProps> = ({
         validationSchema={StoreFormStep1Schema(tSchema)}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, setFieldValue, values }) => (
+        {({ isSubmitting, setFieldValue, setFieldTouched, values }) => (
           <Form className="space-y-4">
+            <StepNavigation step="step1" register={registerNavigation} />
             <AutoGeneratePasswordEffect 
               autoGeneratePassword={values.autoGeneratePassword}
               currentPassword={values.password}
@@ -134,6 +192,28 @@ export const Step1Form: React.FC<Step1FormProps> = ({
               type="email"
               placeholder={t('emailPlaceholder')}
               requiredAsterisk
+              error={
+                emailAvailability?.email === values.email.trim().toLowerCase() &&
+                emailAvailability.status === 'taken'
+                  ? t('emailAlreadyExists')
+                  : emailAvailability?.email === values.email.trim().toLowerCase() &&
+                      emailAvailability.status === 'error'
+                    ? t('emailCheckFailed')
+                    : undefined
+              }
+              helperText={
+                emailAvailability?.email === values.email.trim().toLowerCase() &&
+                emailAvailability.status === 'checking'
+                  ? t('checkingEmail')
+                  : undefined
+              }
+              onChange={(event) => {
+                setEmailDraft(event.target.value);
+                void setFieldValue('email', event.target.value);
+                if (event.target.value.trim()) {
+                  void setFieldTouched('email', true, false);
+                }
+              }}
             />
             <AppPasswordField
               label={t('passwordLabel')}

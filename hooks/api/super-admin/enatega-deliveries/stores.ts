@@ -1,4 +1,5 @@
 import Axios from '@/config/axios';
+import { isAxiosError } from 'axios';
 import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useQueryParams } from '@/hooks/use-query-params';
 import {
@@ -315,6 +316,20 @@ export const useDeleteStore = (
         },
         ...options,
     });
+};
+
+/** Check the shared user registry before allowing a new store login email. */
+export const isStoreEmailAvailable = async (
+    email: string,
+    signal?: AbortSignal,
+): Promise<boolean> => {
+    try {
+        await Axios.get(`/users/check-email/${encodeURIComponent(email.trim().toLowerCase())}`, { signal });
+        return true;
+    } catch (error) {
+        if (isAxiosError(error) && error.response?.status === 409) return false;
+        throw error;
+    }
 };
 
 /**

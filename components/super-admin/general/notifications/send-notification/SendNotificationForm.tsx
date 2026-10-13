@@ -66,8 +66,8 @@ export default function SendNotificationForm({
   const { data: zonesData, isLoading: isLoadingZones } = useGetZonesSimple();
 
   const sendNotificationSchema = Yup.object().shape({
-    title: Yup.string().required(tForm('validation.titleRequired')),
-    description: Yup.string().required(tForm('validation.descriptionRequired')),
+    title: Yup.string().trim().required(tForm('validation.titleRequired')),
+    description: Yup.string().trim().required(tForm('validation.descriptionRequired')),
     userTypes: Yup.array()
       .min(1, tForm('validation.userTypesMin'))
       .required(tForm('validation.userTypesRequired')),
@@ -94,8 +94,8 @@ export default function SendNotificationForm({
       const deepLink = values.deepLink.trim();
 
       const payload: SendNotificationPayload = {
-        title: values.title,
-        description: values.description,
+        title: values.title.trim(),
+        description: values.description.trim(),
         userTypes: values.userTypes.map(
           (type) => userTypeMapping[type],
         ) as UserType[],

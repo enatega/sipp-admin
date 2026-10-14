@@ -2101,6 +2101,7 @@
       "category": "الفئة",
       "price": "السعر",
       "priceAfterDeal": "السعر بعد الاتفاق",
+      "noActiveDeal": "لا يوجد عرض نشط",
       "addon": "إضافة",
       "unitOfMeasure": "وحدة القياس",
       "stockAvailability": "توافر المخزونات",

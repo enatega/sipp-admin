@@ -2101,6 +2101,7 @@
       "category": "Catégorie",
       "price": "Prix",
       "priceAfterDeal": "Prix après vente",
+      "noActiveDeal": "Aucune offre active",
       "addon": "Ajouter",
       "unitOfMeasure": "Unité de mesure",
       "stockAvailability": "Disponibilité des stocks",

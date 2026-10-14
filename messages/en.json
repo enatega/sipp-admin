@@ -290,6 +290,7 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
+    "dispatch": "Dispatch",
     "settings": "Settings",
     "profile": "Profile"
   },
@@ -3376,7 +3377,8 @@
         "publishButton": "Publish"
       },
       "messages": {
-        "createSuccess": "Store created successfully"
+        "createSuccess": "Store created successfully",
+        "credentialsEmailFailed": "The store was created, but the credentials email could not be sent. Please verify the mail settings and share the credentials securely."
       }
     }
   },
@@ -4378,6 +4380,7 @@
         },
         "messages": {
           "createSuccess": "Store created successfully",
+          "credentialsEmailFailed": "The store was created, but the credentials email could not be sent. Please verify the mail settings and share the credentials securely.",
           "prepareFailed": "Failed to prepare store data"
         }
       },

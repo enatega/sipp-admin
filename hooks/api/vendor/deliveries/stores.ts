@@ -407,6 +407,7 @@ type CreateVendorStoreResponse = {
   message?: string;
   id?: string;
   storeId?: string;
+  credentialsEmailSent?: boolean;
   store?: {
     id?: string;
   };

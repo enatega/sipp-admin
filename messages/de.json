@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Startseite",
     "dashboard": "Dashboard",
+    "dispatch": "Disposition",
     "settings": "Einstellungen",
     "profile": "Profil"
   },
@@ -3304,7 +3305,8 @@
         "publishButton": "Veröffentlichen"
       },
       "messages": {
-        "createSuccess": "Filiale erfolgreich erstellt"
+        "createSuccess": "Filiale erfolgreich erstellt",
+        "credentialsEmailFailed": "Der Store wurde erstellt, aber die E-Mail mit den Zugangsdaten konnte nicht gesendet werden. Prüfen Sie die E-Mail-Einstellungen und teilen Sie die Zugangsdaten sicher."
       }
     }
   },
@@ -4722,6 +4724,7 @@
         },
         "messages": {
           "createSuccess": "Geschäft erfolgreich erstellt",
+          "credentialsEmailFailed": "Der Store wurde erstellt, aber die E-Mail mit den Zugangsdaten konnte nicht gesendet werden. Prüfen Sie die E-Mail-Einstellungen und teilen Sie die Zugangsdaten sicher.",
           "prepareFailed": "Store-Daten konnten nicht vorbereitet werden"
         }
       },

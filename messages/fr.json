@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Sommaire",
     "dashboard": "Tableau de bord",
+    "dispatch": "Répartition",
     "settings": "Paramètres",
     "profile": "Profil"
   },
@@ -3389,7 +3390,8 @@
         "publishButton": "Publier"
       },
       "messages": {
-        "createSuccess": "Stockage créé avec succès"
+        "createSuccess": "Stockage créé avec succès",
+        "credentialsEmailFailed": "Le magasin a été créé, mais l’e-mail contenant les identifiants n’a pas pu être envoyé. Vérifiez la configuration de la messagerie et partagez les identifiants de manière sécurisée."
       }
     }
   },
@@ -4376,6 +4378,7 @@
         },
         "messages": {
           "createSuccess": "Stockage créé avec succès",
+          "credentialsEmailFailed": "Le magasin a été créé, mais l’e-mail contenant les identifiants n’a pas pu être envoyé. Vérifiez la configuration de la messagerie et partagez les identifiants de manière sécurisée.",
           "prepareFailed": "Impossible de préparer les données de stockage"
         }
       },

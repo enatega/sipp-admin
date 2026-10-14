@@ -174,6 +174,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({
               name="phone"
               placeholder={t('phonePlaceholder')}
               requiredAsterisk
+              validateOnChange
             />
             <AppFileInput
               name="logo"

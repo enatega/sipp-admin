@@ -337,14 +337,26 @@ export const isStoreEmailAvailable = async (
  * @param options - React Query mutation options
  */
 export const useCreateStore = (
-    options?: UseMutationOptions<{ message: string }, ApiErrorResponse, FormData>
+    options?: UseMutationOptions<
+        { message: string; storeId?: string; credentialsEmailSent?: boolean },
+        ApiErrorResponse,
+        FormData
+    >
 ) => {
     const queryClient = useQueryClient();
 
-    return useMutation<{ message: string }, ApiErrorResponse, FormData>({
+    return useMutation<
+        { message: string; storeId?: string; credentialsEmailSent?: boolean },
+        ApiErrorResponse,
+        FormData
+    >({
         ...options,
         mutationFn: async (formData: FormData) => {
-            const res = await Axios.post<{ message: string }>(
+            const res = await Axios.post<{
+                message: string;
+                storeId?: string;
+                credentialsEmailSent?: boolean;
+            }>(
                 `/apps/deliveries/stores/main-store`,
                 formData,
                 {

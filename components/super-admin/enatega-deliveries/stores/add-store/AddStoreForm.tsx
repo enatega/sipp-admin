@@ -58,6 +58,9 @@ const AddStoreForm = () => {
     onSuccess: (data) => {
       setIsSubmitting(false);
       toast.success(data.message || tAddStoreMessages('createSuccess'));
+      if (data.credentialsEmailSent === false) {
+        toast.error(tAddStoreMessages('credentialsEmailFailed'));
+      }
       resetForm();
       router.push(
         buildScopedDeliveriesAdminPathFromCurrent(

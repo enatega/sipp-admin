@@ -29,6 +29,7 @@ interface AppPhoneFieldProps {
   disabled?: boolean;
   requiredAsterisk?: boolean;
   maxDigits?: number;
+  validateOnChange?: boolean;
 }
 
 export const AppPhoneField = ({
@@ -45,6 +46,7 @@ export const AppPhoneField = ({
   disabled,
   requiredAsterisk,
   maxDigits = 15,
+  validateOnChange = false,
 }: AppPhoneFieldProps) => {
   const t = useTranslations('appPhoneInput');
   const resolvedPlaceholder = placeholder ?? t('enterPhoneNumber');
@@ -171,7 +173,10 @@ export const AppPhoneField = ({
               : nextValue;
 
           if (hasFormik) {
-            formik!.setFieldValue(name, safeValue);
+            void formik!.setFieldValue(name, safeValue, true);
+            if (validateOnChange && safeValue) {
+              void formik!.setFieldTouched(name, true, false);
+            }
           }
         }}
         onBlur={() => {

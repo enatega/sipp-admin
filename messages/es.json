@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Inicio",
     "dashboard": "Panel de control",
+    "dispatch": "Despacho",
     "settings": "Ajustes",
     "profile": "Perfil"
   },
@@ -3389,7 +3390,8 @@
         "publishButton": "Publicar"
       },
       "messages": {
-        "createSuccess": "Tienda creada con éxito"
+        "createSuccess": "Tienda creada con éxito",
+        "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura."
       }
     }
   },
@@ -4391,6 +4393,7 @@
         },
         "messages": {
           "createSuccess": "Tienda creada con éxito",
+          "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura.",
           "prepareFailed": "No se pudieron preparar los datos de la tienda"
         }
       },

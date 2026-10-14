@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import type {
   Product,
   ProductCustomizationGroup,
+  ProductCustomizationOption,
 } from '@/types/entities/store/deliveries/product';
 import {
   buildDealSummaryIndex,
@@ -20,12 +21,14 @@ import {
   findDealSummaryById,
 } from '@/lib/deal-pricing';
 import { handleApiError, returnErrorMessage } from '@/lib/toast-error';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
 import {
   useAddProductCustomizationGroup,
   useDeleteProductCustomizationGroup,
   useDetachProductCustomizationGroup,
   useUpdateProductCustomizationGroup,
+  useUpdateProductVariationOptionPrice,
 } from '@/hooks/api/store/deliveries/product-management/products';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 import { AddonGroupDialog } from './AddonGroupDialog';
@@ -33,6 +36,7 @@ import { EditProductAddonsSection } from './EditProductAddonsSection';
 import { EditProductBasicInformationForm } from './EditProductBasicInformationForm';
 import { EditProductVariationsSection } from './EditProductVariationsSection';
 import { VariationGroupDialog } from './VariationGroupDialog';
+import { LegacyVariationPriceDialog } from './LegacyVariationPriceDialog';
 
 interface EditProductFormProps {
   initialValues: EditProductFormValues;
@@ -80,6 +84,10 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
     React.useState<ProductCustomizationGroup | null>(null);
   const [selectedVariation, setSelectedVariation] =
     React.useState<ProductCustomizationGroup | null>(null);
+  const [selectedLegacyOption, setSelectedLegacyOption] = React.useState<{
+    group: ProductCustomizationGroup;
+    option: ProductCustomizationOption;
+  } | null>(null);
   const [isAddOnDialogOpen, setIsAddOnDialogOpen] = React.useState(false);
   const [isVariationDialogOpen, setIsVariationDialogOpen] =
     React.useState(false);
@@ -90,6 +98,8 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
     useAddProductCustomizationGroup();
   const { mutateAsync: updateCustomizationGroup, isPending: isUpdatingGroup } =
     useUpdateProductCustomizationGroup();
+  const { mutateAsync: updateLegacyOptionPrice, isPending: isUpdatingLegacyOption } =
+    useUpdateProductVariationOptionPrice();
   const { mutateAsync: deleteCustomizationGroup, isPending: isDeletingGroup } =
     useDeleteProductCustomizationGroup();
   const { mutateAsync: detachCustomizationGroup, isPending: isDetachingGroup } =
@@ -109,7 +119,22 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
   );
 
   const customizationActionPending =
-    isCreatingGroup || isUpdatingGroup || isDeletingGroup || isDetachingGroup;
+    isCreatingGroup || isUpdatingGroup || isUpdatingLegacyOption || isDeletingGroup || isDetachingGroup;
+
+  const handleLegacyOptionPriceSave = async (price: number) => {
+    if (!selectedLegacyOption) return;
+    try {
+      await updateLegacyOptionPrice({
+        productId: product.id,
+        groupId: selectedLegacyOption.group.id,
+        optionId: selectedLegacyOption.option.id,
+        price,
+      });
+      toast.success(tProducts('success.update'));
+    } catch (error) {
+      throw new Error(returnErrorMessage(error as ApiErrorResponse));
+    }
+  };
 
   const openCreateAddOnDialog = () => {
     setSelectedAddOn(null);
@@ -180,7 +205,9 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
       productId: product.id,
       store_id: resolvedStoreId,
       name: values.name.trim(),
-      price: Number(values.price),
+      price: hasPersistedVariationOptions(selectedVariation)
+        ? undefined
+        : Number(values.price),
       type: 'variation' as const,
       variation_image: values.image instanceof File ? values.image : undefined,
     };
@@ -251,6 +278,7 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
           deleteLabel={tProducts('actions.delete')}
           onCreate={openCreateVariationDialog}
           onEdit={openEditVariationDialog}
+          onEditOption={(group, option) => setSelectedLegacyOption({ group, option })}
           onDelete={setGroupToDelete}
         />
 
@@ -286,6 +314,16 @@ export const EditProductForm: React.FC<EditProductFormProps> = ({
         taxRateId={product.taxRateId}
         currentTaxRate={product.taxRate}
         onSubmit={handleVariationSubmit}
+      />
+
+      <LegacyVariationPriceDialog
+        option={selectedLegacyOption?.option ?? null}
+        storeId={resolvedStoreId}
+        taxRateId={product.taxRateId}
+        currentTaxRate={product.taxRate}
+        isSaving={isUpdatingLegacyOption}
+        onClose={() => setSelectedLegacyOption(null)}
+        onSave={handleLegacyOptionPriceSave}
       />
 
       <AppAlertDialog

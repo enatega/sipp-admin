@@ -14,20 +14,24 @@ type Props = {
 export function ProductVariationTaxBreakdown({ price, rate, currencySymbol }: Props) {
   const t = useTranslations('taxRates');
   const rawPrice = String(price).trim();
-  if (!rawPrice || !rate || Number(rawPrice) <= 0) return null;
-
-  const breakdown = inclusiveTaxBreakdown(Number(rawPrice), Number(rate.rate));
-  if (!breakdown) return null;
+  const breakdown = rawPrice && rate && Number(rawPrice) > 0
+    ? inclusiveTaxBreakdown(Number(rawPrice), Number(rate.rate))
+    : null;
 
   return (
-    <p className="text-sm leading-relaxed text-muted-foreground" aria-live="polite">
-      {t('breakdown', {
-        name: rate.name,
-        rate: String(rate.rate),
-        net: formatCurrency(breakdown.net, currencySymbol),
-        tax: formatCurrency(breakdown.tax, currencySymbol),
-        gross: formatCurrency(breakdown.gross, currencySymbol),
-      })}
-    </p>
+    <div className="space-y-1 text-sm leading-relaxed text-muted-foreground">
+      <p>{t('inclusiveHelp')}</p>
+      {rate && breakdown ? (
+        <p aria-live="polite">
+          {t('breakdown', {
+            name: rate.name,
+            rate: String(rate.rate),
+            net: formatCurrency(breakdown.net, currencySymbol),
+            tax: formatCurrency(breakdown.tax, currencySymbol),
+            gross: formatCurrency(breakdown.gross, currencySymbol),
+          })}
+        </p>
+      ) : null}
+    </div>
   );
 }

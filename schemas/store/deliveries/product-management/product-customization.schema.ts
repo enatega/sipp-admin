@@ -21,14 +21,16 @@ export const addonGroupValidationSchema = (t: TranslationFn) =>
 
 export const variationGroupValidationSchema = (
   t: TranslationFn,
-  options?: { requireImage?: boolean },
+  options?: { requireImage?: boolean; requirePrice?: boolean },
 ) =>
   Yup.object().shape({
     name: Yup.string().trim().required(t('errors.nameRequired')),
-    price: Yup.number()
-      .typeError(t('errors.priceRequired'))
-      .moreThan(0, t('errors.priceRequired'))
-      .required(t('errors.priceRequired')),
+    price: options?.requirePrice === false
+      ? Yup.string().optional()
+      : Yup.number()
+          .typeError(t('errors.priceRequired'))
+          .moreThan(0, t('errors.priceRequired'))
+          .required(t('errors.priceRequired')),
     image: Yup.mixed<File | string>()
       .nullable()
       .test('required-image', t('errors.imageRequired'), (value) => {

@@ -95,7 +95,7 @@
     "useDefault": "Utilisez la taxe de produit par défaut de ce magasin",
     "inclusiveHelp": "Le prix indiqué comprend la taxe. La taxe n'est pas ajoutée en plus.",
     "missingDefault": "Sélectionnez un taux de taxe sur les produits ou demandez à un administrateur de configurer la taxe sur les produits par défaut de ce magasin.",
-    "breakdown": "{name} ({rate}%: net {net} + taxe incluse {tax} = prix {gross}",
+    "breakdown": "{name} ({rate} %) : hors taxe {net} + taxe incluse {tax} = prix {gross}",
     "unconfigured": "Pas de taux d'imposition configuré"
   },
   "common": {
@@ -2317,6 +2317,10 @@
       "messages": {
         "noDeals": "Aucun marché trouvé.",
         "noVariations": "Aucune variation n'a été trouvée.",
+        "legacySizePriceHint": "Les tailles importées ont leurs propres prix. Modifiez une taille ci-dessous ; l'ajout d'une autre variante n'est pas disponible ici.",
+        "optionPriceHint": "Cette variante comporte des options avec leurs propres prix. Modifiez la variante ci-dessus ou le prix d'une option ci-dessous.",
+        "editSizePriceTitle": "Modifier le prix de {size}",
+        "sizePriceSaveError": "Impossible de modifier le prix de cette taille. Veuillez réessayer.",
         "noAddOns": "Aucun add-ons trouvé.",
         "noLinkedOptions": "Aucune option liée trouvée."
       },

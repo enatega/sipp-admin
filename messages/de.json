@@ -2317,6 +2317,10 @@
       "messages": {
         "noDeals": "Keine Deals gefunden.",
         "noVariations": "Keine Varianten gefunden.",
+        "legacySizePriceHint": "Importierte Größen haben eigene Verkaufspreise. Bearbeiten Sie unten eine Größe; weitere Varianten können hier nicht hinzugefügt werden.",
+        "optionPriceHint": "Diese Variante hat eigene Optionen mit Preisen. Bearbeiten Sie die Variante oben oder einen Optionspreis unten.",
+        "editSizePriceTitle": "Preis für {size} bearbeiten",
+        "sizePriceSaveError": "Der Größenpreis konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
         "noAddOns": "Keine Add-ons gefunden.",
         "noLinkedOptions": "Keine verknüpften Optionen gefunden."
       },

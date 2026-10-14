@@ -95,7 +95,7 @@
     "useDefault": "Use el impuesto por defecto del producto de esta tienda",
     "inclusiveHelp": "El precio de entrada incluye impuestos. El impuesto no se añade arriba.",
     "missingDefault": "Seleccione una tasa de impuestos de producto o pida a un administrador que configure el impuesto de producto predeterminado de esta tienda.",
-    "breakdown": "{name} ({rate}%: neto {net} + impuestos incluidos {tax} = precio {gross}",
+    "breakdown": "{name} ({rate}%): neto {net} + impuesto incluido {tax} = precio {gross}",
     "unconfigured": "No hay tasa de impuestos configurada"
   },
   "common": {
@@ -2317,6 +2317,10 @@
       "messages": {
         "noDeals": "No hay tratos encontrados.",
         "noVariations": "No se encontraron variaciones.",
+        "legacySizePriceHint": "Los tamaños importados tienen sus propios precios. Edita un tamaño abajo; aquí no se pueden añadir más variantes.",
+        "optionPriceHint": "Esta variante tiene opciones con precios propios. Edita los detalles de la variante arriba o el precio de una opción abajo.",
+        "editSizePriceTitle": "Editar precio de {size}",
+        "sizePriceSaveError": "No se pudo actualizar el precio del tamaño. Inténtalo de nuevo.",
         "noAddOns": "No hay complementos encontrados.",
         "noLinkedOptions": "No hay opciones vinculadas."
       },

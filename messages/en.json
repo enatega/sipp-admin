@@ -2304,6 +2304,10 @@
       "messages": {
         "noDeals": "No deals found.",
         "noVariations": "No variations found.",
+        "legacySizePriceHint": "Imported sizes have their own selling prices. Edit a size below; adding another variant here is unavailable.",
+        "optionPriceHint": "This variation has its own priced options. Edit its details above or update an option price below.",
+        "editSizePriceTitle": "Edit {size} price",
+        "sizePriceSaveError": "Could not update this size price. Please try again.",
         "noAddOns": "No add-ons found.",
         "noLinkedOptions": "No linked options found."
       },

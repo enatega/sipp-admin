@@ -16,6 +16,7 @@ import {
 } from '@/lib/deal-pricing';
 import { formatCurrency } from '@/lib/formatCurrency';
 import { getNormalizedProductImages } from '@/lib/product-images';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { returnErrorMessage } from '@/lib/toast-error';
 import { useGetActiveDeals } from '@/hooks/api/store/deliveries/product-management/deals';
 import { useGetProduct } from '@/hooks/api/store/deliveries/product-management/products';
@@ -374,6 +375,11 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
             ) : (
               <div className="space-y-3">
                 {variations.map((variation) => {
+                  const pricedOptions = hasPersistedVariationOptions(variation)
+                    ? variation.options.filter(
+                        (option) => option.id !== variation.id,
+                      )
+                    : [];
                   const variationDealRef = getVariationAppliedDealRef(
                     appliedDeals,
                     variation.id,
@@ -409,35 +415,66 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                           </p>
                           <p className="font-medium">{variation.name}</p>
                         </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">
-                            {`Price (${resolvedCurrencySymbol})`}
-                          </p>
-                          <p className="font-medium">
-                            {formatCurrency(
-                              Number(variation.price),
-                              resolvedCurrencySymbol,
-                            )}
-                          </p>
-                          {variationDealSummary ? (
-                            <p className="text-xs text-primary mt-1">
-                              {tForm('priceAfterDealLabel')}:{' '}
-                              {formatCurrency(
-                                calculatePriceAfterDeal(
-                                  Number(variation.price),
-                                  variationDealSummary,
-                                ) ?? Number(variation.price),
-                                resolvedCurrencySymbol,
-                              )}
+                        {pricedOptions.length > 0 ? (
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              {tDetailFields('options')}
                             </p>
-                          ) : null}
-                          {variationDealSummary ? (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {tDetailFields('appliedDeal')}:{' '}
-                              {variationDealSummary.dealName}
+                            <div className="mt-1 space-y-1.5">
+                              {pricedOptions.map((option) => (
+                                <div
+                                  key={option.id}
+                                  className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm"
+                                >
+                                  <span className="font-medium">
+                                    {option.title}
+                                  </span>
+                                  <span className="tabular-nums">
+                                    {formatCurrency(
+                                      Number(option.price),
+                                      resolvedCurrencySymbol,
+                                    )}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              {`Price (${resolvedCurrencySymbol})`}
                             </p>
-                          ) : null}
-                        </div>
+                            <p className="font-medium">
+                              {variation.legacyMigrationMetadata?.legacyProductId &&
+                              Number(variation.price) === 0
+                                ? tTable('notAvailable')
+                                : formatCurrency(
+                                    Number(variation.price),
+                                    resolvedCurrencySymbol,
+                                  )}
+                            </p>
+                            {variationDealSummary &&
+                            !(variation.legacyMigrationMetadata?.legacyProductId &&
+                              Number(variation.price) === 0) ? (
+                              <p className="text-xs text-primary mt-1">
+                                {tForm('priceAfterDealLabel')}:{' '}
+                                {formatCurrency(
+                                  calculatePriceAfterDeal(
+                                    Number(variation.price),
+                                    variationDealSummary,
+                                  ) ?? Number(variation.price),
+                                  resolvedCurrencySymbol,
+                                )}
+                              </p>
+                            ) : null}
+                          </div>
+                        )}
+                        {variationDealSummary ? (
+                          <p className="text-xs text-muted-foreground md:col-span-2">
+                            {tDetailFields('appliedDeal')}:{' '}
+                            {variationDealSummary.dealName}
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                   );

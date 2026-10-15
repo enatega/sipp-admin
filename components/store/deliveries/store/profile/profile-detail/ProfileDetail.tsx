@@ -216,19 +216,6 @@ const ProfileDetail = () => {
                 aria-label={tSettings('deliveryAllowedAria')}
               />
             </div>
-            <div className="flex items-center justify-between gap-4 w-[250px]">
-              <p className="text-sm text-mute">
-                {tSettings('codPaymentAllowed')}
-              </p>
-              <Switch
-                checked={Boolean(settings?.codPaymentAllowed)}
-                onCheckedChange={(checked) =>
-                  handleUpdateSetting('cod_allow', checked)
-                }
-                disabled={isPending}
-                aria-label={tSettings('codPaymentAllowedAria')}
-              />
-            </div>
           </div>
         </section>
 

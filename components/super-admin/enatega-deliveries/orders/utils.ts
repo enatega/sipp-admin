@@ -2,7 +2,7 @@
 
 type Translator = (key: string) => string;
 
-const normalizeValue = (value?: string | null) =>
+export const normalizeOrderValue = (value?: string | null) =>
   String(value ?? '')
     .trim()
     .toLowerCase()
@@ -25,7 +25,7 @@ export const formatOrderTypeLabel = (
   t: Translator,
   fallback: string,
 ) => {
-  const normalized = normalizeValue(value);
+  const normalized = normalizeOrderValue(value);
 
   switch (normalized) {
     case 'delivery':
@@ -60,7 +60,7 @@ export const formatOrderStatusLabel = (
   t: Translator,
   fallback: string,
 ) => {
-  const normalized = normalizeValue(value);
+  const normalized = normalizeOrderValue(value);
 
   switch (normalized) {
     case 'scheduled':
@@ -118,7 +118,7 @@ export const formatPaymentMethodLabel = (
   t: Translator,
   fallback: string,
 ) => {
-  const normalized = normalizeValue(value);
+  const normalized = normalizeOrderValue(value);
 
   switch (normalized) {
     case 'cash':
@@ -141,7 +141,7 @@ export const formatPaymentStatusLabel = (
   t: Translator,
   fallback: string,
 ) => {
-  const normalized = normalizeValue(value);
+  const normalized = normalizeOrderValue(value);
 
   switch (normalized) {
     case 'paid':
@@ -172,3 +172,42 @@ export const formatReviewLabel = (
 
 export const isStoreOrdersPath = (pathname?: string | null) =>
   pathname?.includes('/store/deliveries/') && pathname?.includes('/orders');
+
+export const isPickupOrder = (orderType?: string | null) =>
+  normalizeOrderValue(orderType) === 'pickup';
+
+const DELIVERY_STATUS_TRANSITIONS: Record<string, string[]> = {
+  scheduled: ['pending', 'accepted', 'cancelled'],
+  pending: ['accepted', 'rejected', 'cancelled'],
+  accepted: ['preparing', 'cancelled', 'rejected'],
+  preparing: ['ready', 'cancelled'],
+  rider_assigned: ['picked_up', 'ready', 'cancelled'],
+  ready: ['picked_up', 'cancelled'],
+  picked_up: ['out_for_delivery', 'cancelled'],
+  out_for_delivery: ['arrived', 'failed'],
+  arrived: ['delivered', 'failed'],
+};
+
+const PICKUP_STATUS_TRANSITIONS: Record<string, string[]> = {
+  scheduled: ['pending', 'accepted', 'cancelled'],
+  pending: ['accepted', 'rejected', 'cancelled'],
+  accepted: ['preparing', 'ready', 'cancelled', 'rejected'],
+  preparing: ['ready', 'delivered', 'cancelled'],
+  ready: ['delivered', 'cancelled'],
+  rider_assigned: ['ready', 'delivered', 'cancelled'],
+  picked_up: ['delivered', 'cancelled'],
+  out_for_delivery: ['delivered', 'failed'],
+  arrived: ['delivered', 'failed'],
+};
+
+export const getNextOrderStatuses = (
+  status?: string | null,
+  orderType?: string | null,
+) => {
+  const normalizedStatus = normalizeOrderValue(status);
+  const transitions = isPickupOrder(orderType)
+    ? PICKUP_STATUS_TRANSITIONS
+    : DELIVERY_STATUS_TRANSITIONS;
+
+  return transitions[normalizedStatus] ?? [];
+};

@@ -1,30 +1,38 @@
 'use client';
 
-import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
-
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 import type { OrdersItem as Order } from '@/types';
 import { ApiErrorResponse } from '@/types';
-import { Check, Eye, MapPin, MoreVertical, Trash, UserPlus, X } from 'lucide-react';
+import {
+  Check,
+  Eye,
+  MapPin,
+  MoreVertical,
+  Trash,
+  UserPlus,
+  X,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
-import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
 import { handleApiError } from '@/lib/toast-error';
-import {
-  useDeleteOrder,
-  useGetOrderDetail,
-  useAcceptAdminOrder,
-  useRejectAdminOrder,
-  useUpdateSuperAdminOrderStatus,
-} from '@/hooks/api/super-admin/enatega-deliveries/orders';
 import { hasNamedPermission } from '@/lib/user';
 import {
   useAcceptStoreOrder,
   useRejectStoreOrder,
+  useUpdateStoreOrderStatus,
 } from '@/hooks/api/store/deliveries/orders';
+import {
+  useAcceptAdminOrder,
+  useDeleteOrder,
+  useGetOrderDetail,
+  useRejectAdminOrder,
+  useUpdateSuperAdminOrderStatus,
+} from '@/hooks/api/super-admin/enatega-deliveries/orders';
 import { useCurrency } from '@/hooks/use-currency';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useSortableData } from '@/hooks/use-sortable-data';
@@ -36,6 +44,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Table,
   TableBody,
   TableCell,
@@ -44,13 +59,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import AppPagination from '@/components/shared/AppPagination';
 import CopyButton from '@/components/shared/CopyButton';
 import Status from '@/components/shared/Status';
@@ -59,7 +67,10 @@ import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
 import {
   formatOrderStatusLabel,
   formatOrderTypeLabel,
+  getNextOrderStatuses,
+  isPickupOrder,
   isStoreOrdersPath,
+  normalizeOrderValue,
 } from '../../utils';
 
 const AssignRiderModal = dynamic(
@@ -107,14 +118,8 @@ const formatDateTime = (value?: string) => {
   return DATE_TIME_FORMATTER.format(date).replace(',', '');
 };
 
-const normalizeOrderStatus = (value?: string | null) =>
-  String(value ?? '')
-    .trim()
-    .toLowerCase()
-    .replace(/[\s-]+/g, '_');
-
 const canShowAssignRiderButton = (status?: string | null) => {
-  const normalized = normalizeOrderStatus(status);
+  const normalized = normalizeOrderValue(status);
   return (
     normalized === 'accepted' ||
     normalized === 'preparing' ||
@@ -122,42 +127,38 @@ const canShowAssignRiderButton = (status?: string | null) => {
   );
 };
 
-const ORDER_STATUSES = [
-  'scheduled',
-  'pending',
-  'accepted',
-  'preparing',
-  'ready',
-  'rider_assigned',
-  'picked_up',
-  'out_for_delivery',
-  'arrived',
-  'delivered',
-  'cancelled',
-  'rejected',
-  'failed',
-] as const;
-
 function OrderStatusSelect({
   orderId,
   status,
+  orderType,
+  storeOrder,
   formatStatus,
   onOrderUpdated,
 }: {
   orderId: string;
   status: string;
+  orderType?: string;
+  storeOrder: boolean;
   formatStatus: (status: string) => string;
   onOrderUpdated?: () => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { mutateAsync: updateStatus, isPending } =
+  const { mutateAsync: updateAdminStatus, isPending: isUpdatingAdmin } =
     useUpdateSuperAdminOrderStatus();
+  const { mutateAsync: updateStoreStatus, isPending: isUpdatingStore } =
+    useUpdateStoreOrderStatus();
+  const isPending = isUpdatingAdmin || isUpdatingStore;
+  const nextStatuses = getNextOrderStatuses(status, orderType);
+  const options = [status, ...nextStatuses].filter(
+    (option, index, values) => option && values.indexOf(option) === index,
+  );
 
   const handleStatusChange = async (nextStatus: string) => {
     setOpen(false);
     if (nextStatus === status || isPending) return;
 
     try {
+      const updateStatus = storeOrder ? updateStoreStatus : updateAdminStatus;
       await updateStatus({ orderId, status: nextStatus });
       toast.success('Order status updated successfully');
       onOrderUpdated?.();
@@ -179,7 +180,7 @@ function OrderStatusSelect({
           <SelectValue placeholder={formatStatus(status)} />
         </SelectTrigger>
         <SelectContent>
-          {ORDER_STATUSES.map((option) => (
+          {options.map((option) => (
             <SelectItem key={option} value={option}>
               {formatStatus(option)}
             </SelectItem>
@@ -374,14 +375,19 @@ export function OrdersTable({
             ) : (
               items.map((order) => {
                 // const riderInfo = getRiderInfo(order);
+                const pickupOrder = isPickupOrder(order.orderType);
                 const riderAssigned = Boolean(order.riderId || order.riderName);
                 const showAssignRiderButton =
-                  !riderAssigned && canShowAssignRiderButton(order.status);
-                const normalizedStatus = normalizeOrderStatus(order.status);
+                  !pickupOrder &&
+                  !riderAssigned &&
+                  canShowAssignRiderButton(order.status);
+                const normalizedStatus = normalizeOrderValue(order.status);
                 const canAccept =
-                  normalizedStatus === 'pending' || normalizedStatus === 'scheduled';
+                  normalizedStatus === 'pending' ||
+                  normalizedStatus === 'scheduled';
                 const canReject =
-                  normalizedStatus === 'pending' || normalizedStatus === 'accepted';
+                  normalizedStatus === 'pending' ||
+                  normalizedStatus === 'accepted';
 
                 return (
                   <TableRow
@@ -422,7 +428,11 @@ export function OrdersTable({
                     <TableCell>{order?.vendorName}</TableCell>
                     <TableCell>{order?.storeName}</TableCell>
                     <TableCell>
-                      {riderAssigned ? (
+                      {pickupOrder ? (
+                        <span className="text-sm text-muted-foreground">
+                          Not required
+                        </span>
+                      ) : riderAssigned ? (
                         <div className="flex items-center gap-2">
                           <Avatar className="h-8 w-8">
                             <AvatarImage
@@ -460,10 +470,13 @@ export function OrdersTable({
                       {formatCurrency(order?.amount ?? 0, currency)}
                     </TableCell>
                     <TableCell>
-                      {!storeOrdersPath && canUpdateSuperAdminOrderStatus ? (
+                      {(storeOrdersPath && pickupOrder) ||
+                      (!storeOrdersPath && canUpdateSuperAdminOrderStatus) ? (
                         <OrderStatusSelect
                           orderId={order.orderId}
                           status={normalizedStatus}
+                          orderType={order.orderType}
+                          storeOrder={Boolean(storeOrdersPath)}
                           formatStatus={(status) =>
                             formatOrderStatusLabel(
                               status,
@@ -552,40 +565,46 @@ export function OrdersTable({
                                   }}
                                 >
                                   <X className="size-[18px] text-destructive" />
-                                  <span className="text-sm text-destructive">Reject Order</span>
+                                  <span className="text-sm text-destructive">
+                                    Reject Order
+                                  </span>
                                 </DropdownMenuItem>
                               )}
 
-                              <DropdownMenuItem
-                                className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setTrackingOrderId(order.orderId);
-                                }}
-                              >
-                                <MapPin className="size-[18px]" />
-                                <span className="text-sm">
-                                  {trackingOrderId === order.orderId &&
-                                  isTrackingOrderLoading
-                                    ? `${tTable('liveTracking') ?? 'Live Tracking'}...`
-                                    : (tTable('liveTracking') ??
-                                      'Live Tracking')}
-                                </span>
-                              </DropdownMenuItem>
+                              {!pickupOrder && (
+                                <DropdownMenuItem
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setTrackingOrderId(order.orderId);
+                                  }}
+                                >
+                                  <MapPin className="size-[18px]" />
+                                  <span className="text-sm">
+                                    {trackingOrderId === order.orderId &&
+                                    isTrackingOrderLoading
+                                      ? `${tTable('liveTracking') ?? 'Live Tracking'}...`
+                                      : (tTable('liveTracking') ??
+                                        'Live Tracking')}
+                                  </span>
+                                </DropdownMenuItem>
+                              )}
 
-                              {!storeOrdersPath && <DropdownMenuItem
-                                variant="destructive"
-                                className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setDeletingOrder(order?.orderId);
-                                }}
-                              >
-                                <Trash className="size-[18px] text-destructive" />
-                                <span className="text-sm text-destructive">
-                                  {tTable('delete')}
-                                </span>
-                              </DropdownMenuItem>}
+                              {!storeOrdersPath && (
+                                <DropdownMenuItem
+                                  variant="destructive"
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeletingOrder(order?.orderId);
+                                  }}
+                                >
+                                  <Trash className="size-[18px] text-destructive" />
+                                  <span className="text-sm text-destructive">
+                                    {tTable('delete')}
+                                  </span>
+                                </DropdownMenuItem>
+                              )}
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </div>

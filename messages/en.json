@@ -7484,7 +7484,8 @@
       "unpaid": "Unpaid",
       "pending": "Pending",
       "failed": "Failed",
-      "refunded": "Refunded"
+      "refunded": "Refunded",
+      "cancelled": "Cancelled"
     },
     "orderTypes": {
       "delivery": "Delivery",
@@ -7612,6 +7613,11 @@
       "title": "Order Detail",
       "fetchFailedMessage": "Failed to load order",
       "notFound": "Order not found",
+      "instructions": {
+        "title": "Order instructions",
+        "storeLabel": "For the store",
+        "courierLabel": "For the courier"
+      },
       "summary": {
         "title": "Order Summary",
         "orderIdLabel": "Order ID:",

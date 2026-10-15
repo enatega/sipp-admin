@@ -7570,7 +7570,8 @@
       "unpaid": "غير مدفوعة",
       "pending": "تنتهي",
       "failed": "فشل",
-      "refunded": "مستردة"
+      "refunded": "مستردة",
+      "cancelled": "ملغي"
     },
     "orderTypes": {
       "delivery": "التسليم",
@@ -7698,6 +7699,11 @@
       "title": "الأمر التفصيلي",
       "fetchFailedMessage": "فشل في طلب الشحن",
       "notFound": "لم يعثر على أمر",
+      "instructions": {
+        "title": "تعليمات الطلب",
+        "storeLabel": "للمتجر",
+        "courierLabel": "لمندوب التوصيل"
+      },
       "summary": {
         "title": "موجز",
         "orderIdLabel": "بطاقة هوية:",

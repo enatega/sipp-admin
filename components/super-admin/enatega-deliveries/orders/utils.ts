@@ -125,6 +125,7 @@ export const formatPaymentMethodLabel = (
     case 'cod':
       return t('cash');
     case 'card':
+    case 'stripe':
       return t('card');
     case 'wallet':
       return t('wallet');
@@ -144,6 +145,8 @@ export const formatPaymentStatusLabel = (
 
   switch (normalized) {
     case 'paid':
+    case 'completed':
+    case 'succeeded':
       return t('paid');
     case 'unpaid':
       return t('unpaid');
@@ -153,6 +156,9 @@ export const formatPaymentStatusLabel = (
       return t('failed');
     case 'refunded':
       return t('refunded');
+    case 'cancelled':
+    case 'canceled':
+      return t('cancelled');
     default:
       return startCase(value, fallback);
   }

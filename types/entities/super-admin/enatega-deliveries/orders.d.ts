@@ -195,6 +195,11 @@ export interface DeliveryInfo {
     deliveryLocation?: { latitude: number; longitude: number };
 }
 
+export interface OrderNotes {
+    restaurantNote?: string | null;
+    courierNote?: string | null;
+}
+
 // Raw API response for order detail
 export interface OrderDetailResponse {
     orderSummary?: OrderSummary;
@@ -204,6 +209,7 @@ export interface OrderDetailResponse {
     customerInfo?: CustomerInfo;
     riderInfo?: RiderInfo;
     deliveryInfo?: DeliveryInfo;
+    orderNotes?: OrderNotes;
     orderLogs?: OrderLog[];
     [key: string]: unknown;
 }
@@ -217,6 +223,7 @@ export interface OrderDetail {
     customer?: CustomerInfo;
     rider?: RiderInfo;
     delivery?: DeliveryInfo;
+    orderNotes?: OrderNotes;
     // keep raw API field available for components that read it directly
     deliveryInfo?: DeliveryInfo;
     logs?: OrderLog[];

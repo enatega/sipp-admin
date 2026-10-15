@@ -7570,7 +7570,8 @@
       "unpaid": "No pagado",
       "pending": "Pendiente",
       "failed": "Fallido",
-      "refunded": "Reembolsos"
+      "refunded": "Reembolsos",
+      "cancelled": "Cancelado"
     },
     "orderTypes": {
       "delivery": "Entrega",
@@ -7698,6 +7699,11 @@
       "title": "Detalle de pedidos",
       "fetchFailedMessage": "No se pudo cargar el pedido",
       "notFound": "Orden no encontrada",
+      "instructions": {
+        "title": "Instrucciones del pedido",
+        "storeLabel": "Para el comercio",
+        "courierLabel": "Para el repartidor"
+      },
       "summary": {
         "title": "Resumen del orden",
         "orderIdLabel": "ID del pedido:",

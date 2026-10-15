@@ -7918,7 +7918,8 @@
       "unpaid": "Unbezahlt",
       "pending": "Ausstehend",
       "failed": "Fehlgeschlagen",
-      "refunded": "Erstattet"
+      "refunded": "Erstattet",
+      "cancelled": "Storniert"
     },
     "orderTypes": {
       "delivery": "Lieferung",
@@ -8046,6 +8047,11 @@
       "title": "Bestelldetails",
       "fetchFailedMessage": "Bestellung konnte nicht geladen werden",
       "notFound": "Bestellung nicht gefunden",
+      "instructions": {
+        "title": "Bestellhinweise",
+        "storeLabel": "Für das Geschäft",
+        "courierLabel": "Für den Kurier"
+      },
       "summary": {
         "title": "Bestellübersicht",
         "orderIdLabel": "Bestell-ID:",

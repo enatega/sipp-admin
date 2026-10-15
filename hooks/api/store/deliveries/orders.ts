@@ -133,6 +133,7 @@ export const useGetStoreOrderDetail = (
                 customer: customer,
                 rider: rider,
                 delivery: delivery,
+                orderNotes: data.orderNotes,
                 logs,
                 vendor: summary.vendor ?? '',
                 store: summary.storeName ?? '',

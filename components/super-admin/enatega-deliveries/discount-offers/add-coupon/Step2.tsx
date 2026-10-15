@@ -96,7 +96,13 @@ export function Step2({
               placeholder={t('minOrderValuePlaceholder')}
               type="number"
               min={0}
-              
+              helperText={
+                values.discountType === 'FIXED' && Number(values.discountValue) > 0
+                  ? tSchema('minOrderValueFixedHint', {
+                      amount: `${resolvedCurrencySymbol}${values.discountValue}`,
+                    })
+                  : undefined
+              }
               requiredAsterisk
             />
             <AppInputField

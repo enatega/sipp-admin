@@ -6050,6 +6050,8 @@
       "minOrderValueRequired": "القيمة الدنيا للحجز مطلوبة",
       "minOrderValueMustBeNumber": "القيمة الدنيا للنظام يجب أن تكون رقما",
       "minOrderValueCannotBeNegative": "القيمة الدنيا للنظام لا يمكن أن تكون سلبية",
+      "minOrderValueAboveFixedDiscount": "يجب أن يكون الحد الأدنى للطلب أكبر من قيمة الخصم الثابت",
+      "minOrderValueFixedHint": "يجب أن يكون أكبر من خصم {amount} حتى لا يصبح إجمالي الطلب صفرًا.",
       "minBookingValueRequired": "القيمة الدنيا للحجز مطلوبة",
       "minBookingValueMustBeNumber": "القيمة الدنيا للحجز يجب أن تكون العدد",
       "minBookingValueCannotBeNegative": "القيمة الدنيا للحجز لا يمكن أن تكون سلبية",

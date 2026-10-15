@@ -6398,6 +6398,8 @@
       "minOrderValueRequired": "Mindestbuchungswert ist erforderlich",
       "minOrderValueMustBeNumber": "Mindestbestellwert muss eine Zahl sein",
       "minOrderValueCannotBeNegative": "Mindestbestellwert darf nicht negativ sein",
+      "minOrderValueAboveFixedDiscount": "Der Mindestbestellwert muss höher als der feste Rabatt sein",
+      "minOrderValueFixedHint": "Muss höher als der Rabatt von {amount} sein, damit der Bestellwert nie auf null fällt.",
       "totalUsageLimitRequired": "Gesamtnutzungslimit ist erforderlich",
       "totalUsageLimitMustBeNumber": "Gesamtnutzungslimit muss eine Zahl sein",
       "totalUsageLimitMustBeInteger": "Gesamtnutzungslimit muss eine Ganzzahl sein",

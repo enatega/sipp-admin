@@ -5964,6 +5964,8 @@
       "minOrderValueRequired": "Minimum booking value is required",
       "minOrderValueMustBeNumber": "Minimum order value must be a number",
       "minOrderValueCannotBeNegative": "Minimum order value cannot be negative",
+      "minOrderValueAboveFixedDiscount": "Minimum order value must be greater than the fixed discount",
+      "minOrderValueFixedHint": "Must be greater than the {amount} discount so the order total never drops to zero.",
       "minBookingValueRequired": "Minimum booking value is required",
       "minBookingValueMustBeNumber": "Minimum booking value must be a number",
       "minBookingValueCannotBeNegative": "Minimum booking value cannot be negative",

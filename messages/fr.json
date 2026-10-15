@@ -6050,6 +6050,8 @@
       "minOrderValueRequired": "La valeur minimale de la réservation est requise",
       "minOrderValueMustBeNumber": "La valeur minimale de commande doit être un nombre",
       "minOrderValueCannotBeNegative": "La valeur minimale de commande ne peut être négative",
+      "minOrderValueAboveFixedDiscount": "Le minimum de commande doit être supérieur à la remise fixe",
+      "minOrderValueFixedHint": "Doit être supérieur à la remise de {amount} pour que le total ne tombe jamais à zéro.",
       "minBookingValueRequired": "La valeur minimale de la réservation est requise",
       "minBookingValueMustBeNumber": "La valeur minimale de la réservation doit être un nombre",
       "minBookingValueCannotBeNegative": "La valeur minimale de réservation ne peut pas être négative",

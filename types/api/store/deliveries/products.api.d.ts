@@ -83,7 +83,7 @@ export interface UpdateProductPayload {
   subcategory_id?: string;
   name: string;
   nameTranslations?: Record<string, string>;
-  price: number;
+  price?: number;
   stock_quantity: number;
   description?: string;
   unit_of_measure?: string;

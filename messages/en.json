@@ -290,6 +290,7 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
+    "dispatch": "Dispatch",
     "settings": "Settings",
     "profile": "Profile"
   },
@@ -2305,6 +2306,10 @@
       "messages": {
         "noDeals": "No deals found.",
         "noVariations": "No variations found.",
+        "legacySizePriceHint": "Imported sizes have their own selling prices. Edit a size below; adding another variant here is unavailable.",
+        "optionPriceHint": "This variation has its own priced options. Edit its details above or update an option price below.",
+        "editSizePriceTitle": "Edit {size} price",
+        "sizePriceSaveError": "Could not update this size price. Please try again.",
         "noAddOns": "No add-ons found.",
         "noLinkedOptions": "No linked options found."
       },
@@ -3373,7 +3378,8 @@
         "publishButton": "Publish"
       },
       "messages": {
-        "createSuccess": "Store created successfully"
+        "createSuccess": "Store created successfully",
+        "credentialsEmailFailed": "The store was created, but the credentials email could not be sent. Please verify the mail settings and share the credentials securely."
       }
     }
   },
@@ -4266,6 +4272,9 @@
           "mailLoginCredentialsLabel": "Send Login Credentials via Mail",
           "changePasswordLabel": "Allow Store to Change Password",
           "emailImmutableHint": "Email cannot be changed",
+          "checkingEmail": "Checking email availability...",
+          "emailAlreadyExists": "This email is already registered. Use another email.",
+          "emailCheckFailed": "Could not check this email. Please try again.",
           "zoneLabel": "Zone/City",
           "zonePlaceholder": "Select City",
           "loadingZones": "Loading zones...",
@@ -4372,6 +4381,7 @@
         },
         "messages": {
           "createSuccess": "Store created successfully",
+          "credentialsEmailFailed": "The store was created, but the credentials email could not be sent. Please verify the mail settings and share the credentials securely.",
           "prepareFailed": "Failed to prepare store data"
         }
       },
@@ -7477,7 +7487,8 @@
       "unpaid": "Unpaid",
       "pending": "Pending",
       "failed": "Failed",
-      "refunded": "Refunded"
+      "refunded": "Refunded",
+      "cancelled": "Cancelled"
     },
     "orderTypes": {
       "delivery": "Delivery",
@@ -7605,6 +7616,11 @@
       "title": "Order Detail",
       "fetchFailedMessage": "Failed to load order",
       "notFound": "Order not found",
+      "instructions": {
+        "title": "Order instructions",
+        "storeLabel": "For the store",
+        "courierLabel": "For the courier"
+      },
       "summary": {
         "title": "Order Summary",
         "orderIdLabel": "Order ID:",

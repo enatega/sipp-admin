@@ -8,11 +8,13 @@ import { AppButton } from '@/components/shared/AppButton';
 import { InteractiveMapLazy, ZoneData } from '@/components/super-admin/general/zones/common/InteractiveMapLazy';
 import { DayTimingRow } from './DayTimingRow';
 import { StoreFormStep4Schema } from '@/schemas/enatega-deliveries/stores/store-form';
+import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
 
 interface Step4FormProps {
   initialData: Step4Data | null;
   onSubmit: (data: Step4Data) => void;
   onBack: () => void;
+  registerNavigation: RegisterStepNavigation;
 }
 
 const getEmptyStep4 = (): Step4Data => ({
@@ -43,6 +45,7 @@ export const Step4Form: React.FC<Step4FormProps> = ({
   initialData,
   onSubmit,
   onBack,
+  registerNavigation,
 }) => {
   const t = useTranslations('lumiFood.stores.addStore.step4');
   const tSchema = useTranslations('Schemas.storeForm');
@@ -71,6 +74,7 @@ export const Step4Form: React.FC<Step4FormProps> = ({
       >
         {({ isSubmitting, setFieldValue, values, errors, touched }) => (
           <Form className="space-y-6">
+            <StepNavigation step="step4" register={registerNavigation} />
             <div>
               <InteractiveMapLazy
                 value={values.location}

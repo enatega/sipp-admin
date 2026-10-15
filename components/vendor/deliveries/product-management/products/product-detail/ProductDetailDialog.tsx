@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { useGetProduct } from '@/hooks/api/vendor/deliveries/product-management/products';
 import { useCurrency } from '@/hooks/use-currency';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { returnErrorMessage } from '@/lib/toast-error';
 import type { ApiErrorResponse } from '@/types';
 import type { Product } from '@/types/entities/store/deliveries/product';
@@ -190,11 +191,18 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
               </p>
             ) : (
               <div className="space-y-3">
-                {variations.map((variation) => (
-                  <div
-                    key={variation.id}
-                    className="rounded-xl border bg-light p-4 flex flex-col md:flex-row gap-4"
-                  >
+                {variations.map((variation) => {
+                  const pricedOptions = hasPersistedVariationOptions(variation)
+                    ? variation.options.filter(
+                        (option) => option.id !== variation.id,
+                      )
+                    : [];
+
+                  return (
+                    <div
+                      key={variation.id}
+                      className="rounded-xl border bg-light p-4 flex flex-col md:flex-row gap-4"
+                    >
                     <div className="w-full md:w-24 shrink-0">
                       {variation.imageUrl ? (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -218,17 +226,48 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                           {variation.name || tTable('notAvailable')}
                         </p>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          {`Price (${resolvedCurrencySymbol})`}
-                        </p>
-                        <p className="font-medium">
-                          {formatCurrency(Number(variation.price), resolvedCurrencySymbol)}
-                        </p>
-                      </div>
+                      {pricedOptions.length > 0 ? (
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            {tDetailFields('options')}
+                          </p>
+                          <div className="mt-1 space-y-1.5">
+                            {pricedOptions.map((option) => (
+                              <div
+                                key={option.id}
+                                className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm"
+                              >
+                                <span className="font-medium">{option.title}</span>
+                                <span className="tabular-nums">
+                                  {formatCurrency(
+                                    Number(option.price),
+                                    resolvedCurrencySymbol,
+                                  )}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            {`Price (${resolvedCurrencySymbol})`}
+                          </p>
+                          <p className="font-medium">
+                            {variation.legacyMigrationMetadata?.legacyProductId &&
+                            Number(variation.price) === 0
+                              ? tTable('notAvailable')
+                              : formatCurrency(
+                                  Number(variation.price),
+                                  resolvedCurrencySymbol,
+                                )}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

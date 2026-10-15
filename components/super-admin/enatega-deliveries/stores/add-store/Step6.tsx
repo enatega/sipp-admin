@@ -6,15 +6,17 @@ import { Step6Data } from '@/types/entities/super-admin/enatega-deliveries/store
 import { AppButton } from '@/components/shared/AppButton';
 import { AppInputField } from '@/components/shared/form/AppInput';
 import { emptyStep6Data } from './data';
+import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
 
 interface Step6FormProps {
   initialData: Step6Data | null;
   onSubmit: (data: Step6Data) => void;
   onBack: () => void;
   isLoading?: boolean;
+  registerNavigation: RegisterStepNavigation;
 }
 
-export function Step6Form({ initialData, onSubmit, onBack, isLoading = false }: Step6FormProps) {
+export function Step6Form({ initialData, onSubmit, onBack, isLoading = false, registerNavigation }: Step6FormProps) {
   const t = useTranslations('lumiFood.stores.addStore.step6');
   const tSchema = useTranslations('Schemas.storeForm');
   const initialValues = React.useMemo<Step6Data>(
@@ -44,6 +46,7 @@ export function Step6Form({ initialData, onSubmit, onBack, isLoading = false }: 
         >
           {() => (
             <Form className="space-y-4">
+              <StepNavigation step="step6" register={registerNavigation} />
               <div className="space-y-5 pt-3">
                 <AppInputField
                   label={t('bankNameLabel')}

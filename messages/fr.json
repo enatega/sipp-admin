@@ -95,7 +95,7 @@
     "useDefault": "Utilisez la taxe de produit par défaut de ce magasin",
     "inclusiveHelp": "Le prix indiqué comprend la taxe. La taxe n'est pas ajoutée en plus.",
     "missingDefault": "Sélectionnez un taux de taxe sur les produits ou demandez à un administrateur de configurer la taxe sur les produits par défaut de ce magasin.",
-    "breakdown": "{name} ({rate}%: net {net} + taxe incluse {tax} = prix {gross}",
+    "breakdown": "{name} ({rate} %) : hors taxe {net} + taxe incluse {tax} = prix {gross}",
     "unconfigured": "Pas de taux d'imposition configuré"
   },
   "common": {
@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Sommaire",
     "dashboard": "Tableau de bord",
+    "dispatch": "Répartition",
     "settings": "Paramètres",
     "profile": "Profil"
   },
@@ -2318,6 +2319,10 @@
       "messages": {
         "noDeals": "Aucun marché trouvé.",
         "noVariations": "Aucune variation n'a été trouvée.",
+        "legacySizePriceHint": "Les tailles importées ont leurs propres prix. Modifiez une taille ci-dessous ; l'ajout d'une autre variante n'est pas disponible ici.",
+        "optionPriceHint": "Cette variante comporte des options avec leurs propres prix. Modifiez la variante ci-dessus ou le prix d'une option ci-dessous.",
+        "editSizePriceTitle": "Modifier le prix de {size}",
+        "sizePriceSaveError": "Impossible de modifier le prix de cette taille. Veuillez réessayer.",
         "noAddOns": "Aucun add-ons trouvé.",
         "noLinkedOptions": "Aucune option liée trouvée."
       },
@@ -3386,7 +3391,8 @@
         "publishButton": "Publier"
       },
       "messages": {
-        "createSuccess": "Stockage créé avec succès"
+        "createSuccess": "Stockage créé avec succès",
+        "credentialsEmailFailed": "Le magasin a été créé, mais l’e-mail contenant les identifiants n’a pas pu être envoyé. Vérifiez la configuration de la messagerie et partagez les identifiants de manière sécurisée."
       }
     }
   },
@@ -4262,6 +4268,9 @@
           "mailLoginCredentialsLabel": "Envoyer des lettres de créances par courriel",
           "changePasswordLabel": "Permettre à Store de modifier le mot de passe",
           "emailImmutableHint": "Le courriel ne peut pas être modifié",
+          "checkingEmail": "Vérification de la disponibilité de l’adresse e-mail...",
+          "emailAlreadyExists": "Cette adresse e-mail est déjà enregistrée. Utilisez-en une autre.",
+          "emailCheckFailed": "Impossible de vérifier cette adresse e-mail. Veuillez réessayer.",
           "zoneLabel": "Zone/Ville",
           "zonePlaceholder": "Sélectionner une ville",
           "loadingZones": "Zones de chargement...",
@@ -4370,6 +4379,7 @@
         },
         "messages": {
           "createSuccess": "Stockage créé avec succès",
+          "credentialsEmailFailed": "Le magasin a été créé, mais l’e-mail contenant les identifiants n’a pas pu être envoyé. Vérifiez la configuration de la messagerie et partagez les identifiants de manière sécurisée.",
           "prepareFailed": "Impossible de préparer les données de stockage"
         }
       },
@@ -7563,7 +7573,8 @@
       "unpaid": "Non payé",
       "pending": "En attente",
       "failed": "Échec",
-      "refunded": "Montant remboursé"
+      "refunded": "Montant remboursé",
+      "cancelled": "Annulé"
     },
     "orderTypes": {
       "delivery": "Livraison",
@@ -7691,6 +7702,11 @@
       "title": "Détail de la commande",
       "fetchFailedMessage": "Impossible de charger la commande",
       "notFound": "Ordre non trouvé",
+      "instructions": {
+        "title": "Instructions de commande",
+        "storeLabel": "Pour le commerce",
+        "courierLabel": "Pour le livreur"
+      },
       "summary": {
         "title": "Sommaire de la commande",
         "orderIdLabel": "Numéro d'ordre:",

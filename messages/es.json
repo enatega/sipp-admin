@@ -95,7 +95,7 @@
     "useDefault": "Use el impuesto por defecto del producto de esta tienda",
     "inclusiveHelp": "El precio de entrada incluye impuestos. El impuesto no se añade arriba.",
     "missingDefault": "Seleccione una tasa de impuestos de producto o pida a un administrador que configure el impuesto de producto predeterminado de esta tienda.",
-    "breakdown": "{name} ({rate}%: neto {net} + impuestos incluidos {tax} = precio {gross}",
+    "breakdown": "{name} ({rate}%): neto {net} + impuesto incluido {tax} = precio {gross}",
     "unconfigured": "No hay tasa de impuestos configurada"
   },
   "common": {
@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Inicio",
     "dashboard": "Panel de control",
+    "dispatch": "Despacho",
     "settings": "Ajustes",
     "profile": "Perfil"
   },
@@ -2318,6 +2319,10 @@
       "messages": {
         "noDeals": "No hay tratos encontrados.",
         "noVariations": "No se encontraron variaciones.",
+        "legacySizePriceHint": "Los tamaños importados tienen sus propios precios. Edita un tamaño abajo; aquí no se pueden añadir más variantes.",
+        "optionPriceHint": "Esta variante tiene opciones con precios propios. Edita los detalles de la variante arriba o el precio de una opción abajo.",
+        "editSizePriceTitle": "Editar precio de {size}",
+        "sizePriceSaveError": "No se pudo actualizar el precio del tamaño. Inténtalo de nuevo.",
         "noAddOns": "No hay complementos encontrados.",
         "noLinkedOptions": "No hay opciones vinculadas."
       },
@@ -3386,7 +3391,8 @@
         "publishButton": "Publicar"
       },
       "messages": {
-        "createSuccess": "Tienda creada con éxito"
+        "createSuccess": "Tienda creada con éxito",
+        "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura."
       }
     }
   },
@@ -4277,6 +4283,9 @@
           "mailLoginCredentialsLabel": "Enviar credenciales de acceso vía correo",
           "changePasswordLabel": "Permitir a la tienda cambiar contraseña",
           "emailImmutableHint": "El correo electrónico no se puede cambiar",
+          "checkingEmail": "Comprobando disponibilidad del correo...",
+          "emailAlreadyExists": "Este correo ya está registrado. Usa otro correo.",
+          "emailCheckFailed": "No se pudo comprobar este correo. Inténtalo de nuevo.",
           "zoneLabel": "Zona/Ciudad",
           "zonePlaceholder": "Seleccionar ciudad",
           "loadingZones": "Zonas de carga...",
@@ -4385,6 +4394,7 @@
         },
         "messages": {
           "createSuccess": "Tienda creada con éxito",
+          "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura.",
           "prepareFailed": "No se pudieron preparar los datos de la tienda"
         }
       },
@@ -7563,7 +7573,8 @@
       "unpaid": "No pagado",
       "pending": "Pendiente",
       "failed": "Fallido",
-      "refunded": "Reembolsos"
+      "refunded": "Reembolsos",
+      "cancelled": "Cancelado"
     },
     "orderTypes": {
       "delivery": "Entrega",
@@ -7691,6 +7702,11 @@
       "title": "Detalle de pedidos",
       "fetchFailedMessage": "No se pudo cargar el pedido",
       "notFound": "Orden no encontrada",
+      "instructions": {
+        "title": "Instrucciones del pedido",
+        "storeLabel": "Para el comercio",
+        "courierLabel": "Para el repartidor"
+      },
       "summary": {
         "title": "Resumen del orden",
         "orderIdLabel": "ID del pedido:",

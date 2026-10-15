@@ -184,6 +184,7 @@ export const useGetOrderDetail = (
                 customer: customer,
                 rider: rider,
                 delivery: delivery,
+                orderNotes: data.orderNotes,
                 logs,
                 // convenience fields
                 vendor: summary.vendor ?? '',

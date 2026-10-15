@@ -63,6 +63,7 @@ export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacy
         placeholder={t('phonePlaceholder')}
         requiredAsterisk={!isLegacyMigrated}
         disabled={isLegacyMigrated}
+        validateOnChange
       />
 
       <AppFileInput

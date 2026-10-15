@@ -52,6 +52,9 @@ export function EditProductBasicInformationForm({
   const tSchema = useTranslations();
   const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
+  const hasVariations = product.customizationGroups?.some(
+    (group) => group?.type === 'variation',
+  ) ?? false;
   const { data: activeDeals } = useGetActiveDeals(
     storeId
       ? {
@@ -96,7 +99,9 @@ export function EditProductBasicInformationForm({
       <Formik
         initialValues={initialValues}
         enableReinitialize
-        validationSchema={productFormStep1Schema(tSchema)}
+        validationSchema={hasVariations
+          ? productFormStep1Schema(tSchema).omit(['price'])
+          : productFormStep1Schema(tSchema)}
         onSubmit={onSubmit}
       >
         {({ isSubmitting: isFormSubmitting, values, setFieldValue }) => {
@@ -178,24 +183,33 @@ export function EditProductBasicInformationForm({
                 <ProductFavouriteFoodTagsField
                   storeId={storeId || product.store_id}
                   initialSelected={product.favouriteFoods}
+                  fullWidth={false}
                 />
+              </div>
 
-                <AppInputField
-                  label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
-                  name="price"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  placeholder={t('pricePlaceholder')}
-                  prefix={
-                    <span className="font-semibold text-primary">
-                      {resolvedCurrencySymbol}
-                    </span>
-                  }
-                  requiredAsterisk
-                />
-                <ProductTaxField currentRate={product.taxRate} />
+              {hasVariations ? (
+                <ProductTaxField currentRate={product.taxRate} showPriceInfo={false} />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <AppInputField
+                    label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
+                    name="price"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder={t('pricePlaceholder')}
+                    prefix={
+                      <span className="font-semibold text-primary">
+                        {resolvedCurrencySymbol}
+                      </span>
+                    }
+                    requiredAsterisk
+                  />
+                  <ProductTaxField currentRate={product.taxRate} />
+                </div>
+              )}
 
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 <div className="space-y-2">
                   <AppInputField
                     label={t('stockQuantityLabel')}
@@ -246,7 +260,7 @@ export function EditProductBasicInformationForm({
                 />
               </div>
 
-              {selectedDealSummary && Number.isFinite(basePrice) ? (
+              {!hasVariations && selectedDealSummary && Number.isFinite(basePrice) ? (
                 <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
                   <p className="font-medium text-foreground">
                     {t('priceAfterDealLabel')}:{' '}

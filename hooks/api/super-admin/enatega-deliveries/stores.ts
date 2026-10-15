@@ -1,4 +1,5 @@
 import Axios from '@/config/axios';
+import { isAxiosError } from 'axios';
 import { useDeliveriesAdminModeScope } from '@/hooks/use-deliveries-admin-mode-scope';
 import { useQueryParams } from '@/hooks/use-query-params';
 import {
@@ -317,19 +318,45 @@ export const useDeleteStore = (
     });
 };
 
+/** Check the shared user registry before allowing a new store login email. */
+export const isStoreEmailAvailable = async (
+    email: string,
+    signal?: AbortSignal,
+): Promise<boolean> => {
+    try {
+        await Axios.get(`/users/check-email/${encodeURIComponent(email.trim().toLowerCase())}`, { signal });
+        return true;
+    } catch (error) {
+        if (isAxiosError(error) && error.response?.status === 409) return false;
+        throw error;
+    }
+};
+
 /**
  * Hook to create a new store
  * @param options - React Query mutation options
  */
 export const useCreateStore = (
-    options?: UseMutationOptions<{ message: string }, ApiErrorResponse, FormData>
+    options?: UseMutationOptions<
+        { message: string; storeId?: string; credentialsEmailSent?: boolean },
+        ApiErrorResponse,
+        FormData
+    >
 ) => {
     const queryClient = useQueryClient();
 
-    return useMutation<{ message: string }, ApiErrorResponse, FormData>({
+    return useMutation<
+        { message: string; storeId?: string; credentialsEmailSent?: boolean },
+        ApiErrorResponse,
+        FormData
+    >({
         ...options,
         mutationFn: async (formData: FormData) => {
-            const res = await Axios.post<{ message: string }>(
+            const res = await Axios.post<{
+                message: string;
+                storeId?: string;
+                credentialsEmailSent?: boolean;
+            }>(
                 `/apps/deliveries/stores/main-store`,
                 formData,
                 {

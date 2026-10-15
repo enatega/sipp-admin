@@ -43,6 +43,7 @@ export function BasicInformationSection({ isLegacyMigrated = false }: { isLegacy
         placeholder={t('phonePlaceholder')}
         requiredAsterisk={!isLegacyMigrated}
         disabled
+        validateOnChange
       />
       <p className="-mt-3 text-xs text-muted-foreground">
         {t('phoneImmutableHint')}

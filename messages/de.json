@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Startseite",
     "dashboard": "Dashboard",
+    "dispatch": "Disposition",
     "settings": "Einstellungen",
     "profile": "Profil"
   },
@@ -2318,6 +2319,10 @@
       "messages": {
         "noDeals": "Keine Deals gefunden.",
         "noVariations": "Keine Varianten gefunden.",
+        "legacySizePriceHint": "Importierte Größen haben eigene Verkaufspreise. Bearbeiten Sie unten eine Größe; weitere Varianten können hier nicht hinzugefügt werden.",
+        "optionPriceHint": "Diese Variante hat eigene Optionen mit Preisen. Bearbeiten Sie die Variante oben oder einen Optionspreis unten.",
+        "editSizePriceTitle": "Preis für {size} bearbeiten",
+        "sizePriceSaveError": "Der Größenpreis konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
         "noAddOns": "Keine Add-ons gefunden.",
         "noLinkedOptions": "Keine verknüpften Optionen gefunden."
       },
@@ -3301,7 +3306,8 @@
         "publishButton": "Veröffentlichen"
       },
       "messages": {
-        "createSuccess": "Filiale erfolgreich erstellt"
+        "createSuccess": "Filiale erfolgreich erstellt",
+        "credentialsEmailFailed": "Der Store wurde erstellt, aber die E-Mail mit den Zugangsdaten konnte nicht gesendet werden. Prüfen Sie die E-Mail-Einstellungen und teilen Sie die Zugangsdaten sicher."
       }
     }
   },
@@ -4539,6 +4545,9 @@
           "mailLoginCredentialsLabel": "Login-Daten per E-Mail senden",
           "changePasswordLabel": "Store darf Passwort ändern",
           "emailImmutableHint": "E-Mail kann nicht geändert werden",
+          "checkingEmail": "E-Mail-Verfügbarkeit wird geprüft...",
+          "emailAlreadyExists": "Diese E-Mail ist bereits registriert. Verwenden Sie eine andere E-Mail.",
+          "emailCheckFailed": "Diese E-Mail konnte nicht geprüft werden. Bitte versuchen Sie es erneut.",
           "zoneLabel": "Zone/Stadt",
           "zonePlaceholder": "Stadt auswählen",
           "loadingZones": "Zonen werden geladen...",
@@ -4716,6 +4725,7 @@
         },
         "messages": {
           "createSuccess": "Geschäft erfolgreich erstellt",
+          "credentialsEmailFailed": "Der Store wurde erstellt, aber die E-Mail mit den Zugangsdaten konnte nicht gesendet werden. Prüfen Sie die E-Mail-Einstellungen und teilen Sie die Zugangsdaten sicher.",
           "prepareFailed": "Store-Daten konnten nicht vorbereitet werden"
         }
       },
@@ -7911,7 +7921,8 @@
       "unpaid": "Unbezahlt",
       "pending": "Ausstehend",
       "failed": "Fehlgeschlagen",
-      "refunded": "Erstattet"
+      "refunded": "Erstattet",
+      "cancelled": "Storniert"
     },
     "orderTypes": {
       "delivery": "Lieferung",
@@ -8039,6 +8050,11 @@
       "title": "Bestelldetails",
       "fetchFailedMessage": "Bestellung konnte nicht geladen werden",
       "notFound": "Bestellung nicht gefunden",
+      "instructions": {
+        "title": "Bestellhinweise",
+        "storeLabel": "Für das Geschäft",
+        "courierLabel": "Für den Kurier"
+      },
       "summary": {
         "title": "Bestellübersicht",
         "orderIdLabel": "Bestell-ID:",

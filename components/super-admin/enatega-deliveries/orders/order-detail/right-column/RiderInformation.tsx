@@ -3,7 +3,6 @@
 import { Heading } from '@/components/shared/Heading';
 import { Button } from '@/components/ui/button';
 import { OrderDetail } from '@/types/entities/super-admin/enatega-deliveries/orders';
-import { Star } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -16,7 +15,6 @@ interface RiderInformationProps {
 export function RiderInformation({ order }: RiderInformationProps) {
   const t = useTranslations('orders.orderDetail.riderInformation');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const reviewsCount = Number(order?.rider?.totalReviews || 0);
 
   return (
     <div className="border border-sidebar-border p-6 rounded-[12px] bg-white mt-6 shadow-sm">
@@ -54,19 +52,6 @@ export function RiderInformation({ order }: RiderInformationProps) {
               <span className="text-black font-semibold text-[16px]">
                 {order?.rider?.name}
               </span>
-              <div className="flex items-center gap-1.5">
-                <Star size={20} className="text-help-orange fill-help-orange" />
-                <span className="text-black font-normal text-[16px]">
-                  {order?.rider?.rating}
-                </span>
-                <span className="text-mute text-[16px]">
-                  ({reviewsCount}{' '}
-                  {reviewsCount === 1
-                    ? t('reviewSingular')
-                    : t('reviewPlural')}
-                  )
-                </span>
-              </div>
             </div>
           </div>
 

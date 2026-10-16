@@ -2,9 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MapPinned, Menu } from 'lucide-react';
+import { Menu, Truck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { getFilteredSidebarSearchItems } from '@/config/sidebar';
+import { adminRoutes } from '@/lib/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useSidebar } from '@/components/ui/sidebar';
@@ -79,10 +80,10 @@ const AppHeader = ({ containerClass }: Props) => {
           <Button
             type="button"
             className="hidden sm:inline-flex bg-primary text-primary-foreground hover:bg-primary/90"
-            onClick={() => router.push('/deliveries/live-tracking')}
+            onClick={() => router.push(adminRoutes.deliveries.orders)}
           >
-            <MapPinned className="mr-2 h-4 w-4" />
-            {t('sidebar.liveTracking')}
+            <Truck className="mr-2 h-4 w-4" />
+            {t('navigation.dispatch')}
           </Button>
 
           <div className="relative hidden lg:block">

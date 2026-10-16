@@ -13,6 +13,7 @@ import {
   buildDealSummaryIndex,
   calculatePriceAfterDeal,
   extractAppliedDealsFromProduct,
+  extractDealSummaryFromProduct,
   getProductAppliedDealRef,
   resolveAppliedDealSummary,
 } from '@/lib/deal-pricing';
@@ -133,6 +134,15 @@ export function ProductsTable() {
   };
 
   const dealSummaryIndex = buildDealSummaryIndex(activeDeals?.data);
+  const priceAfterDeal = (product: Product) => {
+    const dealSummary =
+      extractDealSummaryFromProduct(product) ??
+      resolveAppliedDealSummary(
+        getProductAppliedDealRef(extractAppliedDealsFromProduct(product)),
+        dealSummaryIndex,
+      );
+    return calculatePriceAfterDeal(Number(product.price), dealSummary);
+  };
 
   const productDownloadColumns = [
     { header: t('download.name'), dataKey: 'name' },
@@ -153,17 +163,9 @@ export function ProductsTable() {
       header: `${t('table.priceAfterDeal')} (${resolvedCurrencySymbol})`,
       dataKey: 'priceAfterDeal',
       formatter: (item: Product) => {
-        const dealSummary = resolveAppliedDealSummary(
-          getProductAppliedDealRef(
-            extractAppliedDealsFromProduct(item as Record<string, unknown>),
-          ),
-          dealSummaryIndex,
-        );
-        const discountedPrice = dealSummary
-          ? calculatePriceAfterDeal(Number(item.price), dealSummary)
-          : null;
+        const discountedPrice = priceAfterDeal(item);
         return discountedPrice === null
-          ? t('table.notAvailable')
+          ? t('table.noActiveDeal')
           : formatCurrency(discountedPrice, resolvedCurrencySymbol);
       },
     },
@@ -303,23 +305,9 @@ export function ProductsTable() {
                   </TableCell>
                   <TableCell>
                     {(() => {
-                      const appliedDeals = extractAppliedDealsFromProduct(
-                        product as Record<string, unknown>,
-                      );
-                      const productDealRef =
-                        getProductAppliedDealRef(appliedDeals);
-                      const productDealSummary = resolveAppliedDealSummary(
-                        productDealRef,
-                        dealSummaryIndex,
-                      );
-                      if (!productDealSummary) return t('table.notAvailable');
-
-                      const discountedPrice = calculatePriceAfterDeal(
-                        Number(product.price),
-                        productDealSummary,
-                      );
+                      const discountedPrice = priceAfterDeal(product);
                       if (discountedPrice === null)
-                        return t('table.notAvailable');
+                        return t('table.noActiveDeal');
 
                       return formatCurrency(
                         discountedPrice,

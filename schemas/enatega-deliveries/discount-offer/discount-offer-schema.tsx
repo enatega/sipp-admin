@@ -38,6 +38,16 @@ export const getStep2Schema = (t: SchemaTranslator) =>
       .nullable()
       .typeError(t('minOrderValueMustBeNumber'))
       .min(0, t('minOrderValueCannotBeNegative'))
+      .test(
+        'fixed-discount-minimum',
+        t('minOrderValueAboveFixedDiscount'),
+        function (value) {
+          return this.parent.discountType !== 'FIXED' ||
+            value == null ||
+            this.parent.discountValue == null ||
+            value > Number(this.parent.discountValue);
+        },
+      )
       .required(t('minOrderValueRequired')),
 
     totalUsageLimit: Yup.number()

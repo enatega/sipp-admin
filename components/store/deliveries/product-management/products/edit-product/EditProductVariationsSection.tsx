@@ -2,7 +2,7 @@
 
 import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 
-import type { ProductCustomizationGroup } from '@/types';
+import type { ProductCustomizationGroup, ProductCustomizationOption } from '@/types';
 import type { AppliedDealRef, DealSummary } from '@/lib/deal-pricing';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -13,6 +13,7 @@ import {
   resolveAppliedDealSummary,
 } from '@/lib/deal-pricing';
 import { formatCurrency } from '@/lib/formatCurrency';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { AppButton } from '@/components/shared/AppButton';
 import { CustomizationRowActions } from './CustomizationRowActions';
 
@@ -27,6 +28,7 @@ interface EditProductVariationsSectionProps {
   deleteLabel: string;
   onCreate: () => void;
   onEdit: (group: ProductCustomizationGroup) => void;
+  onEditOption: (group: ProductCustomizationGroup, option: ProductCustomizationOption) => void;
   onDelete: (group: ProductCustomizationGroup) => void;
 }
 
@@ -41,6 +43,7 @@ export function EditProductVariationsSection({
   deleteLabel,
   onCreate,
   onEdit,
+  onEditOption,
   onDelete,
 }: EditProductVariationsSectionProps) {
   const tForm = useTranslations('products.form');
@@ -49,6 +52,10 @@ export function EditProductVariationsSection({
   const tDetailMessages = useTranslations('products.detail.messages');
   const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
+  const hasLegacyOptionVariations = variations.some(
+    (variation) => variation.legacyMigrationMetadata?.legacyProductId
+      && hasPersistedVariationOptions(variation),
+  );
 
   return (
     <div className="rounded-lg border bg-white p-6 space-y-4">
@@ -61,7 +68,7 @@ export function EditProductVariationsSection({
             variant="secondary"
             onClick={onCreate}
             leftIcon={<Plus className="size-4" />}
-            disabled={disabled}
+            disabled={disabled || Boolean(hasLegacyOptionVariations)}
           >
             {addButtonLabel}
           </AppButton>
@@ -75,6 +82,8 @@ export function EditProductVariationsSection({
       ) : (
         <div className="space-y-3">
           {variations.map((variation) => {
+            const isOptionBased = hasPersistedVariationOptions(variation);
+            const isLegacyOptionBased = isOptionBased && Boolean(variation.legacyMigrationMetadata?.legacyProductId);
             const variationAppliedDeal = getVariationAppliedDealRef(
               appliedDeals,
               variation.id,
@@ -88,7 +97,7 @@ export function EditProductVariationsSection({
               key={variation.id}
               className="relative rounded-xl border bg-light p-4 grid grid-cols-1 md:grid-cols-3 gap-4"
             >
-              <div className="absolute right-3 top-3">
+              {!isLegacyOptionBased ? <div className="absolute right-3 top-3">
                 <CustomizationRowActions
                   disabled={disabled}
                   editLabel={editLabel}
@@ -96,9 +105,41 @@ export function EditProductVariationsSection({
                   onEdit={() => onEdit(variation)}
                   onDelete={() => onDelete(variation)}
                 />
-              </div>
+              </div> : null}
 
-              <div>
+              {isOptionBased ? (
+                <div className="md:col-span-3 space-y-3">
+                  <div className="pr-10">
+                    <p className="font-semibold text-foreground">{variation.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {tDetailMessages(isLegacyOptionBased ? 'legacySizePriceHint' : 'optionPriceHint')}
+                    </p>
+                  </div>
+                  <div className="divide-y rounded-lg border bg-white">
+                    {variation.options.map((option) => (
+                      <div key={option.id} className="flex items-center justify-between gap-3 p-3">
+                        <div className="min-w-0">
+                          <p className="truncate font-medium text-foreground">{option.title}</p>
+                          <p className="text-sm tabular-nums text-muted-foreground">
+                            {formatCurrency(Number(option.price), resolvedCurrencySymbol)}
+                          </p>
+                        </div>
+                        <AppButton
+                          type="button"
+                          variant="secondary"
+                          size="sm"
+                          disabled={disabled}
+                          onClick={() => onEditOption(variation, option)}
+                        >
+                          {editLabel}
+                        </AppButton>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {!isOptionBased ? <div>
                 <p className="text-xs text-muted-foreground">
                   {tDetailFields('image')}
                 </p>
@@ -114,16 +155,16 @@ export function EditProductVariationsSection({
                     {variation.name?.charAt(0)?.toUpperCase() || 'V'}
                   </div>
                 )}
-              </div>
+              </div> : null}
 
-              <div>
+              {!isOptionBased ? <div>
                 <p className="text-xs text-muted-foreground">
                   {tForm('nameLabel')}
                 </p>
                 <p className="font-medium">{variation.name}</p>
-              </div>
+              </div> : null}
 
-              <div>
+              {!isOptionBased ? <div>
                 <p className="text-xs text-muted-foreground">
                   {`Price (${resolvedCurrencySymbol})`}
                 </p>
@@ -147,7 +188,7 @@ export function EditProductVariationsSection({
                     {tDetailFields('appliedDeal')}: {variationDealSummary.dealName}
                   </p>
                 ) : null}
-              </div>
+              </div> : null}
             </div>
             );
           })}

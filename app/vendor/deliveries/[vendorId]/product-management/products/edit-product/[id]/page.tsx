@@ -62,7 +62,9 @@ export default function EditProductPage() {
         category_id: values.categoryId,
         subcategory_id: values.subcategoryId || undefined,
         name: values.name.trim(),
-        price: Number(values.price),
+        price: product?.customizationGroups?.some((group) => group?.type === 'variation')
+          ? undefined
+          : Number(values.price),
         taxRateId: values.taxRateId || undefined,
         useDefaultTax: !values.taxRateId,
         stock_quantity: Number(values.stockQuantity),

@@ -17,6 +17,8 @@ export interface AppStepperProps {
   stepDescriptionClassName?: string;
   lineHeight?: string;
   circleSize?: string;
+  onStepClick?: (step: number) => void;
+  canSelectStep?: (step: number) => boolean;
 }
 
 const AppStepper = ({
@@ -28,12 +30,27 @@ const AppStepper = ({
   stepDescriptionClassName,
   lineHeight = 'h-20',
   circleSize = 'w-14 h-14',
+  onStepClick,
+  canSelectStep,
 }: AppStepperProps) => {
   return (
     <div className={`relative ${className}`}>
       {steps.map((step, index) => (
-        <div key={step.number} className="relative">
+        <div
+          key={step.number}
+          className="relative"
+          aria-current={currentStep === step.number ? 'step' : undefined}
+        >
           <div className="flex items-start gap-6">
+            {onStepClick && (!canSelectStep || canSelectStep(step.number)) ? (
+              <button
+                type="button"
+                onClick={() => onStepClick(step.number)}
+                aria-current={currentStep === step.number ? 'step' : undefined}
+                className="absolute inset-0 z-20 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label={step.title}
+              />
+            ) : null}
             <div className="relative flex-shrink-0 z-10">
               <motion.div
                 className={`${circleSize} rounded-full flex items-center justify-center text-xl font-semibold ${

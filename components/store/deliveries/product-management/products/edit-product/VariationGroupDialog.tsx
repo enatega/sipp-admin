@@ -2,7 +2,7 @@
 
 import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { variationGroupValidationSchema } from '@/schemas/store/deliveries/product-management/product-customization.schema';
 import type {
   EditProductVariationGroupFormValues,
@@ -11,6 +11,7 @@ import type {
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import { resolveProductTaxRate } from '@/lib/tax-inclusive';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { useTaxRates } from '@/hooks/api/deliveries/tax-rates';
 import { useGetStoreProfile } from '@/hooks/api/store/deliveries/profile';
 import { useCurrency } from '@/hooks/use-currency';
@@ -49,6 +50,7 @@ export function VariationGroupDialog({
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = useState<string | null>(null);
   const isEditMode = Boolean(initialGroup);
+  const hasPricedOptions = hasPersistedVariationOptions(initialGroup);
   const storeProfile = useGetStoreProfile(storeId ?? '');
   const productTaxRates = useTaxRates('product');
   const selectedTaxRate = resolveProductTaxRate(
@@ -57,12 +59,6 @@ export function VariationGroupDialog({
     taxRateId,
     currentTaxRate,
   );
-
-  useEffect(() => {
-    if (open) {
-      setApiError(null);
-    }
-  }, [open, initialGroup?.id]);
 
   const initialValues: EditProductVariationGroupFormValues = {
     name: initialGroup?.name || '',
@@ -89,6 +85,7 @@ export function VariationGroupDialog({
         enableReinitialize
         validationSchema={variationGroupValidationSchema(tStep2, {
           requireImage: !isEditMode,
+          requirePrice: !hasPricedOptions,
         })}
         onSubmit={async (values, { setSubmitting }) => {
           setApiError(null);
@@ -116,22 +113,25 @@ export function VariationGroupDialog({
               requiredAsterisk
             />
 
-            <AppInputField
-              label={`${tStep2('priceLabel')} (${resolvedCurrencySymbol})`}
-              name="price"
-              type="number"
-              step="0.01"
-              min="0"
-              placeholder={tStep2('pricePlaceholder')}
-              prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
-              requiredAsterisk
-            />
-
-            <ProductVariationTaxBreakdown
-              price={values.price}
-              rate={selectedTaxRate}
-              currencySymbol={resolvedCurrencySymbol}
-            />
+            {!hasPricedOptions ? (
+              <>
+                <AppInputField
+                  label={`${tStep2('priceLabel')} (${resolvedCurrencySymbol})`}
+                  name="price"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  placeholder={tStep2('pricePlaceholder')}
+                  prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+                  requiredAsterisk
+                />
+                <ProductVariationTaxBreakdown
+                  price={values.price}
+                  rate={selectedTaxRate}
+                  currencySymbol={resolvedCurrencySymbol}
+                />
+              </>
+            ) : null}
 
             <AppFileInput
               name="image"

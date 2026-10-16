@@ -17,7 +17,11 @@ function load(relativePath) {
   mod._compile(compiled, filename);
   return mod.exports;
 }
-const { editStoreFormSchema } = load('schemas/enatega-deliveries/stores/store-form.ts');
+const {
+  StoreFormStep1Schema,
+  VendorStoreFormStep1Schema,
+  editStoreFormSchema,
+} = load('schemas/enatega-deliveries/stores/store-form.ts');
 const { updateProfileValidationSchema } = load('schemas/store/deliveries/update-profile.schema.ts');
 const { pruneUnchangedStoreFields, STORE_EDIT_PAYLOAD_FIELDS } = load('lib/store-update-payload.ts');
 const { normalizePreviewSource } = load('lib/document-preview.ts');
@@ -40,6 +44,20 @@ test('legacy edit permits missing contact, zone, KYC and bank details', async ()
 });
 test('ordinary edit still requires missing onboarding fields', async () => {
   await assert.rejects(editStoreFormSchema(t).validate(missing));
+});
+test('store add and edit schemas use country-specific phone validation', async () => {
+  const invalidPakistanNumber = '+921234567891000';
+  const validPakistanNumber = '+923001234567';
+  const schemas = [
+    StoreFormStep1Schema(t),
+    VendorStoreFormStep1Schema(t),
+    editStoreFormSchema(t),
+  ];
+
+  for (const schema of schemas) {
+    await assert.rejects(schema.validateAt('phone', { phone: invalidPakistanNumber }));
+    await schema.validateAt('phone', { phone: validPakistanNumber });
+  }
 });
 test('all seven optional legacy text fields accept actual API nulls', async () => {
   const values = { ...missing };

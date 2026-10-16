@@ -95,7 +95,7 @@
     "useDefault": "Use el impuesto por defecto del producto de esta tienda",
     "inclusiveHelp": "El precio de entrada incluye impuestos. El impuesto no se añade arriba.",
     "missingDefault": "Seleccione una tasa de impuestos de producto o pida a un administrador que configure el impuesto de producto predeterminado de esta tienda.",
-    "breakdown": "{name} ({rate}%: neto {net} + impuestos incluidos {tax} = precio {gross}",
+    "breakdown": "{name} ({rate}%): neto {net} + impuesto incluido {tax} = precio {gross}",
     "unconfigured": "No hay tasa de impuestos configurada"
   },
   "common": {
@@ -299,6 +299,7 @@
   "navigation": {
     "home": "Inicio",
     "dashboard": "Panel de control",
+    "dispatch": "Despacho",
     "settings": "Ajustes",
     "profile": "Perfil"
   },
@@ -2101,6 +2102,7 @@
       "category": "Categoría",
       "price": "Precio",
       "priceAfterDeal": "Precio después del trato",
+      "noActiveDeal": "Sin oferta activa",
       "addon": "Complemento",
       "unitOfMeasure": "Unidad de Medida",
       "stockAvailability": "Disponibilidad",
@@ -2317,6 +2319,10 @@
       "messages": {
         "noDeals": "No hay tratos encontrados.",
         "noVariations": "No se encontraron variaciones.",
+        "legacySizePriceHint": "Los tamaños importados tienen sus propios precios. Edita un tamaño abajo; aquí no se pueden añadir más variantes.",
+        "optionPriceHint": "Esta variante tiene opciones con precios propios. Edita los detalles de la variante arriba o el precio de una opción abajo.",
+        "editSizePriceTitle": "Editar precio de {size}",
+        "sizePriceSaveError": "No se pudo actualizar el precio del tamaño. Inténtalo de nuevo.",
         "noAddOns": "No hay complementos encontrados.",
         "noLinkedOptions": "No hay opciones vinculadas."
       },
@@ -3385,7 +3391,8 @@
         "publishButton": "Publicar"
       },
       "messages": {
-        "createSuccess": "Tienda creada con éxito"
+        "createSuccess": "Tienda creada con éxito",
+        "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura."
       }
     }
   },
@@ -4276,6 +4283,9 @@
           "mailLoginCredentialsLabel": "Enviar credenciales de acceso vía correo",
           "changePasswordLabel": "Permitir a la tienda cambiar contraseña",
           "emailImmutableHint": "El correo electrónico no se puede cambiar",
+          "checkingEmail": "Comprobando disponibilidad del correo...",
+          "emailAlreadyExists": "Este correo ya está registrado. Usa otro correo.",
+          "emailCheckFailed": "No se pudo comprobar este correo. Inténtalo de nuevo.",
           "zoneLabel": "Zona/Ciudad",
           "zonePlaceholder": "Seleccionar ciudad",
           "loadingZones": "Zonas de carga...",
@@ -4384,6 +4394,7 @@
         },
         "messages": {
           "createSuccess": "Tienda creada con éxito",
+          "credentialsEmailFailed": "La tienda se creó, pero no se pudo enviar el correo con las credenciales. Verifique la configuración del correo y comparta las credenciales de forma segura.",
           "prepareFailed": "No se pudieron preparar los datos de la tienda"
         }
       },
@@ -6049,6 +6060,8 @@
       "minOrderValueRequired": "Se requiere un valor mínimo de reserva",
       "minOrderValueMustBeNumber": "El valor mínimo del orden debe ser un número",
       "minOrderValueCannotBeNegative": "El valor mínimo del orden no puede ser negativo",
+      "minOrderValueAboveFixedDiscount": "El pedido mínimo debe ser mayor que el descuento fijo",
+      "minOrderValueFixedHint": "Debe ser mayor que el descuento de {amount} para que el total nunca llegue a cero.",
       "minBookingValueRequired": "Se requiere un valor mínimo de reserva",
       "minBookingValueMustBeNumber": "El valor mínimo de reserva debe ser un número",
       "minBookingValueCannotBeNegative": "El valor mínimo de reserva no puede ser negativo",
@@ -7560,7 +7573,8 @@
       "unpaid": "No pagado",
       "pending": "Pendiente",
       "failed": "Fallido",
-      "refunded": "Reembolsos"
+      "refunded": "Reembolsos",
+      "cancelled": "Cancelado"
     },
     "orderTypes": {
       "delivery": "Entrega",
@@ -7688,6 +7702,11 @@
       "title": "Detalle de pedidos",
       "fetchFailedMessage": "No se pudo cargar el pedido",
       "notFound": "Orden no encontrada",
+      "instructions": {
+        "title": "Instrucciones del pedido",
+        "storeLabel": "Para el comercio",
+        "courierLabel": "Para el repartidor"
+      },
       "summary": {
         "title": "Resumen del orden",
         "orderIdLabel": "ID del pedido:",
@@ -7872,6 +7891,9 @@
         "couponTitle": "Cupón",
         "couponBorneByAdmin": "Asumido por el administrador",
         "couponBorneByStore": "Asumido por la tienda",
+        "couponBorneByBoth": "Admin y tienda",
+        "adminCouponCostLabel": "Parte del cupón del admin",
+        "storeCouponCostLabel": "Parte del cupón de la tienda",
         "couponDiscountLabel": "Descuento del cupón",
         "commissionBeforeCouponLabel": "Comisión antes del cupón",
         "adminCouponFromCommissionLabel": "Cubierto con la comisión",

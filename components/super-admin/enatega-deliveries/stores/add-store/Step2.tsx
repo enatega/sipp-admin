@@ -15,17 +15,20 @@ import DisplayError from '@/components/shared/DisplayError';
 import TaxConfiguration from '@/components/shared/form/TaxConfiguration';
 import NoDataFound from '@/components/shared/NoDataFound';
 import { EMPTY_STEP2 } from './data';
+import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
 
 interface Step2FormProps {
   initialData: Step2Data | null;
   onSubmit: (data: Step2Data) => void;
   onBack: () => void;
+  registerNavigation: RegisterStepNavigation;
 }
 
 export const Step2Form: React.FC<Step2FormProps> = ({
   initialData,
   onSubmit,
   onBack,
+  registerNavigation,
 }) => {
   const t = useTranslations('lumiFood.stores.addStore.step2');
   const tErrors = useTranslations('lumiFood.stores.addStore.step2.errors');
@@ -65,6 +68,7 @@ export const Step2Form: React.FC<Step2FormProps> = ({
         {({ isSubmitting, setFieldValue, values }) => {
           return (
             <Form className="space-y-6">
+              <StepNavigation step="step2" register={registerNavigation} />
               <TaxConfiguration />
               <div className="space-y-3">
                 {/* Loading State */}

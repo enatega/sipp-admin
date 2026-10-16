@@ -2,7 +2,7 @@
 
 import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { variationGroupValidationSchema } from '@/schemas/store/deliveries/product-management/product-customization.schema';
 import type {
   EditProductVariationGroupFormValues,
@@ -11,6 +11,7 @@ import type {
 import { Form, Formik } from 'formik';
 import { useTranslations } from 'next-intl';
 import { useCurrency } from '@/hooks/use-currency';
+import { hasPersistedVariationOptions } from '@/lib/product-variation-options';
 import { AppButton } from '@/components/shared/AppButton';
 import { AppDialog } from '@/components/shared/AppDialog';
 import { FormErrorDisplay } from '@/components/shared/FormErrorDisplay';
@@ -38,12 +39,7 @@ export function VariationGroupDialog({
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
   const [apiError, setApiError] = useState<string | null>(null);
   const isEditMode = Boolean(initialGroup);
-
-  useEffect(() => {
-    if (open) {
-      setApiError(null);
-    }
-  }, [open, initialGroup?.id]);
+  const hasPricedOptions = hasPersistedVariationOptions(initialGroup);
 
   const initialValues: EditProductVariationGroupFormValues = {
     name: initialGroup?.name || '',
@@ -70,6 +66,7 @@ export function VariationGroupDialog({
         enableReinitialize
         validationSchema={variationGroupValidationSchema(tStep2, {
           requireImage: !isEditMode,
+          requirePrice: !hasPricedOptions,
         })}
         onSubmit={async (values, { setSubmitting }) => {
           setApiError(null);
@@ -97,7 +94,7 @@ export function VariationGroupDialog({
               requiredAsterisk
             />
 
-            <AppInputField
+            {!hasPricedOptions ? <AppInputField
               label={`${tStep2('priceLabel')} (${resolvedCurrencySymbol})`}
               name="price"
               type="number"
@@ -106,7 +103,7 @@ export function VariationGroupDialog({
               placeholder={tStep2('pricePlaceholder')}
               prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
               requiredAsterisk
-            />
+            /> : null}
 
             <AppFileInput
               name="image"

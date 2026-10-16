@@ -95,7 +95,7 @@ const buildVariationGroupFormData = (
   formData.append('store_id', payload.store_id);
   formData.append('name', payload.name);
   formData.append('type', 'variation');
-  appendIfPresent(formData, 'price', payload.price ?? 0);
+  appendIfPresent(formData, 'price', payload.price);
 
   if (payload.variation_image instanceof File) {
     formData.append('variation_image', payload.variation_image);
@@ -412,7 +412,9 @@ export const useUpdateProduct = (
       if (payload.favouriteFoodIds !== undefined) {
         formData.append('favouriteFoodIds', JSON.stringify(payload.favouriteFoodIds));
       }
-      formData.append('price', String(payload.price));
+      if (payload.price !== undefined) {
+        formData.append('price', String(payload.price));
+      }
       if (payload.taxRateId) formData.append('taxRateId', payload.taxRateId);
       if (payload.useDefaultTax) formData.append('useDefaultTax', 'true');
       formData.append('stock_quantity', String(payload.stock_quantity));
@@ -681,6 +683,28 @@ export const useUpdateProductCustomizationGroup = (
       }
       options?.onSuccess?.(data, variables, onMutateResult, context);
     },
+  });
+};
+
+export const useUpdateProductVariationOptionPrice = () => {
+  const queryClient = useQueryClient();
+  return useMutation<
+    { productId: string; optionId: string; price: number },
+    ApiErrorResponse,
+    { productId: string; groupId: string; optionId: string; price: number }
+  >({
+    mutationFn: async ({ productId, groupId, optionId, price }) => {
+      const { data } = await Axios.patch(
+        `/apps/deliveries/products/${productId}/variations/${groupId}/options/${optionId}/price`,
+        { price },
+      );
+      return data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['store-product', variables.productId] });
+      queryClient.invalidateQueries({ queryKey: ['store-products'] });
+    },
+    retry: false,
   });
 };
 

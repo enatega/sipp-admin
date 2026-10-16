@@ -24,6 +24,7 @@ export interface ProductCustomizationGroup extends Record<string, unknown> {
   imageUrl: string | null;
   type: 'variation' | 'add-on';
   dependsOnVariationId: string | null;
+  legacyMigrationMetadata?: Record<string, unknown> | null;
   createdAt: string;
   updatedAt: string;
   options: ProductCustomizationOption[];

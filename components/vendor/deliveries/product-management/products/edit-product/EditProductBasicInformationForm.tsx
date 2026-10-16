@@ -42,15 +42,18 @@ export function EditProductBasicInformationForm({
   const tSchema = useTranslations();
   const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = currencySymbol || DEFAULT_CURRENCY.symbol;
+  const hasVariations = product.customizationGroups?.some(
+    (group) => group?.type === 'variation',
+  ) ?? false;
   const validationSchema = React.useMemo(
     () =>
-      productFormStep1Schema(tSchema).shape({
+      (hasVariations ? productFormStep1Schema(tSchema).omit(['price']) : productFormStep1Schema(tSchema)).shape({
         menuIds: Yup.array()
           .of(Yup.string().required())
           .min(1, tSchema('products.Schemas.product.menuIdsRequired'))
           .required(tSchema('products.Schemas.product.menuIdsRequired')),
       }),
-    [tSchema],
+    [tSchema, hasVariations],
   );
 
   return (
@@ -123,7 +126,7 @@ export function EditProductBasicInformationForm({
                 }
               />
 
-              <AppInputField
+              {!hasVariations ? <AppInputField
                 label={`${t('priceLabel')} (${resolvedCurrencySymbol})`}
                 name="price"
                 type="number"
@@ -136,7 +139,7 @@ export function EditProductBasicInformationForm({
                   </span>
                 }
                 requiredAsterisk
-              />
+              /> : null}
 
               <AppInputField
                 label={t('stockQuantityLabel')}

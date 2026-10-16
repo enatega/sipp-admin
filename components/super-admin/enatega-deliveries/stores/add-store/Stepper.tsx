@@ -5,9 +5,11 @@ import AppStepper from '@/components/shared/AppStepper';
 
 interface StoreFormStepperProps {
   currentStep: number;
+  onStepClick: (step: number) => void;
+  canSelectStep: (step: number) => boolean;
 }
 
-const StoreFormStepper = ({ currentStep }: StoreFormStepperProps) => {
+const StoreFormStepper = ({ currentStep, onStepClick, canSelectStep }: StoreFormStepperProps) => {
   const t = useTranslations('lumiFood.stores.addStore.stepper');
 
   const steps = [
@@ -38,7 +40,7 @@ const StoreFormStepper = ({ currentStep }: StoreFormStepperProps) => {
     },
   ];
 
-  return <AppStepper steps={steps} currentStep={currentStep} />;
+  return <AppStepper steps={steps} currentStep={currentStep} onStepClick={onStepClick} canSelectStep={canSelectStep} />;
 };
 
 export default StoreFormStepper;

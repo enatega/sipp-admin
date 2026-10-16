@@ -95,7 +95,7 @@
     "useDefault": "استخدمي ضريبة المنتجات الافتراضية لهذا المتجر",
     "inclusiveHelp": "ويشمل السعر المقيد الضريبة. الضرائب ليست مضافة على القمة",
     "missingDefault": "اختيار معدل ضريبي المنتج أو طلب من مدير لفرض ضريبة على المنتجات المفقودة لهذا المتجر",
-    "breakdown": "{name} ({rate}النسبة المئوية: الصافي {net} + أدرجت الضرائب {tax} = السعر {gross}",
+    "breakdown": "{name} ({rate}%): السعر قبل الضريبة {net} + الضريبة المضمنة {tax} = السعر {gross}",
     "unconfigured": "لم يتم إعداد معدل ضريبة"
   },
   "common": {
@@ -299,6 +299,7 @@
   "navigation": {
     "home": "البيت",
     "dashboard": "لوحة",
+    "dispatch": "التوزيع",
     "settings": "التركيبات",
     "profile": "الملف الشخصي"
   },
@@ -2101,6 +2102,7 @@
       "category": "الفئة",
       "price": "السعر",
       "priceAfterDeal": "السعر بعد الاتفاق",
+      "noActiveDeal": "لا يوجد عرض نشط",
       "addon": "إضافة",
       "unitOfMeasure": "وحدة القياس",
       "stockAvailability": "توافر المخزونات",
@@ -2317,6 +2319,10 @@
       "messages": {
         "noDeals": "لا توجد صفقات",
         "noVariations": "لم نجد أي تغيرات",
+        "legacySizePriceHint": "للأحجام المستوردة أسعار بيع خاصة بها. عدّل سعر الحجم أدناه؛ لا يمكن إضافة متغير آخر هنا.",
+        "optionPriceHint": "لهذا المتغير خيارات بأسعار مستقلة. عدّل تفاصيله أعلاه أو سعر أحد الخيارات أدناه.",
+        "editSizePriceTitle": "تعديل سعر {size}",
+        "sizePriceSaveError": "تعذر تحديث سعر هذا الحجم. يرجى المحاولة مرة أخرى.",
         "noAddOns": "لا توجد إضافات",
         "noLinkedOptions": "لا توجد خيارات مترابطة"
       },
@@ -3385,7 +3391,8 @@
         "publishButton": "النشر"
       },
       "messages": {
-        "createSuccess": "تم إنتاجه بنجاح"
+        "createSuccess": "تم إنتاجه بنجاح",
+        "credentialsEmailFailed": "تم إنشاء المتجر، ولكن تعذر إرسال بريد بيانات تسجيل الدخول. يرجى التحقق من إعدادات البريد ومشاركة بيانات الدخول بشكل آمن."
       }
     }
   },
@@ -4263,6 +4270,9 @@
           "mailLoginCredentialsLabel": "إرسال وثائق تفويض لوجين عن طريق البريد",
           "changePasswordLabel": "السماح بتغيير كلمة السر",
           "emailImmutableHint": "البريد لا يمكن تغييره",
+          "checkingEmail": "جارٍ التحقق من توفر البريد الإلكتروني...",
+          "emailAlreadyExists": "هذا البريد الإلكتروني مسجل بالفعل. استخدم بريدًا آخر.",
+          "emailCheckFailed": "تعذر التحقق من البريد الإلكتروني. يرجى المحاولة مرة أخرى.",
           "zoneLabel": "المنطقة/المدينة",
           "zonePlaceholder": "مدينة مختارة",
           "loadingZones": "مناطق الهبوط",
@@ -4369,6 +4379,7 @@
         },
         "messages": {
           "createSuccess": "تم إنتاجه بنجاح",
+          "credentialsEmailFailed": "تم إنشاء المتجر، ولكن تعذر إرسال بريد بيانات تسجيل الدخول. يرجى التحقق من إعدادات البريد ومشاركة بيانات الدخول بشكل آمن.",
           "prepareFailed": "عدم إعداد بيانات المخزن"
         }
       },
@@ -6049,6 +6060,8 @@
       "minOrderValueRequired": "القيمة الدنيا للحجز مطلوبة",
       "minOrderValueMustBeNumber": "القيمة الدنيا للنظام يجب أن تكون رقما",
       "minOrderValueCannotBeNegative": "القيمة الدنيا للنظام لا يمكن أن تكون سلبية",
+      "minOrderValueAboveFixedDiscount": "يجب أن يكون الحد الأدنى للطلب أكبر من قيمة الخصم الثابت",
+      "minOrderValueFixedHint": "يجب أن يكون أكبر من خصم {amount} حتى لا يصبح إجمالي الطلب صفرًا.",
       "minBookingValueRequired": "القيمة الدنيا للحجز مطلوبة",
       "minBookingValueMustBeNumber": "القيمة الدنيا للحجز يجب أن تكون العدد",
       "minBookingValueCannotBeNegative": "القيمة الدنيا للحجز لا يمكن أن تكون سلبية",
@@ -7560,7 +7573,8 @@
       "unpaid": "غير مدفوعة",
       "pending": "تنتهي",
       "failed": "فشل",
-      "refunded": "مستردة"
+      "refunded": "مستردة",
+      "cancelled": "ملغي"
     },
     "orderTypes": {
       "delivery": "التسليم",
@@ -7688,6 +7702,11 @@
       "title": "الأمر التفصيلي",
       "fetchFailedMessage": "فشل في طلب الشحن",
       "notFound": "لم يعثر على أمر",
+      "instructions": {
+        "title": "تعليمات الطلب",
+        "storeLabel": "للمتجر",
+        "courierLabel": "لمندوب التوصيل"
+      },
       "summary": {
         "title": "موجز",
         "orderIdLabel": "بطاقة هوية:",
@@ -7872,6 +7891,9 @@
         "couponTitle": "قسيمة",
         "couponBorneByAdmin": "يتحملها المسؤول",
         "couponBorneByStore": "يتحملها المتجر",
+        "couponBorneByBoth": "المسؤول والمتجر",
+        "adminCouponCostLabel": "حصة كوبون المسؤول",
+        "storeCouponCostLabel": "حصة كوبون المتجر",
         "couponDiscountLabel": "خصم القسيمة",
         "commissionBeforeCouponLabel": "العمولة قبل القسيمة",
         "adminCouponFromCommissionLabel": "مغطاة من العمولة",

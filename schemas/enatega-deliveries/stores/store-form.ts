@@ -1,14 +1,16 @@
 import { useTranslations } from 'next-intl';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import * as Yup from 'yup';
 
 const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 const MAX_MB = 5;
 const MAX_BYTES = MAX_MB * 1024 * 1024;
-const PHONE_MAX_DIGITS = 15;
-
-const getPhoneDigitCount = (value: unknown) => {
-  return String(value ?? '').replace(/\D/g, '').length;
-};
+const createPhoneValidator = (t: ReturnType<typeof useTranslations>) =>
+  Yup.string()
+    .required(t('phoneRequired'))
+    .test('validPhoneNumber', t('phoneMinLength'), (value) =>
+      Boolean(value && isValidPhoneNumber(value)),
+    );
 
 const createFileValidator = (t: ReturnType<typeof useTranslations>) =>
   Yup.mixed()
@@ -144,12 +146,7 @@ export const StoreFormStep1Schema = (t: ReturnType<typeof useTranslations>) =>
 
     vendorId: Yup.string().required(t('vendorRequired')),
 
-    phone: Yup.string()
-      .required(t('phoneRequired'))
-      .min(10, t('phoneMinLength'))
-      .test('phoneMaxDigits', t('phoneMinLength'), (value) =>
-        getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
-      ),
+    phone: createPhoneValidator(t),
 
     logo: Yup.mixed<File>()
       .required(t('logoRequired'))
@@ -205,12 +202,7 @@ export const VendorStoreFormStep1Schema = (
       .min(2, t('nameMinLength'))
       .max(100, t('nameMaxLength')),
 
-    phone: Yup.string()
-      .required(t('phoneRequired'))
-      .min(10, t('phoneMinLength'))
-      .test('phoneMaxDigits', t('phoneMinLength'), (value) =>
-        getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
-      ),
+    phone: createPhoneValidator(t),
 
     logo: Yup.mixed<File>()
       .required(t('logoRequired'))
@@ -380,12 +372,7 @@ export const editStoreFormSchema = (
 
     vendorId: Yup.string().optional(),
 
-    phone: Yup.string()
-      .required(t('phoneRequired'))
-      .min(10, t('phoneMinLength'))
-      .test('phoneMaxDigits', t('phoneMinLength'), (value) =>
-        getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
-      ),
+    phone: createPhoneValidator(t),
 
     logo: fileOrUrlValidator.nullable(),
 
@@ -476,12 +463,11 @@ export const editStoreFormSchema = (
 
   const legacyFields = isLegacyMigrated ? {
     email: Yup.string().nullable().email(t('invalidEmailAddress')).optional(),
-    phone: Yup.string().nullable().optional()
-      .test('phoneMinDigits', t('phoneMinLength'), (value) =>
-        !value || value.length >= 10,
-      )
-      .test('phoneMaxDigits', t('phoneMinLength'), (value) =>
-        getPhoneDigitCount(value) <= PHONE_MAX_DIGITS,
+    phone: Yup.string()
+      .nullable()
+      .optional()
+      .test('validPhoneNumber', t('phoneMinLength'), (value) =>
+        !value || isValidPhoneNumber(value),
       ),
     zoneId: Yup.string().nullable().optional(),
     businessLicenseFront: fileOrUrlValidator.nullable(),

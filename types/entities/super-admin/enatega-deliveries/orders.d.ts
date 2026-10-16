@@ -126,7 +126,8 @@ export interface OrderSummary {
 /** Who bore an order's coupon and how the admin commission was split. */
 export interface CouponFunding {
     couponDiscount: number;
-    couponFundedBy: 'ADMIN' | 'STORE' | null;
+    /** MIXED: admin- and store-funded coupons were stacked on the order. */
+    couponFundedBy: 'ADMIN' | 'STORE' | 'MIXED' | null;
     commissionBase: number;
     /** Commission before an admin coupon was offset against it. */
     grossCommission: number;
@@ -134,6 +135,7 @@ export interface CouponFunding {
     /** Admin coupon amount beyond the commission, paid to the store. */
     adminCouponExtraPaid: number;
     storeCouponCost: number;
+    adminCouponCost?: number;
 }
 
 export interface PaymentInfo {
@@ -195,6 +197,11 @@ export interface DeliveryInfo {
     deliveryLocation?: { latitude: number; longitude: number };
 }
 
+export interface OrderNotes {
+    restaurantNote?: string | null;
+    courierNote?: string | null;
+}
+
 // Raw API response for order detail
 export interface OrderDetailResponse {
     orderSummary?: OrderSummary;
@@ -204,6 +211,7 @@ export interface OrderDetailResponse {
     customerInfo?: CustomerInfo;
     riderInfo?: RiderInfo;
     deliveryInfo?: DeliveryInfo;
+    orderNotes?: OrderNotes;
     orderLogs?: OrderLog[];
     [key: string]: unknown;
 }
@@ -217,6 +225,7 @@ export interface OrderDetail {
     customer?: CustomerInfo;
     rider?: RiderInfo;
     delivery?: DeliveryInfo;
+    orderNotes?: OrderNotes;
     // keep raw API field available for components that read it directly
     deliveryInfo?: DeliveryInfo;
     logs?: OrderLog[];

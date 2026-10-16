@@ -8,19 +8,36 @@ import { MapPin, ReceiptText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import toast from 'react-hot-toast';
 import { handleApiError } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
 import {
   useAcceptStoreOrder,
   useGetStoreOrderDetail,
   useRejectStoreOrder,
+  useUpdateStoreOrderStatus,
 } from '@/hooks/api/store/deliveries/orders';
-import { useGetOrderDetail as useGetSuperOrderDetail } from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import {
+  useGetOrderDetail as useGetSuperOrderDetail,
+  useUpdateSuperAdminOrderStatus,
+} from '@/hooks/api/super-admin/enatega-deliveries/orders';
 import { useCreateRefundRequest } from '@/hooks/api/super-admin/enatega-deliveries/refund-and-responsibilities';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
 // Spinner import removed (unused)
 import { AppButton } from '@/components/shared/AppButton';
 import DisplayError from '@/components/shared/DisplayError';
 import { Heading } from '@/components/shared/Heading';
 import { CreateRefundDialog } from '../../refund-and-responsibilities/CreateRefundDialog';
+import {
+  formatOrderStatusLabel,
+  getNextOrderStatuses,
+  isPickupOrder,
+} from '../utils';
 import { OrderDetailMain } from './order-detail-main';
 import { OrderDetailShimmer } from './OrderDetailShimmer';
 
@@ -37,6 +54,7 @@ const MapTrackingModal = dynamic(() => import('./MapTrackingModal'), {
 export function OrderDetailPage() {
   const tTable = useTranslations('orders.table');
   const tDetail = useTranslations('orders.orderDetail');
+  const tStatuses = useTranslations('orders.statuses');
   const params = useParams();
   const orderIdParam = params.orderId;
   const normalizedOrderId = Array.isArray(orderIdParam)
@@ -53,6 +71,10 @@ export function OrderDetailPage() {
     useAcceptStoreOrder();
   const { mutateAsync: rejectOrder, isPending: isRejecting } =
     useRejectStoreOrder();
+  const { mutateAsync: updateStoreStatus, isPending: isUpdatingStoreStatus } =
+    useUpdateStoreOrderStatus();
+  const { mutateAsync: updateAdminStatus, isPending: isUpdatingAdminStatus } =
+    useUpdateSuperAdminOrderStatus();
   const { mutateAsync: createRefund, isPending: isCreatingRefund } =
     useCreateRefundRequest();
 
@@ -96,6 +118,16 @@ export function OrderDetailPage() {
     Boolean(storeId) && ['pending', 'scheduled'].includes(normalizedStatus);
   const canReject =
     Boolean(storeId) && ['pending', 'accepted'].includes(normalizedStatus);
+  const pickupOrder = isPickupOrder(order.orderType);
+  const nextStatuses = getNextOrderStatuses(normalizedStatus, order.orderType);
+  const canUpdateStatus = storeId
+    ? pickupOrder
+    : hasNamedPermission('delivery_update_super_admin_order_status');
+  const showStatusControl =
+    canUpdateStatus &&
+    nextStatuses.length > 0 &&
+    !['pending', 'scheduled'].includes(normalizedStatus);
+  const isUpdatingStatus = isUpdatingStoreStatus || isUpdatingAdminStatus;
 
   const handleAccept = async () => {
     try {
@@ -124,6 +156,18 @@ export function OrderDetailPage() {
     }
   };
 
+  const handleStatusChange = async (status: string) => {
+    if (isUpdatingStatus || status === normalizedStatus) return;
+    try {
+      const updateStatus = storeId ? updateStoreStatus : updateAdminStatus;
+      await updateStatus({ orderId: order.orderId, status });
+      toast.success('Order status updated successfully');
+      await refetch();
+    } catch (actionError) {
+      handleApiError(actionError as ApiErrorResponse);
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -133,6 +177,38 @@ export function OrderDetailPage() {
           containerClassName="mb-0"
         />
         <div className="flex w-full flex-wrap gap-2 sm:w-auto">
+          {showStatusControl && (
+            <Select
+              value={normalizedStatus}
+              disabled={isUpdatingStatus}
+              onValueChange={(status) => void handleStatusChange(status)}
+            >
+              <SelectTrigger
+                className="h-10 min-w-[190px] bg-white"
+                aria-label="Update order status"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={normalizedStatus}>
+                  {formatOrderStatusLabel(
+                    normalizedStatus,
+                    tStatuses,
+                    normalizedStatus.replace(/_/g, ' '),
+                  )}
+                </SelectItem>
+                {nextStatuses.map((status) => (
+                  <SelectItem key={status} value={status}>
+                    {formatOrderStatusLabel(
+                      status,
+                      tStatuses,
+                      status.replace(/_/g, ' '),
+                    )}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
           {canAccept && (
             <AppButton
               variant="primary"
@@ -152,15 +228,17 @@ export function OrderDetailPage() {
               Reject Order
             </AppButton>
           )}
-          <AppButton
-            variant="primary"
-            onClick={() => setIsTrackModalOpen(true)}
-            className="h-10 px-6 w-full sm:w-auto"
-            leftIcon={<MapPin size={18} />}
-            disabled={order.summary.status?.toLowerCase() === 'pending'}
-          >
-            {tTable('liveTracking')}
-          </AppButton>
+          {!pickupOrder && (
+            <AppButton
+              variant="primary"
+              onClick={() => setIsTrackModalOpen(true)}
+              className="h-10 px-6 w-full sm:w-auto"
+              leftIcon={<MapPin size={18} />}
+              disabled={order.summary.status?.toLowerCase() === 'pending'}
+            >
+              {tTable('liveTracking')}
+            </AppButton>
+          )}
           {!storeId ? (
             <AppButton
               variant="secondary"
@@ -175,11 +253,13 @@ export function OrderDetailPage() {
         </div>
       </div>
       <OrderDetailMain order={order} />
-      <MapTrackingModal
-        open={isTrackModalOpen}
-        onClose={() => setIsTrackModalOpen(false)}
-        order={order}
-      />
+      {!pickupOrder && (
+        <MapTrackingModal
+          open={isTrackModalOpen}
+          onClose={() => setIsTrackModalOpen(false)}
+          order={order}
+        />
+      )}
       <CreateRefundDialog
         open={isRefundDialogOpen}
         order={order}

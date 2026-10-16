@@ -6,17 +6,20 @@ import type { Step5Data } from '@/types/entities/super-admin/enatega-deliveries/
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { getEmptyStep5, Step5Lables } from './data';
+import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
 
 interface Step5FormProps {
   initialData: Step5Data | null;
   onSubmit: (data: Step5Data) => void;
   onBack: () => void;
+  registerNavigation: RegisterStepNavigation;
 }
 
 export const Step5Form = ({
   initialData,
   onSubmit,
   onBack,
+  registerNavigation,
 }: Step5FormProps) => {
   const t = useTranslations('lumiFood.stores.addStore.step5');
   const tSchema = useTranslations('Schemas.storeForm');
@@ -46,6 +49,7 @@ export const Step5Form = ({
         >
           {({ isSubmitting }) => (
             <Form className="space-y-6">
+              <StepNavigation step="step5" register={registerNavigation} />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {Step5Lables.map((field) => (
                   <AppFileInput

@@ -31,6 +31,9 @@ const VendorAddStoreForm = () => {
     onSuccess: (data) => {
       setIsSubmitting(false);
       toast.success(data.message || tMessages('createSuccess'));
+      if (data.credentialsEmailSent === false) {
+        toast.error(tMessages('credentialsEmailFailed'));
+      }
       resetForm();
       // Subscription plans are out of scope for now; restore this redirect to the
       // plan-selection step if the client asks for them.

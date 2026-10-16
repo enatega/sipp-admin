@@ -12,13 +12,11 @@ import { useTranslations } from 'next-intl';
 import { Heading } from '@/components/shared/Heading';
 import EnategaLoader from '@/components/shared/EnategaLoader';
 import AddStoreForm from '@/components/super-admin/enatega-deliveries/stores/add-store/AddStoreForm';
-import StoreFormStepper from '@/components/super-admin/enatega-deliveries/stores/add-store/Stepper';
 
 const AddStorePage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations('lumiFood.stores');
-  const currentStep = useAddStoreForm((state) => state.currentStep);
   const resetForm = useAddStoreForm((state) => state.resetForm);
   const { data: stores, isLoading } = useGetAllSimpleStores();
 
@@ -45,7 +43,7 @@ const AddStorePage = () => {
         '/enatega-deliveries/stores',
       ),
     );
-  }, [hasExistingStore, isLoading, isSingleVendor, router]);
+  }, [hasExistingStore, isLoading, isSingleVendor, pathname, router]);
 
   if (!isHydrated || (isSingleVendor && (isLoading || hasExistingStore))) {
     return <EnategaLoader />;
@@ -55,7 +53,6 @@ const AddStorePage = () => {
     <div>
       <Heading title={t('addStorelabel')} showBackBtn={true} />
       <div className="w-full min-h-[80vh] flex flex-col lg:flex-row mt-6 gap-10 bg-light rounded-lg p-6 border">
-        <StoreFormStepper currentStep={currentStep} />
         <AddStoreForm />
       </div>
     </div>

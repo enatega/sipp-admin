@@ -15,6 +15,7 @@ export function DiscountSetting() {
   const t = useTranslations(
     'lumiFood.discountsOffers.editCoupon.discountSetting',
   );
+  const tSchema = useTranslations('Schemas.discountOffer');
   const { values } = useFormikContext<EditCouponFormData>();
   const { currencySymbol } = useCurrency();
   const resolvedCurrencySymbol = resolveCurrencySymbol(
@@ -81,6 +82,13 @@ export function DiscountSetting() {
           type="number"
           min={0}
           prefix={resolvedCurrencySymbol}
+          helperText={
+            values.discountType === 'FIXED' && Number(values.discountValue) > 0
+              ? tSchema('minOrderValueFixedHint', {
+                  amount: `${resolvedCurrencySymbol}${values.discountValue}`,
+                })
+              : undefined
+          }
           requiredAsterisk
         />
         <AppInputField

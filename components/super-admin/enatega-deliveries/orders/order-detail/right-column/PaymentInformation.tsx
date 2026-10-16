@@ -164,7 +164,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
                   {t('couponTitle')}
                 </span>
                 <span className="shrink-0 text-sm font-medium text-black">
-                  {t(couponFundedBy === 'ADMIN' ? 'couponBorneByAdmin' : couponFundedBy === 'MIXED' ? 'couponBorneByBoth' : 'couponBorneByStore')}
+                  {t(couponFundedBy === 'ADMIN' ? 'couponBorneByAdmin' : 'couponBorneByStore')}
                 </span>
               </div>
               <div className="flex justify-between items-start gap-4 text-[15px]">
@@ -173,23 +173,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
                   {formatCurrency(couponFunding.couponDiscount, currency)}
                 </span>
               </div>
-              {couponFundedBy === 'MIXED' && (
-                <>
-                  <div className="flex justify-between items-start gap-4 text-[15px]">
-                    <span className="min-w-0 text-mute">{t('adminCouponCostLabel')}</span>
-                    <span className="shrink-0 font-medium tabular-nums text-black">
-                      {formatCurrency(couponFunding.adminCouponCost ?? 0, currency)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-start gap-4 text-[15px]">
-                    <span className="min-w-0 text-mute">{t('storeCouponCostLabel')}</span>
-                    <span className="shrink-0 font-medium tabular-nums text-black">
-                      {formatCurrency(couponFunding.storeCouponCost, currency)}
-                    </span>
-                  </div>
-                </>
-              )}
-              {(couponFundedBy === 'ADMIN' || couponFundedBy === 'MIXED') && (
+              {couponFundedBy === 'ADMIN' && (
                 <>
                   <div className="flex justify-between items-start gap-4 text-[15px]">
                     <span className="min-w-0 text-mute">{t('commissionBeforeCouponLabel')}</span>

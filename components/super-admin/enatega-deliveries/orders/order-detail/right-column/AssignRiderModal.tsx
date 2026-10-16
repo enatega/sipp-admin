@@ -142,7 +142,7 @@ export function AssignRiderModal({ isOpen, onClose, orderId }: AssignRiderModalP
               }
             }}
             className="h-8 border-help-blue/30 font-normal text-help-blue hover:text-help-blue/80 hover:bg-help-blue/10 px-4 rounded-sm"
-            disabled={assigningId === id}
+            disabled={assigningId === id || !isAvailable}
           >
             {assigningId === id ? t('assigning') : t('assignButton')}
           </Button>

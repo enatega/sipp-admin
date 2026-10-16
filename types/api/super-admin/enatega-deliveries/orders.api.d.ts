@@ -34,6 +34,7 @@ export interface OrderItemData {
     orderType: string;
     amount: number;
     status: string;
+    storeAcceptanceRemindedAt?: string | null;
     dateTime: string;
 }
 

@@ -460,6 +460,9 @@ export function OrdersTable({
                       {formatCurrency(order?.amount ?? 0, currency)}
                     </TableCell>
                     <TableCell>
+                      {normalizedStatus === 'pending' && order.storeAcceptanceRemindedAt ? (
+                        <span className="mb-1 block text-xs font-semibold text-amber-700">Store response overdue</span>
+                      ) : null}
                       {!storeOrdersPath && canUpdateSuperAdminOrderStatus ? (
                         <OrderStatusSelect
                           orderId={order.orderId}

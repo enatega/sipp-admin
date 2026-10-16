@@ -5,14 +5,12 @@ import { FilterX } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { AppButton } from '@/components/shared/AppButton';
-import { AppSelect } from '@/components/shared/form/AppSelect';
 import { DateRangePicker } from '@/components/shared/form/DateRangePicker';
 import SearchUrl from '@/components/shared/SearchUrl';
 
 const Filters = () => {
   const t = useTranslations('customerSupport.filters');
   // const tTypeOptions = useTranslations('customerSupport.filters.typeOptions');
-  const tPriorities = useTranslations('customerSupport.filters.priorities');
   const { getParam, setParams, getAllParams } = useQueryParams();
 
   const currentStartDate = getParam('from');
@@ -53,16 +51,6 @@ const Filters = () => {
   //   { key: tTypeOptions('tickets'), value: 'LO Tickets' },
   // ];
 
-  const priorityOptions = [
-    { key: tPriorities('all'), value: 'all' },
-    { key: tPriorities('low'), value: 'low' },
-    { key: tPriorities('medium'), value: 'medium' },
-    { key: tPriorities('high'), value: 'high' },
-    { key: tPriorities('urgent'), value: 'urgent' },
-  ];
-
-  const currentPriority = getParam('priority') ?? undefined;
-
   return (
     <div className="flex gap-2 flex-wrap items-center">
       <div className=" min-w-[400px]">
@@ -102,22 +90,6 @@ const Filters = () => {
         placeholder={t('typePlaceholder')}
         className="shadow-sm cursor-pointer"
       /> */}
-
-      <div className="w-[200px]">
-        <AppSelect
-          name="priority"
-          options={priorityOptions}
-          value={currentPriority}
-          onValueChange={(val) => {
-            setParams({
-              priority: val === 'all' ? null : val,
-              page: '1',
-            });
-          }}
-          placeholder={t('priorityPlaceholder')}
-          className="shadow-sm"
-        />
-      </div>
 
       {showClearButton && (
         <AppButton

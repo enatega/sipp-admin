@@ -3,7 +3,6 @@
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { Heading } from '@/components/shared/Heading';
 import { OrderDetail } from '@/types/entities/super-admin/enatega-deliveries/orders';
-import { Star } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -14,7 +13,6 @@ interface CustomerInformationProps {
 export function CustomerInformation({ order }: CustomerInformationProps) {
   const t = useTranslations('orders.orderDetail.customerInformation');
   if (!order.customer) return null;
-  const reviewsCount = Number(order.customer.totalReviews || 0);
 
   return (
     <div className="border border-sidebar-border p-6 rounded-[12px] bg-white  shadow-sm">
@@ -39,19 +37,6 @@ export function CustomerInformation({ order }: CustomerInformationProps) {
             <span className="text-black font-semibold text-[16px]">
               {order.customer.name}
             </span>
-            <div className="flex items-center gap-1.5">
-              <Star size={20} className="text-help-orange fill-help-orange" />
-              <span className="text-black font-normal text-[16px]">
-                {order.customer.rating || '0.0'}
-              </span>
-              <span className="text-mute text-[16px]">
-                ({reviewsCount}{' '}
-                {reviewsCount === 1
-                  ? t('reviewSingular')
-                  : t('reviewPlural')}
-                )
-              </span>
-            </div>
           </div>
         </div>
 

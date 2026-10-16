@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { GetCustomerSupportTicketMessagesByIdResponse } from '@/types/api/super-admin/general/customerSupport.api';
 import StatusDropdown from './StatusDropdown';
@@ -57,7 +58,23 @@ export const StatusDetails: React.FC<{
             <option value="">Unassigned</option>
             {admins.map((admin) => <option key={admin.id} value={admin.id}>{admin.name}{admin.id === currentUserId ? ' (You)' : ''}</option>)}
           </select>
-          {!data.assignedAdminId && currentUserId ? <button className="border rounded px-2 py-1 text-sm" onClick={() => assign.mutate({ chatBoxId: data.chatBoxId, assignedAdminId: currentUserId })}>Take Ticket</button> : null}
+          {!data.assignedAdminId && currentUserId ? (
+            <button
+              className="inline-flex min-w-[102px] items-center justify-center gap-2 rounded border px-2 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-70"
+              onClick={() =>
+                assign.mutate({
+                  chatBoxId: data.chatBoxId,
+                  assignedAdminId: currentUserId,
+                })
+              }
+              disabled={assign.isPending}
+            >
+              {assign.isPending ? (
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+              ) : null}
+              {assign.isPending ? 'Taking...' : 'Take Ticket'}
+            </button>
+          ) : null}
           {/* <PriorityStatus /> */}
         </div>
       </div>

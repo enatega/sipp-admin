@@ -247,12 +247,6 @@ export function RefundResponsibilitiesPage() {
           setPage(1);
         }}
         onViewRequest={handleViewRequest}
-        onApproveRequest={(request) =>
-          setActionDialog({ type: 'approve', request })
-        }
-        onRejectRequest={(request) =>
-          setActionDialog({ type: 'reject', request })
-        }
         isLoading={isLoading}
         error={returnErrorMessage(error as ApiErrorResponse)}
         isError={isError}

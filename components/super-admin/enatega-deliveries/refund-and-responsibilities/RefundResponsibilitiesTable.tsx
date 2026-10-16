@@ -29,8 +29,6 @@ interface RefundResponsibilitiesTableProps {
   onPageChange: (page: number) => void;
   onLimitChange: (limit: 10 | 25 | 50 | 100) => void;
   onViewRequest: (request: RefundRequest) => void;
-  onApproveRequest: (request: RefundRequest) => void;
-  onRejectRequest: (request: RefundRequest) => void;
   isLoading: boolean;
   isError: boolean;
   error: string;
@@ -66,8 +64,6 @@ export function RefundResponsibilitiesTable({
   onPageChange,
   onLimitChange,
   onViewRequest,
-  onApproveRequest,
-  onRejectRequest,
   error,
   isLoading,
   isError,
@@ -239,8 +235,6 @@ export function RefundResponsibilitiesTable({
                       <RefundRequestActionsDropdown
                         request={request}
                         onView={onViewRequest}
-                        onApprove={onApproveRequest}
-                        onReject={onRejectRequest}
                       />
                     </div>
                   </TableCell>

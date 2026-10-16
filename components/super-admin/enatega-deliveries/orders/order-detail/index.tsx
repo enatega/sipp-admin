@@ -211,7 +211,7 @@ export function OrderDetailPage() {
           )}
           {canAccept && (
             <AppButton
-              variant="primary"
+              variant="green"
               onClick={handleAccept}
               disabled={isAccepting}
               className="h-10 px-6"
@@ -223,7 +223,7 @@ export function OrderDetailPage() {
             <AppButton
               variant="red"
               onClick={() => setShowRejectDialog(true)}
-              className="h-10 px-6 text-destructive border-destructive"
+              className="h-10 px-6 text-white"
             >
               Reject Order
             </AppButton>

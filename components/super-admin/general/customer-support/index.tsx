@@ -60,13 +60,15 @@ const CustomerSupportMain = () => {
 
   useEffect(() => {
     const handleSupportUpdated = () => {
-      queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
+      void queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
     };
 
     socket.on('support-updated', handleSupportUpdated);
+    socket.on('connect', handleSupportUpdated);
 
     return () => {
       socket.off('support-updated', handleSupportUpdated);
+      socket.off('connect', handleSupportUpdated);
     };
   }, [socket, queryClient]);
 

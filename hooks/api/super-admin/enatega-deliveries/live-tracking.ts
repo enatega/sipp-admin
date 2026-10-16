@@ -32,6 +32,11 @@ type GetDeliveryLiveTrackingRiderOverviewOptions = Omit<
   'queryKey' | 'queryFn'
 >;
 
+const getRiderStatusFilter = (value: string | null) =>
+  value === 'active' || value === 'busy' || value === 'offline'
+    ? value
+    : undefined;
+
 export const useGetDeliveryLiveTrackingRiders = (
   options?: GetDeliveryLiveTrackingRidersOptions,
 ) => {
@@ -41,7 +46,7 @@ export const useGetDeliveryLiveTrackingRiders = (
   const limit = Number(getParam('limit')) || 10;
   const search = getParam('search') || undefined;
   const rawStatus = getParam('status') || getParam('tab');
-  const status = rawStatus && rawStatus !== 'all' ? rawStatus : undefined;
+  const status = getRiderStatusFilter(rawStatus);
   const storeId = getParam('storeId') || undefined;
   const vendorId = getParam('vendorId') || undefined;
 
@@ -89,7 +94,7 @@ export const useGetDeliveryLiveTrackingRidersMap = (
 
   const search = getParam('search') || undefined;
   const rawStatus = getParam('status') || getParam('tab');
-  const status = rawStatus && rawStatus !== 'all' ? rawStatus : undefined;
+  const status = getRiderStatusFilter(rawStatus);
   const storeId = getParam('storeId') || undefined;
   const vendorId = getParam('vendorId') || undefined;
 

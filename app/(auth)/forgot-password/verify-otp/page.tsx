@@ -17,7 +17,7 @@ import { ResendOtp } from '@/components/shared/ResendOtp';
 
 const ValidationSchema = Yup.object({
   otp: Yup.string()
-    .matches(/^\d{6}$/, 'Enter the 6-digit code')
+    .matches(/^\d{4}$/, 'Enter the 4-digit code')
     .required('OTP is required'),
 });
 
@@ -101,7 +101,12 @@ const VerifyOtp: React.FC = () => {
           >
             {({}) => (
               <Form className="mt-6 space-y-4">
-                <AppOtpInput name="otp" maxLength={6} requiredAsterisk />
+                <AppOtpInput
+                  name="otp"
+                  maxLength={4}
+                  className="items-center"
+                  requiredAsterisk
+                />
 
                 <AppButton
                   type="submit"

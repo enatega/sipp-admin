@@ -2,12 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Flag } from 'lucide-react';
 import { CustomerSupportGroupedByCustomer } from '@/types/api/super-admin/general/customerSupport.api';
 import { formatReadableLabel } from '@/lib/utils';
 import RelativeTime from '@/components/shared/RelativeTime';
 import Status from '@/components/shared/Status';
-import StatusIcon from '@/components/shared/StatusIcon';
 
 export interface TabItemProps {
   item: CustomerSupportGroupedByCustomer;
@@ -27,21 +25,6 @@ export const TabItem: React.FC<TabItemProps> = ({
     ? 'bg-black text-white rounded-none'
     : 'bg-white';
   const classes = `${base} ${selectedClass} cursor-pointer ${isLast ? 'border-b-0 rounded-md' : 'rounded-t-md border-b'}`;
-
-  // Determine priority icon color
-  const getPriorityColor = (priority: string) => {
-    switch (priority?.toLowerCase()) {
-      case 'urgent':
-        return 'text-red-500';
-      case 'high':
-        return 'text-orange-500';
-      case 'medium':
-        return 'text-blue-500';
-      case 'low':
-      default:
-        return 'text-gray-500';
-    }
-  };
 
   return (
     <div
@@ -99,12 +82,6 @@ export const TabItem: React.FC<TabItemProps> = ({
 
         <div className="mt-2 flex items-center gap-2 flex-wrap">
           <Status status={item.status} />
-          <StatusIcon
-            status={item.priority}
-            className="!text-semibold !text-black capitalize"
-            icon={<Flag size={14} />}
-            iconClassName={getPriorityColor(item.priority)}
-          />
           <span
             className={`text-xs px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-700'}`}
           >

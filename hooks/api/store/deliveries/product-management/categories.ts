@@ -101,6 +101,11 @@ export const useCreateCategory = (
       formData.append('categoryName', payload.name);
       formData.append('image', payload.image);
       formData.append('storeId', payload.storeId);
+      formData.append('scheduleAvailability', String(payload.scheduleAvailability));
+      if (payload.scheduleAvailability) {
+        formData.append('availableFrom', payload.availableFrom ?? '');
+        formData.append('availableTo', payload.availableTo ?? '');
+      }
 
       const { data } = await Axios.post<CreateCategoryResponse>(
         '/apps/deliveries/categories/create/store',
@@ -141,9 +146,14 @@ export const useUpdateCategory = (
     UpdateCategoryPayload
   >({
     ...options,
-    mutationFn: async ({ id, name, image }) => {
+    mutationFn: async ({ id, name, image, scheduleAvailability, availableFrom, availableTo }) => {
       const formData = new FormData();
       formData.append('categoryName', name);
+      formData.append('scheduleAvailability', String(scheduleAvailability));
+      if (scheduleAvailability) {
+        formData.append('availableFrom', availableFrom ?? '');
+        formData.append('availableTo', availableTo ?? '');
+      }
 
       if (image instanceof File) {
         formData.append('image', image);

@@ -1654,7 +1654,11 @@
       "updateButton": "Update",
       "cancelButton": "Cancel",
       "subCategoryNameLabel": "Sub-Category Name",
-      "subCategoryNamePlaceholder": "Enter sub-category name"
+      "subCategoryNamePlaceholder": "Enter sub-category name",
+      "scheduleAvailabilityLabel": "Schedule category availability",
+      "scheduleAvailabilityHelper": "This category will only be visible to customers during the selected hours",
+      "availableFromLabel": "Available From",
+      "availableToLabel": "Available Until"
     },
     "download": {
       "name": "Category Name",
@@ -1690,7 +1694,11 @@
         "imageTooLarge": "Image size must be less than 5MB",
         "invalidFileType": "Invalid file type. Only PNG, JPG, and WebP are allowed",
         "statusRequired": "Status is required",
-        "statusInvalid": "Invalid status value"
+        "statusInvalid": "Invalid status value",
+        "availableFromRequired": "Select a start time",
+        "availableToRequired": "Select an end time",
+        "invalidTime": "Enter a valid time",
+        "timesMustDiffer": "Start and end times must be different"
       }
     },
     "types": {
@@ -2029,6 +2037,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Restore All to Stock",
+      "title": "Restore long out-of-stock items",
+      "description": "Review these items before making them available to customers. Only items out of stock for more than 7 days are included.",
+      "loading": "Loading affected items…",
+      "loadError": "Could not load affected items. Please try again.",
+      "more": "And {count} more items.",
+      "empty": "No items currently need restoring.",
+      "itemStock": "{name} · {sku} · {quantity} in stock",
+      "quantityLabel": "Quantity for each of the {count} zero-stock items",
+      "keepQuantity": "Items with a positive quantity keep their current quantity.",
+      "cancel": "Cancel",
+      "confirm": "Confirm restore",
+      "restoring": "Restoring…",
+      "success": "{count} items restored to stock."
+    },
     "title": "Products",
     "addProductButton": "Add Product",
     "bulkUpload": {

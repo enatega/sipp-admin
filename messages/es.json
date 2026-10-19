@@ -1667,7 +1667,11 @@
       "updateButton": "Actualización",
       "cancelButton": "Cancelar",
       "subCategoryNameLabel": "Nombre de subcategoría",
-      "subCategoryNamePlaceholder": "Introduzca el nombre de subcategoría"
+      "subCategoryNamePlaceholder": "Introduzca el nombre de subcategoría",
+      "scheduleAvailabilityLabel": "Programar disponibilidad de la categoría",
+      "scheduleAvailabilityHelper": "Esta categoría solo será visible para los clientes durante el horario seleccionado",
+      "availableFromLabel": "Disponible desde",
+      "availableToLabel": "Disponible hasta"
     },
     "download": {
       "name": "Categoría Nombre",
@@ -1703,7 +1707,11 @@
         "imageTooLarge": "El tamaño de la imagen debe ser inferior a 5MB",
         "invalidFileType": "Tipo de archivo inválido. Sólo se permite PNG, JPG y WebP",
         "statusRequired": "Estado requerido",
-        "statusInvalid": "Valor de estado inválido"
+        "statusInvalid": "Valor de estado inválido",
+        "availableFromRequired": "Seleccione una hora de inicio",
+        "availableToRequired": "Seleccione una hora de fin",
+        "invalidTime": "Introduzca una hora válida",
+        "timesMustDiffer": "Las horas de inicio y fin deben ser diferentes"
       }
     },
     "types": {
@@ -2042,6 +2050,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Restablecer todos los productos",
+      "title": "Restablecer productos agotados durante más de 7 días",
+      "description": "Revise estos productos antes de volver a ponerlos a disposición de los clientes. Solo se incluyen los que llevan más de 7 días agotados.",
+      "loading": "Cargando productos afectados…",
+      "loadError": "No se pudieron cargar los productos. Inténtelo de nuevo.",
+      "more": "Y {count} productos más.",
+      "empty": "No hay productos que restablecer en este momento.",
+      "itemStock": "{name} · {sku} · {quantity} en inventario",
+      "quantityLabel": "Cantidad para cada uno de los {count} productos sin existencias",
+      "keepQuantity": "Los productos con existencias conservan su cantidad actual.",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar restablecimiento",
+      "restoring": "Restableciendo…",
+      "success": "{count} productos restablecidos."
+    },
     "title": "Productos",
     "addProductButton": "Agregar producto",
     "bulkUpload": {

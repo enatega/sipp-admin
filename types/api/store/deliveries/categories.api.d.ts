@@ -35,6 +35,9 @@ export interface CreateCategoryPayload {
   name: string;
   image: File;
   storeId: string;
+  scheduleAvailability: boolean;
+  availableFrom?: string;
+  availableTo?: string;
 }
 
 export type CreateCategoryResponse = Category;
@@ -43,6 +46,9 @@ export interface UpdateCategoryPayload {
   id: string;
   name: string;
   image?: File | string;
+  scheduleAvailability: boolean;
+  availableFrom?: string;
+  availableTo?: string;
 }
 
 export type UpdateCategoryResponse = Category;

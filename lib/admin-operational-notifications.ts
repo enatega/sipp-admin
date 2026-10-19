@@ -17,6 +17,18 @@ export interface AdminInboxPage {
   limit: number;
 }
 
+export function canOpenAdminNotification(href: string | null): href is string {
+  return Boolean(href && (
+    href.startsWith('/deliveries/orders/') ||
+    href.startsWith('/deliveries/refund-and-responsibilities/') ||
+    href.startsWith('/deliveries/withdrawal-requests') ||
+    href.startsWith('/deliveries/riders') ||
+    href.startsWith('/deliveries/stores') ||
+    href.startsWith('/deliveries/vendors') ||
+    href.startsWith('/general/customer-support/')
+  ));
+}
+
 const base = '/apps/deliveries/admin/operational-notifications';
 
 export const adminInboxApi = {

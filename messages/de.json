@@ -227,6 +227,9 @@
     "closeDialog": "Dialog schließen",
     "defaultDescription": "Dialoginhalt"
   },
+  "adminNotificationAlert": {
+    "dismiss": "Benachrichtigung schließen"
+  },
   "searchInput": {
     "placeholder": "Suchen...",
     "clearSearch": "Suche löschen"

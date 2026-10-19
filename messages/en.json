@@ -218,6 +218,9 @@
     "closeDialog": "Close dialog",
     "defaultDescription": "Dialog content"
   },
+  "adminNotificationAlert": {
+    "dismiss": "Dismiss notification"
+  },
   "searchInput": {
     "placeholder": "Search...",
     "clearSearch": "Clear search"

@@ -227,6 +227,9 @@
     "closeDialog": "رقم هاتف قريب",
     "defaultDescription": "محتوى البيانات"
   },
+  "adminNotificationAlert": {
+    "dismiss": "إغلاق الإشعار"
+  },
   "searchInput": {
     "placeholder": "البحث...",
     "clearSearch": "البحث الواضح"

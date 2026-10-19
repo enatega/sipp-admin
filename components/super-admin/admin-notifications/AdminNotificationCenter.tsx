@@ -6,20 +6,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Bell, CheckCheck, ChevronRight, Inbox, Settings2 } from 'lucide-react';
 import { useSocket } from '@/hooks/use-socket';
 import { getUser } from '@/lib/user';
-import { adminBrowserPush, adminInboxApi } from '@/lib/admin-operational-notifications';
+import { adminBrowserPush, adminInboxApi, canOpenAdminNotification } from '@/lib/admin-operational-notifications';
 import type { AdminInboxItem } from '@/lib/admin-operational-notifications';
-
-function canOpen(href: string | null): href is string {
-  return Boolean(href && (
-    href.startsWith('/deliveries/orders/') ||
-    href.startsWith('/deliveries/refund-and-responsibilities/') ||
-    href.startsWith('/deliveries/withdrawal-requests') ||
-    href.startsWith('/deliveries/riders') ||
-    href.startsWith('/deliveries/stores') ||
-    href.startsWith('/deliveries/vendors') ||
-    href.startsWith('/general/customer-support/')
-  ));
-}
 
 function Item({ item, onOpen }: { item: AdminInboxItem; onOpen: (item: AdminInboxItem) => void }) {
   return (
@@ -129,7 +117,7 @@ export function AdminNotificationCenter({ compact = false }: { compact?: boolean
     if (!item.isRead) {
       try { await adminInboxApi.read(item.id); refresh(); } catch { /* The item remains unread if the request fails. */ }
     }
-    if (canOpen(item.deep_link)) router.push(item.deep_link);
+    if (canOpenAdminNotification(item.deep_link)) router.push(item.deep_link);
     else router.push('/general/operational-notifications');
     setOpen(false);
   };

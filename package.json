@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "dev:turbo": "next dev --turbopack",
     "prebuild": "npm run i18n:audit:ci",
     "build": "next build --webpack",
@@ -17,7 +17,7 @@
     "i18n:audit:ci": "node scripts/i18n/audit.mjs",
     "i18n:audit:update-baseline": "node scripts/i18n/audit.mjs --update-baseline",
     "audit:module-boundaries": "node scripts/audit-module-boundaries.mjs",
-    "dev:timing": "time next dev",
+    "dev:timing": "time next dev --webpack",
     "build:timing": "time next build",
     "measure": "npm run build:timing"
   },

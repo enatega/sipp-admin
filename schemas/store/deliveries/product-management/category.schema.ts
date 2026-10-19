@@ -1,7 +1,32 @@
 import * as Yup from 'yup';
 
+const CATEGORY_TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+const categoryScheduleShape = (t: (key: string) => string) => ({
+  scheduleAvailability: Yup.boolean().required(),
+  availableFrom: Yup.string().when('scheduleAvailability', {
+    is: true,
+    then: (schema) =>
+      schema
+        .required(t('Schemas.category.availableFromRequired'))
+        .matches(CATEGORY_TIME_PATTERN, t('Schemas.category.invalidTime')),
+  }),
+  availableTo: Yup.string().when('scheduleAvailability', {
+    is: true,
+    then: (schema) =>
+      schema
+        .required(t('Schemas.category.availableToRequired'))
+        .matches(CATEGORY_TIME_PATTERN, t('Schemas.category.invalidTime'))
+        .notOneOf(
+          [Yup.ref('availableFrom')],
+          t('Schemas.category.timesMustDiffer'),
+        ),
+  }),
+});
+
 export const createCategorySchema = (t: (key: string) => string) =>
   Yup.object().shape({
+    ...categoryScheduleShape(t),
     name: Yup.string()
       .required(t('Schemas.category.nameRequired'))
       .min(2, t('Schemas.category.nameMinLength'))
@@ -21,6 +46,7 @@ export const createCategorySchema = (t: (key: string) => string) =>
 
 export const updateCategorySchema = (t: (key: string) => string) =>
   Yup.object().shape({
+    ...categoryScheduleShape(t),
     name: Yup.string()
       .required(t('Schemas.category.nameRequired'))
       .min(2, t('Schemas.category.nameMinLength'))

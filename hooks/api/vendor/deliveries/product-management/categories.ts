@@ -128,7 +128,7 @@ export const useCreateCategory = (
     CreateCategoryPayload
   >({
     ...options,
-    mutationFn: async ({ name, image }) => {
+    mutationFn: async ({ name, image, scheduleAvailability, availableFrom, availableTo }) => {
       if (!vendorId) {
         throw new Error('Vendor ID is required');
       }
@@ -137,6 +137,11 @@ export const useCreateCategory = (
       formData.append('categoryName', name);
       formData.append('image', image);
       formData.append('vendorId', vendorId);
+      formData.append('scheduleAvailability', String(scheduleAvailability));
+      if (scheduleAvailability) {
+        formData.append('availableFrom', availableFrom ?? '');
+        formData.append('availableTo', availableTo ?? '');
+      }
 
       const { data } = await Axios.post<CreateCategoryResponse>(
         withVendorIdQuery('/apps/deliveries/categories/vendor/create', vendorId),
@@ -180,7 +185,7 @@ export const useUpdateCategory = (
     UpdateCategoryPayload
   >({
     ...options,
-    mutationFn: async ({ id, name, image }) => {
+    mutationFn: async ({ id, name, image, scheduleAvailability, availableFrom, availableTo }) => {
       const resolvedStoreId = getParam('storeId') || vendorId;
 
       if (!resolvedStoreId) {
@@ -189,6 +194,11 @@ export const useUpdateCategory = (
 
       const formData = new FormData();
       formData.append('categoryName', name);
+      formData.append('scheduleAvailability', String(scheduleAvailability));
+      if (scheduleAvailability) {
+        formData.append('availableFrom', availableFrom ?? '');
+        formData.append('availableTo', availableTo ?? '');
+      }
       formData.append('storeId', resolvedStoreId);
       if (vendorId) {
         formData.append('vendorId', vendorId);

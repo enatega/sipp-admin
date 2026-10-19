@@ -9,12 +9,15 @@ import { InteractiveMapLazy, ZoneData } from '@/components/super-admin/general/z
 import { DayTimingRow } from './DayTimingRow';
 import { StoreFormStep4Schema } from '@/schemas/enatega-deliveries/stores/store-form';
 import { StepNavigation, type RegisterStepNavigation } from './StepNavigation';
+import { ZoneDeliveryAreaControls } from '../ZoneDeliveryAreaControls';
 
 interface Step4FormProps {
   initialData: Step4Data | null;
   onSubmit: (data: Step4Data) => void;
   onBack: () => void;
   registerNavigation: RegisterStepNavigation;
+  zoneId: string;
+  onZoneChange: (zoneId: string) => void;
 }
 
 const getEmptyStep4 = (): Step4Data => ({
@@ -46,6 +49,8 @@ export const Step4Form: React.FC<Step4FormProps> = ({
   onSubmit,
   onBack,
   registerNavigation,
+  zoneId,
+  onZoneChange,
 }) => {
   const t = useTranslations('lumiFood.stores.addStore.step4');
   const tSchema = useTranslations('Schemas.storeForm');
@@ -97,6 +102,16 @@ export const Step4Form: React.FC<Step4FormProps> = ({
                 )}
                 hideZoomControls
                 searchSelectsMarker
+                betweenMapAndExactLocation={
+                  <ZoneDeliveryAreaControls
+                    zoneId={zoneId}
+                    onZoneChange={onZoneChange}
+                    location={values.location}
+                    exactStoreLocation={values.exactStoreLocation}
+                    onApply={(area) => setFieldValue('location', area)}
+                    disabled={isSubmitting}
+                  />
+                }
               />
               {touched.location && errors.location ? (
                 <div className="text-destructive text-sm mt-1">

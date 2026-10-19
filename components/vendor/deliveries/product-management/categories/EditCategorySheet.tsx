@@ -17,6 +17,7 @@ import {
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
+import { CategoryScheduleFields } from '@/components/shared/form/CategoryScheduleFields';
 
 interface EditCategorySheetProps {
   isOpen: boolean;
@@ -27,6 +28,9 @@ interface EditCategorySheetProps {
 const initialValuesFromCategory = (category: Category): CategoryFormData => ({
   name: category.categoryName,
   image: category.imageURL || undefined,
+  scheduleAvailability: category.scheduleAvailability === true,
+  availableFrom: category.availableFrom?.slice(0, 5) ?? '',
+  availableTo: category.availableTo?.slice(0, 5) ?? '',
 });
 
 export default function EditCategorySheet({
@@ -44,6 +48,9 @@ export default function EditCategorySheet({
         id: category.id,
         name: values.name,
         image: values.image,
+        scheduleAvailability: values.scheduleAvailability,
+        availableFrom: values.scheduleAvailability ? values.availableFrom : undefined,
+        availableTo: values.scheduleAvailability ? values.availableTo : undefined,
       });
       toast.success(t('success.update'));
       onClose();
@@ -74,6 +81,7 @@ export default function EditCategorySheet({
                   placeholder={t('form.namePlaceholder')}
                   requiredAsterisk
                 />
+                <CategoryScheduleFields />
 
                 {category.imageURL && !dirty ? (
                   <div className="space-y-2">

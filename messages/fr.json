@@ -1670,7 +1670,11 @@
       "updateButton": "Mise à jour",
       "cancelButton": "Annuler",
       "subCategoryNameLabel": "Sous-catégorie",
-      "subCategoryNamePlaceholder": "Entrez le nom de la sous-catégorie"
+      "subCategoryNamePlaceholder": "Entrez le nom de la sous-catégorie",
+      "scheduleAvailabilityLabel": "Programmer la disponibilité de la catégorie",
+      "scheduleAvailabilityHelper": "Cette catégorie ne sera visible par les clients que pendant les heures sélectionnées",
+      "availableFromLabel": "Disponible à partir de",
+      "availableToLabel": "Disponible jusqu’à"
     },
     "download": {
       "name": "Nom de la catégorie",
@@ -1706,7 +1710,11 @@
         "imageTooLarge": "La taille de l'image doit être inférieure à 5 Mo",
         "invalidFileType": "Type de fichier non valide. Seuls PNG, JPG et WebP sont autorisés",
         "statusRequired": "Un statut est requis",
-        "statusInvalid": "Valeur de statut non valide"
+        "statusInvalid": "Valeur de statut non valide",
+        "availableFromRequired": "Sélectionnez une heure de début",
+        "availableToRequired": "Sélectionnez une heure de fin",
+        "invalidTime": "Saisissez une heure valide",
+        "timesMustDiffer": "Les heures de début et de fin doivent être différentes"
       }
     },
     "types": {
@@ -2045,6 +2053,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Remettre tous les articles en stock",
+      "title": "Remettre en stock les articles indisponibles depuis longtemps",
+      "description": "Vérifiez ces articles avant de les rendre disponibles aux clients. Seuls les articles en rupture depuis plus de 7 jours sont inclus.",
+      "loading": "Chargement des articles concernés…",
+      "loadError": "Impossible de charger les articles concernés. Veuillez réessayer.",
+      "more": "Et {count} autres articles.",
+      "empty": "Aucun article à remettre en stock pour le moment.",
+      "itemStock": "{name} · {sku} · {quantity} en stock",
+      "quantityLabel": "Quantité pour chacun des {count} articles sans stock",
+      "keepQuantity": "Les articles avec un stock positif conservent leur quantité actuelle.",
+      "cancel": "Annuler",
+      "confirm": "Confirmer la remise en stock",
+      "restoring": "Remise en stock…",
+      "success": "{count} articles remis en stock."
+    },
     "title": "Produits",
     "addProductButton": "Ajouter un produit",
     "bulkUpload": {

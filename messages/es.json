@@ -1667,7 +1667,11 @@
       "updateButton": "Actualización",
       "cancelButton": "Cancelar",
       "subCategoryNameLabel": "Nombre de subcategoría",
-      "subCategoryNamePlaceholder": "Introduzca el nombre de subcategoría"
+      "subCategoryNamePlaceholder": "Introduzca el nombre de subcategoría",
+      "scheduleAvailabilityLabel": "Programar disponibilidad de la categoría",
+      "scheduleAvailabilityHelper": "Esta categoría solo será visible para los clientes durante el horario seleccionado",
+      "availableFromLabel": "Disponible desde",
+      "availableToLabel": "Disponible hasta"
     },
     "download": {
       "name": "Categoría Nombre",
@@ -1703,7 +1707,11 @@
         "imageTooLarge": "El tamaño de la imagen debe ser inferior a 5MB",
         "invalidFileType": "Tipo de archivo inválido. Sólo se permite PNG, JPG y WebP",
         "statusRequired": "Estado requerido",
-        "statusInvalid": "Valor de estado inválido"
+        "statusInvalid": "Valor de estado inválido",
+        "availableFromRequired": "Seleccione una hora de inicio",
+        "availableToRequired": "Seleccione una hora de fin",
+        "invalidTime": "Introduzca una hora válida",
+        "timesMustDiffer": "Las horas de inicio y fin deben ser diferentes"
       }
     },
     "types": {

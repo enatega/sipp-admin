@@ -1667,7 +1667,11 @@
       "updateButton": "Mise à jour",
       "cancelButton": "Annuler",
       "subCategoryNameLabel": "Sous-catégorie",
-      "subCategoryNamePlaceholder": "Entrez le nom de la sous-catégorie"
+      "subCategoryNamePlaceholder": "Entrez le nom de la sous-catégorie",
+      "scheduleAvailabilityLabel": "Programmer la disponibilité de la catégorie",
+      "scheduleAvailabilityHelper": "Cette catégorie ne sera visible par les clients que pendant les heures sélectionnées",
+      "availableFromLabel": "Disponible à partir de",
+      "availableToLabel": "Disponible jusqu’à"
     },
     "download": {
       "name": "Nom de la catégorie",
@@ -1703,7 +1707,11 @@
         "imageTooLarge": "La taille de l'image doit être inférieure à 5 Mo",
         "invalidFileType": "Type de fichier non valide. Seuls PNG, JPG et WebP sont autorisés",
         "statusRequired": "Un statut est requis",
-        "statusInvalid": "Valeur de statut non valide"
+        "statusInvalid": "Valeur de statut non valide",
+        "availableFromRequired": "Sélectionnez une heure de début",
+        "availableToRequired": "Sélectionnez une heure de fin",
+        "invalidTime": "Saisissez une heure valide",
+        "timesMustDiffer": "Les heures de début et de fin doivent être différentes"
       }
     },
     "types": {

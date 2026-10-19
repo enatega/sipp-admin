@@ -18,6 +18,7 @@ import {
 import { AppButton } from '@/components/shared/AppButton';
 import { AppFileInput } from '@/components/shared/form/AppFileInput';
 import { AppInputField } from '@/components/shared/form/AppInput';
+import { CategoryScheduleFields } from '@/components/shared/form/CategoryScheduleFields';
 
 interface CreateCategorySheetProps {
   isOpen: boolean;
@@ -28,6 +29,9 @@ interface CreateCategorySheetProps {
 const initialValues: CategoryFormData = {
   name: '',
   image: undefined,
+  scheduleAvailability: false,
+  availableFrom: '',
+  availableTo: '',
 };
 
 export default function CreateCategorySheet({
@@ -50,6 +54,9 @@ export default function CreateCategorySheet({
         name: values.name,
         image: values.image,
         storeId,
+        scheduleAvailability: values.scheduleAvailability,
+        availableFrom: values.scheduleAvailability ? values.availableFrom : undefined,
+        availableTo: values.scheduleAvailability ? values.availableTo : undefined,
       });
       onCreated?.(createdCategory);
       toast.success(t('success.create'));
@@ -81,6 +88,7 @@ export default function CreateCategorySheet({
                   placeholder={t('form.namePlaceholder')}
                   requiredAsterisk
                 />
+                <CategoryScheduleFields />
                 <AppFileInput
                   name="image"
                   requiredAsterisk

@@ -5,6 +5,7 @@ import InteractiveMap, {
 } from '@/components/super-admin/general/zones/common/InteractiveMap';
 import { DayTimingRow } from '@/components/super-admin/enatega-deliveries/stores/add-store/DayTimingRow';
 import { Store } from './types';
+import { ZoneDeliveryAreaControls } from '../ZoneDeliveryAreaControls';
 
 const dayMapping = [
   { key: 'monday' },
@@ -43,6 +44,15 @@ export function LocationSection() {
           exactStoreLocationLongitudeLabel={t('exactStoreLocationLongitude')}
           hideZoomControls
           searchSelectsMarker
+          betweenMapAndExactLocation={
+            <ZoneDeliveryAreaControls
+              zoneId={values.zoneId}
+              onZoneChange={(zoneId) => setFieldValue('zoneId', zoneId)}
+              location={values.location}
+              exactStoreLocation={values.exactStoreLocation}
+              onApply={(area) => setFieldValue('location', area)}
+            />
+          }
         />
         {touched.location && errors.location ? (
           <div className="text-destructive text-sm mt-1">

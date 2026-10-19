@@ -438,6 +438,12 @@ const AddStoreForm = () => {
             onSubmit={handleSubmit('step4')}
             onBack={() => navigateToStep(currentStep - 1)}
             registerNavigation={registerNavigation}
+            zoneId={formData.step1?.zoneId ?? ''}
+            onZoneChange={(zoneId) => {
+              if (formData.step1) {
+                setStepData('step1', { ...formData.step1, zoneId });
+              }
+            }}
           />
         )}
         {currentStep === 4 && (

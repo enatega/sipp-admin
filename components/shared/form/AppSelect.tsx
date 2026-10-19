@@ -35,6 +35,7 @@ interface AppSelectProps {
   id?: string;
   containerClassName?: string;
   value?: string;
+  controlled?: boolean;
   onValueChange?: (value: string) => void;
   disabled?: boolean;
   required?: boolean;
@@ -61,6 +62,7 @@ export const AppSelect = ({
   id,
   containerClassName,
   value: propValue,
+  controlled = false,
   onValueChange: propOnValueChange,
   disabled,
   required,
@@ -79,7 +81,7 @@ export const AppSelect = ({
     >,
   );
 
-  const hasFormik = Boolean(formik && name);
+  const hasFormik = Boolean(formik && name && !controlled);
 
   // Determine the current value: Formik's value if available, otherwise propValue
   const rawCurrentValue = hasFormik ? formik!.values[name] : propValue;

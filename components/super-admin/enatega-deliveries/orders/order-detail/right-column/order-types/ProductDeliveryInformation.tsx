@@ -1,4 +1,5 @@
 'use client';
+import { AddressDetailsView } from '@/components/shared/AddressDetailsView';
 
 import { Heading } from '@/components/shared/Heading';
 import type { OrderDetail as Order } from '@/types';
@@ -57,6 +58,7 @@ export const ProductDeliveryInformation: React.FC<
             <p className="text-[16px] text-mute max-w-[250px]">
               {fmt(order?.deliveryInfo?.dropoffAddress ?? order?.delivery?.dropoffAddress ?? order?.dropoffAddress)}
             </p>
+            <AddressDetailsView isHistoricalFallback={order.deliveryInfo?.deliveryAddressIsHistoricalFallback ?? order.delivery?.deliveryAddressIsHistoricalFallback} details={order.deliveryInfo?.deliveryAddressDetails ?? order.delivery?.deliveryAddressDetails} legacyText={order.deliveryInfo?.deliveryAddressExtras ?? order.delivery?.deliveryAddressExtras} />
           </div>
         </div>
       </div>

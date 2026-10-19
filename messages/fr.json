@@ -10858,5 +10858,27 @@
     "search": "Rechercher des articles",
     "previous": "Précédent",
     "next": "Suivant"
+  },
+  "addressDetails": {
+    "placeNameHeading": "Nom du lieu / de la propriété",
+    "placeNameLabel": "Nom du lieu / de la propriété (Facultatif)",
+    "placeNamePlaceholder": "Nom de l’hôtel, villa, résidence, commerce ou maison",
+    "howToFindYouHeading": "Comment vous trouver",
+    "howToFindYouLabel": "Comment vous trouver",
+    "howToFindYouPlaceholder": "Exemple : 200 m après Banana Beach, portail bleu à gauche",
+    "deliveryInstructionsHeading": "Instructions de livraison",
+    "deliveryInstructionsLabel": "Instructions de livraison (Facultatif)",
+    "deliveryInstructionsPlaceholder": "Code du portail, appartement, étage, réception, appeler à l’arrivée, etc.",
+    "directionsRequired": "Indiquez comment vous trouver.",
+    "tooLong": "Ce texte est trop long.",
+    "chooseType": "Choisissez Domicile, Travail ou Autre.",
+    "showDetails": "Voir les détails de l’adresse",
+    "legacyDetails": "Anciens détails de l’adresse",
+    "work": "Travail",
+    "saveRetry": "Impossible d’enregistrer. Votre texte est conservé. Réessayez ou rechargez l’adresse si elle a changé.",
+    "defaultRetry": "Adresse enregistrée, mais non sélectionnée. Appuyez à nouveau sur Enregistrer pour réessayer sans créer de doublon.",
+    "courierMessage": "Message au livreur pour cette commande",
+    "reload": "Recharger l’adresse",
+    "historicalFallback": "L’adresse d’origine n’a pas été enregistrée. Voici l’adresse actuellement associée."
   }
 }

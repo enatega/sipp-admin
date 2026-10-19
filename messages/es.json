@@ -10858,5 +10858,27 @@
     "search": "Buscar artículos",
     "previous": "Anterior",
     "next": "Siguiente"
+  },
+  "addressDetails": {
+    "placeNameHeading": "Nombre del lugar / propiedad",
+    "placeNameLabel": "Nombre del lugar / propiedad (Opcional)",
+    "placeNamePlaceholder": "Nombre del hotel, villa, condominio, negocio o casa",
+    "howToFindYouHeading": "Cómo encontrarte",
+    "howToFindYouLabel": "Cómo encontrarte",
+    "howToFindYouPlaceholder": "Ejemplo: 200 m después de Banana Beach, portón azul a la izquierda",
+    "deliveryInstructionsHeading": "Instrucciones de entrega",
+    "deliveryInstructionsLabel": "Instrucciones de entrega (Opcional)",
+    "deliveryInstructionsPlaceholder": "Código del portón, apartamento, piso, recepción, llamar al llegar, etc.",
+    "directionsRequired": "Indica cómo encontrarte.",
+    "tooLong": "Este texto es demasiado largo.",
+    "chooseType": "Elige Casa, Trabajo u Otro.",
+    "showDetails": "Ver detalles de la dirección",
+    "legacyDetails": "Detalles anteriores de la dirección",
+    "work": "Trabajo",
+    "saveRetry": "No se pudo guardar. Tu texto se conserva. Reintenta o recarga la dirección si cambió.",
+    "defaultRetry": "Dirección guardada, pero no seleccionada. Pulsa Guardar de nuevo para reintentar sin crear un duplicado.",
+    "courierMessage": "Mensaje al repartidor para este pedido",
+    "reload": "Recargar dirección",
+    "historicalFallback": "No se registró la dirección original. Esta es la dirección vinculada actualmente."
   }
 }

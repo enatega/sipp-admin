@@ -189,6 +189,8 @@ export const useGetStoreOrderDetail = (
         // copy deliveryInfo to top-level convenience fields
         pickupAddress: delivery?.pickupAddress ?? undefined,
         dropoffAddress: delivery?.dropoffAddress ?? undefined,
+        deliveryAddressDetails: delivery?.deliveryAddressDetails ?? null,
+        deliveryAddressExtras: delivery?.deliveryAddressExtras ?? null,
         distance: delivery?.distance ?? null,
         eta: delivery?.eta ?? null,
       };

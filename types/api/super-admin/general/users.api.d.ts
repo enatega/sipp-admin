@@ -117,6 +117,7 @@ export interface GetUserReviewsResponse {
 }
 
 export interface UserAddressItem {
+  addressDetails?: import("@/types/addressDetails").AddressDetails | null;
   id: string;
   user_id: string;
   address: string;

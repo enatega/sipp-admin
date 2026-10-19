@@ -9,6 +9,9 @@ export interface DeliveryLiveTrackingActiveOrder {
   orderStatus: string;
   customerName: string;
   customerAddress: string;
+  deliveryAddressDetails?: import("@/types/addressDetails").AddressDetails | null;
+  deliveryAddressExtras?: string | null;
+  deliveryAddressIsHistoricalFallback?: boolean;
   createdAt: string;
   scheduledAt: string | null;
   orderDetailsPath: string;
@@ -73,6 +76,9 @@ export interface DeliveryLiveTrackingOverviewActiveOrder {
 export interface DeliveryLiveTrackingOverviewRouteSnapshot {
   pickupAddress: string;
   dropoffAddress: string;
+  deliveryAddressDetails?: import("@/types/addressDetails").AddressDetails | null;
+  deliveryAddressIsHistoricalFallback?: boolean;
+  deliveryAddressExtras?: string | null;
   customerName: string;
   customerPhone: string;
   lastLocationUpdatedLabel: string;

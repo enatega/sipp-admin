@@ -1,5 +1,14 @@
 {
-  "acceptInvite": { "back": "Back to login", "title": "Set up your account", "description": "Choose your password to accept the invitation. You can then sign in.", "missingToken": "This invitation link is incomplete. Ask your admin to resend it.", "success": "Invitation accepted. Please sign in.", "password": "Password", "confirmPassword": "Confirm password", "submit": "Accept invitation" },
+  "acceptInvite": {
+    "back": "Back to login",
+    "title": "Set up your account",
+    "description": "Choose your password to accept the invitation. You can then sign in.",
+    "missingToken": "This invitation link is incomplete. Ask your admin to resend it.",
+    "success": "Invitation accepted. Please sign in.",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Accept invitation"
+  },
   "storeLogin": {
     "title": "Enable Store Login",
     "description": "Set an email and password for this store to log in.",
@@ -435,7 +444,11 @@
       "restaurantLoadError": "Restaurants could not be loaded.",
       "allPaymentMethods": "All payment methods",
       "allOrderStatuses": "All order statuses",
-      "payment": { "cash": "Cash", "card": "Card", "wallet": "Wallet" },
+      "payment": {
+        "cash": "Cash",
+        "card": "Card",
+        "wallet": "Wallet"
+      },
       "status": {
         "pending": "Pending",
         "scheduled": "Scheduled",
@@ -5255,7 +5268,22 @@
     }
   },
   "roleAndPermissions": {
-    "pendingInvitations": { "title": "Pending invitations", "description": "Invited people appear here until they accept and become assigned users.", "name": "Name", "email": "Email", "role": "Role", "expires": "Link expires", "action": "Action", "loading": "Loading invitations…", "loadError": "Could not load invitations.", "retry": "Try again", "empty": "No pending invitations", "noRole": "No role selected", "resend": "Resend invite", "resendSuccess": "Invitation resent" },
+    "pendingInvitations": {
+      "title": "Pending invitations",
+      "description": "Invited people appear here until they accept and become assigned users.",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "expires": "Link expires",
+      "action": "Action",
+      "loading": "Loading invitations…",
+      "loadError": "Could not load invitations.",
+      "retry": "Try again",
+      "empty": "No pending invitations",
+      "noRole": "No role selected",
+      "resend": "Resend invite",
+      "resendSuccess": "Invitation resent"
+    },
     "title": "Roles and Permissions",
     "addRole": "Add Role",
     "editRole": "Edit Role",
@@ -5942,16 +5970,74 @@
     }
   },
   "favouriteFoods": {
-    "title": "Favourite Foods", "subtitle": "Manage discovery tags and assign them to one or more shop types.", "addButton": "Add Favourite Food", "empty": "No Favourite Foods found",
-    "filters": { "search": "Search Favourite Foods", "status": "All statuses", "shopType": "All shop types" },
-    "table": { "image": "Image", "name": "Name", "shopTypes": "Shop types", "order": "Display order", "status": "Status", "actions": "Actions" },
-    "status": { "active": "Active", "inactive": "Inactive" },
-    "actions": { "create": "Create", "save": "Save changes", "cancel": "Cancel", "edit": "Edit", "delete": "Delete", "toggleStatus": "Change status for {name}" },
-    "form": { "createTitle": "Add Favourite Food", "editTitle": "Edit Favourite Food", "description": "Set its name, visibility, order, image, and related shop types.", "name": "English name", "namePlaceholder": "e.g. Pizza", "translations": "Translated names", "translationsDescription": "Add names for enabled languages. Empty values fall back to English.", "translationPlaceholder": "Name in {language}", "shopTypes": "Shop types", "shopTypesPlaceholder": "Select one or more shop types", "displayOrder": "Display order", "displayOrderHelp": "Lower numbers appear first.", "image": "Image", "imageHelp": "PNG, JPG, or WebP up to 5 MB.", "removeImage": "Remove current image", "status": "Customer visibility" },
-    "validation": { "nameRequired": "English name is required", "shopTypeRequired": "Select at least one shop type", "orderInteger": "Display order must be a whole number", "orderMinimum": "Display order cannot be negative" },
-    "messages": { "created": "Favourite Food created", "updated": "Favourite Food updated", "deleted": "Favourite Food deleted", "statusUpdated": "Status updated" },
-    "errors": { "loadTitle": "Could not load Favourite Foods", "loadMessage": "Please try again." },
-    "deleteDialog": { "title": "Delete Favourite Food", "subtitle": "Delete {name}?", "description": "It will be hidden without removing existing product history." }
+    "title": "Favourite Foods",
+    "subtitle": "Manage discovery tags and assign them to one or more shop types.",
+    "addButton": "Add Favourite Food",
+    "empty": "No Favourite Foods found",
+    "filters": {
+      "search": "Search Favourite Foods",
+      "status": "All statuses",
+      "shopType": "All shop types"
+    },
+    "table": {
+      "image": "Image",
+      "name": "Name",
+      "shopTypes": "Shop types",
+      "order": "Display order",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "create": "Create",
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "toggleStatus": "Change status for {name}"
+    },
+    "form": {
+      "createTitle": "Add Favourite Food",
+      "editTitle": "Edit Favourite Food",
+      "description": "Set its name, visibility, order, image, and related shop types.",
+      "name": "English name",
+      "namePlaceholder": "e.g. Pizza",
+      "translations": "Translated names",
+      "translationsDescription": "Add names for enabled languages. Empty values fall back to English.",
+      "translationPlaceholder": "Name in {language}",
+      "shopTypes": "Shop types",
+      "shopTypesPlaceholder": "Select one or more shop types",
+      "displayOrder": "Display order",
+      "displayOrderHelp": "Lower numbers appear first.",
+      "image": "Image",
+      "imageHelp": "PNG, JPG, or WebP up to 5 MB.",
+      "removeImage": "Remove current image",
+      "status": "Customer visibility"
+    },
+    "validation": {
+      "nameRequired": "English name is required",
+      "shopTypeRequired": "Select at least one shop type",
+      "orderInteger": "Display order must be a whole number",
+      "orderMinimum": "Display order cannot be negative"
+    },
+    "messages": {
+      "created": "Favourite Food created",
+      "updated": "Favourite Food updated",
+      "deleted": "Favourite Food deleted",
+      "statusUpdated": "Status updated"
+    },
+    "errors": {
+      "loadTitle": "Could not load Favourite Foods",
+      "loadMessage": "Please try again."
+    },
+    "deleteDialog": {
+      "title": "Delete Favourite Food",
+      "subtitle": "Delete {name}?",
+      "description": "It will be hidden without removing existing product history."
+    }
   },
   "Schemas": {
     "customerLoyalty": {
@@ -10772,5 +10858,27 @@
     "search": "Search items",
     "previous": "Previous",
     "next": "Next"
+  },
+  "addressDetails": {
+    "placeNameHeading": "Place / Property Name",
+    "placeNameLabel": "Place / Property Name (Optional)",
+    "placeNamePlaceholder": "Hotel, villa, condominium, business or house name",
+    "howToFindYouHeading": "How to find you",
+    "howToFindYouLabel": "How to find you",
+    "howToFindYouPlaceholder": "Example: 200m after Banana Beach, blue gate on the left",
+    "deliveryInstructionsHeading": "Delivery Instructions",
+    "deliveryInstructionsLabel": "Delivery Instructions (Optional)",
+    "deliveryInstructionsPlaceholder": "Gate code, apartment, floor, reception, call on arrival, etc.",
+    "directionsRequired": "Tell us how to find you.",
+    "tooLong": "This text is too long.",
+    "chooseType": "Choose Home, Work, or Other.",
+    "showDetails": "View address details",
+    "legacyDetails": "Previous address details",
+    "work": "Work",
+    "saveRetry": "We could not save your changes. Your text is kept. Retry, or reload the address if it changed elsewhere.",
+    "defaultRetry": "Address saved, but selecting it failed. Tap Save again to retry without creating another address.",
+    "courierMessage": "Message to courier for this order",
+    "reload": "Reload address",
+    "historicalFallback": "The original address was not recorded. This is the currently linked address."
   }
 }

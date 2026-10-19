@@ -1,4 +1,5 @@
 'use client';
+import { AddressDetailsView } from '@/components/shared/AddressDetailsView';
 
 import { CalendarDays, MapPin, Phone, Store, User } from 'lucide-react';
 import type { GetDeliveryLiveTrackingRiderOverviewResponse } from '@/types';
@@ -141,6 +142,7 @@ export function OrderDetailsSheet({
                     'No dropoff address'}
                 </span>
               </p>
+                  <AddressDetailsView isHistoricalFallback={overview?.routeSnapshot?.deliveryAddressIsHistoricalFallback} details={overview?.routeSnapshot?.deliveryAddressDetails} legacyText={overview?.routeSnapshot?.deliveryAddressExtras} />
               <p className="flex items-start gap-2">
                 <User className="mt-0.5 h-4 w-4 shrink-0 text-foreground" />
                 <span>

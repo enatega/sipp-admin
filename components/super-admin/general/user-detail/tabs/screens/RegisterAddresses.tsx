@@ -1,4 +1,5 @@
 'use client';
+import { AddressDetailsView } from '@/components/shared/AddressDetailsView';
 
 import { ApiErrorResponse, UserAddressItem } from '@/types';
 import { Building2, Home, MapPin } from 'lucide-react';
@@ -105,6 +106,7 @@ export function RegisterAddresses({ userId }: AddressesProps) {
                   ) : null}
                 </h4>
                 <p className="text-sm text-mute">{address.address}</p>
+                <AddressDetailsView details={address.addressDetails} />
               </div>
 
               {/* Timestamp */}

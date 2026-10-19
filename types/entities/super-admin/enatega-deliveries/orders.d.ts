@@ -31,6 +31,9 @@ export interface OrderItem {
     status: OrdersStatus;
     dateTime: string;
     pickupAddress: string;
+    deliveryAddressDetails?: import("@/types/addressDetails").AddressDetails | null;
+  deliveryAddressIsHistoricalFallback?: boolean;
+    deliveryAddressExtras?: string | null;
     dropoffAddress: string;
     distance: string | null;
     riderUser?: {
@@ -187,6 +190,9 @@ export interface RiderInfo {
 
 export interface DeliveryInfo {
     pickupAddress?: string;
+    deliveryAddressDetails?: import("@/types/addressDetails").AddressDetails | null;
+  deliveryAddressIsHistoricalFallback?: boolean;
+    deliveryAddressExtras?: string | null;
     dropoffAddress?: string;
     zone?: string;
     distance?: string | null;
@@ -257,6 +263,9 @@ export interface OrderDetail {
     dateTime?: string;
     notes?: string;
     pickupAddress?: string;
+    deliveryAddressDetails?: import("@/types/addressDetails").AddressDetails | null;
+  deliveryAddressIsHistoricalFallback?: boolean;
+    deliveryAddressExtras?: string | null;
     dropoffAddress?: string;
     distance?: string | null;
     eta?: string | null;

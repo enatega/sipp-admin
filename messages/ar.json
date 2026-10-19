@@ -10858,5 +10858,27 @@
     "search": "البحث عن العناصر",
     "previous": "السابق",
     "next": "التالي"
+  },
+  "addressDetails": {
+    "placeNameHeading": "اسم المكان / العقار",
+    "placeNameLabel": "اسم المكان / العقار (اختياري)",
+    "placeNamePlaceholder": "اسم الفندق أو الفيلا أو المجمع أو الشركة أو المنزل",
+    "howToFindYouHeading": "كيفية الوصول إليك",
+    "howToFindYouLabel": "كيفية الوصول إليك",
+    "howToFindYouPlaceholder": "مثال: بعد شاطئ بانانا بمسافة 200 متر، البوابة الزرقاء على اليسار",
+    "deliveryInstructionsHeading": "تعليمات التوصيل",
+    "deliveryInstructionsLabel": "تعليمات التوصيل (اختياري)",
+    "deliveryInstructionsPlaceholder": "رمز البوابة، الشقة، الطابق، الاستقبال، الاتصال عند الوصول، إلخ.",
+    "directionsRequired": "وضّح كيفية الوصول إليك.",
+    "tooLong": "هذا النص طويل جدًا.",
+    "chooseType": "اختر المنزل أو العمل أو أخرى.",
+    "showDetails": "عرض تفاصيل العنوان",
+    "legacyDetails": "تفاصيل العنوان السابقة",
+    "work": "العمل",
+    "saveRetry": "تعذّر الحفظ. تم الاحتفاظ بالنص. أعد المحاولة أو أعد تحميل العنوان إذا تغير.",
+    "defaultRetry": "تم حفظ العنوان ولكن تعذّر اختياره. اضغط حفظ مرة أخرى للمحاولة دون إنشاء عنوان مكرر.",
+    "courierMessage": "رسالة إلى المندوب لهذا الطلب",
+    "reload": "إعادة تحميل العنوان",
+    "historicalFallback": "لم يتم تسجيل العنوان الأصلي. هذا هو العنوان المرتبط حاليًا."
   }
 }

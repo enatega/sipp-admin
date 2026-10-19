@@ -2037,6 +2037,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Restore All to Stock",
+      "title": "Restore long out-of-stock items",
+      "description": "Review these items before making them available to customers. Only items out of stock for more than 7 days are included.",
+      "loading": "Loading affected items…",
+      "loadError": "Could not load affected items. Please try again.",
+      "more": "And {count} more items.",
+      "empty": "No items currently need restoring.",
+      "itemStock": "{name} · {sku} · {quantity} in stock",
+      "quantityLabel": "Quantity for each of the {count} zero-stock items",
+      "keepQuantity": "Items with a positive quantity keep their current quantity.",
+      "cancel": "Cancel",
+      "confirm": "Confirm restore",
+      "restoring": "Restoring…",
+      "success": "{count} items restored to stock."
+    },
     "title": "Products",
     "addProductButton": "Add Product",
     "bulkUpload": {

@@ -2050,6 +2050,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Alle wieder auf Lager setzen",
+      "title": "Länger nicht verfügbare Artikel wiederherstellen",
+      "description": "Prüfen Sie diese Artikel, bevor sie für Kunden wieder verfügbar sind. Nur Artikel, die seit mehr als 7 Tagen nicht auf Lager sind, werden berücksichtigt.",
+      "loading": "Betroffene Artikel werden geladen…",
+      "loadError": "Betroffene Artikel konnten nicht geladen werden. Bitte erneut versuchen.",
+      "more": "Und {count} weitere Artikel.",
+      "empty": "Derzeit müssen keine Artikel wiederhergestellt werden.",
+      "itemStock": "{name} · {sku} · {quantity} auf Lager",
+      "quantityLabel": "Menge für jeden der {count} Artikel ohne Bestand",
+      "keepQuantity": "Artikel mit positivem Bestand behalten ihre aktuelle Menge.",
+      "cancel": "Abbrechen",
+      "confirm": "Wiederherstellung bestätigen",
+      "restoring": "Wird wiederhergestellt…",
+      "success": "{count} Artikel wieder auf Lager gesetzt."
+    },
     "title": "Produkte",
     "addProductButton": "Produkt hinzufügen",
     "bulkUpload": {

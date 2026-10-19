@@ -2050,6 +2050,22 @@
     }
   },
   "products": {
+    "restore": {
+      "button": "Remettre tous les articles en stock",
+      "title": "Remettre en stock les articles indisponibles depuis longtemps",
+      "description": "Vérifiez ces articles avant de les rendre disponibles aux clients. Seuls les articles en rupture depuis plus de 7 jours sont inclus.",
+      "loading": "Chargement des articles concernés…",
+      "loadError": "Impossible de charger les articles concernés. Veuillez réessayer.",
+      "more": "Et {count} autres articles.",
+      "empty": "Aucun article à remettre en stock pour le moment.",
+      "itemStock": "{name} · {sku} · {quantity} en stock",
+      "quantityLabel": "Quantité pour chacun des {count} articles sans stock",
+      "keepQuantity": "Les articles avec un stock positif conservent leur quantité actuelle.",
+      "cancel": "Annuler",
+      "confirm": "Confirmer la remise en stock",
+      "restoring": "Remise en stock…",
+      "success": "{count} articles remis en stock."
+    },
     "title": "Produits",
     "addProductButton": "Ajouter un produit",
     "bulkUpload": {

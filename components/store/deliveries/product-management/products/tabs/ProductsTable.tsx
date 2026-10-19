@@ -54,6 +54,7 @@ import {
 import { ProductDetailDialog } from '@/components/store/deliveries/product-management/products/product-detail/ProductDetailDialog';
 import Filters from './Filters';
 import ProductActions from './ProductActions';
+import { RestoreOutOfStockDialog } from './RestoreOutOfStockDialog';
 
 const UNLIMITED_STOCK_THRESHOLD = 1000000;
 
@@ -187,6 +188,8 @@ export function ProductsTable() {
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
         <Filters />
+        {storeId && getParam('tab') === 'out_of_stock' &&
+          <RestoreOutOfStockDialog storeId={storeId} openFromEmail={getParam('restore') === 'all'} />}
         <DownloadButtons<Product>
           fileName="products_report"
           data={items}

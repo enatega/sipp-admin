@@ -67,7 +67,9 @@ import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
 import {
   formatOrderStatusLabel,
   formatOrderTypeLabel,
+  canAssignRider,
   getNextOrderStatuses,
+  getStoreNextOrderStatuses,
   isPickupOrder,
   isStoreOrdersPath,
   normalizeOrderValue,
@@ -118,15 +120,6 @@ const formatDateTime = (value?: string) => {
   return DATE_TIME_FORMATTER.format(date).replace(',', '');
 };
 
-const canShowAssignRiderButton = (status?: string | null) => {
-  const normalized = normalizeOrderValue(status);
-  return (
-    normalized === 'accepted' ||
-    normalized === 'preparing' ||
-    normalized === 'ready'
-  );
-};
-
 function OrderStatusSelect({
   orderId,
   status,
@@ -148,7 +141,9 @@ function OrderStatusSelect({
   const { mutateAsync: updateStoreStatus, isPending: isUpdatingStore } =
     useUpdateStoreOrderStatus();
   const isPending = isUpdatingAdmin || isUpdatingStore;
-  const nextStatuses = getNextOrderStatuses(status, orderType);
+  const nextStatuses = storeOrder
+    ? getStoreNextOrderStatuses(status, orderType)
+    : getNextOrderStatuses(status, orderType);
   const options = [status, ...nextStatuses].filter(
     (option, index, values) => option && values.indexOf(option) === index,
   );
@@ -161,9 +156,10 @@ function OrderStatusSelect({
       const updateStatus = storeOrder ? updateStoreStatus : updateAdminStatus;
       await updateStatus({ orderId, status: nextStatus });
       toast.success('Order status updated successfully');
-      onOrderUpdated?.();
     } catch (error) {
       handleApiError(error as ApiErrorResponse);
+    } finally {
+      onOrderUpdated?.();
     }
   };
 
@@ -378,9 +374,8 @@ export function OrdersTable({
                 const pickupOrder = isPickupOrder(order.orderType);
                 const riderAssigned = Boolean(order.riderId || order.riderName);
                 const showAssignRiderButton =
-                  !pickupOrder &&
                   !riderAssigned &&
-                  canShowAssignRiderButton(order.status);
+                  canAssignRider(order.status, order.orderType);
                 const normalizedStatus = normalizeOrderValue(order.status);
                 const canAccept =
                   normalizedStatus === 'pending' ||
@@ -473,7 +468,11 @@ export function OrdersTable({
                       {normalizedStatus === 'pending' && order.storeAcceptanceRemindedAt ? (
                         <span className="mb-1 block text-xs font-semibold text-amber-700">Store response overdue</span>
                       ) : null}
-                      {(storeOrdersPath && pickupOrder) ||
+                      {(storeOrdersPath &&
+                        getStoreNextOrderStatuses(
+                          normalizedStatus,
+                          order.orderType,
+                        ).length > 0) ||
                       (!storeOrdersPath && canUpdateSuperAdminOrderStatus) ? (
                         <OrderStatusSelect
                           orderId={order.orderId}

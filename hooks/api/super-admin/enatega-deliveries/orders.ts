@@ -288,6 +288,9 @@ export const useAssignRiderToOrder = (
             queryClient.invalidateQueries({ queryKey: ['get-order', orderId] });
             queryClient.invalidateQueries({ queryKey: ['get-available-riders', orderId] });
             queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
+            // The store panel reads the same order through its own query keys.
+            queryClient.invalidateQueries({ queryKey: ['get-store-order'] });
+            queryClient.invalidateQueries({ queryKey: ['get-orders-store'] });
         },
         ...options,
     });
@@ -314,6 +317,8 @@ export const useAutoAssignRider = (
             }
 
             queryClient.invalidateQueries({ queryKey: ['get-orders'], exact: false });
+            queryClient.invalidateQueries({ queryKey: ['get-store-order'] });
+            queryClient.invalidateQueries({ queryKey: ['get-orders-store'] });
         },
         ...options,
     });

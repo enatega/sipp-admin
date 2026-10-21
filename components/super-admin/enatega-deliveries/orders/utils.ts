@@ -211,3 +211,24 @@ export const getNextOrderStatuses = (
 
   return transitions[normalizedStatus] ?? [];
 };
+
+// Mirrors the server's STORE_DELIVERY_STATUSES: on delivery orders the store
+// owns preparation only, and the rider drives every step after Ready.
+const STORE_DELIVERY_STATUSES = ['preparing', 'ready', 'cancelled'];
+
+export const getStoreNextOrderStatuses = (
+  status?: string | null,
+  orderType?: string | null,
+) => {
+  const nextStatuses = getNextOrderStatuses(status, orderType);
+  if (isPickupOrder(orderType)) return nextStatuses;
+  return nextStatuses.filter((next) => STORE_DELIVERY_STATUSES.includes(next));
+};
+
+// The server only assigns riders once the order is preparing or ready.
+export const canAssignRider = (
+  status?: string | null,
+  orderType?: string | null,
+) =>
+  !isPickupOrder(orderType) &&
+  ['preparing', 'ready'].includes(normalizeOrderValue(status));

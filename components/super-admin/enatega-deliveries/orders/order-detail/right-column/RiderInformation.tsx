@@ -6,6 +6,7 @@ import { OrderDetail } from '@/types/entities/super-admin/enatega-deliveries/ord
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { canAssignRider } from '../../utils';
 import { AssignRiderModal } from './AssignRiderModal';
 
 interface RiderInformationProps {
@@ -23,6 +24,7 @@ export function RiderInformation({ order }: RiderInformationProps) {
       {!order.riderAssigned ? (
         <div className="flex flex-col items-center justify-center py-4">
           <p className="text-black font-medium mb-6">{t('noRiderAssigned')}</p>
+          {canAssignRider(order.status, order.orderType) && (
           <Button
             onClick={() => setIsModalOpen(true)}
             variant="outline"
@@ -30,6 +32,7 @@ export function RiderInformation({ order }: RiderInformationProps) {
           >
             {t('assignRider')}
           </Button>
+          )}
         </div>
       ) : (
         <div className="space-y-6">

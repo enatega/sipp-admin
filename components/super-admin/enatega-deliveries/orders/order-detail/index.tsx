@@ -36,6 +36,7 @@ import { CreateRefundDialog } from '../../refund-and-responsibilities/CreateRefu
 import {
   formatOrderStatusLabel,
   getNextOrderStatuses,
+  getStoreNextOrderStatuses,
   isPickupOrder,
 } from '../utils';
 import { OrderDetailMain } from './order-detail-main';
@@ -119,9 +120,11 @@ export function OrderDetailPage() {
   const canReject =
     Boolean(storeId) && ['pending', 'accepted'].includes(normalizedStatus);
   const pickupOrder = isPickupOrder(order.orderType);
-  const nextStatuses = getNextOrderStatuses(normalizedStatus, order.orderType);
+  const nextStatuses = storeId
+    ? getStoreNextOrderStatuses(normalizedStatus, order.orderType)
+    : getNextOrderStatuses(normalizedStatus, order.orderType);
   const canUpdateStatus = storeId
-    ? pickupOrder
+    ? true
     : hasNamedPermission('delivery_update_super_admin_order_status');
   const showStatusControl =
     canUpdateStatus &&
@@ -133,9 +136,11 @@ export function OrderDetailPage() {
     try {
       await acceptOrder(order.orderId);
       toast.success('Order accepted successfully');
-      await refetch();
     } catch (actionError) {
       handleApiError(actionError as ApiErrorResponse);
+    } finally {
+      // Refetch even on failure: a timed-out request may still have succeeded.
+      await refetch();
     }
   };
 
@@ -150,9 +155,10 @@ export function OrderDetailPage() {
       toast.success('Order rejected successfully');
       setShowRejectDialog(false);
       setRejectionReason('');
-      await refetch();
     } catch (actionError) {
       handleApiError(actionError as ApiErrorResponse);
+    } finally {
+      await refetch();
     }
   };
 
@@ -162,9 +168,10 @@ export function OrderDetailPage() {
       const updateStatus = storeId ? updateStoreStatus : updateAdminStatus;
       await updateStatus({ orderId: order.orderId, status });
       toast.success('Order status updated successfully');
-      await refetch();
     } catch (actionError) {
       handleApiError(actionError as ApiErrorResponse);
+    } finally {
+      await refetch();
     }
   };
 
@@ -176,7 +183,7 @@ export function OrderDetailPage() {
           showBackBtn
           containerClassName="mb-0"
         />
-        <div className="flex w-full flex-wrap gap-2 sm:w-auto">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
           {showStatusControl && (
             <Select
               value={normalizedStatus}
@@ -184,7 +191,7 @@ export function OrderDetailPage() {
               onValueChange={(status) => void handleStatusChange(status)}
             >
               <SelectTrigger
-                className="h-10 min-w-[190px] bg-white"
+                className="h-10 data-[size=default]:h-10 w-full sm:w-auto min-w-[190px] rounded-[8px] border-gray-200 bg-gray-100 px-4 text-sm font-medium text-black shadow-sm transition-colors hover:bg-gray-200"
                 aria-label="Update order status"
               >
                 <SelectValue />

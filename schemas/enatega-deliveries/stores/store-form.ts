@@ -267,7 +267,8 @@ export const StoreFormStep3Schema = (
     scheduleBooking: Yup.boolean(),
     pickupAllowed: Yup.boolean(),
     deliveryAllowed: Yup.boolean(),
-    packingCharges: Yup.string().required(t('packingChargesRequired')),
+    // Packing charges are not part of the current plan; restore if the client asks.
+    // packingCharges: Yup.string().required(t('packingChargesRequired')),
     baseFee: Yup.string().required(t('baseFeeRequired')),
     perKmFee: Yup.string().required(t('perKmFeeRequired')),
     freeDeliveryThreshold: Yup.string().required(t('freeDeliveryThresholdRequired')),

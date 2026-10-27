@@ -16,6 +16,7 @@ import {
 } from '@/hooks/api/super-admin/enatega-deliveries/live-tracking';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useSocket } from '@/hooks/use-socket';
+import { useAdminRiderTracking } from '@/hooks/use-admin-rider-tracking';
 import { getUser } from '@/lib/user';
 import type {
   GetDeliveryLiveTrackingRiderDetailsResponse,
@@ -109,6 +110,7 @@ export function EnategaLiveTrackingOverviewPage() {
   const tSidebar = useTranslations('sidebar');
   const { getParam, setParams } = useQueryParams();
   const { socket, connected } = useSocket(undefined, { namespace: 'deliveries' });
+  const { isFreshSample } = useAdminRiderTracking(socket, connected);
   const userId = getUser()?.id ?? null;
   const queryClient = useQueryClient();
 
@@ -171,6 +173,7 @@ export function EnategaLiveTrackingOverviewPage() {
       ) {
         return;
       }
+      if (!isFreshSample(payload.riderUserId, payload.timestamp)) return;
 
       const riderIdFromUserId = riderUserIdToRiderId[payload.riderUserId];
       const keys = Array.from(
@@ -238,7 +241,7 @@ export function EnategaLiveTrackingOverviewPage() {
     return () => {
       socket.off('get-rider-location-admin', handler);
     };
-  }, [queryClient, riderUserIdToRiderId, socket]);
+  }, [isFreshSample, queryClient, riderUserIdToRiderId, socket]);
 
   useEffect(() => {
     const handler = setTimeout(() => {

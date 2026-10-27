@@ -57,6 +57,7 @@ export const SharedStep3Form: React.FC<SharedStep3FormProps> = ({
                 placeholder={t('prepareTimePlaceholder')}
                 requiredAsterisk
               />
+              {/* Packing charges are not part of the current plan; restore if the client asks.
               <AppInputField
                 label={t('packingChargesLabel')}
                 name="packingCharges"
@@ -64,6 +65,7 @@ export const SharedStep3Form: React.FC<SharedStep3FormProps> = ({
                 placeholder="$ 0.75"
                 requiredAsterisk
               />
+              */}
               <AppInputField
                 label={t('baseFeeLabel')}
                 name="baseFee"

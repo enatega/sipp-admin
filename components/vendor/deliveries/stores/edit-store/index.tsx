@@ -106,7 +106,8 @@ export function VendorEditStoreForm({
     formData.append('zoneId', pendingValues.zoneId);
 
     formData.append('prepare_time', pendingValues.prepareTime);
-    formData.append('packing_charges', pendingValues.packingCharges);
+    // Packing charges are not part of the current plan; restore if the client asks.
+    // formData.append('packing_charges', pendingValues.packingCharges);
     formData.append(
       'allow_schedule_booking',
       String(pendingValues.scheduleBooking),

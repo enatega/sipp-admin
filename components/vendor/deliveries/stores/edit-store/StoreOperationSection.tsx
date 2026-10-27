@@ -23,6 +23,7 @@ export function StoreOperationSection() {
           placeholder={t('prepareTimePlaceholder')}
           requiredAsterisk
         />
+        {/* Packing charges are not part of the current plan; restore if the client asks.
         <AppInputField
           label={t('packingChargesLabel')}
           name="packingCharges"
@@ -30,6 +31,7 @@ export function StoreOperationSection() {
           placeholder={`${currencySymbol} 0.75`}
           requiredAsterisk
         />
+        */}
         <AppInputField
           label={t('baseFeeLabel')}
           name="baseFee"

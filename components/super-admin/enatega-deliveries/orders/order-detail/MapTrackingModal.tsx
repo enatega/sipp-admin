@@ -5,6 +5,7 @@ import DisplayError from '@/components/shared/DisplayError';
 import { isGoogleMapsRefererNotAllowedError } from '@/lib/googleMaps';
 import { useGoogleMapsLoader } from '@/lib/googleMapsLoader';
 import { useSocket } from '@/hooks/use-socket';
+import { useAdminRiderTracking } from '@/hooks/use-admin-rider-tracking';
 import { getUser } from '@/lib/user';
 import type { OrderDetail } from '@/types';
 import {
@@ -77,6 +78,7 @@ export default function MapTrackingModal({
   const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
   const { isLoaded, loadError } = useGoogleMapsLoader();
   const { socket, connected } = useSocket(undefined, { namespace: 'deliveries' });
+  const { isFreshSample } = useAdminRiderTracking(socket, connected, open);
   const userId = getUser()?.id ?? null;
 
   const pickup = useMemo(
@@ -127,6 +129,7 @@ export default function MapTrackingModal({
       if (typeof payload.latitude !== 'number' || typeof payload.longitude !== 'number') return;
 
       if (riderUserId && payload.riderUserId !== riderUserId) return;
+      if (!isFreshSample(payload.riderUserId, payload.timestamp)) return;
 
       const newLoc = { lat: payload.latitude, lng: payload.longitude };
       const key = `${newLoc.lat.toFixed(5)},${newLoc.lng.toFixed(5)}`;
@@ -140,7 +143,7 @@ export default function MapTrackingModal({
     return () => {
       socket.off('get-rider-location-admin', handler);
     };
-  }, [open, socket, riderUserId]);
+  }, [open, socket, riderUserId, isFreshSample]);
 
   useEffect(() => {
     if (!riderLocation || !map) return;

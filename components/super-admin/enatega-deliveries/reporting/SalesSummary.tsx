@@ -20,10 +20,11 @@ export function SalesSummary() {
     [t('productTax'), formatCurrency(summary?.productTax ?? 0, currencySymbol)],
     [t('discounts'), formatCurrency(summary?.discounts ?? 0, currencySymbol)],
     [t('deliveryFees'), formatCurrency(summary?.deliveryFees ?? 0, currencySymbol)],
-    [
-      t('packingCharges'),
-      formatCurrency(summary?.packingCharges ?? 0, currencySymbol),
-    ],
+    // Packing charges are not part of the current plan; restore if the client asks.
+    // [
+    //   t('packingCharges'),
+    //   formatCurrency(summary?.packingCharges ?? 0, currencySymbol),
+    // ],
   ];
 
   if (isError) {

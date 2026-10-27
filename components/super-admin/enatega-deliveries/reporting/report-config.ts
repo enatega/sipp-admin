@@ -73,7 +73,8 @@ export const REPORT_PAGE_CONFIGS: Record<
           { label: 'Discount', keys: ['discount'], format: 'currency' },
           { label: 'Product tax', keys: ['productTax'], format: 'currency' },
           { label: 'Delivery fee', keys: ['deliveryFee'], format: 'currency' },
-          { label: 'Packing charges', keys: ['packingCharges'], format: 'currency' },
+          // Packing charges are not part of the current plan; restore if the client asks.
+          // { label: 'Packing charges', keys: ['packingCharges'], format: 'currency' },
           { label: 'Rider tip', keys: ['riderTip'], format: 'currency' },
           { label: 'Total amount', keys: ['totalAmount'], format: 'currency' },
           { label: 'Total deduction', keys: ['totalCommissionDebit'], format: 'currency' },

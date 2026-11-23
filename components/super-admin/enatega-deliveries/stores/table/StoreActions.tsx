@@ -1,0 +1,375 @@
+'use client';
+
+import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
+import { ApiErrorResponse, DeliveryStore } from '@/types';
+import {
+  Ban,
+  CircleCheckBig,
+  CircleX,
+  Eye,
+  KeyRound,
+  LockKeyhole,
+  MoreVertical,
+  ListOrdered,
+  PenIcon,
+  TrashIcon,
+  Wallet,
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
+import { withBackToPath } from '@/lib/store';
+import { handleApiError } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
+import {
+  useApproveStore,
+  useDeleteStore,
+  useRejectStore,
+  useToggleStoreBlock,
+} from '@/hooks/api/super-admin/enatega-deliveries/stores';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import RejectStoreDialog from './RejectStoreDialog';
+import { EnableStoreLoginDialog } from '@/components/shared/EnableStoreLoginDialog';
+import { UpdateStorePasswordDialog } from '@/components/shared/UpdateStorePasswordDialog';
+
+interface StoreActionsProps {
+  store: DeliveryStore;
+  availabilityBusy?: boolean;
+  onRestrictAvailability?: () => void;
+  onActivateAccount?: () => void;
+}
+
+type ActionType = 'delete' | 'approve' | 'reject' | 'block' | null;
+
+export default function StoreActions({ store, availabilityBusy = false, onRestrictAvailability, onActivateAccount }: StoreActionsProps) {
+  const t = useTranslations('lumiFood.stores');
+  const tLogin = useTranslations('storeLogin');
+  const tWallet = useTranslations('wallet.actions');
+  const canManageWallet = hasNamedPermission(
+    'delivery_store_wallet_transactions',
+  );
+  const tStoreSidebar = useTranslations('storeSidebar');
+  const tPassword = useTranslations('storePassword');
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [currentAction, setCurrentAction] = useState<ActionType>(null);
+
+  // Mutation hooks
+  const { mutate: toggleBlock, isPending: isBlockPending } =
+    useToggleStoreBlock();
+  const { mutate: approveStore, isPending: isApprovePending } =
+    useApproveStore();
+  const { mutate: rejectStore, isPending: isRejectPending } = useRejectStore();
+  const { mutate: deleteStore, isPending: isDeletePending } = useDeleteStore();
+
+  const isLoading =
+    isBlockPending || isApprovePending || isRejectPending || isDeletePending;
+
+  const handleView = () => {
+    window.open(
+      withBackToPath(
+        `/store/deliveries/${store.id}`,
+        buildScopedDeliveriesAdminPathFromCurrent(
+          pathname,
+          '/enatega-deliveries/stores',
+        ),
+      ),
+      '_blank',
+      'noopener,noreferrer',
+    );
+  };
+
+  const handleEdit = () => {
+    router.push(
+      buildScopedDeliveriesAdminPathFromCurrent(
+        pathname,
+        `/enatega-deliveries/stores/edit-store/${store.id}`,
+      ),
+    );
+  };
+
+  const handleWallet = () => {
+    router.push(
+      buildScopedDeliveriesAdminPathFromCurrent(
+        pathname,
+        `/enatega-deliveries/stores/${store.id}/wallet`,
+      ),
+    );
+  };
+
+  const handleMenuControl = () => {
+    router.push(withBackToPath(
+      `/store/deliveries/${store.id}/product-management/menu-control`,
+      buildScopedDeliveriesAdminPathFromCurrent(pathname, '/enatega-deliveries/stores'),
+    ));
+  };
+
+  const handleDelete = () => {
+    deleteStore(store.id, {
+      onSuccess: () => {
+        toast.success(t('deleteSuccess'));
+        setCurrentAction(null);
+      },
+      onError: (error) => {
+        handleApiError(error as ApiErrorResponse);
+      },
+    });
+  };
+
+  const handleBlock = () => {
+    toggleBlock(store.id, {
+      onSuccess: (data) => {
+        toast.success(data.isBlocked ? t('blockSuccess') : t('unblockSuccess'));
+        setCurrentAction(null);
+      },
+      onError: (error) => {
+        handleApiError(error as ApiErrorResponse);
+      },
+    });
+  };
+
+  const handleApprove = () => {
+    approveStore(store.id, {
+      onSuccess: () => {
+        toast.success(t('approveSuccess'));
+        setCurrentAction(null);
+      },
+      onError: (error) => {
+        handleApiError(error as ApiErrorResponse);
+      },
+    });
+  };
+
+  const handleReject = (rejectionReason: string) => {
+    rejectStore(
+      { storeId: store.id, rejectionReason },
+      {
+        onSuccess: () => {
+          toast.success(t('rejectSuccess'));
+          setCurrentAction(null);
+        },
+        onError: (error) => {
+          handleApiError(error as ApiErrorResponse);
+        },
+      },
+    );
+  };
+
+  const handleConfirmAction = () => {
+    switch (currentAction) {
+      case 'delete':
+        handleDelete();
+        break;
+      case 'approve':
+        handleApprove();
+        break;
+      case 'block':
+        handleBlock();
+        break;
+      // Reject is handled separately by RejectStoreDialog
+    }
+  };
+
+  // Determine which actions to show based on store status
+  const showApprove = store.status === 'pending' && !store.isblocked;
+  const showReject = store.status === 'pending' && !store.isblocked;
+  const showBlock = store.status === 'approved' && !store.isblocked;
+  const showUnblock = store.isblocked;
+
+  const getDialogProps = () => {
+    switch (currentAction) {
+      case 'delete':
+        return {
+          title: t('deleteDialog.title'),
+          subTitle: t('deleteDialog.subTitle'),
+          description: t('deleteDialog.description'),
+          variant: 'delete' as const,
+          confirmLabel: t('deleteDialog.confirm'),
+        };
+      case 'approve':
+        return {
+          title: t('approveDialog.title'),
+          subTitle: t('approveDialog.subTitle'),
+          description: t('approveDialog.description'),
+          variant: 'primary' as const,
+          confirmLabel: t('approveDialog.confirm'),
+        };
+      case 'reject':
+        return {
+          title: t('rejectDialog.title'),
+          subTitle: t('rejectDialog.subTitle'),
+          description: t('rejectDialog.description'),
+          variant: 'delete' as const,
+          confirmLabel: t('rejectDialog.confirm'),
+        };
+      case 'block':
+        return {
+          title: t(
+            store.isblocked ? 'unblockDialog.title' : 'blockDialog.title',
+          ),
+          subTitle: t(
+            store.isblocked ? 'unblockDialog.subTitle' : 'blockDialog.subTitle',
+          ),
+          description: t(
+            store.isblocked
+              ? 'unblockDialog.description'
+              : 'blockDialog.description',
+          ),
+          variant: 'delete' as const,
+          confirmLabel: t(
+            store.isblocked ? 'unblockDialog.confirm' : 'blockDialog.confirm',
+          ),
+        };
+      default:
+        return null;
+    }
+  };
+
+  const dialogProps = getDialogProps();
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="border px-2 py-1.5 rounded-md shadow">
+          <MoreVertical size={20} />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="end"
+          sideOffset={8}
+          className="w-[200px] p-0 rounded-xl overflow-hidden shadow-lg"
+        >
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+            onClick={() => handleView()}
+          >
+            <Eye className="size-[18px]" />
+            <span className="text-sm">{t('viewStore')}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+            onClick={() => handleEdit()}
+          >
+            <PenIcon className="size-[18px]" />
+            <span className="text-sm">{t('editStoreLabel')}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none" onClick={handleMenuControl}>
+            <ListOrdered className="size-[18px]" />
+            <span className="text-sm">{tStoreSidebar('menuControl')}</span>
+          </DropdownMenuItem>
+
+          {onRestrictAvailability && (
+            <DropdownMenuItem disabled={availabilityBusy} onClick={onRestrictAvailability} className="flex items-center gap-2 p-3 border-b rounded-none">
+              <Ban className="size-[18px]" />
+              <span className="text-sm">{t('availabilityRestrict')}</span>
+            </DropdownMenuItem>
+          )}
+          {onActivateAccount && (
+            <DropdownMenuItem disabled={availabilityBusy} onClick={onActivateAccount} className="flex items-center gap-2 p-3 border-b rounded-none">
+              <CircleCheckBig className="size-[18px]" />
+              <span className="text-sm">{t('activateAccountDialog.confirm')}</span>
+            </DropdownMenuItem>
+          )}
+
+          {canManageWallet && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={() => handleWallet()}
+            >
+              <Wallet className="size-[18px]" />
+              <span className="text-sm">{tWallet('walletTransaction')}</span>
+            </DropdownMenuItem>
+          )}
+
+          {store.isLegacyMigrated === true && store.storeLoginEnabled === false && (
+            <DropdownMenuItem onClick={() => setLoginOpen(true)} className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none">
+              <KeyRound className="size-[18px]" />
+              <span className="text-sm">{tLogin('title')}</span>
+            </DropdownMenuItem>
+          )}
+          {store.storeLoginEnabled !== false && (
+            <DropdownMenuItem onClick={() => setPasswordOpen(true)} className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none">
+              <LockKeyhole className="size-[18px]" />
+              <span className="text-sm">{tPassword('action')}</span>
+            </DropdownMenuItem>
+          )}
+          {showApprove && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={() => setCurrentAction('approve')}
+            >
+              <CircleCheckBig className="size-[18px] text-help-green" />
+              <span className="text-sm text-help-green">
+                {t('approveStore')}
+              </span>
+            </DropdownMenuItem>
+          )}
+
+          {showReject && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={() => setCurrentAction('reject')}
+            >
+              <CircleX className="size-[18px] text-help-red" />
+              <span className="text-sm text-help-red">{t('rejectStore')}</span>
+            </DropdownMenuItem>
+          )}
+
+          {(showBlock || showUnblock) && (
+            <DropdownMenuItem
+              className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+              onClick={() => setCurrentAction('block')}
+            >
+              <Ban className="size-[18px] text-help-red" />
+              <span className="text-sm text-help-red">
+                {store.isblocked ? t('unblockStore') : t('blockStore')}
+              </span>
+            </DropdownMenuItem>
+          )}
+
+          <DropdownMenuItem
+            className="flex items-center gap-2 p-3 cursor-pointer rounded-none hover:bg-red-100!"
+            onClick={() => setCurrentAction('delete')}
+          >
+            <TrashIcon className="size-[18px] text-help-red" />
+            <span className="text-sm text-help-red">{t('deleteStore')}</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Standard Alert Dialogs for Delete, Approve, Block */}
+      {currentAction && currentAction !== 'reject' && dialogProps && (
+        <AppAlertDialog
+          className="w-[850px]!"
+          title={dialogProps.title}
+          subTitle={dialogProps.subTitle}
+          description={dialogProps.description}
+          open={!!currentAction}
+          onOpenChange={() => setCurrentAction(null)}
+          variant={dialogProps.variant}
+          confirmLabel={dialogProps.confirmLabel}
+          onConfirm={handleConfirmAction}
+          loading={isLoading}
+        />
+      )}
+
+      {/* Custom Reject Dialog with Reason Input */}
+      <EnableStoreLoginDialog storeId={store.id} storeName={store.storename} open={loginOpen} onClose={() => setLoginOpen(false)} />
+      <UpdateStorePasswordDialog storeId={store.id} storeName={store.storename} open={passwordOpen} onClose={() => setPasswordOpen(false)} />
+      <RejectStoreDialog
+        open={currentAction === 'reject'}
+        onOpenChange={(open) => !open && setCurrentAction(null)}
+        onConfirm={handleReject}
+        loading={isRejectPending}
+      />
+    </>
+  );
+}

@@ -1,0 +1,17 @@
+- generic [active]:
+  - generic [ref=e5]:
+    - generic [ref=e11]:
+      - img
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]: E
+        - generic [ref=e16]: "n"
+        - generic [ref=e17]: a
+        - generic [ref=e18]: t
+        - generic [ref=e19]: e
+        - generic [ref=e20]: g
+        - generic [ref=e21]: a
+      - generic [ref=e22]: Admin Panel
+    - paragraph [ref=e26]: Initializing your workspace...
+  - button "Open Next.js Dev Tools" [ref=e32] [cursor=pointer]:
+    - img [ref=e33]

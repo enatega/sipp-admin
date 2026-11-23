@@ -1,0 +1,199 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
+export interface StepItem {
+  number: number;
+  title: string;
+  description?: string;
+}
+
+export interface AppStepperProps {
+  steps: StepItem[];
+  currentStep: number;
+  className?: string;
+  stepNumberClassName?: string;
+  stepTitleClassName?: string;
+  stepDescriptionClassName?: string;
+  lineHeight?: string;
+  circleSize?: string;
+  onStepClick?: (step: number) => void;
+  canSelectStep?: (step: number) => boolean;
+}
+
+const AppStepper = ({
+  steps,
+  currentStep,
+  className = '',
+  stepNumberClassName,
+  stepTitleClassName,
+  stepDescriptionClassName,
+  lineHeight = 'h-20',
+  circleSize = 'w-14 h-14',
+  onStepClick,
+  canSelectStep,
+}: AppStepperProps) => {
+  const current = steps.find((step) => step.number === currentStep);
+  const formatNumber = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+
+  return (
+    <>
+    {/* Below lg the wizard stacks above its form, so a full vertical list
+        would push the form off the first screen. */}
+    <nav className={`lg:hidden ${className}`} aria-label={current?.title}>
+      <ol className="flex items-center gap-2 overflow-x-auto pb-1">
+        {steps.map((step, index) => {
+          const isReached = currentStep >= step.number;
+          const selectable =
+            onStepClick && (!canSelectStep || canSelectStep(step.number));
+          const circle = (
+            <span
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold ${
+                isReached
+                  ? 'border-primary bg-white text-primary'
+                  : 'border-gray-300 bg-white text-gray-500'
+              }`}
+            >
+              {formatNumber(step.number)}
+            </span>
+          );
+          return (
+            <li
+              key={step.number}
+              className="flex shrink-0 items-center gap-2"
+              aria-current={currentStep === step.number ? 'step' : undefined}
+            >
+              {selectable ? (
+                <button
+                  type="button"
+                  onClick={() => onStepClick(step.number)}
+                  aria-label={step.title}
+                  className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  {circle}
+                </button>
+              ) : (
+                <span aria-label={step.title}>{circle}</span>
+              )}
+              {index < steps.length - 1 ? (
+                <span
+                  aria-hidden
+                  className={`h-0.5 w-6 shrink-0 ${
+                    currentStep > step.number ? 'bg-primary' : 'bg-gray-300'
+                  }`}
+                />
+              ) : null}
+            </li>
+          );
+        })}
+      </ol>
+      {current ? (
+        <div className="mt-3">
+          <p className="text-base font-semibold text-gray-900">
+            {current.title}
+          </p>
+          {current.description ? (
+            <p className="text-sm text-gray-500">{current.description}</p>
+          ) : null}
+        </div>
+      ) : null}
+    </nav>
+    <div className={`relative hidden lg:block ${className}`}>
+      {steps.map((step, index) => (
+        <div
+          key={step.number}
+          className="relative"
+          aria-current={currentStep === step.number ? 'step' : undefined}
+        >
+          <div className="flex items-start gap-6">
+            {onStepClick && (!canSelectStep || canSelectStep(step.number)) ? (
+              <button
+                type="button"
+                onClick={() => onStepClick(step.number)}
+                aria-current={currentStep === step.number ? 'step' : undefined}
+                className="absolute inset-0 z-20 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label={step.title}
+              />
+            ) : null}
+            <div className="relative flex-shrink-0 z-10">
+              <motion.div
+                className={`${circleSize} rounded-full flex items-center justify-center text-xl font-semibold ${
+                  stepNumberClassName ||
+                  (currentStep >= step.number
+                    ? 'bg-white border-2 border-primary text-primary'
+                    : 'bg-white text-gray-400 border-2 border-gray-300')
+                }`}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{
+                  scale: currentStep === step.number ? 1.1 : 1,
+                  opacity: 1,
+                }}
+                transition={{
+                  duration: 0.3,
+                  type: 'spring',
+                  stiffness: 200,
+                }}
+              >
+                {step.number < 10 ? `0${step.number}` : step.number}
+              </motion.div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 pb-20">
+              <motion.h3
+                className={
+                  stepTitleClassName ||
+                  `text-lg font-semibold mb-1 ${
+                    currentStep >= step.number
+                      ? 'text-gray-900'
+                      : 'text-gray-400'
+                  }`
+                }
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {step.title}
+              </motion.h3>
+              {step.description && (
+                <motion.p
+                  className={
+                    stepDescriptionClassName || 'text-sm text-gray-500'
+                  }
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.1 + 0.1 }}
+                >
+                  {step.description}
+                </motion.p>
+              )}
+            </div>
+          </div>
+
+          {/* Connecting Line */}
+          {index < steps.length - 1 && (
+            <div
+              className={`absolute left-7 top-14 w-0.5 ${lineHeight} -translate-x-1/2`}
+            >
+              <div className="absolute inset-0 border-l-2 border-dashed border-gray-300"></div>
+              <motion.div
+                className="absolute inset-0 border-l-2 border-primary origin-top"
+                initial={{ scaleY: 0 }}
+                animate={{
+                  scaleY: currentStep > step.number ? 1 : 0,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: 'easeInOut',
+                }}
+              />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+    </>
+  );
+};
+
+export default AppStepper;

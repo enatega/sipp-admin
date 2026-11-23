@@ -1,0 +1,69 @@
+import { DeliveryStore } from '@/types';
+import { excelCurrencyFormat, toExcelNumber } from '@/lib/download';
+import { formatCurrency, resolveCurrencySymbol } from '@/lib/formatCurrency';
+import { formatDateTime } from '@/lib/formatDateTime';
+import { formatStatusLabel } from '@/components/shared/Status';
+
+export const getDownloadColumns = (t: (key: string) => string, currencySymbol: string) => [
+  { header: t('download.name'), dataKey: 'storename' },
+  {
+    header: t('download.totalSales'),
+    dataKey: 'totalSales',
+    formatter: (item: DeliveryStore) =>
+      formatCurrency(item.totalSales, currencySymbol),
+    excel: {
+      value: (item: DeliveryStore) => toExcelNumber(item.totalSales ?? 0),
+      numberFormat: excelCurrencyFormat(resolveCurrencySymbol(currencySymbol)),
+    },
+  },
+  { header: t('download.email'), dataKey: 'storeemail' },
+  { header: t('download.shopType'), dataKey: 'shoptypename' },
+  { header: t('download.vendor'), dataKey: 'vendorname' },
+  { header: t('download.address'), dataKey: 'address' },
+  { header: t('download.zone'), dataKey: 'zonename' },
+  {
+    header: t('download.creationDate'),
+    dataKey: 'createdat',
+    formatter: (item: DeliveryStore) =>
+      item.createdat
+        ? formatDateTime(item.createdat, t('download.notAvailable'))
+        : t('download.notAvailable'),
+  },
+  {
+    header: t('download.status'),
+    dataKey: 'status',
+    // Matches the list: a blocked store shows as Blocked whatever its status.
+    formatter: (item: DeliveryStore) =>
+      formatStatusLabel(item.isblocked ? 'blocked' : (item.status ?? '')),
+  },
+  {
+    header: t('download.available'),
+    dataKey: 'isavailable',
+    formatter: (item: DeliveryStore) =>
+      item.isavailable == null
+        ? 'N/A'
+        : item.isavailable
+          ? t('download.yes')
+          : t('download.no'),
+  },
+  {
+    header: t('download.blocked'),
+    dataKey: 'isblocked',
+    formatter: (item: DeliveryStore) =>
+      item.isblocked == null
+        ? 'N/A'
+        : item.isblocked
+          ? t('download.yes')
+          : t('download.no'),
+  },
+  {
+    header: t('download.rating'),
+    dataKey: 'averagerating',
+    formatter: (item: DeliveryStore) =>
+      item.averagerating == null || item.averagerating === ''
+        ? 'N/A'
+        : parseFloat(item.averagerating).toFixed(1),
+  },
+  { header: t('download.activeOrders'), dataKey: 'activeorders' },
+  { header: t('download.reviewCount'), dataKey: 'reviewcount' },
+];

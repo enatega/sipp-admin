@@ -1,0 +1,158 @@
+'use client';
+
+import { useMemo } from 'react';
+import { useParams } from 'next/navigation';
+import { getStep3Schema } from '@/schemas/enatega-deliveries/discount-offer/discount-offer-schema';
+import { Form, Formik } from 'formik';
+import { useTranslations } from 'next-intl';
+import { Step3Data } from '@/types/entities/super-admin/enatega-deliveries/discount-coupons';
+import { useGetStoreProducts } from '@/hooks/api/store/deliveries/coupons';
+import { useGetAllSimpleStores } from '@/hooks/api/super-admin/enatega-deliveries/stores';
+import { AppButton } from '@/components/shared/AppButton';
+import { AppInputField } from '@/components/shared/form/AppInput';
+import { MultiSelect } from '@/components/shared/form/AppMultiSelect';
+
+const SELECT_ALL_VALUE = '__all__';
+
+export function Step3({
+  initialData,
+  onSubmit,
+  onBack,
+  hideStoreFields = false,
+}: {
+  initialData: Step3Data;
+  onSubmit: (data: Step3Data) => void;
+  /** Gets the current values so going back doesn't drop what was entered. */
+  onBack: (data: Step3Data) => void;
+  hideStoreFields?: boolean;
+}) {
+  const t = useTranslations('lumiFood.discountsOffers.addCoupon.step3');
+  const tSchema = useTranslations('Schemas.discountOffer');
+  const { data: storesData, isLoading } = useGetAllSimpleStores({
+    refetchOnWindowFocus: false,
+    enabled: !hideStoreFields,
+  });
+
+  const { storeId } = useParams();
+
+  const { data: storeProductData, isLoading: storeProductLoading } =
+    useGetStoreProducts(storeId as string, {
+      enabled: hideStoreFields && !!storeId,
+    });
+
+  const productOptions = useMemo(() => {
+    if (hideStoreFields) {
+      return (
+        storeProductData?.data?.map((product) => ({
+          key: product.name,
+          value: product.id,
+        })) || []
+      );
+    }
+  }, [storeProductData?.data, hideStoreFields]);
+
+  const storeOptions = useMemo(() => {
+    return (
+      storesData?.map((store) => ({
+        key: store.storename, // required
+        value: store.id, // display text
+      })) || []
+    );
+  }, [storesData]);
+
+  const storeOptionsWithAll = useMemo(
+    () =>
+      storeOptions.length
+        ? [{ key: t('selectAll'), value: SELECT_ALL_VALUE }, ...storeOptions]
+        : storeOptions,
+    [storeOptions, t],
+  );
+
+  return (
+    <div className="lg:min-w-[600px] w-full bg-white p-8 rounded-lg shadow-md border">
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold text-gray-900">{t('title')}</h2>
+        <p className="text-sm text-gray-500 mt-1">{t('description')}</p>
+      </div>
+      {/* No enableReinitialize: initialData only seeds the step, and a reset
+          would discard what the user typed (e.g. usage per user). */}
+      <Formik
+        validationSchema={getStep3Schema(tSchema, hideStoreFields)}
+        initialValues={initialData}
+        onSubmit={onSubmit}
+      >
+        {({ isSubmitting, setFieldValue, values }) => (
+          <Form className="flex flex-col gap-4">
+            {hideStoreFields ? (
+              <MultiSelect
+                name="products"
+                label={t('productsLabel')}
+                options={productOptions ?? []}
+                selected={values.products ?? []}
+                onChange={(selectedKeys) => {
+                  setFieldValue('products', selectedKeys);
+                }}
+                placeholder={
+                  storeProductLoading
+                    ? t('productsLoading')
+                    : t('productsPlaceholder')
+                }
+                disabled={storeProductLoading}
+                className="shadow-sm mt-1"
+              />
+            ) : (
+              <MultiSelect
+                name="stores"
+                label={t('storesLabel')}
+                options={storeOptionsWithAll}
+                selected={values.stores ?? []}
+                onChange={(selectedKeys) => {
+                  const allValues = storeOptions.map((opt) => opt.value);
+
+                  if (selectedKeys.includes(SELECT_ALL_VALUE)) {
+                    const isAllSelected = allValues.every((val) =>
+                      selectedKeys.includes(val),
+                    );
+
+                    setFieldValue('stores', isAllSelected ? [] : allValues);
+                  } else {
+                    setFieldValue('stores', selectedKeys);
+                  }
+                }}
+                placeholder={
+                  isLoading ? t('storesLoading') : t('storesPlaceholder')
+                }
+                disabled={isLoading}
+                className="shadow-sm mt-1"
+              />
+            )}
+
+            <AppInputField
+              name="usagePerUser"
+              label={t('usagePerUserLabel')}
+              placeholder={t('usagePerUserPlaceholder')}
+              type="number"
+              min={1}
+              max={100}
+              requiredAsterisk
+              helperText={t('usagePerUserHelper')}
+            />
+
+            <div className="flex justify-end gap-3 mt-10">
+              <AppButton variant="secondary" onClick={() => onBack(values)}>
+                {t('backButton')}
+              </AppButton>
+              <AppButton
+                type="submit"
+                isLoading={isSubmitting}
+                disabled={isSubmitting}
+              >
+                {t('saveNextButton')}
+              </AppButton>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+}

@@ -1,0 +1,754 @@
+'use client';
+
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { usePathname, useRouter } from 'next/navigation';
+import { DEFAULT_CURRENCY } from '@/constants/currency.constants';
+import type { OrdersItem as Order } from '@/types';
+import { ApiErrorResponse } from '@/types';
+import {
+  Check,
+  Eye,
+  MapPin,
+  MoreVertical,
+  Trash,
+  UserPlus,
+  X,
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import toast from 'react-hot-toast';
+import { formatAdminDateTime } from '@/lib/adminDateTime';
+import { formatCurrency } from '@/lib/formatCurrency';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
+import { handleApiError } from '@/lib/toast-error';
+import { hasNamedPermission } from '@/lib/user';
+import {
+  useAcceptStoreOrder,
+  useRejectStoreOrder,
+  useUpdateStoreOrderStatus,
+} from '@/hooks/api/store/deliveries/orders';
+import {
+  useAcceptAdminOrder,
+  useDeleteOrder,
+  useGetOrderDetail,
+  useUpdateSuperAdminOrderStatus,
+} from '@/hooks/api/super-admin/enatega-deliveries/orders';
+import { useCurrency } from '@/hooks/use-currency';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { useSortableData } from '@/hooks/use-sortable-data';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { AppAlertDialog } from '@/components/shared/AppAlertDialog';
+import AppPagination from '@/components/shared/AppPagination';
+import CopyButton from '@/components/shared/CopyButton';
+import Status from '@/components/shared/Status';
+import TableHeaderCell from '@/components/shared/TableHeaderCell';
+import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
+import {
+  formatOrderStatusLabel,
+  formatOrderTypeLabel,
+  canAssignRider,
+  getNextOrderStatuses,
+  getStoreNextOrderStatuses,
+  isPickupOrder,
+  isStoreOrdersPath,
+  normalizeOrderValue,
+} from '../../utils';
+import { CancelOrderDialog } from '../../CancelOrderDialog';
+import { PreparingTimeDialog } from '@/components/store/deliveries/orders/PreparingTimeDialog';
+
+const AssignRiderModal = dynamic(
+  () =>
+    import('../../order-detail/right-column/AssignRiderModal').then(
+      (mod) => mod.AssignRiderModal,
+    ),
+  { ssr: false },
+);
+
+const MapTrackingModal = dynamic(
+  () => import('../../order-detail/MapTrackingModal'),
+  {
+    loading: () => (
+      <div className="h-[400px] w-full flex items-center justify-center bg-accent animate-pulse rounded-lg">
+        <span className="text-muted-foreground">Loading map...</span>
+      </div>
+    ),
+    ssr: false,
+  },
+);
+
+interface IOrdersTableProps {
+  data: Order[];
+  page?: number;
+  limit?: TLimitType;
+  total?: number;
+  isLoading?: boolean;
+  onOrderUpdated?: () => void;
+}
+
+function OrderStatusSelect({
+  orderId,
+  status,
+  orderType,
+  storeOrder,
+  formatStatus,
+  onOrderUpdated,
+}: {
+  orderId: string;
+  status: string;
+  orderType?: string;
+  storeOrder: boolean;
+  formatStatus: (status: string) => string;
+  onOrderUpdated?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const { mutateAsync: updateAdminStatus, isPending: isUpdatingAdmin } =
+    useUpdateSuperAdminOrderStatus();
+  const { mutateAsync: updateStoreStatus, isPending: isUpdatingStore } =
+    useUpdateStoreOrderStatus();
+  const isPending = isUpdatingAdmin || isUpdatingStore;
+  const nextStatuses = storeOrder
+    ? getStoreNextOrderStatuses(status, orderType)
+    : getNextOrderStatuses(status, orderType);
+  const options = [status, ...nextStatuses].filter(
+    (option, index, values) => option && values.indexOf(option) === index,
+  );
+
+  const handleStatusChange = async (nextStatus: string) => {
+    setOpen(false);
+    if (nextStatus === status || isPending) return;
+    if (nextStatus === 'cancelled') {
+      setShowCancelDialog(true);
+      return;
+    }
+
+    try {
+      const updateStatus = storeOrder ? updateStoreStatus : updateAdminStatus;
+      await updateStatus({ orderId, status: nextStatus });
+      toast.success('Order status updated successfully');
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    } finally {
+      onOrderUpdated?.();
+    }
+  };
+
+  return (
+    <div onClick={(event) => event.stopPropagation()}>
+      <Select
+        value={status || undefined}
+        open={open}
+        onOpenChange={setOpen}
+        disabled={isPending}
+        onValueChange={(nextStatus) => void handleStatusChange(nextStatus)}
+      >
+        <SelectTrigger className="w-[175px]">
+          <SelectValue placeholder={formatStatus(status)} />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((option) => (
+            <SelectItem key={option} value={option}>
+              {formatStatus(option)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      {showCancelDialog && (
+        <CancelOrderDialog
+          orderId={orderId}
+          storeOrder={storeOrder}
+          onClose={() => setShowCancelDialog(false)}
+          onSuccess={onOrderUpdated}
+        />
+      )}
+    </div>
+  );
+}
+
+export function OrdersTable({
+  data,
+  page = 1,
+  limit = 10,
+  total,
+  isLoading,
+  onOrderUpdated,
+}: IOrdersTableProps) {
+  const router = useRouter();
+  const t = useTranslations('orders');
+  const tTable = useTranslations('orders.table');
+  const tDeleteDialog = useTranslations('orders.deleteDialog');
+  const tStatuses = useTranslations('orders.statuses');
+  const tIssue = useTranslations('orders.deliveryIssue');
+  const tOrderTypes = useTranslations('orders.orderTypes');
+  const { currencySymbol } = useCurrency();
+  const currency = currencySymbol || DEFAULT_CURRENCY.symbol;
+  useQueryParams();
+
+  const { items, requestSort, sortConfig } = useSortableData(data || []);
+
+  const formatOrderType = (type?: string) => {
+    return formatOrderTypeLabel(type, tOrderTypes, t('notAvailable'));
+  };
+
+  const [deletingOrder, setDeletingOrder] = useState<string | null>(null);
+  const [assigningOrderId, setAssigningOrderId] = useState<string | null>(null);
+  const [trackingOrderId, setTrackingOrderId] = useState<string | null>(null);
+  const [rejectingOrderId, setRejectingOrderId] = useState<string | null>(null);
+  const [prepTimeOrderId, setPrepTimeOrderId] = useState<string | null>(null);
+  const [rejectionReason, setRejectionReason] = useState('');
+
+  const { mutateAsync: deleteOrder, isPending: isDeleting } = useDeleteOrder();
+  const { mutateAsync: acceptStoreOrder, isPending: isAccepting } =
+    useAcceptStoreOrder();
+  const { mutateAsync: rejectStoreOrder, isPending: isRejecting } =
+    useRejectStoreOrder();
+  const { mutateAsync: acceptAdminOrder, isPending: isAcceptingAdmin } =
+    useAcceptAdminOrder();
+  const { data: trackingOrderDetail, isFetching: isTrackingOrderLoading } =
+    useGetOrderDetail(trackingOrderId ?? undefined);
+
+  const totalPages = total
+    ? Math.ceil(total / Number(limit))
+    : Math.ceil((data?.length || 0) / Number(limit));
+
+  const handleDeleteOrder = async () => {
+    if (!deletingOrder) return;
+    if (isDeleting) return;
+    try {
+      await deleteOrder(deletingOrder);
+      toast.success(t('deleteSuccess'));
+      setDeletingOrder(null);
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const pathname = usePathname();
+  const storeOrdersPath = isStoreOrdersPath(pathname);
+  const canUpdateSuperAdminOrderStatus = hasNamedPermission(
+    'delivery_update_super_admin_order_status',
+  );
+  const canChangeRider = hasNamedPermission('delivery_assign_rider_to_order');
+
+  const handleAcceptOrder = async (orderId: string) => {
+    // A store chooses the preparation time before the order moves on, as in the store app.
+    if (storeOrdersPath) {
+      setPrepTimeOrderId(orderId);
+      return;
+    }
+    try {
+      await acceptAdminOrder(orderId);
+      toast.success('Order accepted successfully');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleAcceptStoreOrder = async (preparingTimeInMinutes: number) => {
+    if (!prepTimeOrderId) return;
+    try {
+      await acceptStoreOrder({ orderId: prepTimeOrderId, preparingTimeInMinutes });
+      setPrepTimeOrderId(null);
+      toast.success('Order accepted successfully');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleRejectOrder = async () => {
+    const reason = rejectionReason.trim();
+    // Only a store rejects an order. It always carries a reason and refunds the customer.
+    if (!rejectingOrderId || !storeOrdersPath || !reason) {
+      toast.error('Please enter a rejection reason');
+      return;
+    }
+    try {
+      await rejectStoreOrder({ orderId: rejectingOrderId, reason });
+      toast.success('Order rejected successfully');
+      setRejectingOrderId(null);
+      setRejectionReason('');
+      onOrderUpdated?.();
+    } catch (error) {
+      handleApiError(error as ApiErrorResponse);
+    }
+  };
+
+  const handleRowClick = (id: string) => {
+    if (isStoreOrdersPath(pathname)) {
+      const segments = pathname?.split('/').filter(Boolean) ?? [];
+      const storeId = segments[2];
+      router.push(`/store/deliveries/${storeId}/orders/${id}`);
+      return;
+    }
+    router.push(
+      buildScopedDeliveriesAdminPathFromCurrent(
+        pathname,
+        `/enatega-deliveries/orders/${id}`,
+      ),
+    );
+  };
+
+  return (
+    <div className="space-y-4 w-full">
+      <div className="rounded-t-md border overflow-hidden mb-0">
+        <Table className="min-w-[1100px]">
+          <TableHeader className="bg-accent rounded-t-md">
+            <TableRow className="text-center">
+              <TableHeaderCell
+                label={tTable('orderId')}
+                sortKey="orderId"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('customerName')}
+                sortKey="customer.name"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('vendor')}
+                sortKey="vendor"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('store')}
+                sortKey="store"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('rider') ?? 'Rider'}
+                sortKey="riderName"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('orderType')}
+                sortKey="orderType"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('amount')}
+                sortKey="amount"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('status')}
+                sortKey="status"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tTable('dateTime')}
+                sortKey="dateTime"
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHead>{tTable('actions')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableShimmer limit={limit as TLimitType} columns={10} />
+            ) : (
+              items.map((order) => {
+                // const riderInfo = getRiderInfo(order);
+                const pickupOrder = isPickupOrder(order.orderType);
+                const riderAssigned = Boolean(order.riderId || order.riderName);
+                const showAssignRiderButton =
+                  canChangeRider && canAssignRider(order.status, order.orderType);
+                const normalizedStatus = normalizeOrderValue(order.status);
+                const canAccept =
+                  normalizedStatus === 'pending' ||
+                  normalizedStatus === 'scheduled';
+                // Super admins cancel (with a reason and a refund); rejecting stays a store action.
+                const canReject =
+                  storeOrdersPath &&
+                  (normalizedStatus === 'pending' ||
+                    normalizedStatus === 'accepted');
+                // A paid or refunded order is the record of the customer's money: cancel it instead.
+                const canDelete =
+                  !storeOrdersPath &&
+                  !['paid', 'refunded'].includes(
+                    normalizeOrderValue(String(order.paymentStatus ?? '')),
+                  );
+
+                return (
+                  <TableRow
+                    key={order?.orderId}
+                    className="h-[70px] cursor-pointer"
+                    onClick={() => handleRowClick(order?.orderId)}
+                  >
+                    <TableCell className="pl-3">
+                      <div className="flex items-center gap-2 text-sm muted-foreground">
+                        <span
+                          className="truncate max-w-[220px]"
+                          title={order?.orderId}
+                        >
+                          {order?.orderId?.split('-')?.[0] ??
+                            String(order?.orderId ?? '').slice(0, 8)}
+                        </span>
+                        {!!order.deliveryIssueCount && <span className="rounded-md bg-destructive/10 px-2 py-1 text-xs text-destructive">{tIssue('title')}</span>}
+                        <span onClick={(e) => e.stopPropagation()}>
+                          <CopyButton text={order?.orderId ?? ''} />
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-10 w-10">
+                          <AvatarImage
+                            src={order?.customerProfile || undefined}
+                            alt={order?.customerName || ''}
+                          />
+                          <AvatarFallback>
+                            {order?.customerName?.charAt(0) ?? ''}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span className="text-sm">{order?.customerName}</span>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>{order?.vendorName}</TableCell>
+                    <TableCell>{order?.storeName}</TableCell>
+                    <TableCell>
+                      {pickupOrder ? (
+                        <span className="text-sm text-muted-foreground">
+                          Not required
+                        </span>
+                      ) : riderAssigned ? (
+                        <div className="flex items-center gap-2">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage
+                              src={order.riderProfile}
+                              alt={order.riderName || 'Rider'}
+                            />
+                            <AvatarFallback>
+                              {order.riderName?.charAt(0) ?? 'R'}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col">
+                            <span className="text-sm">{order.riderName}</span>
+                          </div>
+                          {showAssignRiderButton && (
+                            <button
+                              type="button"
+                              className="rounded-md border px-2 py-1 text-xs hover:bg-accent"
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setAssigningOrderId(order.orderId);
+                              }}
+                            >
+                              Reassign
+                            </button>
+                          )}
+                        </div>
+                      ) : showAssignRiderButton ? (
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/5 px-2.5 py-1.5 text-xs text-primary hover:bg-primary/10 hover:border-primary/50 font-medium transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setAssigningOrderId(order.orderId);
+                          }}
+                        >
+                          <UserPlus size={14} />
+                          {tTable('assignRider') ?? 'Assign Rider'}
+                        </button>
+                      ) : (
+                        <span className="text-sm text-muted-foreground">
+                          N/A
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell>{formatOrderType(order?.orderType)}</TableCell>
+                    <TableCell>
+                      {formatCurrency(order?.amount ?? 0, currency)}
+                    </TableCell>
+                    <TableCell>
+                      {normalizedStatus === 'pending' && order.storeAcceptanceRemindedAt ? (
+                        <span className="mb-1 block text-xs font-semibold text-amber-700">Store response overdue</span>
+                      ) : null}
+                      {(storeOrdersPath &&
+                        getStoreNextOrderStatuses(
+                          normalizedStatus,
+                          order.orderType,
+                        ).length > 0) ||
+                      (!storeOrdersPath && canUpdateSuperAdminOrderStatus) ? (
+                        <OrderStatusSelect
+                          orderId={order.orderId}
+                          status={normalizedStatus}
+                          orderType={order.orderType}
+                          storeOrder={Boolean(storeOrdersPath)}
+                          formatStatus={(status) =>
+                            formatOrderStatusLabel(
+                              status,
+                              tStatuses,
+                              status.replace(/_/g, ' ') || t('notAvailable'),
+                            )
+                          }
+                          onOrderUpdated={onOrderUpdated}
+                        />
+                      ) : (
+                        <Status
+                          status={(order?.status || '').toLowerCase()}
+                          label={formatOrderStatusLabel(
+                            order?.status,
+                            tStatuses,
+                            t('notAvailable'),
+                          )}
+                        />
+                      )}
+                    </TableCell>
+                    <TableCell>{formatAdminDateTime(order?.dateTime, t('notAvailable'), order.storeTimezone || 'UTC')}</TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <div className="relative">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger
+                              className="border px-2 py-1.5 rounded-md shadow"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <MoreVertical size={20} />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent
+                              align="end"
+                              sideOffset={8}
+                              className="w-[170px] p-0 rounded-xl overflow-hidden shadow-lg"
+                            >
+                              <DropdownMenuItem
+                                className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (isStoreOrdersPath(pathname)) {
+                                    const segments =
+                                      pathname?.split('/').filter(Boolean) ??
+                                      [];
+                                    const storeId = segments[2];
+                                    router.push(
+                                      `/store/deliveries/${storeId}/orders/${order?.orderId}`,
+                                    );
+                                    return;
+                                  }
+                                  router.push(
+                                    buildScopedDeliveriesAdminPathFromCurrent(
+                                      pathname,
+                                      `/enatega-deliveries/orders/${order?.orderId}`,
+                                    ),
+                                  );
+                                }}
+                              >
+                                <Eye className="size-[18px]" />
+                                <span className="text-sm">
+                                  {tTable('view')}
+                                </span>
+                              </DropdownMenuItem>
+
+                              {canAccept && (
+                                <DropdownMenuItem
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none text-green-700"
+                                  disabled={isAccepting || isAcceptingAdmin}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    void handleAcceptOrder(order.orderId);
+                                  }}
+                                >
+                                  <Check className="size-[18px]" />
+                                  <span className="text-sm">Accept Order</span>
+                                </DropdownMenuItem>
+                              )}
+
+                              {canReject && (
+                                <DropdownMenuItem
+                                  variant="destructive"
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setRejectingOrderId(order.orderId);
+                                  }}
+                                >
+                                  <X className="size-[18px] text-destructive" />
+                                  <span className="text-sm text-destructive">
+                                    Reject Order
+                                  </span>
+                                </DropdownMenuItem>
+                              )}
+
+                              {!pickupOrder && (
+                                <DropdownMenuItem
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setTrackingOrderId(order.orderId);
+                                  }}
+                                >
+                                  <MapPin className="size-[18px]" />
+                                  <span className="text-sm">
+                                    {trackingOrderId === order.orderId &&
+                                    isTrackingOrderLoading
+                                      ? `${tTable('liveTracking') ?? 'Live Tracking'}...`
+                                      : (tTable('liveTracking') ??
+                                        'Live Tracking')}
+                                  </span>
+                                </DropdownMenuItem>
+                              )}
+
+                              {canDelete && (
+                                <DropdownMenuItem
+                                  variant="destructive"
+                                  className="flex items-center gap-2 p-3 cursor-pointer border-b rounded-none"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeletingOrder(order?.orderId);
+                                  }}
+                                >
+                                  <Trash className="size-[18px] text-destructive" />
+                                  <span className="text-sm text-destructive">
+                                    {tTable('delete')}
+                                  </span>
+                                </DropdownMenuItem>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="p-3 bg-accent/30 border-t rounded-b-md">
+        {!isLoading && (
+          <AppPagination
+            page={page}
+            totalPages={totalPages}
+            totalData={total ?? (data?.length || 0)}
+            defaultLimit={limit as TLimitType}
+          />
+        )}
+      </div>
+
+      {deletingOrder && (
+        <AppAlertDialog
+          className="!w-full sm:!w-[850px] max-w-[95vw]"
+          title={tDeleteDialog('title')}
+          subTitle={tDeleteDialog('subTitle')}
+          description={tDeleteDialog('description')}
+          open={!!deletingOrder}
+          onOpenChange={(open) => !open && setDeletingOrder(null)}
+          variant="delete"
+          confirmLabel={tDeleteDialog('confirm')}
+          onConfirm={handleDeleteOrder}
+          loading={isDeleting}
+        />
+      )}
+
+      <PreparingTimeDialog
+        open={Boolean(prepTimeOrderId)}
+        loading={isAccepting}
+        onOpenChange={(open) => {
+          if (!open) setPrepTimeOrderId(null);
+        }}
+        onConfirm={(minutes) => void handleAcceptStoreOrder(minutes)}
+      />
+      {rejectingOrderId && (
+        <AppAlertDialog
+          title="Reject Order"
+          subTitle={
+            storeOrdersPath
+              ? 'Why are you rejecting this order?'
+              : 'Are you sure you want to reject this order?'
+          }
+          description={
+            storeOrdersPath
+              ? 'This reason will be visible in the order history.'
+              : 'This order will be marked as rejected.'
+          }
+          open
+          onOpenChange={(open) => {
+            if (!open) {
+              setRejectingOrderId(null);
+              setRejectionReason('');
+            }
+          }}
+          variant="delete"
+          confirmLabel="Reject Order"
+          onConfirm={handleRejectOrder}
+          loading={isRejecting}
+        >
+          {storeOrdersPath && (
+            <>
+              <textarea
+                value={rejectionReason}
+                onChange={(event) => setRejectionReason(event.target.value)}
+                onClick={(event) => event.stopPropagation()}
+                maxLength={200}
+                rows={4}
+                autoFocus
+                placeholder="Enter rejection reason"
+                className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+              <div className="mt-1 text-right text-xs text-muted-foreground">
+                {rejectionReason.length}/200
+              </div>
+            </>
+          )}
+        </AppAlertDialog>
+      )}
+
+      {assigningOrderId && (
+        <AssignRiderModal
+          isOpen
+          onClose={() => {
+            setAssigningOrderId(null);
+            onOrderUpdated?.();
+          }}
+          orderId={assigningOrderId}
+          currentRiderId={data.find((order) => order.orderId === assigningOrderId)?.riderId}
+        />
+      )}
+
+      {trackingOrderId && trackingOrderDetail && (
+        <MapTrackingModal
+          open
+          onClose={() => setTrackingOrderId(null)}
+          order={trackingOrderDetail}
+        />
+      )}
+    </div>
+  );
+}
+

@@ -1,0 +1,77 @@
+import type { Option } from '../../../entities/store/deliveries/options';
+
+export interface GetOptionsResponse {
+  data: Option[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+export type GetOptionResponse = Option;
+
+export interface GetOptionsQueryParams {
+  store_id: string;
+  page: number;
+  limit: number;
+  search?: string;
+}
+
+export interface OptionDropdownItem {
+  id: string;
+  title: string;
+  storeName?: string | null;
+  price?: string | number;
+  description?: string | null;
+  unitOfMeasure?: string | null;
+  stockQuantity?: number;
+  titleTranslations?: Record<string, string> | null;
+  descriptionTranslations?: Record<string, string> | null;
+}
+
+export interface GetOptionsDropdownParams {
+  store_id: string;
+  offset: number;
+  limit: number;
+  search?: string;
+}
+
+export interface GetOptionsDropdownResponse {
+  data: OptionDropdownItem[];
+  total: number;
+  offset: number;
+  limit: number;
+  hasMore: boolean;
+}
+
+export interface CreateOptionPayload {
+  store_id: string;
+  title: string;
+  titleTranslations?: Record<string, string>;
+  price: number;
+  description: string;
+  descriptionTranslations?: Record<string, string>;
+  unitOfMeasure: string;
+  stockQuantity: number;
+}
+
+export interface UpdateOptionPayload {
+  id: string;
+  title: string;
+  titleTranslations?: Record<string, string>;
+  price: number;
+  description: string;
+  descriptionTranslations?: Record<string, string>;
+  unitOfMeasure: string;
+  stockQuantity: number;
+}
+
+export type CreateOptionResponse = Option;
+
+export type UpdateOptionResponse = Option;
+
+export interface DeleteOptionResponse {
+  message: string;
+}

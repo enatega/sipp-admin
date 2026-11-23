@@ -1,0 +1,363 @@
+import Axios from '@/config/axios';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { ApiErrorResponse } from '@/types';
+import {
+    GetCustomerSupportQueryParams,
+    GetCustomerSupportResponse,
+    GetCustomerSupportTicketMessagesByIdResponse,
+    SupportChatSendMessagePayload,
+    SupportChatSendMessageResponse,
+    SupportModule,
+    UpdateTicketStatusPayload,
+    UpdateTicketStatusResponse
+    , GetSupportAdminsResponse
+} from '@/types/api/super-admin/general/customerSupport.api';
+import { Priority, Status, TicketType } from '@/types/entities/super-admin/general/customer-support';
+import { useMutation, UseMutationOptions, useQuery, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+import { handleApiError } from '@/lib/toast-error';
+
+export const useSupportAdmins = () => useQuery({
+    queryKey: ['support-admins'],
+    queryFn: async () => (await Axios.get<GetSupportAdminsResponse>('/deliveries/support-chat/admins')).data,
+    staleTime: 60000,
+});
+
+export const useAssignSupportTicket = () => {
+    const queryClient = useQueryClient();
+    return useMutation<
+        { message: string; ticketId: string; assignedAdminId: string | null },
+        ApiErrorResponse,
+        { chatBoxId: string; assignedAdminId: string | null; assignedAdminName?: string | null }
+    >({
+        mutationFn: async ({ chatBoxId, assignedAdminId }: { chatBoxId: string; assignedAdminId: string | null }) =>
+            (await Axios.patch<{ message: string; ticketId: string; assignedAdminId: string | null }>(`/deliveries/support-chat/tickets/${chatBoxId}/assignment`, { assignedAdminId })).data,
+        onSuccess: (response, variables) => {
+            const admins = queryClient.getQueryData<GetSupportAdminsResponse>(['support-admins'])?.admins ?? [];
+            queryClient.setQueryData<GetCustomerSupportTicketMessagesByIdResponse>(
+                ['get-support-chat-messages-by-id', 'deliveries', variables.chatBoxId],
+                (current) => current ? {
+                    ...current,
+                    assignedAdminId: response.assignedAdminId,
+                    assignedAdminName: variables.assignedAdminName ?? admins.find((admin) => admin.id === response.assignedAdminId)?.name ?? null,
+                } : current,
+            );
+            void queryClient.invalidateQueries({ queryKey: ['get-support-chat-messages-by-id'] });
+            void queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
+        },
+        onError: handleApiError,
+    });
+};
+
+export const useUpdateSupportTicketPriority = () => {
+    const queryClient = useQueryClient();
+    return useMutation<unknown, ApiErrorResponse, { chatBoxId: string; priority: Priority }>({
+        mutationFn: async ({ chatBoxId, priority }: { chatBoxId: string; priority: Priority }) =>
+            (await Axios.patch(`/deliveries/support-chat/tickets/${chatBoxId}/priority`, { priority })).data,
+        onSuccess: (_response, variables) => {
+            queryClient.setQueryData<GetCustomerSupportTicketMessagesByIdResponse>(
+                ['get-support-chat-messages-by-id', 'deliveries', variables.chatBoxId],
+                (current) => current ? {
+                    ...current,
+                    ticket: current.ticket ? { ...current.ticket, priority: variables.priority } : current.ticket,
+                } : current,
+            );
+            void queryClient.invalidateQueries({ queryKey: ['get-support-chat-messages-by-id'] });
+            void queryClient.invalidateQueries({ queryKey: ['get-delivery-support-chat'] });
+        },
+    });
+};
+
+
+
+interface SupportHookConfig {
+    endpoint: string;
+    queryKey: string;
+    fetchAll?: boolean;
+}
+
+export const useSupportChatBase = (
+    config: SupportHookConfig,
+    options?: Omit<
+        UseQueryOptions<
+            GetCustomerSupportResponse,
+            ApiErrorResponse,
+            GetCustomerSupportResponse,
+            readonly unknown[]
+        >,
+        'queryKey' | 'queryFn'
+    >
+) => {
+    const { getParam, getAllParams } = useQueryParams();
+
+    const page = Number(getParam('page')) || 1;
+    const limit = Number(getParam('limit')) || 10;
+    const offset = (page - 1) * limit;
+
+    const allParams = getAllParams();
+
+    const ticketTypeParam = allParams['ticketType'];
+
+    const ticketTypes = ticketTypeParam
+        ? ((Array.isArray(ticketTypeParam)
+            ? ticketTypeParam
+            : [ticketTypeParam]) as TicketType[])
+        : undefined;
+
+    const status = getParam('status') as Status | undefined;
+    const priority = getParam('priority') as Priority | undefined;
+    const search = getParam('search') || undefined;
+    const from = getParam('from') || undefined;
+    const to = getParam('to') || undefined;
+    const creatorType = getParam('creatorType') as GetCustomerSupportQueryParams['creatorType'];
+
+    const params: GetCustomerSupportQueryParams = {
+        offset,
+        limit,
+        ticketType: ticketTypes,
+        status,
+        priority,
+        search,
+        from,
+        to,
+        creatorType,
+    };
+
+    const queryKey = [config.queryKey, params] as const;
+
+    return useQuery<GetCustomerSupportResponse, ApiErrorResponse>({
+        queryKey,
+
+        queryFn: async ({ signal }) => {
+            const query = new URLSearchParams();
+
+            if (params.offset !== undefined) {
+                query.append('offset', String(config.fetchAll ? 0 : params.offset));
+            }
+
+            if (params.limit !== undefined) {
+                query.append('limit', String(config.fetchAll ? 100 : params.limit));
+            }
+
+            if (params.status) {
+                query.append('status', params.status);
+            }
+
+            if (params.priority) {
+                query.append('priority', params.priority);
+            }
+
+            if (params.search) {
+                query.append('search', params.search);
+            }
+
+            if (params.from) {
+                query.append('from', params.from);
+            }
+
+            if (params.to) {
+                query.append('to', params.to);
+            }
+
+            if (params.creatorType) query.append('creatorType', params.creatorType);
+
+            if (params.ticketType?.length) {
+                params.ticketType.forEach((type) => {
+                    query.append('ticketType', type);
+                });
+            }
+
+            const apiUrl = `${config.endpoint}?${query.toString()}`;
+
+            const res = await Axios.get<GetCustomerSupportResponse>(apiUrl, { signal });
+            if (!config.fetchAll || res.data.total <= res.data.limit) return res.data;
+
+            const tickets = [...res.data.data];
+            const offsets: number[] = [];
+            for (let nextOffset = res.data.limit; nextOffset < res.data.total; nextOffset += res.data.limit) {
+                offsets.push(nextOffset);
+            }
+            for (let index = 0; index < offsets.length; index += 4) {
+                const pages = await Promise.all(offsets.slice(index, index + 4).map((nextOffset) => {
+                    const pageQuery = new URLSearchParams(query);
+                    pageQuery.set('offset', String(nextOffset));
+                    return Axios.get<GetCustomerSupportResponse>(
+                        `${config.endpoint}?${pageQuery.toString()}`,
+                        { signal },
+                    );
+                }));
+                tickets.push(...pages.flatMap((page) => page.data.data));
+            }
+
+            return { ...res.data, offset: 0, limit: res.data.total, count: tickets.length, data: tickets };
+        },
+
+        retry: false,
+        ...options,
+    });
+};
+
+const supportMessagesEndpointMap: Record<SupportModule, string> = {
+    deliveries: '/deliveries/support-chat/messages',
+};
+
+export const useGetSupportChatMessagesById = (
+    module: SupportModule,
+    id: string,
+    options?: Omit<
+        UseQueryOptions<
+            GetCustomerSupportTicketMessagesByIdResponse,
+            ApiErrorResponse,
+            GetCustomerSupportTicketMessagesByIdResponse,
+            readonly [string, SupportModule, string]
+        >,
+        'queryKey' | 'queryFn'
+    >
+) => {
+    return useQuery<
+        GetCustomerSupportTicketMessagesByIdResponse,
+        ApiErrorResponse,
+        GetCustomerSupportTicketMessagesByIdResponse,
+        readonly [string, SupportModule, string]
+    >({
+        queryKey: [
+            'get-support-chat-messages-by-id',
+            module,
+            id,
+        ] as const,
+
+        queryFn: async () => {
+            const endpoint =
+                supportMessagesEndpointMap[module];
+
+            const res =
+                await Axios.get<GetCustomerSupportTicketMessagesByIdResponse>(
+                    `${endpoint}/${id}`
+                );
+
+            return res.data;
+        },
+
+        enabled: !!module && !!id,
+
+        retry: false,
+
+        ...options,
+    });
+};
+
+const updateStatusEndpointMap: Record<SupportModule, string> = {
+    deliveries: '/deliveries/support-chat/update-status',
+};
+
+export const useUpdateSupportTicketStatus = (
+    module: SupportModule,
+    options?: UseMutationOptions<
+        UpdateTicketStatusResponse,
+        ApiErrorResponse,
+        UpdateTicketStatusPayload
+    >
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation<
+        UpdateTicketStatusResponse,
+        ApiErrorResponse,
+        UpdateTicketStatusPayload
+    >({
+        mutationFn: async (data) => {
+            const endpoint = updateStatusEndpointMap[module];
+
+            const res = await Axios.patch<UpdateTicketStatusResponse>(
+                endpoint,
+                data
+            );
+
+            return res.data;
+        },
+
+        onSuccess: (...args) => {
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'get-support-chat-messages-by-id',
+                    module,
+                ],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ['get-delivery-support-chat'],
+            });
+
+            options?.onSuccess?.(...args);
+        },
+
+        ...options,
+    });
+};
+
+
+// Same upload the customer web and app use; it returns a public URL to pass
+// in a message's attachmentUrls.
+export const SUPPORT_ATTACHMENT_TYPES = ['image/png', 'image/jpeg', 'image/heic', 'image/heif', 'image/webp', 'application/pdf'];
+export const supportAttachmentMaxBytes = (type: string) =>
+    (type === 'image/webp' || type === 'application/pdf' ? 5 : 10) * 1024 * 1024;
+
+export const uploadSupportAttachment = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await Axios.post<{ url: string }>(
+        '/deliveries/support-tickets/attachments',
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } },
+    );
+    if (!res.data?.url) throw new Error('Upload failed');
+    return res.data.url;
+};
+
+const sendMessageEndpointMap: Record<SupportModule, string> = {
+    deliveries: '/deliveries/support-chat/send-to-chat-box',
+};
+
+export const useSendSupportChatMessage = (
+    module: SupportModule,
+    options?: UseMutationOptions<
+        SupportChatSendMessageResponse,
+        ApiErrorResponse,
+        SupportChatSendMessagePayload
+    >
+) => {
+    const queryClient = useQueryClient();
+
+    return useMutation<
+        SupportChatSendMessageResponse,
+        ApiErrorResponse,
+        SupportChatSendMessagePayload
+    >({
+        mutationFn: async (data) => {
+            const endpoint = sendMessageEndpointMap[module];
+
+            const res = await Axios.post<
+                SupportChatSendMessageResponse
+            >(endpoint, data);
+
+            return res.data;
+        },
+
+        onSuccess: (...args) => {
+
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'get-support-chat-messages-by-id',
+                    module,
+                ],
+            });
+
+            queryClient.invalidateQueries({
+                queryKey: ['get-delivery-support-chat'],
+            });
+
+            options?.onSuccess?.(...args);
+        },
+
+        ...options,
+    });
+};

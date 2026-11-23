@@ -1,0 +1,323 @@
+'use client';
+
+import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { ApiErrorResponse } from '@/types';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { DeliveryRider } from '@/types/entities/super-admin/enatega-deliveries/rider';
+import { fetchAllReport } from '@/lib/fetch-all-report';
+import { formatCurrency } from '@/lib/formatCurrency';
+import { returnErrorMessage } from '@/lib/toast-error';
+import { buildScopedDeliveriesAdminPathFromCurrent } from '@/lib/routes';
+import { useGetDeliveryRiders } from '@/hooks/api/super-admin/enatega-deliveries/riders';
+import { useCapitalize } from '@/hooks/use-capitalize';
+import { useCurrency } from '@/hooks/use-currency';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { useSortableData } from '@/hooks/use-sortable-data';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import AppPagination from '@/components/shared/AppPagination';
+import DisplayError from '@/components/shared/DisplayError';
+import { DownloadButtons } from '@/components/shared/DownloadButtons';
+import NoDataFound from '@/components/shared/NoDataFound';
+import Status from '@/components/shared/Status';
+import TableHeaderCell from '@/components/shared/TableHeaderCell';
+import { TableShimmer, TLimitType } from '@/components/shared/TableShimmer';
+import Filters from '../filters';
+import RiderDetailDialog from '../rider-detail-dialog';
+import { RiderActionsDropdown } from './RiderActionsDropdown';
+
+export function RiderTable() {
+  const t = useTranslations('driverManagement.driversTable');
+  const tHeaders = useTranslations(
+    'driverManagement.driversTable.tableHeaders',
+  );
+  const { getParam } = useQueryParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const limit = Number(getParam('limit')) || 10;
+  const { capitalizeFirstLetter } = useCapitalize();
+
+  const [selectedRider, setSelectedRider] = useState<DeliveryRider | null>(
+    null,
+  );
+
+  // ===== API HOOK USAGE =====
+  const { data, isLoading, isFetching, isError, error } = useGetDeliveryRiders({
+    refetchOnWindowFocus: false,
+  });
+  const showTableLoading = isLoading || isFetching;
+  const { currencySymbol } = useCurrency();
+
+  const riders = (data?.riders || []) as unknown as DeliveryRider[];
+  const { items, requestSort, sortConfig } =
+    useSortableData<DeliveryRider>(riders);
+
+  const handleViewRider = (rider: DeliveryRider) => {
+    if (rider.status === 'approved') {
+      router.push(
+        buildScopedDeliveriesAdminPathFromCurrent(
+          pathname,
+          `/enatega-deliveries/riders/${rider.id}`,
+        ),
+      );
+      return;
+    }
+
+    setSelectedRider(rider);
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap gap-4 items-center justify-between">
+        <Filters />
+        <div className="">
+          <DownloadButtons<DeliveryRider>
+            columns={[
+              {
+                dataKey: 'userProfile.user.name',
+                header: tHeaders('name'),
+              },
+              {
+                dataKey: 'userProfile.user.phone',
+                header: tHeaders('phoneNumber'),
+              },
+              {
+                dataKey: 'userProfile.user.email',
+                header: tHeaders('email'),
+              },
+              {
+                dataKey: 'zone.title',
+                header: tHeaders('zoneType'),
+              },
+              {
+                dataKey: 'vehicle.vehicleType.name',
+                header: tHeaders('vehicleType'),
+              },
+              {
+                dataKey: 'totalDeliveries',
+                header: tHeaders('totalDeliveries'),
+              },
+              {
+                dataKey: 'totalEarnings',
+                header: tHeaders('totalEarnings'),
+                formatter: (rider: DeliveryRider) =>
+                  formatCurrency(rider.totalEarnings ?? 0, currencySymbol),
+              },
+              {
+                dataKey: 'created_at',
+                header: tHeaders('registrationDate'),
+              },
+              {
+                dataKey: 'status',
+                header: tHeaders('kycStatus'),
+              },
+              {
+                dataKey: 'userProfile.user.block_status',
+                header: tHeaders('blockStatus'),
+              },
+            ]}
+            data={riders}
+            fileName="riders"
+            fetchAll={() =>
+              fetchAllReport<DeliveryRider>('/apps/deliveries/admin/riders', {
+                params: {
+                  tab: undefined,
+                  status:
+                    getParam('tab') === 'all'
+                      ? undefined
+                      : getParam('tab') || undefined,
+                  kyc_status: getParam('status') || undefined,
+                  vehicleType: undefined,
+                  vehicle_type: getParam('vehicleType') || undefined,
+                  zoneId: undefined,
+                  zoneIds: getParam('zoneId') || undefined,
+                },
+                offsetPagination: true,
+                select: (response) => {
+                  const result = response as {
+                    riders: DeliveryRider[];
+                    total: number;
+                  };
+                  return { data: result.riders, total: result.total };
+                },
+              })
+            }
+          />
+        </div>
+      </div>
+      <div className="rounded-md border overflow-auto mb-4">
+        <Table className="min-w-[900px]">
+          <TableHeader className="bg-accent rounded-t-md">
+            <TableRow>
+              <TableHeaderCell
+                label={tHeaders('name')}
+                sortKey={'userProfile.user.name'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('email')}
+                sortKey={'userProfile.user.email'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('phoneNumber')}
+                sortKey={'userProfile.user.phone'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('registrationDate')}
+                sortKey={'created_at'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+
+              <TableHeaderCell
+                label={tHeaders('vehicleType')}
+                sortKey={'vehicle.vehicleType.name'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('zoneType')}
+                sortKey={'zone.title'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('totalDeliveries')}
+                sortKey={'totalDeliveries'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHeaderCell
+                label={tHeaders('totalEarnings')}
+                sortKey={'totalEarnings'}
+                requestSort={requestSort}
+                sortConfig={sortConfig}
+              />
+              <TableHead>{tHeaders('kycStatus')}</TableHead>
+              <TableHead>{tHeaders('blockStatus')}</TableHead>
+              <TableHead>{tHeaders('actions')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {showTableLoading ? (
+              <TableShimmer limit={limit as TLimitType} columns={11} />
+            ) : isError ? (
+              <TableRow>
+                <TableCell colSpan={11} className="p-4">
+                  <DisplayError
+                    title={t('failedToFetchRiders')}
+                    message={
+                      returnErrorMessage(error as ApiErrorResponse) ||
+                      t('tryAgainLater')
+                    }
+                  />
+                </TableCell>
+              </TableRow>
+            ) : items.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={11} className="text-center p-4">
+                  <NoDataFound title={t('noRiderFound')} />
+                </TableCell>
+              </TableRow>
+            ) : (
+              items.map((rider) => (
+                <TableRow
+                  className="!h-[55px] cursor-pointer"
+                  key={rider.id}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleViewRider(rider);
+                  }}
+                >
+                  <TableCell>
+                    {capitalizeFirstLetter(rider.userProfile?.user?.name ?? '')}
+                  </TableCell>
+                  <TableCell>
+                    {rider.userProfile?.user?.email ?? t('notAvailable')}
+                  </TableCell>
+                  <TableCell>
+                    {rider.userProfile?.user?.phone ?? t('notAvailable')}
+                  </TableCell>
+                  <TableCell>
+                    {rider.created_at
+                      ? moment(rider.created_at).format('DD MMM YYYY, hh:mm A')
+                      : t('notAvailable')}
+                  </TableCell>
+                  <TableCell>
+                    {capitalizeFirstLetter(
+                      rider.vehicle?.vehicleType?.name ?? t('notAvailable'),
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {capitalizeFirstLetter(rider.zone?.title ?? '')}
+                  </TableCell>
+                  <TableCell>
+                    {rider.totalDeliveries ?? t('notAvailable')}
+                  </TableCell>
+                  <TableCell>
+                    {rider.totalEarnings !== null &&
+                    rider.totalEarnings !== undefined
+                      ? formatCurrency(rider.totalEarnings, currencySymbol)
+                      : t('notAvailable')}
+                  </TableCell>
+                  <TableCell>
+                    <Status status={rider.status.toLowerCase()} />
+                  </TableCell>
+                  <TableCell>
+                    <Status
+                      status={
+                        rider.userProfile?.user?.block_status === true
+                          ? 'blocked'
+                          : 'active'
+                      }
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <RiderActionsDropdown
+                      rider={rider}
+                      onViewProfile={handleViewRider}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+        <div className="p-3 bg-accent/30 border-t rounded-b-md">
+          {!showTableLoading && !isError && (
+            <AppPagination
+              page={data?.currentPage || 1}
+              totalPages={data?.totalPages || 1}
+              totalData={data?.total || 0}
+              defaultLimit={limit as TLimitType}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Rider Detail Dialog */}
+      {selectedRider && (
+        <RiderDetailDialog
+          open={!!selectedRider}
+          riderId={selectedRider.id}
+          onOpenChange={(open) => {
+            if (!open) setSelectedRider(null);
+          }}
+        />
+      )}
+    </div>
+  );
+}

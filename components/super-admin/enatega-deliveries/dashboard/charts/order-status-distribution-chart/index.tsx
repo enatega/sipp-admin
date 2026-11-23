@@ -8,18 +8,18 @@ interface OrderStatusDistributionChartProps {
 }
 
 const PIE_COLORS: Record<string, string> = {
-  'Order Placed': '#2563EB',
-  Accepted: '#0891B2',
-  Preparing: '#9333EA',
+  'Order Placed': '#F7E300',
+  Accepted: '#111111',
+  Preparing: '#DFCC00',
   Ready: '#CA8A04',
   'Rider Assigned': '#0D9488',
-  'Picked by Rider': '#DB2777',
+  'Picked by Rider': '#78716C',
   'Out for Delivery': '#EA580C',
-  Arrived: '#4F46E5',
+  Arrived: '#5C5C66',
   Delivered: '#16A34A',
   Cancelled: '#DC2626',
   Rejected: '#7C2D12',
-  Failed: '#475569',
+  Failed: '#A8A29E',
 };
 
 export default function OrderStatusDistributionChart({

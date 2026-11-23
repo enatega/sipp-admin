@@ -254,10 +254,10 @@ export function StoreOrderAlerts({ storeId }: { storeId: string }) {
     <div
       role="alert"
       aria-live="assertive"
-      className="fixed bottom-5 right-5 z-[60] w-[min(400px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-primary/30 bg-white shadow-xl"
+      className="fixed bottom-5 right-5 z-[60] w-[min(400px,calc(100vw-32px))] overflow-hidden rounded-2xl border border-ink/30 bg-white shadow-xl"
     >
       <div className="flex items-start gap-3 p-4">
-        <span className={`grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary ${ringing ? 'animate-pulse' : ''}`}>
+        <span className={`grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-ink ${ringing ? 'animate-pulse' : ''}`}>
           <BellRing className="size-5" aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
@@ -275,7 +275,7 @@ export function StoreOrderAlerts({ storeId }: { storeId: string }) {
           <div className="mt-3 flex flex-wrap gap-2">
             <Link
               href={href}
-              className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-primary"
+              className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-ink"
             >
               {total === 1 ? t('viewOrder') : t('viewOrders')}
             </Link>
@@ -283,7 +283,7 @@ export function StoreOrderAlerts({ storeId }: { storeId: string }) {
               <button
                 type="button"
                 onClick={mute}
-                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-primary"
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-ink"
               >
                 <VolumeX className="size-4" aria-hidden="true" />
                 {t('mute')}

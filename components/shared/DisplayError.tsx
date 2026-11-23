@@ -35,8 +35,8 @@ const variantStyles: Record<
     icon: AlertTriangle,
   },
   info: {
-    wrap: 'bg-blue-50 border border-blue-200 text-blue-900 dark:bg-blue-950/40 dark:border-blue-900 dark:text-blue-200',
-    badge: 'bg-blue-100 text-blue-900 dark:bg-blue-900/40 dark:text-blue-200',
+    wrap: 'bg-primary-soft border border-primary-pressed/40 text-ink dark:bg-[#1C1C1E] dark:border-[#3A3A3C] dark:text-ink',
+    badge: 'bg-primary-soft text-ink dark:bg-[#1C1C1E] dark:text-ink',
     icon: Info,
   },
 };

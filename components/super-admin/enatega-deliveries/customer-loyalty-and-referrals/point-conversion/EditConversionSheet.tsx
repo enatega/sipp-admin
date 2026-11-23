@@ -52,7 +52,7 @@ const ConversionPreview = () => {
         {values.pointsEqualsOne || '0'} {t('points')}
       </span>
       <ArrowRight className="size-4 text-muted-foreground" />
-      <span className="font-semibold text-primary">{currencySymbol} 1.00</span>
+      <span className="font-semibold text-ink">{currencySymbol} 1.00</span>
     </div>
   );
 };

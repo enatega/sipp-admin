@@ -12,9 +12,9 @@ import type { AdminInboxItem } from '@/lib/admin-operational-notifications';
 function Item({ item, onOpen }: { item: AdminInboxItem; onOpen: (item: AdminInboxItem) => void }) {
   return (
     <button type="button" onClick={() => onOpen(item)}
-      className="w-full rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-sky-300 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-sky-500">
+      className="w-full rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-primary-pressed/40 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-ink">
       <div className="flex items-start gap-3">
-        <span className={`mt-1.5 size-2 shrink-0 rounded-full ${item.isRead ? 'bg-slate-200' : 'bg-sky-500'}`} />
+        <span className={`mt-1.5 size-2 shrink-0 rounded-full ${item.isRead ? 'bg-slate-200' : 'bg-primary'}`} />
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
             <strong className="text-sm font-semibold text-slate-900">{item.title}</strong>
@@ -146,10 +146,10 @@ export function AdminNotificationCenter({ compact = false }: { compact?: boolean
       }} aria-label={`Admin notifications, ${countQuery.data ?? 0} unread`}
         aria-expanded={open} className="relative flex size-10 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition hover:bg-slate-50">
         <Bell className="size-5" />
-        {(countQuery.data ?? 0) > 0 && <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-sky-500 px-1 text-[11px] font-bold text-white">{Math.min(countQuery.data ?? 0, 99)}{(countQuery.data ?? 0) > 99 ? '+' : ''}</span>}
+        {(countQuery.data ?? 0) > 0 && <span className="absolute -right-1 -top-1 flex min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">{Math.min(countQuery.data ?? 0, 99)}{(countQuery.data ?? 0) > 99 ? '+' : ''}</span>}
       </button>
       {open && <div className="absolute right-0 z-50 mt-3 w-[min(400px,calc(100vw-32px))] max-sm:fixed max-sm:inset-x-4 max-sm:w-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-xl">
-        <div className="mb-3 flex items-center justify-between"><strong className="text-base text-slate-900">Notifications</strong><button type="button" onClick={() => { router.push('/general/operational-notifications'); setOpen(false); }} className="text-sm font-medium text-sky-600 hover:underline">View all</button></div>
+        <div className="mb-3 flex items-center justify-between"><strong className="text-base text-slate-900">Notifications</strong><button type="button" onClick={() => { router.push('/general/operational-notifications'); setOpen(false); }} className="text-sm font-medium text-ink hover:underline">View all</button></div>
         <div className="max-h-96 space-y-2 overflow-y-auto">
           {listQuery.isError ? <p className="py-6 text-center text-sm text-red-600">Couldn’t load notifications.</p> :
             listQuery.isLoading ? <p className="py-6 text-center text-sm text-slate-500">Loading notifications…</p> :
@@ -164,12 +164,12 @@ export function AdminNotificationCenter({ compact = false }: { compact?: boolean
   return (
     <div className="mx-auto max-w-4xl space-y-6 pb-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div><p className="text-sm font-medium text-sky-600">Operations</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Your notifications</h1><p className="mt-1 text-sm text-slate-600">Requests and order issues that need attention.</p></div>
+        <div><p className="text-sm font-medium text-ink">Operations</p><h1 className="mt-1 text-3xl font-semibold tracking-tight text-slate-950">Your notifications</h1><p className="mt-1 text-sm text-slate-600">Requests and order issues that need attention.</p></div>
         <button type="button" onClick={() => void markAll()} disabled={!countQuery.data} className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"><CheckCheck className="size-4" /> Mark all read</button>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-3">
-        <div className="flex gap-2"><button type="button" onClick={() => { setUnreadOnly(false); setPage(1); }} className={`rounded-lg px-3 py-2 text-sm ${!unreadOnly ? 'bg-sky-50 font-semibold text-sky-700' : 'text-slate-600'}`}>All</button><button type="button" onClick={() => { setUnreadOnly(true); setPage(1); }} className={`rounded-lg px-3 py-2 text-sm ${unreadOnly ? 'bg-sky-50 font-semibold text-sky-700' : 'text-slate-600'}`}>Unread ({countQuery.data ?? 0})</button></div>
-        {pushStatus !== 'unsupported' && <button type="button" disabled={pushBusy} onClick={() => void togglePush()} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-sky-700 hover:bg-sky-50 disabled:opacity-50"><Settings2 className="size-4" /> {pushStatus === 'enabled' ? 'Disable browser notifications' : 'Enable browser notifications'}</button>}
+        <div className="flex gap-2"><button type="button" onClick={() => { setUnreadOnly(false); setPage(1); }} className={`rounded-lg px-3 py-2 text-sm ${!unreadOnly ? 'bg-primary-soft font-semibold text-ink' : 'text-slate-600'}`}>All</button><button type="button" onClick={() => { setUnreadOnly(true); setPage(1); }} className={`rounded-lg px-3 py-2 text-sm ${unreadOnly ? 'bg-primary-soft font-semibold text-ink' : 'text-slate-600'}`}>Unread ({countQuery.data ?? 0})</button></div>
+        {pushStatus !== 'unsupported' && <button type="button" disabled={pushBusy} onClick={() => void togglePush()} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-ink hover:bg-primary-soft disabled:opacity-50"><Settings2 className="size-4" /> {pushStatus === 'enabled' ? 'Disable browser notifications' : 'Enable browser notifications'}</button>}
       </div>
       {pushError && <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{pushError}</p>}
       {actionError && <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{actionError}</p>}
@@ -177,9 +177,9 @@ export function AdminNotificationCenter({ compact = false }: { compact?: boolean
       <div className="space-y-2">
         {listQuery.isLoading ? <p className="py-12 text-center text-slate-500">Loading notifications…</p> :
           listQuery.data?.data.length ? listQuery.data.data.map((item) => <Item key={item.id} item={item} onOpen={openItem} />) :
-          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center"><Inbox className="mx-auto size-9 text-sky-400" /><h2 className="mt-4 font-semibold text-slate-900">Nothing needs your attention</h2><p className="mt-1 text-sm text-slate-500">New requests and order issues will appear here.</p></div>}
+          <div className="rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center"><Inbox className="mx-auto size-9 text-ink/70" /><h2 className="mt-4 font-semibold text-slate-900">Nothing needs your attention</h2><p className="mt-1 text-sm text-slate-500">New requests and order issues will appear here.</p></div>}
       </div>
-      {totalPages > 1 && <div className="flex items-center justify-center gap-4"><button type="button" disabled={page === 1} onClick={() => setPage(page - 1)} className="text-sm text-sky-700 disabled:text-slate-400">Previous</button><span className="text-sm text-slate-600">{page} of {totalPages}</span><button type="button" disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="text-sm text-sky-700 disabled:text-slate-400">Next</button></div>}
+      {totalPages > 1 && <div className="flex items-center justify-center gap-4"><button type="button" disabled={page === 1} onClick={() => setPage(page - 1)} className="text-sm text-ink disabled:text-slate-400">Previous</button><span className="text-sm text-slate-600">{page} of {totalPages}</span><button type="button" disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="text-sm text-ink disabled:text-slate-400">Next</button></div>}
     </div>
   );
 }

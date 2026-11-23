@@ -253,7 +253,7 @@ export default function ProductAsyncSelect({
               error
                 ? 'border-destructive'
                 : open && !disabled
-                  ? 'border-primary'
+                  ? 'border-ink'
                   : 'border-stroke',
               (disabled || !storeId) && 'cursor-not-allowed opacity-70 bg-light',
               inputContainerClassName,
@@ -297,7 +297,7 @@ export default function ProductAsyncSelect({
                     value={search}
                     onValueChange={setSearch}
                     placeholder={PRODUCT_SEARCH_PLACEHOLDER}
-                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
+                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-ink"
                     aria-invalid={!!error}
                     aria-describedby={helperId}
                     disabled={disabled}
@@ -307,7 +307,7 @@ export default function ProductAsyncSelect({
                   type="button"
                   onClick={handleRefresh}
                   disabled={disabled || isFetching}
-                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-primary disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-ink disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <RefreshCw className={cn('size-4', isFetching && 'animate-spin')} />
                 </button>
@@ -331,7 +331,7 @@ export default function ProductAsyncSelect({
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-primary"
+                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-ink"
                   >
                     <RefreshCw className="size-4" />
                     Refresh
@@ -367,7 +367,7 @@ export default function ProductAsyncSelect({
                           )}
                         </div>
                         {selectedProductId === product.id && (
-                          <Check className="size-4 text-primary" />
+                          <Check className="size-4 text-ink" />
                         )}
                       </div>
                     </CommandItem>

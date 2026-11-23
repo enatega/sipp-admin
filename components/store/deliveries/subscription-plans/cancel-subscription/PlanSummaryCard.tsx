@@ -9,7 +9,7 @@ export function PlanSummaryCard() {
   return (
     <div className="h-fit rounded-lg border bg-white p-4">
       <div className="mb-3 flex items-start gap-3 border-b pb-3">
-        <div className="rounded-xl bg-primary/10 p-2 text-primary">
+        <div className="rounded-xl bg-primary/10 p-2 text-ink">
           <Sparkles className="size-4" />
         </div>
         <div>
@@ -24,7 +24,7 @@ export function PlanSummaryCard() {
       <div className="space-y-2 border-b pb-3">
         <div className="flex justify-between"><span className="text-mute">Billing cycle</span><span>Monthly</span></div>
         <div className="flex justify-between"><span className="text-mute">Current price</span><span>{currencySymbol}99/month</span></div>
-        <div className="flex justify-between"><span className="text-mute">Commission</span><span className="text-primary">10%</span></div>
+        <div className="flex justify-between"><span className="text-mute">Commission</span><span className="text-ink">10%</span></div>
       </div>
 
       <div className="mt-3 rounded-lg bg-accent p-3">

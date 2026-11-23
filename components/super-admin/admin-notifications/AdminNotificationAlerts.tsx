@@ -299,15 +299,15 @@ export function AdminNotificationAlerts() {
             .catch(() => undefined);
           acknowledge();
         }}
-        className="flex items-start gap-3 p-4 pr-12 transition-colors hover:bg-sky-50 focus-visible:outline-2 focus-visible:outline-sky-500"
+        className="flex items-start gap-3 p-4 pr-12 transition-colors hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ink"
       >
-        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-sky-100 text-sky-700"><BellRing className="size-5" aria-hidden="true" /></span>
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-ink"><BellRing className="size-5" aria-hidden="true" /></span>
         <span className="min-w-0 flex-1">
           <span className="block break-words text-sm font-semibold text-slate-900">{alert.title}</span>
           <span className="mt-1 block break-words text-sm leading-5 text-slate-600">{alert.body}</span>
         </span>
       </Link>
-      <button type="button" onClick={acknowledge} aria-label={t('dismiss')} className="absolute right-3 top-3 grid size-8 place-items-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-sky-500"><X className="size-4" /></button>
+      <button type="button" onClick={acknowledge} aria-label={t('dismiss')} className="absolute right-3 top-3 grid size-8 place-items-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-ink"><X className="size-4" /></button>
     </div>,
     document.body,
   );

@@ -36,7 +36,7 @@ export function NutritionFactTranslations({ factPath, disabled }: NutritionFactT
   if (!label.text && !value.text) return null;
 
   return (
-    <div className="space-y-1.5 border-l-2 border-primary/20 pl-3" aria-busy={isPending}>
+    <div className="space-y-1.5 border-l-2 border-ink/20 pl-3" aria-busy={isPending}>
       {label.targetLanguages.map((language, index) => (
         <div key={language.code} className="space-y-1">
           <span className="text-[11px] font-medium text-gray-500">{language.name}</span>
@@ -63,7 +63,7 @@ export function NutritionFactTranslations({ factPath, disabled }: NutritionFactT
                 disabled={disabled || isPending}
                 aria-label={isPending ? t('translating') : t('refresh')}
                 title={isPending ? t('translating') : t('refresh')}
-                className="grid size-9 place-items-center rounded-md text-gray-400 transition-colors hover:bg-primary/5 hover:text-primary disabled:opacity-50"
+                className="grid size-9 place-items-center rounded-md text-gray-400 transition-colors hover:bg-primary/5 hover:text-ink disabled:opacity-50"
               >
                 <RefreshCw aria-hidden="true" className={isPending ? 'size-4 animate-spin' : 'size-4'} />
               </button>

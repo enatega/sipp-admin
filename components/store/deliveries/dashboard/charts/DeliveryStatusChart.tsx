@@ -17,7 +17,7 @@ import { IStoreDeliveryStatusChart } from '../types';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const CUSTOMER_GROWTH_COLORS = ['#22C55E', '#6366F1', '#F97316', '#EC4899'];
+const CUSTOMER_GROWTH_COLORS = ['#22C55E', '#111111', '#F97316', '#F7E300'];
 
 const StoreDeliveryStatusChart: React.FC<IStoreDeliveryStatusChart> = ({
   data,
@@ -55,10 +55,10 @@ const StoreDeliveryStatusChart: React.FC<IStoreDeliveryStatusChart> = ({
         },
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#fff',
           bodyColor: '#F9FAFB',
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           padding: 10,
           displayColors: false,

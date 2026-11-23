@@ -32,9 +32,9 @@ export function VariationBasePriceHint() {
     <>
       <div
         role="note"
-        className="flex flex-col gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4 text-sm text-foreground sm:flex-row sm:items-start"
+        className="flex flex-col gap-3 rounded-lg border border-ink/20 bg-primary/5 p-4 text-sm text-foreground sm:flex-row sm:items-start"
       >
-        <Info aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />
+        <Info aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ink" />
         <div className="min-w-0 flex-1 space-y-1">
           <p className="font-medium">{t('title')}</p>
           <p className="text-muted-foreground">{t('description')}</p>

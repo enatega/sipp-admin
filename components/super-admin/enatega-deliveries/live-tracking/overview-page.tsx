@@ -469,8 +469,8 @@ export function EnategaLiveTrackingOverviewPage() {
                   onClick={() => setStatusFilter(filter.value)}
                   className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
                     statusFilter === filter.value
-                      ? 'border-primary bg-primary text-white'
-                      : 'border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground'
+                      ? 'border-ink bg-primary text-primary-foreground'
+                      : 'border-border bg-background text-muted-foreground hover:border-ink/40 hover:text-foreground'
                   }`}
                 >
                   {filter.label}

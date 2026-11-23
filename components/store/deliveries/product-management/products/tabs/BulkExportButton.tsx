@@ -53,7 +53,7 @@ export function BulkExportButton({ storeId }: Props) {
       disabled={isDownloading}
       isLoading={isDownloading}
       title={t('hint')}
-      leftIcon={<FileDown className="h-5 w-5 text-primary" aria-hidden="true" />}
+      leftIcon={<FileDown className="h-5 w-5 text-ink" aria-hidden="true" />}
     >
       <span>{isDownloading ? t('downloading') : t('button')}</span>
     </AppButton>

@@ -259,7 +259,7 @@ export function UploadHistory({ records, now }: Props) {
                           href={record.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="block truncate font-mono text-xs text-primary hover:underline"
+                          className="block truncate font-mono text-xs text-ink hover:underline"
                           title={record.url}
                         >
                           {record.url}

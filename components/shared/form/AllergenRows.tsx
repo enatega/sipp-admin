@@ -121,7 +121,7 @@ export function AllergenRows({ name, disabled, renderRowExtras, emptyText }: All
             type="button"
             onClick={() => push({ allergen: '', note: '' })}
             disabled={disabled || isFull}
-            className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/40 px-3 text-xs font-medium text-primary transition-colors hover:bg-primary/5 disabled:opacity-50"
+            className="inline-flex h-8 items-center gap-1.5 rounded-md border border-ink/40 px-3 text-xs font-medium text-ink transition-colors hover:bg-primary/5 disabled:opacity-50"
           >
             <Plus aria-hidden="true" className="size-3.5" />
             {t('add')}

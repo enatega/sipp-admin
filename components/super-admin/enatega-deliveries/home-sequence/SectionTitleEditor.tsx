@@ -52,14 +52,14 @@ export function SectionTitleEditor({ defaultTitle, customTitle, isHidden, isBusy
         <input
           ref={inputRef}
           aria-label={t('titleLabel', { name: defaultTitle })}
-          className="min-w-0 flex-1 rounded-lg border border-sky-600 px-2 py-1 text-base font-bold outline-none focus-visible:ring-2 focus-visible:ring-sky-200"
+          className="min-w-0 flex-1 rounded-lg border border-ink px-2 py-1 text-base font-bold outline-none focus-visible:ring-2 focus-visible:ring-ink/40"
           maxLength={TITLE_MAX_LENGTH}
           onChange={(event) => setDraft(event.target.value)}
           onKeyDown={(event) => { if (event.key === 'Escape') setIsEditing(false); }}
           placeholder={defaultTitle}
           value={draft}
         />
-        <button type="submit" aria-label={t('saveTitle')} title={t('saveTitle')} className="grid size-8 shrink-0 place-items-center rounded-lg text-sky-700 hover:bg-sky-50"><Check size={16} /></button>
+        <button type="submit" aria-label={t('saveTitle')} title={t('saveTitle')} className="grid size-8 shrink-0 place-items-center rounded-lg text-ink hover:bg-primary-soft"><Check size={16} /></button>
         <button type="button" onClick={() => setIsEditing(false)} aria-label={t('cancelTitle')} title={t('cancelTitle')} className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-500 hover:bg-slate-100"><X size={16} /></button>
       </form>
     );

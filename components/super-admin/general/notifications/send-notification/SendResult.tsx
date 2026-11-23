@@ -68,7 +68,7 @@ export default function SendResult({
   const inFlight = !response || (sent && !done && !expired);
 
   let Icon: LucideIcon = Loader2;
-  let iconClass = 'animate-spin text-primary';
+  let iconClass = 'animate-spin text-ink';
   let headline: string;
   if (!response) {
     headline = tResult('sending', { count: devices });
@@ -192,7 +192,7 @@ export default function SendResult({
               {step.state === 'done' ? (
                 <Check className="size-4 text-green-600" aria-hidden="true" />
               ) : step.state === 'active' ? (
-                <Loader2 className="size-4 animate-spin text-primary" aria-hidden="true" />
+                <Loader2 className="size-4 animate-spin text-ink" aria-hidden="true" />
               ) : (
                 <span className="size-4 rounded-full border border-stroke" aria-hidden="true" />
               )}

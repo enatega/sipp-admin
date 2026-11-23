@@ -72,7 +72,7 @@ export function DayTimingRow({ day, value, onChange }: DayTimingRowProps) {
           <div className="flex-1">
             <Badge
               variant="secondary"
-              className="bg-primary px-4 py-1.5 text-sm text-white"
+              className="bg-primary px-4 py-1.5 text-sm text-primary-foreground"
             >
               {t('closed')}
             </Badge>
@@ -81,14 +81,14 @@ export function DayTimingRow({ day, value, onChange }: DayTimingRowProps) {
           <div className="flex max-w-md flex-1 items-center justify-between">
             <input
               type="time"
-              className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
+              className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ink"
               value={(hasSlots ? value.slots[0] : DEFAULT_SLOT).open}
               onChange={(e) => updateTimeSlot(0, 'open', e.target.value)}
             />
             <span className="font-medium text-gray-400">--</span>
             <input
               type="time"
-              className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
+              className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ink"
               value={(hasSlots ? value.slots[0] : DEFAULT_SLOT).close}
               onChange={(e) => updateTimeSlot(0, 'close', e.target.value)}
             />
@@ -98,7 +98,7 @@ export function DayTimingRow({ day, value, onChange }: DayTimingRowProps) {
         {isOpen && (
           <div className="flex items-center gap-2">
             <CirclePlusIcon
-              className="h-5 w-5 cursor-pointer text-primary transition-transform hover:scale-110"
+              className="h-5 w-5 cursor-pointer text-ink transition-transform hover:scale-110"
               onClick={addTimeSlot}
             />
           </div>
@@ -120,7 +120,7 @@ export function DayTimingRow({ day, value, onChange }: DayTimingRowProps) {
             <div className="flex max-w-md flex-1 items-center justify-between">
               <input
                 type="time"
-                className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
+                className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ink"
                 value={slot.open}
                 onChange={(e) =>
                   updateTimeSlot(index + 1, 'open', e.target.value)
@@ -129,7 +129,7 @@ export function DayTimingRow({ day, value, onChange }: DayTimingRowProps) {
               <span className="font-medium text-gray-400">--</span>
               <input
                 type="time"
-                className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary"
+                className="h-10 w-40 rounded-lg border border-gray-300 px-3 text-sm font-medium focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ink"
                 value={slot.close}
                 onChange={(e) =>
                   updateTimeSlot(index + 1, 'close', e.target.value)

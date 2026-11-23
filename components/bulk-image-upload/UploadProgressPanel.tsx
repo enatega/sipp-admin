@@ -123,7 +123,7 @@ export function UploadProgressPanel({
                   {it.status === 'done' && <CheckCircle2 size={16} className="text-help-green" />}
                   {it.status === 'failed' && <CircleAlert size={16} className="text-help-red" />}
                   {it.status === 'uploading' && (
-                    <Loader2 size={16} className="animate-spin text-primary" />
+                    <Loader2 size={16} className="animate-spin text-ink" />
                   )}
                   {it.status === 'queued' && <Clock size={16} className="text-mute" />}
                 </span>
@@ -146,7 +146,7 @@ export function UploadProgressPanel({
                   <button
                     type="button"
                     onClick={() => onRetry([it.id])}
-                    className="shrink-0 rounded-md p-1.5 text-primary hover:bg-primary/10"
+                    className="shrink-0 rounded-md p-1.5 text-ink hover:bg-primary/10"
                     aria-label={t('retryOne', { name: it.fileName })}
                     title={t('retry')}
                   >

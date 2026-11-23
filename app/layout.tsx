@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 export const metadata: Metadata = {
   title: deployment.brand.titles.admin,
   description: deployment.brand.description,
-  icons: '/sipp-favicon.png',
+  icons: '/pohanch-favicon.png',
   manifest: '/admin-manifest.webmanifest',
 };
 

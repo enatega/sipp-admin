@@ -88,7 +88,7 @@ const HistoryTable = ({
                     variant={item.type === 'referral' ? 'default' : 'secondary'}
                     className={
                       item.type === 'referral'
-                        ? 'bg-blue-100 text-blue-700 hover:bg-blue-100'
+                        ? 'bg-primary-soft text-ink hover:bg-primary-soft'
                         : 'bg-green-100 text-green-700 hover:bg-green-100'
                     }
                   >

@@ -65,7 +65,7 @@ export const VariantAddonsTable: React.FC<VariantAddonsTableProps> = ({
                     {addon.name}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-700">
-                    <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                    <span className="inline-flex items-center justify-center w-6 h-6 bg-primary-soft text-ink rounded-full text-xs font-semibold">
                       {addon.options}
                     </span>
                   </TableCell>

@@ -331,7 +331,7 @@ export default function VendorCard({ vendor }: VendorCardProps) {
         <div className="flex items-start justify-between mb-6">
           <div className="flex items-start gap-4">
             <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <span className="text-2xl font-bold text-primary">
+              <span className="text-2xl font-bold text-ink">
                 {vendor.name?.charAt(0)?.toUpperCase() || 'V'}
               </span>
             </div>

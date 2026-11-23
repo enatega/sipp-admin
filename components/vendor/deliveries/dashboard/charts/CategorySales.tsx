@@ -19,13 +19,13 @@ import { IVendorDeliveryStatusChart } from '../types';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const CATEGORY_COLORS = [
-  '#8B5CF6', // Violet
-  '#EC4899', // Pink
+  '#F7E300', // Pohanch yellow
+  '#111111', // Ink
   '#F97316', // Orange
   '#14B8A6', // Teal
-  '#6366F1', // Indigo
+  '#DFCC00', // Deep canary
   '#22C55E', // Green
-  '#3B82F6', // Blue
+  '#5C5C66', // Slate grey
 ];
 
 const CategorySalesChart: React.FC<IVendorDeliveryStatusChart> = ({
@@ -67,10 +67,10 @@ const CategorySalesChart: React.FC<IVendorDeliveryStatusChart> = ({
         },
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#fff',
           bodyColor: '#F9FAFB',
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           padding: 10,
           displayColors: false,

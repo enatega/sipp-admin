@@ -64,9 +64,9 @@ const SubMenuItem = ({
               }
             }}
             className={cn(
-              'hover:!bg-gray-200/50 hover:text-primary',
+              'hover:!bg-gray-200/50 hover:text-ink',
               isSubMenuActive &&
-                'bg-primary text-white hover:!bg-primary hover:!text-white',
+                'bg-primary text-primary-foreground hover:!bg-primary hover:!text-primary-foreground',
             )}
           >
             {item.icon ? <item.icon className="!w-5 !h-5" aria-hidden /> : null}
@@ -127,9 +127,9 @@ const SubMenuItem = ({
                       <SidebarMenuSubButton
                         asChild
                         className={cn(
-                          'hover:text-primary hover:bg-gray-200/50 !py-4',
+                          'hover:text-ink hover:bg-gray-200/50 !py-4',
                           depth > 0 ? '!px-6' : '!px-3',
-                          isActive && '!text-primary font-medium',
+                          isActive && '!text-ink font-medium',
                         )}
                       >
                         <Link

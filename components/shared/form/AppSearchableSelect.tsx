@@ -79,8 +79,8 @@ export function AppSearchableSelect({
             disabled={disabled}
             className={cn(
               'flex h-11 w-full items-center justify-between gap-2 rounded-md border border-stroke bg-transparent px-3 text-sm font-normal outline-none transition-colors',
-              'focus-visible:border-primary focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50',
-              open && 'border-primary',
+              'focus-visible:border-ink focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50',
+              open && 'border-ink',
               error && 'border-destructive focus-visible:border-destructive',
               className,
             )}

@@ -159,7 +159,7 @@ export function PaymentInformation({ order }: PaymentInformationProps) {
           </div>
         )}
         {hasStripeCharge && (
-          <div className="flex items-start justify-between gap-4 rounded-lg bg-blue-50 px-4 py-3 text-[16px]">
+          <div className="flex items-start justify-between gap-4 rounded-lg bg-primary-soft px-4 py-3 text-[16px]">
             <span className="min-w-0 font-semibold text-black">
               {t('stripeChargeLabel', { currency: resolveCurrencySymbol(undefined, stripeCurrency) })}
             </span>

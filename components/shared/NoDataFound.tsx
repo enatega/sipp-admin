@@ -24,12 +24,12 @@ export default function NoDataFound({
       role="status"
       aria-live="polite"
       className={cn(
-        'mx-auto w-full rounded-xl border border-primary bg-background/50 p-8 text-center',
+        'mx-auto w-full rounded-xl border border-ink bg-background/50 p-8 text-center',
         'shadow-sm backdrop-blur',
         className,
       )}
     >
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-primary text-primary">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-ink text-ink">
         <Inbox className="h-6 w-6 opacity-70" />
       </div>
       <h3 className="text-base font-semibold">{resolvedTitle}</h3>

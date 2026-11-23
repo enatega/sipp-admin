@@ -17,8 +17,8 @@ export function RiderCard({ item, isSelected, onClick }: RiderCardProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        'relative w-full rounded-xl border bg-white p-3 text-left shadow-sm transition-all hover:border-primary/40 hover:shadow-md',
-        isSelected && 'border-primary ring-1 ring-primary/30 shadow-md',
+        'relative w-full rounded-xl border bg-white p-3 text-left shadow-sm transition-all hover:border-ink/40 hover:shadow-md',
+        isSelected && 'border-ink ring-1 ring-ink/30 shadow-md',
       )}
     >
       {isSelected && (
@@ -72,7 +72,7 @@ export function RiderCard({ item, isSelected, onClick }: RiderCardProps) {
         {item.order?.orderId ? (
           <span
             title={item.order.orderId}
-            className="font-semibold tracking-wide text-primary"
+            className="font-semibold tracking-wide text-ink"
           >
             #{item.order.orderId.slice(0, 8).toUpperCase()}
           </span>

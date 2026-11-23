@@ -79,7 +79,7 @@ export function NutritionFactsRows({ name, disabled, renderFactExtras }: Nutriti
               type="button"
               onClick={() => push({ label: '', value: '' })}
               disabled={disabled || isFull}
-              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-primary/40 px-3 text-xs font-medium text-primary transition-colors hover:bg-primary/5 disabled:opacity-50"
+              className="inline-flex h-8 items-center gap-1.5 rounded-md border border-ink/40 px-3 text-xs font-medium text-ink transition-colors hover:bg-primary/5 disabled:opacity-50"
             >
               <Plus aria-hidden="true" className="size-3.5" />
               {t('add')}
@@ -93,7 +93,7 @@ export function NutritionFactsRows({ name, disabled, renderFactExtras }: Nutriti
                   type="button"
                   onClick={() => push({ label, value: '' })}
                   disabled={disabled || isFull}
-                  className="inline-flex h-8 items-center rounded-full bg-white px-3 text-xs text-gray-600 ring-1 ring-gray-200 transition-colors hover:text-primary hover:ring-primary/40 disabled:opacity-50"
+                  className="inline-flex h-8 items-center rounded-full bg-white px-3 text-xs text-gray-600 ring-1 ring-gray-200 transition-colors hover:text-ink hover:ring-ink/40 disabled:opacity-50"
                 >
                   + {label}
                 </button>

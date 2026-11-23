@@ -188,7 +188,7 @@ export default function StoreWithdrawalTable() {
                   </span>
                   {withdrawalRequest?.request_id && (
                     <Copy
-                      className="ml-2 w-5 h-5 text-gray-500 cursor-pointer hover:text-primary"
+                      className="ml-2 w-5 h-5 text-gray-500 cursor-pointer hover:text-ink"
                       onClick={() =>
                         handleCopyRequestID(withdrawalRequest.request_id)
                       }

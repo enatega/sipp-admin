@@ -91,11 +91,11 @@ const SHAPE_OPTIONS = {
 };
 
 const EXISTING_ZONE_COLORS = [
-  '#2563EB',
+  '#111111',
   '#0D9488',
-  '#7C3AED',
-  '#C026D3',
-  '#0284C7',
+  '#DFCC00',
+  '#EA580C',
+  '#5C5C66',
 ];
 
 export interface ZoneData {
@@ -182,7 +182,7 @@ const buildDotMarkerContent = () => {
   dot.style.width = '12px';
   dot.style.height = '12px';
   dot.style.borderRadius = '9999px';
-  dot.style.backgroundColor = '#2563eb';
+  dot.style.backgroundColor = '#111111';
   dot.style.border = '2px solid #ffffff';
   dot.style.boxSizing = 'border-box';
   dot.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.25)';

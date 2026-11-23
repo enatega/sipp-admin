@@ -82,7 +82,7 @@ export default function ResendNotificationDrawer({
                 {(notification.type ?? []).map((type) => (
                   <span
                     key={type}
-                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary"
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-ink"
                   >
                     {reverseUserTypeMapping[type]}
                   </span>
@@ -112,7 +112,7 @@ export default function ResendNotificationDrawer({
                   {notification.zoneNames.map((zone) => (
                     <span
                       key={zone}
-                      className="capitalize inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary"
+                      className="capitalize inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-ink"
                     >
                       {zone}
                     </span>
@@ -153,8 +153,8 @@ export default function ResendNotificationDrawer({
             </div>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-900">
+          <div className="bg-primary-soft border border-primary-pressed/40 rounded-lg p-4">
+            <p className="text-sm text-ink">
               <strong>{tDrawer('note').split(':')[0]}:</strong> {tDrawer('note').split(':')[1]}
             </p>
           </div>

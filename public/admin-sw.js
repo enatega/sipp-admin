@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-v1';
+const OFFLINE_CACHE = 'offline-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Only page navigations are handled: they go to the network first, and the
@@ -27,9 +27,9 @@ self.addEventListener('push', (event) => {
   const href = typeof payload.href === 'string' &&
     (payload.href.startsWith('/deliveries/') || payload.href.startsWith('/general/customer-support/'))
     ? payload.href : '/general/operational-notifications';
-  event.waitUntil(self.registration.showNotification(payload.title || 'Sipp admin', {
+  event.waitUntil(self.registration.showNotification(payload.title || 'Pohanch Admin', {
     body: payload.body || 'You have a new update.',
-    icon: '/sipp-favicon.png',
+    icon: '/pohanch-favicon.png',
     tag: payload.id || undefined,
     data: { href },
   }));

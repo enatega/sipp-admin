@@ -126,7 +126,7 @@ export default function ScrollableTabsNav({
                   relative h-11
                   text-sm font-medium flex-none
                   px-3 sm:px-5 
-                  data-[state=active]:!bg-primary data-[state=active]:text-white data-[state=active]:border-primary
+                  data-[state=active]:!bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-ink
                   bg-transparent border border-gray-200 border-l-1 border-r-0 last:border-r-1  shadow-xs rounded-none
                   first:!rounded-l-lg last:!rounded-r-lg
                   min-w-fit

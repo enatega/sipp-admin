@@ -26,7 +26,7 @@ export default function PaymentMethodDistributionChart({
       valueKey="value"
       colorMap={{
         Cash: '#14B8A6',
-        Wallet: '#0EA5E9',
+        Wallet: '#F7E300',
         Card: '#F97316',
       }}
       tooltipFormatter={(item) => [

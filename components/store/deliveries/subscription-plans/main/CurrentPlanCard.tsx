@@ -61,7 +61,7 @@ export function CurrentPlanCard({
       <div className="rounded-xl border bg-white p-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-primary/10 p-3 text-primary">
+            <div className="rounded-xl bg-primary/10 p-3 text-ink">
               <Sparkles className="size-5" />
             </div>
             <div>

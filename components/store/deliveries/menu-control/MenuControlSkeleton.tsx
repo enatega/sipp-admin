@@ -119,7 +119,7 @@ export function MenuControlSkeleton({ label }: { label: string }) {
 
         <aside className="space-y-4">
           <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-            <div className="space-y-2 border-b border-slate-100 bg-sky-50/60 px-5 py-4">
+            <div className="space-y-2 border-b border-slate-100 bg-primary-soft/60 px-5 py-4">
               <Bone className="h-5 w-36" />
               <Bone className="h-3 w-full" />
             </div>
@@ -128,7 +128,7 @@ export function MenuControlSkeleton({ label }: { label: string }) {
                 <Bone className="h-3 w-16" />
                 <Bone className="h-10 w-full rounded-xl" />
               </div>
-              <div className="space-y-2 rounded-xl border border-sky-100 bg-sky-50/60 p-3">
+              <div className="space-y-2 rounded-xl border border-primary-pressed/40 bg-primary-soft/60 p-3">
                 <Bone className="h-3 w-20" />
                 <Bone className="h-9 w-full rounded-lg" />
               </div>

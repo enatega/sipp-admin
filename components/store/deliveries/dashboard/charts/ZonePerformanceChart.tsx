@@ -19,13 +19,13 @@ import { IStoreZonePerformanceChart } from '../types';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const ZONE_COLORS = [
-  '#8B5CF6',
-  '#EC4899',
+  '#F7E300',
+  '#111111',
   '#F97316',
   '#14B8A6',
-  '#6366F1',
+  '#DFCC00',
   '#22C55E',
-  '#3B82F6',
+  '#5C5C66',
 ];
 
 const StoreZonePerformanceChart: React.FC<IStoreZonePerformanceChart> = ({
@@ -62,12 +62,12 @@ const StoreZonePerformanceChart: React.FC<IStoreZonePerformanceChart> = ({
         },
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#FFFFFF',
           bodyColor: '#F9FAFB',
           padding: 10,
           displayColors: false,
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           callbacks: {
             title: () => '',

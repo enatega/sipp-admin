@@ -116,7 +116,7 @@ export function AppDialog({
               {headerRight}
               {showCloseButton && (
                 <button
-                  className="text-primary hover:text-gray-900 dark:hover:text-white focus:outline-none cursor-pointer"
+                  className="text-ink hover:text-gray-900 dark:hover:text-white focus:outline-none cursor-pointer"
                   aria-label={t('closeDialog')}
                   onClick={onClose}
                 >

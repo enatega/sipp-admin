@@ -212,11 +212,11 @@ export default function Messages({
               <div
                 className={`min-w-0 max-w-[85%] sm:max-w-[78%] rounded-xl px-4 py-2.5 ${
                   isAdminMessage
-                    ? 'rounded-br-sm bg-primary text-white'
+                    ? 'rounded-br-sm bg-primary text-primary-foreground'
                     : 'rounded-bl-sm bg-slate-100 text-slate-900'
                 }`}
               >
-                <div className={`mb-1 text-xs font-semibold ${isAdminMessage ? 'text-white/90' : 'text-slate-600'}`}>
+                <div className={`mb-1 text-xs font-semibold ${isAdminMessage ? 'text-primary-foreground/80' : 'text-slate-600'}`}>
                   {isAdminMessage
                     ? t('supportSender', { name: senderName || (mine ? user?.role?.name || 'Support' : 'Support') })
                     : data?.ticket?.creatorType === 'store' || data?.ticket?.creatorType === 'rider'
@@ -228,13 +228,13 @@ export default function Messages({
                   <ImagePreview key={url} image={url} label={t('attachment', { number: attachmentIndex + 1 })} className="mt-2" imageClassName="h-32" />
                 ))}
                 <div
-                  className={`mt-2 text-[11px] ${isAdminMessage ? 'text-white/80' : 'text-slate-500'}`}
+                  className={`mt-2 text-[11px] ${isAdminMessage ? 'text-primary-foreground/70' : 'text-slate-500'}`}
                 >
                   {formatMessageDate(m.createdAt, locale)}
                 </div>
               </div>
               {isAdminMessage && (
-                <div className="h-8 w-8 shrink-0 rounded-full bg-sky-100 text-primary flex items-center justify-center text-sm font-semibold">
+                <div className="h-8 w-8 shrink-0 rounded-full bg-primary-soft text-ink flex items-center justify-center text-sm font-semibold">
                   {(senderName || (mine ? user?.email : undefined))?.[0]?.toUpperCase() || 'S'}
                 </div>
               )}
@@ -273,7 +273,7 @@ export default function Messages({
         <label
           aria-label={isUploading ? t('uploading') : t('attach')}
           title={isUploading ? t('uploading') : t('attach')}
-          className={`relative grid w-11 shrink-0 place-items-center overflow-hidden rounded-md border text-slate-600 focus-within:ring-2 focus-within:ring-primary/30 ${
+          className={`relative grid w-11 shrink-0 place-items-center overflow-hidden rounded-md border text-slate-600 focus-within:ring-2 focus-within:ring-ink/30 ${
             !canReply || isUploading || isPending || attachments.length >= MAX_ATTACHMENTS
               ? 'cursor-not-allowed opacity-50'
               : 'cursor-pointer hover:bg-slate-50'
@@ -318,8 +318,7 @@ export default function Messages({
           onClick={sendMessage}
           disabled={!canReply || isPending || isUploading || (!input.trim() && !attachments.length)}
           aria-busy={isPending}
-          className="min-w-20 px-4 py-2 text-sm rounded-md text-white disabled:cursor-not-allowed disabled:opacity-60"
-          style={{ backgroundColor: 'var(--primary,#0ea5e9)' }}
+          className="min-w-20 px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground hover:bg-primary-pressed disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? (
             <LoaderCircle

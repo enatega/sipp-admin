@@ -76,7 +76,7 @@ export function AssignUsersContent({
             placeholder={t('searchPlaceholder')}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            className="w-full h-10 pl-10 pr-4 rounded-lg border border-stroke bg-transparent text-sm focus:outline-none focus:border-primary transition-colors"
+            className="w-full h-10 pl-10 pr-4 rounded-lg border border-stroke bg-transparent text-sm focus:outline-none focus:border-ink transition-colors"
             disabled={!!assigningUserId}
           />
         </div>
@@ -88,7 +88,7 @@ export function AssignUsersContent({
           {isLoadingUsers ? t('loading') : `${t('people')} ${allUsers.length}`}
         </span>
         {selectedCount > 0 && (
-          <span className="text-sm text-primary font-medium">
+          <span className="text-sm text-ink font-medium">
             {t('selected', { count: selectedCount, plural: selectedCount > 1 ? 's' : '' })}
           </span>
         )}

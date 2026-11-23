@@ -72,7 +72,7 @@ export function RiderMapMarker({ item, isSelected, onClick }: RiderMapMarkerProp
 
       <div
         className={`relative z-10 rounded-full border-2 p-2 ${config.color} ${config.border} ${config.glow} ${
-          isSelected ? 'ring-2 ring-primary ring-offset-2' : ''
+          isSelected ? 'ring-2 ring-ink ring-offset-2' : ''
         }`}
       >
         {config.icon}

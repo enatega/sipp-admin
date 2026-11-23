@@ -240,7 +240,7 @@ function SendNotificationFormBody({
   return (
     <Form className="space-y-4">
       {showDraftNotice && phase === 'edit' && (
-        <div className="flex items-center justify-between gap-3 rounded-lg bg-primary/10 px-3 py-2 text-sm text-primary">
+        <div className="flex items-center justify-between gap-3 rounded-lg bg-primary/10 px-3 py-2 text-sm text-ink">
           <span>{tComposer('draftRestored')}</span>
           <button
             type="button"

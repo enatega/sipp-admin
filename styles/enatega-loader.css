@@ -54,11 +54,11 @@
   0%,
   100% {
     transform: scale(1);
-    box-shadow: 0 20px 60px rgba(30, 64, 175, 0.3);
+    box-shadow: 0 20px 60px rgba(17, 17, 17, 0.25);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 20px 80px rgba(30, 64, 175, 0.5);
+    box-shadow: 0 20px 80px rgba(17, 17, 17, 0.4);
   }
 }
 

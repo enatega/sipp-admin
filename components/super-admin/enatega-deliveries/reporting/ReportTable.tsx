@@ -133,7 +133,7 @@ export function ReportTable({ report }: { report: ReportTab }) {
             <h2 className="text-lg font-semibold">
               {tTabs(`${report.key.replace('/', '_')}.label`)}
             </h2>
-            <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+            <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-ink">
               {tTable('records', { count: data?.total ?? 0 })}
             </span>
             {isFetching ? (

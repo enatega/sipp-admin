@@ -45,7 +45,7 @@ const SearchInput = ({
         value={text}
         onChange={handleChange}
         className={cn(
-          'flex-1 text-sm h-10 px-4 pl-11 gap-2 bg-white border border-stroke rounded-md shadow-sm hover:border-secondary-gray-middle focus:border-primary outline-none',
+          'flex-1 text-sm h-10 px-4 pl-11 gap-2 bg-white border border-stroke rounded-md shadow-sm hover:border-secondary-gray-middle focus:border-ink outline-none',
           inputClassName,
         )}
         {...props}
@@ -53,9 +53,9 @@ const SearchInput = ({
       <span className="absolute left-4 top-1/2 transform -translate-y-1/2">
         {icon ||
           (IconComponent ? (
-            <IconComponent className="w-5 h-5 text-primary" />
+            <IconComponent className="w-5 h-5 text-ink" />
           ) : (
-            <Search className="w-5 h-5 text-primary" />
+            <Search className="w-5 h-5 text-ink" />
           ))}
       </span>
       {text && (

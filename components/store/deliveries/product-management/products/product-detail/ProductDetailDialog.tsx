@@ -196,7 +196,7 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                           onClick={() => setSelectedImage(image)}
                           className={`overflow-hidden rounded-lg border transition ${
                             isActive
-                              ? 'border-primary ring-2 ring-primary/20'
+                              ? 'border-ink ring-2 ring-ink/20'
                               : 'border-border'
                           }`}
                         >
@@ -271,7 +271,7 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                       price={currentProduct.price}
                     />
                     {productDealSummary ? (
-                      <p className="text-xs text-primary mt-1">
+                      <p className="text-xs text-ink mt-1">
                         {tForm('priceAfterDealLabel')}:{' '}
                         {formatCurrency(
                           calculatePriceAfterDeal(
@@ -508,7 +508,7 @@ export const ProductDetailDialog: React.FC<ProductDetailDialogProps> = ({
                             {variationDealSummary &&
                             !(variation.legacyMigrationMetadata?.legacyProductId &&
                               Number(variation.price) === 0) ? (
-                              <p className="text-xs text-primary mt-1">
+                              <p className="text-xs text-ink mt-1">
                                 {tForm('priceAfterDealLabel')}:{' '}
                                 {formatCurrency(
                                   calculatePriceAfterDeal(

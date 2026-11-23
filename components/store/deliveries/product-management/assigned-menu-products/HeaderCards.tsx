@@ -165,8 +165,8 @@ export default function HeaderCards({
                     className={cn(
                       'group relative w-[230px] shrink-0 overflow-hidden rounded-2xl border p-3.5 text-left transition-all duration-200',
                       isSelected
-                        ? 'border-primary bg-sky-50 shadow-[0_10px_24px_-20px_rgba(2,132,199,0.8)]'
-                        : 'border-sidebar-border bg-white hover:border-primary/40 hover:shadow-[0_10px_24px_-22px_rgba(15,23,42,0.6)]',
+                        ? 'border-ink bg-primary-soft shadow-[0_10px_24px_-20px_rgba(17,17,17,0.35)]'
+                        : 'border-sidebar-border bg-white hover:border-ink/40 hover:shadow-[0_10px_24px_-22px_rgba(17,17,17,0.6)]',
                     )}
                   >
                     <p className="text-lg font-semibold text-foreground">
@@ -178,8 +178,8 @@ export default function HeaderCards({
                         icon={Package}
                         label={t('totalProducts')}
                         value={menuCard.totalProducts}
-                        iconContainerClassName="bg-sky-100"
-                        iconClassName="text-sky-700"
+                        iconContainerClassName="bg-primary-soft"
+                        iconClassName="text-ink"
                       />
                       <MenuSummaryStat
                         icon={CheckCircle2}

@@ -230,7 +230,7 @@ export function AppUserSelect({
                 error
                   ? '!border-destructive focus-within:!border-destructive'
                   : open && !disabled
-                    ? '!border-primary'
+                    ? '!border-ink'
                     : '!border-stroke',
                 inputContainerClassName,
                 disabled && 'bg-light cursor-not-allowed opacity-70',
@@ -245,7 +245,7 @@ export function AppUserSelect({
                     {selectedUsers.slice(0, maxAvatarsDisplay).map((user) => (
                       <Tooltip key={user.id} delayDuration={300}>
                         <TooltipTrigger asChild>
-                          <Avatar className="size-8 border border-primary hover:z-10 transition-all cursor-pointer">
+                          <Avatar className="size-8 border border-ink hover:z-10 transition-all cursor-pointer">
                             {user.image && (
                               <AvatarImage
                                 src={user.image}
@@ -328,7 +328,7 @@ export function AppUserSelect({
                       onSearchChange?.(value);
                     }}
                     placeholder={t('searchUsers')}
-                    className="w-full h-10 pl-10 pr-4 rounded-lg border border-stroke bg-transparent text-sm outline-none placeholder:text-muted-foreground focus:border-primary transition-colors"
+                    className="w-full h-10 pl-10 pr-4 rounded-lg border border-stroke bg-transparent text-sm outline-none placeholder:text-muted-foreground focus:border-ink transition-colors"
                     aria-invalid={!!error}
                     aria-describedby={helperId}
                     disabled={disabled || isLoading}

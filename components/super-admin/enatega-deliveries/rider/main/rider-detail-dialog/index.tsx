@@ -299,7 +299,7 @@ export default function RiderDetailDialog({
               <div
                 className="rounded-2xl p-6 text-white shadow-sm"
                 style={{
-                  background: 'linear-gradient(to right, #1E40AF, #2563EB)',
+                  background: 'linear-gradient(to right, #111111, #1C1C1E)',
                 }}
               >
                 <div className="flex items-start justify-between">
@@ -348,39 +348,39 @@ export default function RiderDetailDialog({
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-violet-50 to-violet-100/50 p-4 rounded-xl border border-violet-200/60  transition-shadow">
+                <div className="bg-gradient-to-br from-primary-soft to-primary-soft/50 p-4 rounded-xl border border-primary-pressed/60  transition-shadow">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-violet-500 rounded-lg">
-                      <Mail className="w-4 h-4 text-white" />
+                    <div className="p-2 bg-primary rounded-lg">
+                      <Mail className="w-4 h-4 text-primary-foreground" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-violet-700 font-medium">
+                      <p className="text-xs text-ink font-medium">
                         {t('emailCardLabel')}
                       </p>
-                      <p className="font-semibold text-violet-900 truncate">
+                      <p className="font-semibold text-ink truncate">
                         {rider.userProfile?.user?.email ?? t('notAvailable')}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-6 rounded-xl border border-blue-200/60 shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="bg-gradient-to-br from-primary-soft to-primary-soft/50 p-6 rounded-xl border border-primary-pressed/60 shadow-sm hover:shadow-md transition-all duration-200">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 mb-4 w-full">
-                    <div className="p-2 bg-blue-500 rounded-lg">
-                      <CarFront className="w-5 h-5 text-white" />
+                    <div className="p-2 bg-primary rounded-lg">
+                      <CarFront className="w-5 h-5 text-primary-foreground" />
                     </div>
-                    <h3 className="text-lg font-bold text-blue-800">
+                    <h3 className="text-lg font-bold text-ink">
                       {t('vehicleDetailsTitle')}
                     </h3>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg ">
-                      <p className="text-xs text-blue-900 font-medium   mb-1">
+                      <p className="text-xs text-ink font-medium   mb-1">
                         {t('vehicleBrandLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm">
+                      <p className="font-bold text-ink text-sm">
                         {capitalizeFirstLetter(
                           rider.vehicle?.vehicle_name ?? t('notAvailable'),
                         )}
@@ -388,19 +388,19 @@ export default function RiderDetailDialog({
                     </div>
 
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg ">
-                      <p className="text-xs text-blue-900 font-medium   mb-1">
+                      <p className="text-xs text-ink font-medium   mb-1">
                         {t('modelYearLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm">
+                      <p className="font-bold text-ink text-sm">
                         {rider.vehicle?.model_year ?? t('notAvailable')}
                       </p>
                     </div>
 
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg ">
-                      <p className="text-xs text-blue-900 font-medium  mb-1">
+                      <p className="text-xs text-ink font-medium  mb-1">
                         {t('vehicleTypeLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm">
+                      <p className="font-bold text-ink text-sm">
                         {capitalizeFirstLetter(
                           rider.vehicle?.vehicleType?.name ?? t('notAvailable'),
                         )}
@@ -408,19 +408,19 @@ export default function RiderDetailDialog({
                     </div>
 
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg">
-                      <p className="text-xs text-blue-900 font-medium mb-1">
+                      <p className="text-xs text-ink font-medium mb-1">
                         {t('vehicleNumberLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm tracking-wider">
+                      <p className="font-bold text-ink text-sm tracking-wider">
                         {rider.vehicle?.vehicle_no ?? t('notAvailable')}
                       </p>
                     </div>
 
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg">
-                      <p className="text-xs text-blue-900 font-medium mb-1">
+                      <p className="text-xs text-ink font-medium mb-1">
                         {t('vehicleColorLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm">
+                      <p className="font-bold text-ink text-sm">
                         {capitalizeFirstLetter(
                           rider.vehicle?.vehicle_colour ?? t('notAvailable'),
                         )}
@@ -428,10 +428,10 @@ export default function RiderDetailDialog({
                     </div>
 
                     <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg">
-                      <p className="text-xs text-blue-900 font-medium mb-1">
+                      <p className="text-xs text-ink font-medium mb-1">
                         {t('insulatedDeliveryBagLabel')}
                       </p>
-                      <p className="font-bold text-blue-900 text-sm">
+                      <p className="font-bold text-ink text-sm">
                         {rider.vehicle?.insulated_delivery_bag
                           ? t('yes')
                           : t('no')}
@@ -440,10 +440,10 @@ export default function RiderDetailDialog({
 
                     {rider.vehicle?.air_conditioning !== undefined && (
                       <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg">
-                        <p className="text-xs text-blue-900 font-medium mb-1">
+                        <p className="text-xs text-ink font-medium mb-1">
                           {t('airConditioningLabel')}
                         </p>
-                        <p className="font-bold text-blue-900 text-sm">
+                        <p className="font-bold text-ink text-sm">
                           {rider.vehicle.air_conditioning ? t('yes') : t('no')}
                         </p>
                       </div>
@@ -451,10 +451,10 @@ export default function RiderDetailDialog({
 
                     {rider.vehicle?.helmet !== undefined && (
                       <div className="bg-white/60 backdrop-blur-sm p-3 rounded-lg">
-                        <p className="text-xs text-blue-900 font-medium mb-1">
+                        <p className="text-xs text-ink font-medium mb-1">
                           {t('helmetLabel')}
                         </p>
-                        <p className="font-bold text-blue-900 text-sm">
+                        <p className="font-bold text-ink text-sm">
                           {rider.vehicle.helmet ? t('yes') : t('no')}
                         </p>
                       </div>
@@ -543,7 +543,7 @@ export default function RiderDetailDialog({
               {/* Documents Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-primary" />
+                  <FileText className="w-5 h-5 text-ink" />
                   {t('documentVerificationTitle')}
                 </h3>
 

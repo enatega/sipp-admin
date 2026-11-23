@@ -255,7 +255,7 @@ export default function MapTrackingModal({
           <div className="flex items-center gap-4 px-6 py-3 bg-white border-b">
             {order.rider?.name && (
               <div className="flex items-center gap-2 text-sm">
-                <Bike className="h-4 w-4 text-primary" />
+                <Bike className="h-4 w-4 text-ink" />
                 <span className="font-medium">{order.rider.name}</span>
                 {order.rider.phone && (
                   <span className="text-muted-foreground">({order.rider.phone})</span>
@@ -359,7 +359,7 @@ export default function MapTrackingModal({
                   options={{
                     suppressMarkers: true,
                     polylineOptions: {
-                      strokeColor: '#3b82f6',
+                      strokeColor: '#111111',
                       strokeWeight: 5,
                       strokeOpacity: 0.8,
                     },
@@ -415,13 +415,13 @@ export default function MapTrackingModal({
                 >
                   <div className="flex flex-col items-center">
                     <div className="relative">
-                      <div className="absolute inset-0 rounded-full bg-blue-500/30 animate-ping" />
-                      <div className="relative bg-blue-500 rounded-full p-2 shadow-lg border-2 border-white">
-                        <Bike className="h-4 w-4 text-white" />
+                      <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
+                      <div className="relative bg-primary rounded-full p-2 shadow-lg border-2 border-white">
+                        <Bike className="h-4 w-4 text-primary-foreground" />
                       </div>
                     </div>
-                    <div className="h-2 w-2 rotate-45 -mt-1 bg-blue-500" />
-                    <span className="mt-1 text-[10px] font-medium bg-blue-500 text-white px-1.5 py-0.5 rounded shadow-sm whitespace-nowrap">
+                    <div className="h-2 w-2 rotate-45 -mt-1 bg-primary" />
+                    <span className="mt-1 text-[10px] font-medium bg-primary text-primary-foreground px-1.5 py-0.5 rounded shadow-sm whitespace-nowrap">
                       {order.rider?.name ?? 'Rider'}
                     </span>
                   </div>
@@ -451,7 +451,7 @@ export default function MapTrackingModal({
             )}
             {riderLocation && (
               <div className="flex items-center gap-1.5 text-xs">
-                <div className="h-3 w-3 rounded-full bg-blue-500" />
+                <div className="h-3 w-3 rounded-full bg-primary" />
                 <span className="text-muted-foreground">Rider (live)</span>
               </div>
             )}

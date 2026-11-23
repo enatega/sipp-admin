@@ -148,7 +148,7 @@ export default function AudienceReach({
             <button
               type="button"
               onClick={() => setShowWho((value) => !value)}
-              className="text-primary hover:underline"
+              className="text-ink hover:underline"
               aria-expanded={showWho}
             >
               {showWho

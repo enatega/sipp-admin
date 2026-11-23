@@ -49,7 +49,7 @@ export const VariantList: React.FC<VariantListProps> = ({
         <div
           key={variant.id}
           className={`border border-gray-200 rounded-lg p-4 ${
-            variant.isEditing ? 'bg-blue-50 border-blue-300' : ''
+            variant.isEditing ? 'bg-primary-soft border-primary-pressed/40' : ''
           }`}
         >
           {variant.isEditing ? (
@@ -71,7 +71,7 @@ export const VariantList: React.FC<VariantListProps> = ({
                   <button
                     type="button"
                     onClick={() => onStartEdit(variant.id)}
-                    className="text-blue-600 hover:text-blue-900 p-1"
+                    className="text-ink hover:text-ink p-1"
                     title={t('editButton')}
                   >
                     <Pencil className="h-4 w-4" />
@@ -181,7 +181,7 @@ const VariantEditor: React.FC<VariantEditorProps> = ({
           placeholder={t('pricePlaceholder')}
           step="0.01"
           min="0"
-          prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+          prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
           value={variant.price}
           onChange={(e) =>
             onUpdateVariant(
@@ -200,7 +200,7 @@ const VariantEditor: React.FC<VariantEditorProps> = ({
           placeholder={t('discountPricePlaceholder')}
           step="0.01"
           min="0"
-          prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+          prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
           value={variant.discountPrice || ''}
           onChange={(e) =>
             onUpdateVariant(

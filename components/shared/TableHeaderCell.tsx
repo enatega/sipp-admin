@@ -28,9 +28,9 @@ export default function TableHeaderCell({
   const icon = !isActive ? (
     <ChevronsUpDown size={18} className="text-mute" />
   ) : sortConfig!.direction === 'ascending' ? (
-    <ChevronUp size={18} className="text-blue-500" />
+    <ChevronUp size={18} className="text-ink" />
   ) : (
-    <ChevronDown size={18} className="text-blue-500" />
+    <ChevronDown size={18} className="text-ink" />
   );
   return (
     <TableHead

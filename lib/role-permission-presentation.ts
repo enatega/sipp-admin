@@ -41,7 +41,7 @@ const MODULE_NAMES: Record<string, string> = {
   reviews: 'Reviews',
   zone_commissions: 'Zone Commissions (API)',
   global_commissions: 'Global Commissions (API)',
-  advanced: 'Other SIPP API actions',
+  advanced: 'Other Pohanch API actions',
 };
 
 const MODULE_ORDER = Object.keys(MODULE_NAMES);
@@ -76,7 +76,7 @@ function systemDeliveryModule(name: string): string {
   return 'advanced';
 }
 
-/** Keep permission IDs intact while making the role editor match SIPP navigation. */
+/** Keep permission IDs intact while making the role editor match Pohanch navigation. */
 export function presentRolePermissions(
   data: PermissionsResponse,
 ): RolePermissionModule[] {
@@ -136,7 +136,7 @@ export function presentRolePermissions(
     .filter((section) => sections.has(section))
     .map((section) => ({
       id: section,
-      name: section === 'general' ? 'General' : 'SIPP Deliveries',
+      name: section === 'general' ? 'General' : 'Pohanch Deliveries',
       subModules: [...sections.get(section)!.entries()]
         .sort(([left], [right]) => {
           const leftIndex = MODULE_ORDER.indexOf(left);

@@ -194,11 +194,11 @@ export function AddAssignedUsersCell({
       <Popover open={assignPopoverOpen} onOpenChange={handlePopoverClose}>
         <PopoverTrigger asChild>
           {variant === 'button' ? (
-            <button className="size-9 rounded-md  border-dashed shadow-xs border border-primary transition-colors flex items-center justify-center">
-              <Plus className="size-3.5 text-primary" />
+            <button className="size-9 rounded-md  border-dashed shadow-xs border border-ink transition-colors flex items-center justify-center">
+              <Plus className="size-3.5 text-ink" />
             </button>
           ) : (
-            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-ink transition-colors">
               <Plus className="size-4" />
               <span>{t('assignUsers')}</span>
             </button>

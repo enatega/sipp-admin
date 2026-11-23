@@ -80,7 +80,7 @@ export default function StaticPagePreviewPortal({
         onPointerDown={(e) => e.stopPropagation()}
       >
         {/* Header / Device Toggle Bar */}
-        <div className="shrink-0 bg-primary text-white px-4 py-3 flex items-center justify-between">
+        <div className="shrink-0 bg-primary text-primary-foreground px-4 py-3 flex items-center justify-between">
           {/* Left — Title */}
 
           {/* Center — Device Toggle */}

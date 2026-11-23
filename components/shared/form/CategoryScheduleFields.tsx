@@ -118,7 +118,7 @@ export function CategoryScheduleFields() {
                   <button
                     key={preset.key}
                     type="button"
-                    className="text-primary underline-offset-2 hover:underline"
+                    className="text-ink underline-offset-2 hover:underline"
                     onClick={() => applyPreset(preset.days)}
                   >
                     {t(preset.key)}
@@ -143,7 +143,7 @@ export function CategoryScheduleFields() {
                     className={cn(
                       'min-w-12 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
                       active
-                        ? 'border-primary bg-primary text-primary-foreground'
+                        ? 'border-ink bg-primary text-primary-foreground'
                         : 'border-stroke bg-background text-foreground hover:bg-muted',
                     )}
                   >
@@ -196,7 +196,7 @@ export function CategoryScheduleFields() {
               {days.length > 1 ? (
                 <button
                   type="button"
-                  className="self-start text-sm text-primary underline-offset-2 hover:underline"
+                  className="self-start text-sm text-ink underline-offset-2 hover:underline"
                   onClick={applyFirstHoursToAll}
                 >
                   {t('applyFirstHoursToAll', { day: names[days[0].day].long })}

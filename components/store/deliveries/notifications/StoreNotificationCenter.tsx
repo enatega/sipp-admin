@@ -21,7 +21,7 @@ function Item({ item, onOpen }: { item: StoreInboxItem; onOpen: (item: StoreInbo
     <button
       type="button"
       onClick={() => onOpen(item)}
-      className="w-full rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-primary/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary"
+      className="w-full rounded-xl border border-slate-200 bg-white p-4 text-left transition hover:border-ink/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-ink"
     >
       <div className="flex items-start gap-3">
         <span className={`mt-1.5 size-2 shrink-0 rounded-full ${item.isRead ? 'bg-slate-200' : 'bg-primary'}`} />
@@ -117,7 +117,7 @@ export function StoreNotificationCenter({ storeId, compact = false }: { storeId:
             <button
               type="button"
               onClick={() => { setOpen(false); router.push(notificationsPath); }}
-              className="text-sm font-medium text-primary hover:underline"
+              className="text-sm font-medium text-ink hover:underline"
             >
               {t('viewAll')}
             </button>
@@ -163,7 +163,7 @@ export function StoreNotificationCenter({ storeId, compact = false }: { storeId:
           : listQuery.data?.data.length ? listQuery.data.data.map((item) => <Item key={item.id} item={item} onOpen={openItem} />)
             : !listQuery.isError && (
               <div className="rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center">
-                <Inbox className="mx-auto size-9 text-primary" />
+                <Inbox className="mx-auto size-9 text-ink" />
                 <h2 className="mt-4 font-semibold text-slate-900">{t('emptyTitle')}</h2>
                 <p className="mt-1 text-sm text-slate-500">{t('emptyBody')}</p>
               </div>
@@ -171,9 +171,9 @@ export function StoreNotificationCenter({ storeId, compact = false }: { storeId:
       </div>
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-4">
-          <button type="button" disabled={page === 1} onClick={() => setPage(page - 1)} className="text-sm text-primary disabled:text-slate-400">{t('previous')}</button>
+          <button type="button" disabled={page === 1} onClick={() => setPage(page - 1)} className="text-sm text-ink disabled:text-slate-400">{t('previous')}</button>
           <span className="text-sm text-slate-600">{t('pageOf', { page, total: totalPages })}</span>
-          <button type="button" disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="text-sm text-primary disabled:text-slate-400">{t('next')}</button>
+          <button type="button" disabled={page >= totalPages} onClick={() => setPage(page + 1)} className="text-sm text-ink disabled:text-slate-400">{t('next')}</button>
         </div>
       )}
     </div>

@@ -22,7 +22,7 @@ const MenuItem = ({ isActive, item }: MenuItemProps) => {
         href={item.path}
         className={cn(
           'w-full flex items-center gap-2 px-3 py-2 rounded-md transition-colors',
-          isActive ? 'bg-primary text-white' : 'hover:bg-gray-200/50 hover:text-primary'
+          isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-gray-200/50 hover:text-ink'
         )}
         aria-current={isActive ? 'page' : undefined}
       >

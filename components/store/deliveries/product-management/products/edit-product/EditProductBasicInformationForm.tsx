@@ -228,7 +228,7 @@ export function EditProductBasicInformationForm({
                     min="0"
                     placeholder={t('pricePlaceholder')}
                     prefix={
-                      <span className="font-semibold text-primary">
+                      <span className="font-semibold text-ink">
                         {resolvedCurrencySymbol}
                       </span>
                     }
@@ -298,7 +298,7 @@ export function EditProductBasicInformationForm({
               </div>
 
               {!hasVariations && selectedDealSummary && Number.isFinite(basePrice) ? (
-                <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
+                <div className="rounded-lg border border-ink/20 bg-primary/5 p-3 text-sm">
                   <p className="font-medium text-foreground">
                     {t('priceAfterDealLabel')}:{' '}
                     {priceAfterDeal === null

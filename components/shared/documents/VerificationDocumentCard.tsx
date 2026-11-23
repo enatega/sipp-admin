@@ -24,7 +24,7 @@ export function VerificationDocumentCard({
     <div className="rounded-xl border border-slate-200/60 bg-gradient-to-br from-slate-50 to-slate-100/50 p-5 transition-all duration-300">
       <div className="mb-4 flex items-center gap-2">
         <div className="rounded-lg bg-primary p-2">
-          <Icon className="h-4 w-4 text-white" />
+          <Icon className="h-4 w-4 text-primary-foreground" />
         </div>
         <h4 className="font-semibold text-slate-800">{title}</h4>
       </div>

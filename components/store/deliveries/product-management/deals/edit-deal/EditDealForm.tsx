@@ -137,7 +137,7 @@ export default function EditDealForm({
                 min="0"
                 className={discountInputPaddingClass}
                 prefix={
-                  <span className="whitespace-nowrap font-semibold text-primary">
+                  <span className="whitespace-nowrap font-semibold text-ink">
                     {discountPrefix}
                   </span>
                 }

@@ -42,7 +42,7 @@ export const EarningsPerStoreTypeChart: React.FC<IEarningsPerStore> = ({
         {
           label: t('earningsLabel'),
           data: data.map((d) => d.revenue),
-          backgroundColor: '#243BDB',
+          backgroundColor: '#F7E300',
           borderRadius: 6,
           maxBarThickness: 46,
         },
@@ -60,12 +60,12 @@ export const EarningsPerStoreTypeChart: React.FC<IEarningsPerStore> = ({
         },
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#FFFFFF',
           bodyColor: '#F9FAFB',
           padding: 10,
           displayColors: false,
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           callbacks: {
             title: () => '',

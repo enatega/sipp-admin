@@ -108,7 +108,7 @@ export function BulkProductUploadStatus({
       ? 'border-amber-300 bg-amber-50/70'
     : isCompleted
       ? 'border-emerald-200 bg-emerald-50/70'
-      : 'border-primary/25 bg-primary/5';
+      : 'border-ink/25 bg-primary/5';
 
   const StatusIcon = statusQuery.isError || isFailed || hasPartialFailures
     ? AlertTriangle
@@ -123,7 +123,7 @@ export function BulkProductUploadStatus({
       ? 'text-amber-600'
       : isCompleted
         ? 'text-emerald-600'
-        : 'text-primary';
+        : 'text-ink';
 
   return (
     <section

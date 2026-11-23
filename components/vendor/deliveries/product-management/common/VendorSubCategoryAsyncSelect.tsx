@@ -298,7 +298,7 @@ export default function VendorSubCategoryAsyncSelect({
               error
                 ? 'border-destructive'
                 : open && !disabled
-                  ? 'border-primary'
+                  ? 'border-ink'
                   : 'border-stroke',
               (disabled || !vendorId || !parentCategoryId) &&
                 'cursor-not-allowed opacity-70 bg-light',
@@ -347,7 +347,7 @@ export default function VendorSubCategoryAsyncSelect({
                       setSearch(event.target.value);
                     }}
                     placeholder={tForm('subcategorySearchPlaceholder')}
-                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
+                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-ink"
                     aria-invalid={!!error}
                     aria-describedby={helperId}
                     disabled={disabled}
@@ -357,7 +357,7 @@ export default function VendorSubCategoryAsyncSelect({
                   type="button"
                   onClick={handleRefresh}
                   disabled={disabled || isFetching}
-                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-primary disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-ink disabled:cursor-not-allowed disabled:opacity-60"
                   aria-label={tForm('subcategoryRefresh')}
                 >
                   <RefreshCw
@@ -384,7 +384,7 @@ export default function VendorSubCategoryAsyncSelect({
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-primary"
+                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-ink"
                   >
                     <RefreshCw className="size-4" />
                     {tForm('subcategoryRefresh')}
@@ -423,7 +423,7 @@ export default function VendorSubCategoryAsyncSelect({
                       <div className="flex w-full items-center justify-between gap-2">
                         <span className="truncate">{subCategory.name}</span>
                         {selectedSubCategoryId === subCategory.id && (
-                          <Check className="size-4 text-primary" />
+                          <Check className="size-4 text-ink" />
                         )}
                       </div>
                     </CommandItem>
@@ -451,7 +451,7 @@ export default function VendorSubCategoryAsyncSelect({
                 type="button"
                 onClick={() => setAddSubCategoryOpen(true)}
                 disabled={disabled || !vendorId || !parentCategoryId}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-stroke px-3 py-2 text-sm font-medium text-primary transition-colors hover:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-stroke px-3 py-2 text-sm font-medium text-ink transition-colors hover:border-ink disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Plus className="size-4" />
                 {tForm('addNewSubcategory')}

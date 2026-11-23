@@ -146,7 +146,7 @@ export function WalletTransactionsTable({
                           transaction.order_id && (
                             <Link
                               href={getOrderHref(transaction.order_id)}
-                              className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                              className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-ink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                             >
                               {t('viewOrder')}
                               <ExternalLink className="size-3.5" aria-hidden="true" />

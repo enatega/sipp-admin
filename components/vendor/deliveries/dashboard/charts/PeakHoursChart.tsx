@@ -41,22 +41,22 @@ const VendorPeakHoursChart: React.FC<IVendorPeakHoursChart> = ({
           backgroundColor: (context: ScriptableContext<'bar'>) => {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
-            if (!chartArea) return 'rgba(59, 130, 246, 0.6)';
+            if (!chartArea) return 'rgba(247, 227, 0, 0.7)';
             const gradient = ctx.createLinearGradient(
               0,
               chartArea.bottom,
               0,
               chartArea.top,
             );
-            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.1)');
-            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.8)');
+            gradient.addColorStop(0, 'rgba(247, 227, 0, 0.25)');
+            gradient.addColorStop(1, 'rgba(247, 227, 0, 1)');
             return gradient;
           },
-          borderColor: 'rgb(59, 130, 246)',
+          borderColor: '#DFCC00',
           borderWidth: 1.5,
           borderRadius: 6,
           maxBarThickness: 32,
-          hoverBackgroundColor: 'rgba(59, 130, 246, 0.9)',
+          hoverBackgroundColor: '#DFCC00',
         },
       ],
     };
@@ -72,12 +72,12 @@ const VendorPeakHoursChart: React.FC<IVendorPeakHoursChart> = ({
         },
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#FFFFFF',
           bodyColor: '#F9FAFB',
           padding: 12,
           displayColors: false,
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           cornerRadius: 8,
           callbacks: {

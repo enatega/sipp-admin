@@ -142,7 +142,7 @@ export const AppInputField = React.forwardRef<
               hasPostfix && '!pr-10',
               error
                 ? 'border-destructive focus:border-destructive'
-                : 'border-stroke focus:border-primary focus-visible:border-primary',
+                : 'border-stroke focus:border-ink focus-visible:border-ink',
               className,
             )}
             aria-invalid={!!error}

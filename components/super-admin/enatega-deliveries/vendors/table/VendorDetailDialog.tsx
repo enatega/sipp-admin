@@ -113,7 +113,7 @@ export default function VendorDetailDialog({
         <NoDataFound title={t('noDataTitle')} />
       ) : (
         <div className="space-y-6">
-          <div className="rounded-2xl p-6 text-white shadow-sm bg-gradient-to-r from-blue-700 to-blue-500">
+          <div className="rounded-2xl p-6 text-primary-foreground shadow-sm bg-gradient-to-r from-primary to-primary-pressed">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex items-start gap-4">
                 {vendor.profile_image ? (
@@ -169,7 +169,7 @@ export default function VendorDetailDialog({
 
           <section className="rounded-xl border bg-white p-5 space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
-              <FileText className="size-5 text-primary" />
+              <FileText className="size-5 text-ink" />
               {tVendorSections('kycDocuments')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

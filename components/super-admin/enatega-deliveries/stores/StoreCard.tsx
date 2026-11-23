@@ -359,7 +359,7 @@ export default function StoreCard({ store }: StoreCardProps) {
                   />
                 </div>
               ) : (
-                <span className="text-2xl font-bold text-primary">
+                <span className="text-2xl font-bold text-ink">
                   {store.storename?.charAt(0)?.toUpperCase() || 'S'}
                 </span>
               )}

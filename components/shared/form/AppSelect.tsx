@@ -162,11 +162,11 @@ export const AppSelect = ({
         <SelectTrigger
           id={inputId}
           className={cn(
-            '!w-full !h-11  bg-transparent text-sm font-normal border focus-visible:ring-0 outline-none data-[state=open]:border-primary',
+            '!w-full !h-11  bg-transparent text-sm font-normal border focus-visible:ring-0 outline-none data-[state=open]:border-ink',
             'capitalize',
             error
               ? 'border-destructive focus:border-destructive'
-              : 'border-stroke focus-border-primary focus-visible:border-primary',
+              : 'border-stroke focus-border-primary focus-visible:border-ink',
             className,
           )}
         >
@@ -227,7 +227,7 @@ export const AppSelect = ({
             'w-full h-11 rounded-md border bg-transparent px-3 text-sm outline-none focus-visible:ring-0',
             error
               ? 'border-destructive focus:border-destructive'
-              : 'border-stroke focus-visible:border-primary',
+              : 'border-stroke focus-visible:border-ink',
           )}
           placeholder={otherInputPlaceholder}
           value={

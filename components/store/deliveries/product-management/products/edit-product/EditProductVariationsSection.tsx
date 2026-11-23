@@ -204,7 +204,7 @@ export function EditProductVariationsSection({
                   {formatCurrency(Number(variation.price), resolvedCurrencySymbol)}
                 </p>
                 {variationDealSummary ? (
-                  <p className="text-xs text-primary mt-1">
+                  <p className="text-xs text-ink mt-1">
                     {tForm('priceAfterDealLabel')}:{' '}
                     {formatCurrency(
                       calculatePriceAfterDeal(

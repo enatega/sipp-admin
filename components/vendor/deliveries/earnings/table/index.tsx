@@ -167,7 +167,7 @@ const VendorEarningsTable = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-semibold">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-pressed flex items-center justify-center text-primary-foreground text-xs font-semibold">
                             {earning.customer_name.charAt(0)}
                           </div>
                           <span>{earning.customer_name}</span>

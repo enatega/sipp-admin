@@ -34,7 +34,7 @@ ChartJS.register(
 );
 
 const COLORS = {
-  totalOrders: { line: '#3B82F6', fill: 'rgba(59,130,246,0.12)' },
+  totalOrders: { line: '#111111', fill: 'rgba(247,227,0,0.22)' },
   completedOrders: { line: '#10B981', fill: 'rgba(16,185,129,0.12)' },
   inProgressOrders: { line: '#F59E0B', fill: 'rgba(245,158,11,0.12)' },
   pendingOrders: { line: '#EF4444', fill: 'rgba(239,68,68,0.12)' },
@@ -113,8 +113,8 @@ const StoreRevenueChart = ({ series, meta, isLoading }: IStoreRevenueChart) => {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#1F2937',
-        borderColor: '#374151',
+        backgroundColor: '#1C1C1E',
+        borderColor: '#3A3A3C',
         borderWidth: 1,
         padding: 12,
         titleColor: '#F9FAFB',

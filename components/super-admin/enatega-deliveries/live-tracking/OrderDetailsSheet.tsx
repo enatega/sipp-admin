@@ -118,7 +118,7 @@ export function OrderDetailsSheet({
                   value={
                     <span
                       title={overview.activeOrder.orderId}
-                      className="font-semibold tracking-wide text-primary"
+                      className="font-semibold tracking-wide text-ink"
                     >
                       #{overview.activeOrder.orderId.slice(0, 8).toUpperCase()}
                     </span>

@@ -25,7 +25,7 @@ export function AllergenNoteTranslations({ rowPath, disabled }: Props) {
   if (translation.isLoadingLanguages || !translation.targetLanguages.length || !translation.text) return null;
 
   return (
-    <div className="space-y-1.5 border-l-2 border-primary/20 pl-3" aria-busy={translation.isPending}>
+    <div className="space-y-1.5 border-l-2 border-ink/20 pl-3" aria-busy={translation.isPending}>
       {translation.targetLanguages.map((language, index) => {
         const path = `${rowPath}.noteTranslations.${language.code}`;
         return (
@@ -50,7 +50,7 @@ export function AllergenNoteTranslations({ rowPath, disabled }: Props) {
                   disabled={disabled || translation.isPending}
                   aria-label={translation.isPending ? t('translating') : t('refresh')}
                   title={translation.isPending ? t('translating') : t('refresh')}
-                  className="grid size-9 shrink-0 place-items-center rounded-md text-gray-400 transition-colors hover:bg-primary/5 hover:text-primary disabled:opacity-50"
+                  className="grid size-9 shrink-0 place-items-center rounded-md text-gray-400 transition-colors hover:bg-primary/5 hover:text-ink disabled:opacity-50"
                 >
                   <RefreshCw aria-hidden="true" className={translation.isPending ? 'size-4 animate-spin' : 'size-4'} />
                 </button>

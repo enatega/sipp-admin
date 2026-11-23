@@ -41,7 +41,7 @@ const defaultInitialValues: AppSettingsFormValues = {
   promotionalBanner: null,
   maintenanceEnabled: false,
   maintenanceMessage: '',
-  primaryColor: '#000000',
+  primaryColor: '#F7E300',
   secondaryColor: '#666666',
   tertiaryColor: '#CCCCCC',
 };
@@ -213,7 +213,7 @@ export default function AppSettingsForm({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-lg bg-primary px-8 py-3 font-semibold text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-primary px-8 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? t('saving') : t('saveChanges')}
             </button>

@@ -383,8 +383,8 @@ export const AppFileInput: React.FC<AppFileInputProps> = ({
           error
             ? 'border-destructive'
             : isDragging
-              ? 'border-primary bg-primary/5'
-              : 'border-stroke hover:border-primary',
+              ? 'border-ink bg-primary/5'
+              : 'border-stroke hover:border-ink',
           dropAreaClassName,
         )}
       >
@@ -438,7 +438,7 @@ export const AppFileInput: React.FC<AppFileInputProps> = ({
               </button>
             ) : (
               <div className="flex h-full flex-col items-center justify-center gap-2 px-4 text-center">
-                <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-ink">
                   {resolvedNonImagePreviewBadgeLabel}
                 </div>
                 <p className="line-clamp-2 text-sm font-medium text-foreground">

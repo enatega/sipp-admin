@@ -51,7 +51,7 @@ export function VariationSettingsSummary({
             'rounded-full px-2 py-0.5 font-medium',
             isOutOfStock
               ? 'bg-destructive/10 text-destructive'
-              : 'bg-primary/10 text-primary',
+              : 'bg-primary/10 text-ink',
           )}
         >
           {isOutOfStock ? t('outOfStock') : t('inStock')}

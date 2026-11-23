@@ -182,7 +182,7 @@ export function MultiSelect({
                 error
                   ? '!border-destructive focus-within:!border-destructive'
                   : open && !disabled
-                    ? '!border-primary'
+                    ? '!border-ink'
                     : '!border-input',
                 inputContainerClassName,
                 disabled && 'bg-light cursor-not-allowed opacity-70',
@@ -198,7 +198,7 @@ export function MultiSelect({
                     <Badge key={selectedId} variant="secondary">
                       {displayLabel}
                       <button
-                        className="ml-1 ring-offset-background rounded-full outline-none focus:!border-primary"
+                        className="ml-1 ring-offset-background rounded-full outline-none focus:!border-ink"
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             handleDeselect(selectedId);
@@ -284,7 +284,7 @@ export function MultiSelect({
                               >
                                 <span>{displayLabel}</span>
                                 <button
-                                  className="ml-1 ring-offset-background rounded-full outline-none focus:!border-primary"
+                                  className="ml-1 ring-offset-background rounded-full outline-none focus:!border-ink"
                                   onMouseDown={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
@@ -389,7 +389,7 @@ export function MultiSelect({
                           className={cn(
                             'h-4 w-4',
                             isSelected
-                              ? 'text-primary opacity-100'
+                              ? 'text-ink opacity-100'
                               : 'opacity-0',
                           )}
                         />

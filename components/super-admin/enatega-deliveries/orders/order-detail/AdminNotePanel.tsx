@@ -25,7 +25,7 @@ interface AdminNotePanelProps {
   storeTimezone?: string | null;
 }
 
-/** Internal note kept against an order. Shown to SIPP admins only. */
+/** Internal note kept against an order. Shown to Pohanch admins only. */
 export function AdminNotePanel({ orderId, storeTimezone }: AdminNotePanelProps) {
   const t = useTranslations('orders.orderDetail.adminNote');
   const textareaId = useId();
@@ -67,7 +67,7 @@ export function AdminNotePanel({ orderId, storeTimezone }: AdminNotePanelProps) 
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+          <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-ink">
             <NotebookPen aria-hidden="true" className="size-5" />
           </span>
           <div>
@@ -106,7 +106,7 @@ export function AdminNotePanel({ orderId, storeTimezone }: AdminNotePanelProps) 
             placeholder={canEdit ? t('placeholder') : t('emptyReadOnly')}
             className={cn(
               'mt-5 w-full resize-y rounded-lg border border-sidebar-border bg-accent/40 p-4 text-sm leading-6 text-black outline-none transition-colors placeholder:text-mute',
-              'focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20',
+              'focus:border-ink focus:bg-white focus:ring-2 focus:ring-ink/20',
               !canEdit && 'cursor-default focus:ring-0',
             )}
           />

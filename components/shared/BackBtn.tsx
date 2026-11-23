@@ -14,7 +14,7 @@ type BackBtnProps = {
 };
 
 const style =
-  'inline-flex items-center gap-1 hover:text-primary cursor-pointer text-[15px]';
+  'inline-flex items-center gap-1 hover:text-ink cursor-pointer text-[15px]';
 
 const BackBtn: React.FC<BackBtnProps> = ({ label, href, className }) => {
   const t = useTranslations('backBtn');

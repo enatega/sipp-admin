@@ -172,7 +172,7 @@ export function DeliveryFeeCalculatorSheet({
                 <p className="mt-1 text-3xl font-semibold tabular-nums text-black">
                   {formatCurrency(calculation.total)}
                 </p>
-                <dl className="mt-5 space-y-3 border-t border-primary/15 pt-4 text-sm">
+                <dl className="mt-5 space-y-3 border-t border-ink/15 pt-4 text-sm">
                   <div className="flex items-start justify-between gap-4">
                     <dt className="text-mute">
                       {t('baseFee', {

@@ -191,7 +191,7 @@ export const AppPhoneField = ({
           'w-full h-11 rounded-[12px] bg-transparent text-sm font-normal border px-3 outline-none focus:outline-none',
           error
             ? 'border-destructive focus:border-destructive'
-            : 'border-stroke focus:border-primary',
+            : 'border-stroke focus:border-ink',
           className,
         )}
         

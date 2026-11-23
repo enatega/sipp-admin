@@ -71,7 +71,7 @@ export function VariationFormCard({
             {t('variantLabel')} {index + 1}
           </p>
           {index === 0 ? (
-            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-ink">
               {t('baseVariationHint.badge')}
             </span>
           ) : null}

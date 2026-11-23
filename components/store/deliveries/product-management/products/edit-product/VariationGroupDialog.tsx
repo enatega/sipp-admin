@@ -172,7 +172,7 @@ export function VariationGroupDialog({
                   step="0.01"
                   min="0"
                   placeholder={tStep2('pricePlaceholder')}
-                  prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+                  prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
                   requiredAsterisk
                 />
                 <ProductVariationTaxBreakdown

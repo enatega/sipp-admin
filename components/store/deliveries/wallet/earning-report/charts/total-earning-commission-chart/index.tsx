@@ -24,13 +24,13 @@ export default function TotalEarningAndCommissionLineChart({
       title={t('title')}
       description={t('description')}
       legendItems={[
-        { label: tLegend('totalEarnings'), color: '#0EA5E9' },
+        { label: tLegend('totalEarnings'), color: '#111111' },
         { label: tLegend('totalCommission'), color: '#F97316' },
       ]}
       seriesColors={{
         totalEarnings: {
-          line: '#0EA5E9',
-          fill: 'rgba(14,165,233,0.12)',
+          line: '#111111',
+          fill: 'rgba(247,227,0,0.22)',
         },
         totalCommission: {
           line: '#F97316',

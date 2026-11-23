@@ -283,7 +283,7 @@ export default function OptionAsyncMultiSelect({
               error
                 ? 'border-destructive'
                 : open && !disabled
-                  ? 'border-primary'
+                  ? 'border-ink'
                   : 'border-stroke',
               disabled && 'cursor-not-allowed opacity-70 bg-light',
               inputContainerClassName,
@@ -357,7 +357,7 @@ export default function OptionAsyncMultiSelect({
                   type="button"
                   onClick={handleRefresh}
                   disabled={disabled || isFetching}
-                  className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-primary disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex h-9 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-ink disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <RefreshCw
                     className={cn('size-4', isFetching && 'animate-spin')}
@@ -376,7 +376,7 @@ export default function OptionAsyncMultiSelect({
                     setSearch(event.target.value);
                   }}
                   placeholder={t('form.optionsSearchPlaceholder')}
-                  className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-10 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+                  className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-10 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ink"
                 />
                 {search && (
                   <button
@@ -440,7 +440,7 @@ export default function OptionAsyncMultiSelect({
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-primary"
+                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-ink"
                   >
                     <RefreshCw className="size-4" />
                     {t('form.optionsRefresh')}
@@ -466,7 +466,7 @@ export default function OptionAsyncMultiSelect({
                       <div className="flex w-full items-center justify-between gap-2">
                         <span className="truncate">{option.title}</span>
                         {selectedOptionIds.includes(option.id) && (
-                          <Check className="size-4 text-primary" />
+                          <Check className="size-4 text-ink" />
                         )}
                       </div>
                     </CommandItem>
@@ -494,7 +494,7 @@ export default function OptionAsyncMultiSelect({
               <button
                 type="button"
                 onClick={() => setAddOptionOpen(true)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-stroke px-3 py-2 text-sm font-medium text-primary transition-colors hover:border-primary"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-stroke px-3 py-2 text-sm font-medium text-ink transition-colors hover:border-ink"
               >
                 <Plus className="size-4" />
                 {t('form.addNewOption')}

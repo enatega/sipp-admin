@@ -107,7 +107,7 @@ export function AddAddonForm({
               label={`${t('form.priceLabel')} (${resolvedCurrencySymbol})`}
               placeholder={t('form.pricePlaceholder')}
               prefix={
-                <span className="font-semibold text-primary">
+                <span className="font-semibold text-ink">
                   {resolvedCurrencySymbol}
                 </span>
               }

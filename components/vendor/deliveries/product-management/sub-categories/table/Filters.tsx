@@ -52,7 +52,7 @@ const Filters = () => {
         <AppButton
           variant="secondary"
           onClick={clearFilters}
-          className="text-primary/70"
+          className="text-ink/70"
         >
           <FilterX size={16} className="mr-2 !h-11" />
           {t('clearFilters')}

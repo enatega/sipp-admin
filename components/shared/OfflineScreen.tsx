@@ -22,7 +22,7 @@ export function OfflineScreen({ isChecking, onRetry }: OfflineScreenProps) {
       role="alertdialog"
     >
       <div className="w-full max-w-md text-center">
-        <span className="mx-auto grid size-20 place-items-center rounded-full bg-primary/10 text-primary">
+        <span className="mx-auto grid size-20 place-items-center rounded-full bg-primary/10 text-ink">
           <WifiOff aria-hidden="true" className="size-9" />
         </span>
         <h1

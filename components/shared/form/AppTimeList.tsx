@@ -110,7 +110,7 @@ export function AppTimeList({
                     <div className="flex flex-1 items-center gap-3">
                       <input
                         type="time"
-                        className="h-11 w-full rounded-lg border border-ring px-4 text-sm font-medium outline-none focus:border-primary"
+                        className="h-11 w-full rounded-lg border border-ring px-4 text-sm font-medium outline-none focus:border-ink"
                         value={slot.open}
                         onChange={(e) =>
                           updateSlot(slotIndex, 'open', e.target.value)
@@ -120,7 +120,7 @@ export function AppTimeList({
                       <span className="text-muted-foreground">-</span>
                       <input
                         type="time"
-                        className="h-11 w-full rounded-lg border border-ring px-4 text-sm font-medium outline-none focus:border-primary"
+                        className="h-11 w-full rounded-lg border border-ring px-4 text-sm font-medium outline-none focus:border-ink"
                         value={slot.close}
                         onChange={(e) =>
                           updateSlot(slotIndex, 'close', e.target.value)
@@ -134,7 +134,7 @@ export function AppTimeList({
                         currentValue.slots.length < maxSlots && (
                           <button
                             type="button"
-                            className="inline-flex items-center gap-1 text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                            className="inline-flex items-center gap-1 text-ink disabled:cursor-not-allowed disabled:opacity-50"
                             onClick={addSlot}
                             disabled={disabled}
                           >

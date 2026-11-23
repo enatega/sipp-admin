@@ -50,7 +50,7 @@ const AppStepper = ({
             <span
               className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold ${
                 isReached
-                  ? 'border-primary bg-white text-primary'
+                  ? 'border-ink bg-white text-ink'
                   : 'border-gray-300 bg-white text-gray-500'
               }`}
             >
@@ -68,7 +68,7 @@ const AppStepper = ({
                   type="button"
                   onClick={() => onStepClick(step.number)}
                   aria-label={step.title}
-                  className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ink"
                 >
                   {circle}
                 </button>
@@ -111,7 +111,7 @@ const AppStepper = ({
                 type="button"
                 onClick={() => onStepClick(step.number)}
                 aria-current={currentStep === step.number ? 'step' : undefined}
-                className="absolute inset-0 z-20 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="absolute inset-0 z-20 rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ink"
                 aria-label={step.title}
               />
             ) : null}
@@ -120,7 +120,7 @@ const AppStepper = ({
                 className={`${circleSize} rounded-full flex items-center justify-center text-xl font-semibold ${
                   stepNumberClassName ||
                   (currentStep >= step.number
-                    ? 'bg-white border-2 border-primary text-primary'
+                    ? 'bg-white border-2 border-ink text-ink'
                     : 'bg-white text-gray-400 border-2 border-gray-300')
                 }`}
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -177,7 +177,7 @@ const AppStepper = ({
             >
               <div className="absolute inset-0 border-l-2 border-dashed border-gray-300"></div>
               <motion.div
-                className="absolute inset-0 border-l-2 border-primary origin-top"
+                className="absolute inset-0 border-l-2 border-ink origin-top"
                 initial={{ scaleY: 0 }}
                 animate={{
                   scaleY: currentStep > step.number ? 1 : 0,

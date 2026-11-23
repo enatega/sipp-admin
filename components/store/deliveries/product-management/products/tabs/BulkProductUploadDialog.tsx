@@ -985,9 +985,9 @@ export function BulkProductUploadDialog({
               <p className="mt-2 text-xs text-muted-foreground">{t('optionalColumnsHint')}</p>
             </div>
             <a
-              className="inline-flex h-10 items-center rounded-md border border-primary px-4 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              download="sipp-bulk-products-sample.csv"
-              href="/templates/sipp-bulk-products-sample.csv"
+              className="inline-flex h-10 items-center rounded-md border border-ink px-4 text-sm font-medium text-ink transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+              download="pohanch-bulk-products-sample.csv"
+              href="/templates/pohanch-bulk-products-sample.csv"
             >
               <Download size={16} className="mr-2" aria-hidden="true" />
               {t('buttons.downloadSample')}
@@ -1024,12 +1024,12 @@ export function BulkProductUploadDialog({
 
         {isBusy ? (
           <div
-            className="rounded-xl border border-primary/30 bg-primary/5 p-4"
+            className="rounded-xl border border-ink/30 bg-primary/5 p-4"
             role="status"
             aria-live="polite"
           >
             <div className="flex items-start gap-3">
-              <Loader2 className="mt-0.5 size-5 shrink-0 animate-spin text-primary" aria-hidden="true" />
+              <Loader2 className="mt-0.5 size-5 shrink-0 animate-spin text-ink" aria-hidden="true" />
               <div>
                 <p className="text-sm font-semibold text-foreground">
                   {t('progress.uploading')}

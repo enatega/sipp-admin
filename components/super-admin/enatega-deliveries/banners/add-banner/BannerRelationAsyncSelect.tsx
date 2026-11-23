@@ -257,7 +257,7 @@ export function BannerRelationAsyncSelect({
               error
                 ? 'border-destructive'
                 : open
-                  ? 'border-primary'
+                  ? 'border-ink'
                   : 'border-stroke',
               disabled && 'cursor-not-allowed opacity-70 bg-light',
             )}
@@ -293,7 +293,7 @@ export function BannerRelationAsyncSelect({
                     value={search}
                     onValueChange={setSearch}
                     placeholder={`Search ${label.toLowerCase()}...`}
-                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
+                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-ink"
                   />
                 </div>
 
@@ -301,7 +301,7 @@ export function BannerRelationAsyncSelect({
                   type="button"
                   onClick={handleRefresh}
                   disabled={isFetching}
-                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-primary disabled:opacity-60"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-ink disabled:opacity-60"
                 >
                   <RefreshCw
                     className={cn('size-4', isFetching && 'animate-spin')}
@@ -340,7 +340,7 @@ export function BannerRelationAsyncSelect({
                         <div className="flex w-full items-center justify-between gap-2">
                           <span className="truncate">{item.name}</span>
                           {selectedId === item.id && (
-                            <Check className="size-4 text-primary" />
+                            <Check className="size-4 text-ink" />
                           )}
                         </div>
                       </CommandItem>

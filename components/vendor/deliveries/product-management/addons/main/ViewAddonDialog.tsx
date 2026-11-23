@@ -148,7 +148,7 @@ export default function ViewAddonDialog({
                         {option.description || '-'}
                       </p>
                     </div>
-                    <p className="font-semibold text-primary">
+                    <p className="font-semibold text-ink">
                       {formatCurrency(Number(option.price), resolvedCurrencySymbol)}
                     </p>
                   </div>

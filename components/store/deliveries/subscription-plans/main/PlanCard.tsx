@@ -31,7 +31,7 @@ export function PlanCard({
 
   return (
     <div
-      className={`relative rounded-xl border bg-white p-3.5 ${plan.isRecommended ? 'border-primary/60' : 'border-stroke'}`}
+      className={`relative rounded-xl border bg-white p-3.5 ${plan.isRecommended ? 'border-ink/60' : 'border-stroke'}`}
     >
 
       {isCurrentPlan ? (
@@ -52,7 +52,7 @@ export function PlanCard({
       </div>
 
       <div className="mb-4">
-        <p className="text-4xl font-bold text-primary">
+        <p className="text-4xl font-bold text-ink">
           ${billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice}
         </p>
         <p className="text-sm text-mute">/ {billingCycle === 'monthly' ? 'monthly' : 'yearly'}</p>
@@ -61,7 +61,7 @@ export function PlanCard({
       <div className="mb-4 grid grid-cols-2 gap-3 rounded-lg bg-accent p-3">
         <div>
           <p className="text-xs text-mute">Commission</p>
-          <p className="font-semibold text-primary">{plan.commissionRate}%</p>
+          <p className="font-semibold text-ink">{plan.commissionRate}%</p>
         </div>
         <div>
           <p className="text-xs text-mute">Free Orders</p>

@@ -188,24 +188,19 @@ export function BrandingProvider({
       description,
     };
 
+    // The admin always uses the Pohanch palette and logo from the deployment
+    // config, so stored app-theme colours or an older uploaded logo cannot
+    // bring back the previous brand (or a low-contrast primary) here.
     return {
-      logo: adminSettings?.global_logo || webSettings?.global_logo || base.logo,
-      favicon: webSettings?.favicon || base.favicon,
-      primaryColor:
-        adminSettings?.primary_color ||
-        webSettings?.primary_color ||
-        base.primaryColor,
-      secondaryColor:
-        adminSettings?.secondary_color ||
-        webSettings?.secondary_color ||
-        base.secondaryColor,
-      tertiaryColor:
-        adminSettings?.tertiary_color ||
-        webSettings?.tertiary_color ||
-        base.tertiaryColor,
-      appName: webSettings?.site_title || base.appName,
-      brandTitle: webSettings?.site_title || base.brandTitle,
-      description: webSettings?.site_description || base.description,
+      logo:
+        logo || adminSettings?.global_logo || webSettings?.global_logo || base.logo,
+      favicon: favicon || webSettings?.favicon || base.favicon,
+      primaryColor: primary,
+      secondaryColor: secondary,
+      tertiaryColor: tertiary,
+      appName: appName || webSettings?.site_title || base.appName,
+      brandTitle: titles.admin || webSettings?.site_title || base.brandTitle,
+      description: description || webSettings?.site_description || base.description,
     };
   }, [
     adminSettings,

@@ -82,7 +82,7 @@ export default function StatusBadge() {
     if (approvalStatus === 'approved') {
       return { color: 'bg-help-green', text: tBadge('approved') };
     } else if (approvalStatus === 'pending') {
-      return { color: 'bg-help-blue', text: tBadge('pending') };
+      return { color: 'bg-help-orange', text: tBadge('pending') };
     } else {
       return { color: 'bg-help-red', text: tBadge('rejected') };
     }

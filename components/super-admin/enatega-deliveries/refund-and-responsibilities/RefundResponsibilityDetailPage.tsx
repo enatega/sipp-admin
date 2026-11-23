@@ -307,7 +307,7 @@ export function RefundResponsibilityDetailPage() {
               request.status === 'automatic' &&
                 'bg-emerald-100 text-emerald-700',
               request.status === 'rejected' && 'bg-red-100 text-red-700',
-              request.status === 'pending' && 'bg-blue-100 text-blue-700',
+              request.status === 'pending' && 'bg-primary-soft text-ink',
             )}
           >
             {request.status?.charAt(0).toUpperCase() + request.status?.slice(1)}
@@ -733,7 +733,7 @@ export function RefundResponsibilityDetailPage() {
               <CircleAlert className="mt-0.5 h-4 w-4" />
               The approved amount is credited to the customer wallet. Store and
               rider responsibility deductions are recorded in their wallet
-              histories; admin deduction records SIPP&apos;s responsibility
+              histories; admin deduction records Pohanch&apos;s responsibility
               share.
             </p>
           </section>

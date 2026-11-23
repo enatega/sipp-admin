@@ -94,7 +94,7 @@ export function InviteUserDialog({
           <Form className="space-y-4">
             <div className="w-full flex flex-col items-center justify-center">
               <div className="mb-4">
-                <UserPlus2 className="h-16 w-16 text-primary" />
+                <UserPlus2 className="h-16 w-16 text-ink" />
               </div>
               <Heading title={t('title')} containerClassName="mb-2"></Heading>
               <p className="text-mute text-center mb-6 px-6">{t('subtitle')}</p>

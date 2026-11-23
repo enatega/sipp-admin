@@ -194,7 +194,7 @@ const EditableDocumentField: React.FC<EditableDocumentFieldProps> = ({
           htmlFor={inputId}
           className={cn(
             'flex w-full cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed p-5 transition',
-            'text-sm hover:border-primary',
+            'text-sm hover:border-ink',
             showError ? 'border-destructive' : 'border-stroke',
           )}
           style={{ minHeight: previewHeight }}

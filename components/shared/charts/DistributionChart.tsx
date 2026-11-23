@@ -105,10 +105,10 @@ export function DistributionPieChartCard<T extends Record<string, unknown>>({
 
         tooltip: {
           enabled: true,
-          backgroundColor: '#111827',
+          backgroundColor: '#111111',
           titleColor: '#fff',
           bodyColor: '#F9FAFB',
-          borderColor: '#374151',
+          borderColor: '#3A3A3C',
           borderWidth: 1,
           padding: 10,
           displayColors: false,

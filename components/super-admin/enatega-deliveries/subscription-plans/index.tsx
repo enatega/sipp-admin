@@ -99,7 +99,7 @@ export function SubscriptionPlansPage() {
               onClick={() => setBillingCycle('monthly')}
               className={`rounded-md px-6 py-2 text-sm font-medium transition-colors ${
                 billingCycle === 'monthly'
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-mute hover:text-darkblack'
               }`}
             >
@@ -110,7 +110,7 @@ export function SubscriptionPlansPage() {
               onClick={() => setBillingCycle('yearly')}
               className={`rounded-md px-6 py-2 text-sm font-medium transition-colors ${
                 billingCycle === 'yearly'
-                  ? 'bg-primary text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : 'text-mute hover:text-darkblack'
               }`}
             >

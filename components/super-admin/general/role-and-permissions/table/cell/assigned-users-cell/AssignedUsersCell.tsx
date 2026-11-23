@@ -46,9 +46,9 @@ export function AssignedUsersCell({
                 </AvatarFallback>
               </Avatar>
               {/* Custom Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-primary text-white text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 pointer-events-none">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-primary text-primary-foreground text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 pointer-events-none">
                 {user.name}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-primary" />
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink" />
               </div>
             </div>
           ))}
@@ -64,16 +64,16 @@ export function AssignedUsersCell({
                 </AvatarFallback>
               </Avatar>
               {/* Custom Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-primary text-white text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 pointer-events-none">
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-primary text-primary-foreground text-xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-50 pointer-events-none">
                 {user.name}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-primary" />
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink" />
               </div>
             </div>
           ))}
           <Popover>
             <PopoverTrigger asChild>
               <Avatar className="size-9 cursor-pointer transition-transform hover:scale-110 bg-primary ring-2 ring-background">
-                <AvatarFallback className="text-xs bg-primary text-white font-semibold">
+                <AvatarFallback className="text-xs bg-primary text-primary-foreground font-semibold">
                   +{users.length - (maxDisplay - 1)}
                 </AvatarFallback>
               </Avatar>

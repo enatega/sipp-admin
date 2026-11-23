@@ -79,7 +79,7 @@ export default function StoreMultiSelect({
             type="button"
             className={cn(
               'w-full h-11 rounded-[12px] border border-stroke px-3 text-sm flex items-center justify-between',
-              touched && error ? 'border-destructive' : 'focus:border-primary',
+              touched && error ? 'border-destructive' : 'focus:border-ink',
             )}
           >
             <span

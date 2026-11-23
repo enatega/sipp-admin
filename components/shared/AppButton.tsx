@@ -13,9 +13,9 @@ export const appButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-primary text-white border-transparent hover:bg-primary/90 shadow-sm hover:[&_svg]:text-white',
+          'bg-primary text-primary-foreground border-transparent hover:bg-primary/90 shadow-sm hover:[&_svg]:text-primary-foreground',
         secondary:
-          'bg-transparent text-primary border border-primary hover:bg-primary hover:text-white duration-200 ease-in-out hover:[&_svg]:text-white',
+          'bg-transparent text-ink border border-ink hover:bg-primary hover:text-primary-foreground duration-200 ease-in-out hover:[&_svg]:text-primary-foreground',
         mute: 'bg-transparent border duration-200 ease-in-out hover:bg-gray-100 hover:text-black hover:[&_svg]:text-black',
         green:
           'bg-help-green border-transparent duration-200 ease-in-out hover:bg-help-green/90 text-white',

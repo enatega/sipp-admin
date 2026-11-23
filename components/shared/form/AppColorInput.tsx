@@ -242,7 +242,7 @@ export const AppColorInput = React.forwardRef<
                     '!h-10 w-full rounded-lg pl-10 focus-visible:ring-0',
                     error
                       ? 'border-destructive focus:border-destructive'
-                      : 'border-stroke focus:border-primary focus-visible:border-primary focus-within:border-primary ',
+                      : 'border-stroke focus:border-ink focus-visible:border-ink focus-within:border-ink ',
                     className,
                   )}
                   aria-invalid={!!error}
@@ -304,7 +304,7 @@ export const AppColorInput = React.forwardRef<
                             key={color}
                             type="button"
                             onClick={() => handleColorChange(color)}
-                            className="h-6 w-6 rounded-md border-2 hover:scale-125 hover:z-10 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="h-6 w-6 rounded-md border-2 hover:scale-125 hover:z-10 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-ink"
                             style={{
                               backgroundColor: color,
                               borderColor: 'rgba(255,255,255,0.2)',

@@ -104,7 +104,7 @@ export const OrderValueBaseFeeForm = ({
               <div className="flex justify-end mt-4">
                 <AppButton
                   type="submit"
-                  className="px-14 bg-primary text-white"
+                  className="px-14 bg-primary text-primary-foreground"
                   isLoading={isLoading || isPending || isSubmitting}
                   disabled={isLoading || isPending || isSubmitting}
                 >

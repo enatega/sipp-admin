@@ -65,8 +65,8 @@ export function ShopTypeSection() {
                   className={cn(
                     'flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 transition-all',
                     isSelected
-                      ? 'border-primary bg-primary/10 ring-2 ring-primary ring-offset-2'
-                      : 'border-gray-200 bg-white hover:border-primary hover:bg-primary/5',
+                      ? 'border-ink bg-primary/10 ring-2 ring-ink ring-offset-2'
+                      : 'border-gray-200 bg-white hover:border-ink hover:bg-primary/5',
                   )}
                 >
                   <div className="w-12 h-12 relative rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -78,7 +78,7 @@ export function ShopTypeSection() {
                         className="object-cover"
                       />
                     ) : (
-                      <span className="text-xl font-bold text-primary">
+                      <span className="text-xl font-bold text-ink">
                         {shopType.name.charAt(0).toUpperCase()}
                       </span>
                     )}

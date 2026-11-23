@@ -41,7 +41,7 @@ export function MapLoadingState({ label = 'Loading map...' }: { label?: string }
       className="flex flex-col items-center justify-center gap-2 rounded-lg bg-muted/30 text-sm text-muted-foreground"
       style={{ height: `${MAP_HEIGHT}px` }}
     >
-      <Spinner className="size-6 text-primary" />
+      <Spinner className="size-6 text-ink" />
       {label}
     </div>
   );
@@ -230,7 +230,7 @@ export function OrderRouteMap({
                 suppressMarkers: true,
                 preserveViewport: true,
                 polylineOptions: {
-                  strokeColor: '#3b82f6',
+                  strokeColor: '#111111',
                   strokeWeight: 5,
                   strokeOpacity: 0.85,
                 },
@@ -264,12 +264,12 @@ export function OrderRouteMap({
             <OverlayView position={rider} mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
               <div className="flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
                 <div className="relative">
-                  <div className="absolute inset-0 animate-ping rounded-full bg-blue-500/30" />
-                  <div className="relative rounded-full border-2 border-white bg-blue-500 p-1.5 shadow-lg">
-                    <Bike className="h-3.5 w-3.5 text-white" />
+                  <div className="absolute inset-0 animate-ping rounded-full bg-primary/30" />
+                  <div className="relative rounded-full border-2 border-white bg-primary p-1.5 shadow-lg">
+                    <Bike className="h-3.5 w-3.5 text-primary-foreground" />
                   </div>
                 </div>
-                <span className="mt-1 whitespace-nowrap rounded bg-blue-500 px-1.5 py-0.5 text-[10px] font-medium text-white shadow-sm">
+                <span className="mt-1 whitespace-nowrap rounded bg-primary px-1.5 py-0.5 text-[10px] font-medium text-primary-foreground shadow-sm">
                   {riderName}
                 </span>
               </div>
@@ -288,7 +288,7 @@ export function OrderRouteMap({
 
         {showMapOverlay && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-white/80 text-sm text-muted-foreground backdrop-blur-[1px]">
-            <Spinner className="size-6 text-primary" />
+            <Spinner className="size-6 text-ink" />
             {tilesLoaded ? 'Loading route...' : 'Loading map...'}
           </div>
         )}
@@ -311,7 +311,7 @@ export function OrderRouteMap({
             Dropoff
           </span>
           <span className="flex items-center gap-1.5 text-muted-foreground">
-            <span className="h-2.5 w-2.5 rounded-full bg-blue-500" />
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Rider (live)
           </span>
         </div>
@@ -324,7 +324,7 @@ export function OrderRouteMap({
       </div>
 
       {riderLeg?.distance?.text && (
-        <div className="flex items-center gap-2 rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-900">
+        <div className="flex items-center gap-2 rounded-md bg-primary-soft px-3 py-2 text-xs text-ink">
           <Navigation className="h-3.5 w-3.5 shrink-0" />
           <span className="font-medium">
             {isHeadingToDropoff ? 'Rider → Dropoff' : 'Rider → Pickup'}

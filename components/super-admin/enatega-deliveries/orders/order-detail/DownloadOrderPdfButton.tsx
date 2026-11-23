@@ -104,8 +104,8 @@ export function DownloadOrderPdfButton({ order }: DownloadOrderPdfButtonProps) {
       ]);
 
       await downloadOrderDetailPdf({
-        fileName: `sipp-order-${orderCode.slice(1)}`,
-        brand: 'sipp',
+        fileName: `pohanch-order-${orderCode.slice(1)}`,
+        brand: 'Pohanch',
         title: t('documentTitle'),
         orderCode,
         status,

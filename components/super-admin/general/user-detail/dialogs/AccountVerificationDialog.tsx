@@ -44,7 +44,7 @@ function VerificationRow({
 
   return (
     <div className="flex items-center gap-3 p-4">
-      <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+      <div className="w-10 h-10 rounded-full bg-primary/10 text-ink flex items-center justify-center flex-shrink-0">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -120,7 +120,7 @@ export function AccountVerificationDialog({
       <div className="space-y-4 bg-white border rounded-lg p-4">
         <div className="flex flex-col items-center text-center">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-            <ShieldCheck className="w-8 h-8 text-primary" />
+            <ShieldCheck className="w-8 h-8 text-ink" />
           </div>
           <h3 className="text-xl font-semibold text-black mb-2">
             {t('title')}

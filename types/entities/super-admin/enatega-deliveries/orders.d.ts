@@ -241,7 +241,7 @@ export interface OrderDetailResponse {
     [key: string]: unknown;
 }
 
-/** Internal note visible to SIPP admins only. An empty note means none is saved. */
+/** Internal note visible to Pohanch admins only. An empty note means none is saved. */
 export interface OrderAdminNote {
     orderId: string;
     note: string;

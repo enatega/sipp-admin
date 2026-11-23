@@ -475,7 +475,7 @@ export function OrdersTable({
                       ) : showAssignRiderButton ? (
                         <button
                           type="button"
-                          className="inline-flex items-center gap-1.5 rounded-md border border-primary/40 bg-primary/5 px-2.5 py-1.5 text-xs text-primary hover:bg-primary/10 hover:border-primary/50 font-medium transition-colors"
+                          className="inline-flex items-center gap-1.5 rounded-md border border-ink/40 bg-primary/5 px-2.5 py-1.5 text-xs text-ink hover:bg-primary/10 hover:border-ink/50 font-medium transition-colors"
                           onClick={(e) => {
                             e.stopPropagation();
                             setAssigningOrderId(order.orderId);
@@ -719,7 +719,7 @@ export function OrdersTable({
                 rows={4}
                 autoFocus
                 placeholder="Enter rejection reason"
-                className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-ink focus:ring-1 focus:ring-ink"
               />
               <div className="mt-1 text-right text-xs text-muted-foreground">
                 {rejectionReason.length}/200

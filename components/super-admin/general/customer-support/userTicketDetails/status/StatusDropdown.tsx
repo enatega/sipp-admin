@@ -140,7 +140,7 @@ const StatusDropdown = ({ id, status }: { id: string; status: string }) => {
             type="button"
           ></button>
           <div className="flex flex-col items-center gap-4 mt-2">
-            <RefreshCw className="w-12 h-12 text-primary" />
+            <RefreshCw className="w-12 h-12 text-ink" />
             <DialogHeader>
               <DialogTitle className="text-center text-xl font-semibold">
                 {t('confirmTitle')}

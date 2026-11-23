@@ -134,7 +134,7 @@ export default function ViewAddonDialog({
                         {localizedText(option.description, option.descriptionTranslations) || '-'}
                       </p>
                     </div>
-                    <p className="font-semibold text-primary">
+                    <p className="font-semibold text-ink">
                       {formatCurrency(Number(option.price), currencySymbol)}
                     </p>
                   </div>

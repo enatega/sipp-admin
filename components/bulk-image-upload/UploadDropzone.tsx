@@ -35,11 +35,11 @@ export function UploadDropzone({ disabled, onFiles }: Props) {
       onDrop={handleDrop}
       className={cn(
         'flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors',
-        dragging ? 'border-primary bg-primary/5' : 'border-slate-300 bg-slate-50',
+        dragging ? 'border-ink bg-primary/5' : 'border-slate-300 bg-slate-50',
         disabled && 'cursor-not-allowed opacity-60',
       )}
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-ink">
         <UploadCloud size={28} />
       </div>
       <div>

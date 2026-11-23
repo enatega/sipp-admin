@@ -72,10 +72,10 @@ const TicketsInformation: React.FC<Props> = ({
         role="status"
         aria-live="polite"
         className={cn(
-          'mx-auto w-full rounded-xl border border-primary bg-background/50 p-8 text-center h-[75vh] flex flex-col justify-center',
+          'mx-auto w-full rounded-xl border border-ink bg-background/50 p-8 text-center h-[75vh] flex flex-col justify-center',
         )}
       >
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-primary text-primary">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-ink text-ink">
           <Inbox className="h-6 w-6 opacity-70" />
         </div>
         <h3 className="text-base font-medium text-mute">{t('selectPrompt')}</h3>
@@ -94,7 +94,7 @@ const TicketsInformation: React.FC<Props> = ({
         <div className="border-b w-full p-4">
           <h3 className="font-semibold text-lg flex items-center gap-3 capitalize">
             {ticket?.sender?.name ?? ''}
-            <span className="inline-flex items-center px-2 py-0.5 text-xs rounded-full bg-blue-100 text-primary font-medium">
+            <span className="inline-flex items-center px-2 py-0.5 text-xs rounded-full bg-primary-soft text-ink font-medium">
               {t('ticketCount', { count: tickets?.length ?? 0 })}
             </span>
           </h3>
@@ -137,12 +137,12 @@ const TicketsInformation: React.FC<Props> = ({
                   status={t.priority === 'urgent' ? priorityLabels('critical') : t.priority === 'high' || t.priority === 'medium' || t.priority === 'low' ? priorityLabels(t.priority) : '—'}
                   className="!text-semibold !text-black"
                   icon={<Flag size={14} />}
-                  iconClassName={`${t.priority === 'urgent' ? 'text-red-500' : t.priority === 'high' ? 'text-orange-500' : t.priority === 'medium' ? 'text-blue-500' : 'text-gray-500'}`}
+                  iconClassName={`${t.priority === 'urgent' ? 'text-red-500' : t.priority === 'high' ? 'text-orange-500' : t.priority === 'medium' ? 'text-ink' : 'text-gray-500'}`}
                 />
 
                 {/* Avatar */}
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center">
                     {getInitials(t.sender.name)}
                   </div>
                   <div className="text-xs text-muted-foreground">

@@ -53,7 +53,7 @@ export default function SpecificPeople({ people, onChange }: SpecificPeopleProps
         {people.map((person) => (
           <span
             key={person.id}
-            className="inline-flex items-center gap-1.5 rounded-full border border-primary bg-primary/10 py-1 pl-3 pr-1.5 text-sm text-primary"
+            className="inline-flex items-center gap-1.5 rounded-full border border-ink bg-primary/10 py-1 pl-3 pr-1.5 text-sm text-ink"
           >
             {displayName(person)}
             <button
@@ -93,7 +93,7 @@ export default function SpecificPeople({ people, onChange }: SpecificPeopleProps
                 value={term}
                 onChange={(event) => setTerm(event.target.value)}
                 placeholder={t('peopleSearchPlaceholder')}
-                className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-3 text-sm outline-none focus:border-primary"
+                className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-9 pr-3 text-sm outline-none focus:border-ink"
               />
             </div>
 
@@ -138,7 +138,7 @@ export default function SpecificPeople({ people, onChange }: SpecificPeopleProps
                       className={cn(
                         'flex size-5 shrink-0 items-center justify-center rounded border',
                         picked
-                          ? 'border-primary bg-primary text-white'
+                          ? 'border-ink bg-primary text-primary-foreground'
                           : 'border-stroke',
                       )}
                     >

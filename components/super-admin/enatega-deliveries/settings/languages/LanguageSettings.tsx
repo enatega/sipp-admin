@@ -43,7 +43,7 @@ export function LanguageSettings() {
         <button
           type="button"
           onClick={() => void refetch()}
-          className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="mt-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
         >
           {t('retry')}
         </button>
@@ -88,7 +88,7 @@ export function LanguageSettings() {
                       {language.code}
                     </span>
                     {isEnglish && (
-                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-ink">
                         {t('defaultBadge')}
                       </span>
                     )}

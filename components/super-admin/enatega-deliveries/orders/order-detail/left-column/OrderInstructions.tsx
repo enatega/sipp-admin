@@ -22,7 +22,7 @@ export function OrderInstructions({ order }: OrderInstructionsProps) {
         <Heading title={t('title')} containerClassName="mb-0" />
         <MessageSquareText
           aria-hidden="true"
-          className="size-5 shrink-0 text-primary"
+          className="size-5 shrink-0 text-ink"
         />
       </div>
 
@@ -32,7 +32,7 @@ export function OrderInstructions({ order }: OrderInstructionsProps) {
             <dt className="flex items-center gap-2 text-sm font-semibold text-black">
               <Store
                 aria-hidden="true"
-                className="size-4 shrink-0 text-primary"
+                className="size-4 shrink-0 text-ink"
               />
               {t('storeLabel')}
             </dt>
@@ -47,7 +47,7 @@ export function OrderInstructions({ order }: OrderInstructionsProps) {
             <dt className="flex items-center gap-2 text-sm font-semibold text-black">
               <Bike
                 aria-hidden="true"
-                className="size-4 shrink-0 text-primary"
+                className="size-4 shrink-0 text-ink"
               />
               {t('courierLabel')}
             </dt>

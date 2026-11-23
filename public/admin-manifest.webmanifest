@@ -1,1 +1,1 @@
-{"name":"Sipp Admin","short_name":"Sipp Admin","start_url":"/deliveries/dashboard","scope":"/","display":"standalone","background_color":"#ffffff","theme_color":"#38b6f3","icons":[{"src":"/sipp-favicon.png","sizes":"any","type":"image/png"}]}
+{"name":"Pohanch Admin","short_name":"Pohanch Admin","start_url":"/deliveries/dashboard","scope":"/","display":"standalone","background_color":"#ffffff","theme_color":"#F7E300","icons":[{"src":"/pohanch-favicon.png","sizes":"192x192","type":"image/png"}]}

@@ -167,7 +167,7 @@ export function CouponUsageModal({
               className="flex min-h-[320px] flex-col items-center justify-center gap-3"
               role="status"
             >
-              <Spinner className="size-8 text-primary" />
+              <Spinner className="size-8 text-ink" />
               <p className="text-mute text-sm">{t('loading')}</p>
             </div>
           ) : isError ? (
@@ -311,7 +311,7 @@ export function CouponUsageModal({
                             title={t('viewOrder')}
                           >
                             <TableCell>
-                              <span className="inline-flex items-center gap-1 font-medium text-help-blue">
+                              <span className="inline-flex items-center gap-1 font-medium text-ink">
                                 {order.id.split('-')[0]}
                                 <ExternalLink className="size-3.5" />
                               </span>

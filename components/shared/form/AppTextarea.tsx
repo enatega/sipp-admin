@@ -94,7 +94,7 @@ export const AppTextarea = React.forwardRef<
             '!w-full rounded-[12px] bg-transparent text-sm font-normal border focus-visible:ring-0 outline-none resize-none',
             error
               ? 'border-destructive focus:border-destructive'
-              : 'border-stroke focus:border-primary focus-visible:border-primary',
+              : 'border-stroke focus:border-ink focus-visible:border-ink',
             className,
           )}
           aria-invalid={!!error}

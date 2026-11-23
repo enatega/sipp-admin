@@ -238,7 +238,7 @@ export function EarningViewTable({
                         <div className="flex items-center gap-2">
                           <span>{item.orderId.slice(0, 10) + '...'}</span>
                           <Copy
-                            className="h-5 w-5 text-gray-600 hover:text-primary cursor-pointer"
+                            className="h-5 w-5 text-gray-600 hover:text-ink cursor-pointer"
                             onClick={() => handleCopy(item.orderId)}
                           />
                         </div>

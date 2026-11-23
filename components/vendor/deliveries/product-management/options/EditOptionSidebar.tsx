@@ -128,7 +128,7 @@ export default function EditOptionSidebar({
                     placeholder={tForm('pricePlaceholder')}
                     name="price"
                     type="number"
-                    prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+                    prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
                     requiredAsterisk
                   />
 

@@ -25,7 +25,7 @@ export default function ComingSoon() {
           }}
         />
         <motion.div
-          className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-help-blue opacity-5 blur-3xl"
+          className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-primary-pressed opacity-10 blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             x: [0, -40, 0],
@@ -64,7 +64,7 @@ export default function ComingSoon() {
                 ease: 'linear',
               }}
             >
-              <div className="h-32 w-32 rounded-full border-2 border-transparent border-t-primary border-r-primary opacity-30"></div>
+              <div className="h-32 w-32 rounded-full border-2 border-transparent border-t-ink border-r-ink opacity-30"></div>
             </motion.div>
 
             <motion.div
@@ -76,17 +76,17 @@ export default function ComingSoon() {
                 ease: 'linear',
               }}
             >
-              <div className="h-28 w-28 rounded-full border-[3px] border-transparent border-l-help-blue border-b-help-blue"></div>
+              <div className="h-28 w-28 rounded-full border-[3px] border-transparent border-l-ink border-b-ink"></div>
             </motion.div>
 
             {/* Center icon */}
             <motion.div
-              className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-help-blue shadow-2xl shadow-primary/30"
+              className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-pressed shadow-2xl shadow-primary/30"
               animate={{
                 boxShadow: [
-                  '0 20px 60px -15px rgba(30, 64, 175, 0.3)',
-                  '0 20px 60px -15px rgba(30, 64, 175, 0.6)',
-                  '0 20px 60px -15px rgba(30, 64, 175, 0.3)',
+                  '0 20px 60px -15px rgba(223, 204, 0, 0.35)',
+                  '0 20px 60px -15px rgba(223, 204, 0, 0.6)',
+                  '0 20px 60px -15px rgba(223, 204, 0, 0.35)',
                 ],
               }}
               transition={{
@@ -105,7 +105,7 @@ export default function ComingSoon() {
                   ease: 'linear',
                 }}
               >
-                <Sparkles className="h-10 w-10 text-white" />
+                <Sparkles className="h-10 w-10 text-primary-foreground" />
               </motion.div>
             </motion.div>
           </div>
@@ -119,7 +119,7 @@ export default function ComingSoon() {
         >
           <h1 className="mb-4 text-5xl font-bold text-black md:text-6xl lg:text-7xl">
             {t('title')}{' '}
-            <span className="bg-gradient-to-r from-primary to-help-blue bg-clip-text text-transparent">
+            <span className="text-ink underline decoration-primary decoration-[6px] underline-offset-8">
               {t('titleHighlight')}
             </span>
           </h1>
@@ -229,13 +229,13 @@ function FeatureCard({ icon, title, description, delay }: FeatureCardProps) {
     >
       {/* Gradient overlay on hover */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-help-blue/5 opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-soft opacity-0 transition-opacity group-hover:opacity-100"
         initial={false}
       />
 
       <div className="relative z-10">
         <motion.div
-          className="mb-3 inline-flex rounded-xl bg-primary/10 p-3 text-primary"
+          className="mb-3 inline-flex rounded-xl bg-primary/10 p-3 text-ink"
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.6 }}
         >

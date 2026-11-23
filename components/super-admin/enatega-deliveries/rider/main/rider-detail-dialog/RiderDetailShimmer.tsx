@@ -10,7 +10,7 @@ export const RiderDetailShimmer = () => {
       <div
         className="h-32 rounded-2xl animate-pulse"
         style={{
-          background: 'linear-gradient(to right, #1E40AF, #2563EB)',
+          background: 'linear-gradient(to right, #111111, #1C1C1E)',
         }}
       />
 

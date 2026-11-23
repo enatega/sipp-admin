@@ -22,10 +22,10 @@ export default function PhonePreview({ title, description, groups }: PhonePrevie
       <p className="mb-2 text-[15px] font-medium">{tComposer('previewTitle')}</p>
       <div className="rounded-2xl border border-stroke bg-white p-3">
         <div className="mb-1 flex items-center gap-2">
-          <span className="flex size-[18px] items-center justify-center rounded bg-primary/10 text-primary">
+          <span className="flex size-[18px] items-center justify-center rounded bg-primary/10 text-ink">
             <BellRing className="size-3" aria-hidden="true" />
           </span>
-          <span className="flex-1 text-xs text-muted-foreground">SIPP</span>
+          <span className="flex-1 text-xs text-muted-foreground">Pohanch</span>
           <span className="text-xs text-muted-foreground">{tComposer('previewNow')}</span>
         </div>
         <p className="break-words text-sm font-medium leading-snug">

@@ -33,7 +33,7 @@ function DetailRow({ icon: Icon, label, value }: RowProps) {
 
   return (
     <div className="flex items-start gap-3 px-3 py-2.5">
-      <span className="grid size-7 flex-none place-items-center rounded-md bg-primary/10 text-primary">
+      <span className="grid size-7 flex-none place-items-center rounded-md bg-primary/10 text-ink">
         <Icon aria-hidden="true" className="size-3.5" />
       </span>
       <div className="min-w-0 flex-1">

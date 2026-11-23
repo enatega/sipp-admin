@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const DEFAULT_PRIMARY_COLOR = '#1e40af';
+const DEFAULT_PRIMARY_COLOR = '#F7E300';
 
 const getPrimaryColor = () => {
   if (typeof document === 'undefined') {

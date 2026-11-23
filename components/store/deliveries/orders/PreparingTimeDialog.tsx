@@ -56,10 +56,10 @@ function PreparingTimeDialogContent({ open, loading, onOpenChange, onConfirm }: 
               disabled={loading}
               onClick={() => setSelected(minutes)}
               className={cn(
-                'h-12 rounded-lg border text-sm transition focus-visible:outline-2 focus-visible:outline-primary',
+                'h-12 rounded-lg border text-sm transition focus-visible:outline-2 focus-visible:outline-ink',
                 isSelected
-                  ? 'border-primary bg-primary font-semibold text-primary-foreground'
-                  : 'border-slate-200 bg-slate-50 font-medium text-slate-900 hover:border-primary/60',
+                  ? 'border-ink bg-primary font-semibold text-primary-foreground'
+                  : 'border-slate-200 bg-slate-50 font-medium text-slate-900 hover:border-ink/60',
               )}
             >
               {t('minutes', { minutes })}

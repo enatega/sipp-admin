@@ -46,11 +46,11 @@ export interface OrderPdfContent {
 }
 
 type Rgb = [number, number, number];
-const BRAND: Rgb = [102, 192, 242];
-const INK: Rgb = [20, 24, 31];
-const MUTED: Rgb = [102, 112, 133];
-const LINE: Rgb = [226, 232, 240];
-const SOFT: Rgb = [244, 248, 252];
+const BRAND: Rgb = [247, 227, 0];
+const INK: Rgb = [17, 17, 17];
+const MUTED: Rgb = [92, 92, 102];
+const LINE: Rgb = [229, 231, 235];
+const SOFT: Rgb = [245, 245, 247];
 const AMBER_BG: Rgb = [255, 247, 230];
 const AMBER_LINE: Rgb = [245, 180, 70];
 
@@ -153,7 +153,7 @@ export async function downloadOrderDetailPdf(content: OrderPdfContent) {
     theme: 'grid',
     margin: { left: PAGE_MARGIN, right: PAGE_MARGIN },
     styles: { font: PDF_FONT, fontSize: 9, cellPadding: 2.4, lineColor: LINE, lineWidth: 0.2, textColor: INK, overflow: 'linebreak' },
-    headStyles: { font: 'helvetica', fontStyle: 'bold', fillColor: BRAND, textColor: [255, 255, 255] },
+    headStyles: { font: 'helvetica', fontStyle: 'bold', fillColor: BRAND, textColor: INK },
     // The embedded font has no bold weight, so foot cells must stay 'normal'.
     footStyles: { font: PDF_FONT, fontStyle: 'normal', fillColor: [255, 255, 255], textColor: INK, lineWidth: 0 },
     columnStyles: Object.fromEntries(
@@ -204,8 +204,8 @@ export async function downloadOrderDetailPdf(content: OrderPdfContent) {
       theme: 'striped',
       margin: { left: PAGE_MARGIN, right: PAGE_MARGIN },
       styles: { font: PDF_FONT, fontSize: 8.5, cellPadding: 2.2, textColor: INK, overflow: 'linebreak' },
-      headStyles: { font: 'helvetica', fontStyle: 'bold', fillColor: [234, 241, 248], textColor: INK },
-      alternateRowStyles: { fillColor: [250, 252, 254] },
+      headStyles: { font: 'helvetica', fontStyle: 'bold', fillColor: [255, 252, 224], textColor: INK },
+      alternateRowStyles: { fillColor: [250, 250, 250] },
       columnStyles: { 0: { cellWidth: 34 }, 1: { cellWidth: 30 }, 2: { cellWidth: 38 } },
     });
     afterTable();
@@ -234,8 +234,6 @@ function drawHeader(doc: jsPDF, content: OrderPdfContent, pageWidth: number) {
   doc.setFontSize(20);
   doc.setTextColor(...INK);
   doc.text(content.brand, PAGE_MARGIN, 18);
-  doc.setTextColor(...BRAND);
-  doc.text('.', PAGE_MARGIN + doc.getTextWidth(content.brand), 18);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
@@ -251,9 +249,9 @@ function drawHeader(doc: jsPDF, content: OrderPdfContent, pageWidth: number) {
   doc.setFontSize(8);
   const pillWidth = doc.getTextWidth(content.status) + 7;
   const pillX = pageWidth - PAGE_MARGIN - pillWidth;
-  doc.setFillColor(232, 245, 253);
+  doc.setFillColor(255, 252, 224);
   doc.roundedRect(pillX, 20.5, pillWidth, 5.6, 2.8, 2.8, 'F');
-  doc.setTextColor(30, 110, 160);
+  doc.setTextColor(...INK);
   doc.text(content.status, pillX + pillWidth / 2, 24.3, { align: 'center' });
 
   doc.setFontSize(7.5);

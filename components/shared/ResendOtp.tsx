@@ -84,7 +84,7 @@ const ResendOtp: React.FC<ResendOtpProps> = ({
         type="button"
         onClick={handleResend}
         disabled={disabled}
-        className={`underline-offset-2 ${disabled ? 'text-muted-foreground cursor-not-allowed' : 'text-primary hover:underline'
+        className={`underline-offset-2 ${disabled ? 'text-muted-foreground cursor-not-allowed' : 'text-ink hover:underline'
           }`}
         aria-disabled={disabled}
       >

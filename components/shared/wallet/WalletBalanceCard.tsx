@@ -28,14 +28,14 @@ export function WalletBalanceCard({
       aria-label={t('availableBalance')}
       className={cn(
         'relative overflow-hidden rounded-2xl p-6 sm:p-8 text-white shadow-lg',
-        'bg-[linear-gradient(135deg,color-mix(in_oklab,var(--primary)_58%,black)_0%,color-mix(in_oklab,var(--primary)_82%,black)_100%)]',
+        'bg-[linear-gradient(135deg,#111111_0%,#1C1C1E_100%)]',
         className,
       )}
     >
       {/* Decorative rings */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 -top-20 size-64 rounded-full border-[28px] border-white/10"
+        className="pointer-events-none absolute -right-16 -top-20 size-64 rounded-full border-[28px] border-primary/15"
       />
       <div
         aria-hidden

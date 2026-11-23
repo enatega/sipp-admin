@@ -144,7 +144,7 @@ export const DayTimingRow = ({
 
         {data.is_active && (
           <CirclePlusIcon
-            className="w-5 h-5 text-primary cursor-pointer"
+            className="w-5 h-5 text-ink cursor-pointer"
             onClick={addTimeSlot}
           />
         )}

@@ -187,7 +187,7 @@ const VendorWithdrawalRequestsTable = ({
                               alt={request.name || tFallback('store')}
                             />
                           ) : (
-                            <AvatarFallback className="bg-gradient-to-br from-blue-400 to-blue-600 text-white text-xs font-semibold">
+                            <AvatarFallback className="bg-gradient-to-br from-primary to-primary-pressed text-primary-foreground text-xs font-semibold">
                               {request.name?.charAt(0) ||
                                 tFallback('storeInitial')}
                             </AvatarFallback>

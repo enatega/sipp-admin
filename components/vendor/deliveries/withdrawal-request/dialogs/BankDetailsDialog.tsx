@@ -113,7 +113,7 @@ export const BankDetailsDialog = ({
         {/* User Icon/Header */}
         <div className="flex items-center justify-center mb-4">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-            <User className="w-8 h-8 text-primary" />
+            <User className="w-8 h-8 text-ink" />
           </div>
         </div>
 

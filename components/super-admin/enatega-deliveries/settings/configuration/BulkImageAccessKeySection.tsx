@@ -127,7 +127,7 @@ export function BulkImageAccessKeySection() {
                 href={pageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="min-w-0 flex-1 truncate font-mono text-sm text-primary hover:underline"
+                className="min-w-0 flex-1 truncate font-mono text-sm text-ink hover:underline"
               >
                 {pageUrl}
               </a>

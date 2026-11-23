@@ -28,17 +28,17 @@ export interface DeploymentConfig {
 
 export const deployment: DeploymentConfig = {
   brand: {
-    companyName: 'SIPP',
-    appName: 'SIPP Admin',
-    shortName: 'SIPP',
-    description: 'SIPP administration portal',
-    logo: '/images/sip-transparent-logo.png',
-    favicon: '/sipp-favicon.png',
+    companyName: 'Pohanch',
+    appName: 'Pohanch Admin',
+    shortName: 'Pohanch',
+    description: 'Pohanch administration portal',
+    logo: '/images/pohanch-logo.png',
+    favicon: '/pohanch-favicon.png',
 
     colors: {
-      primary: '#66c0f2',
-      secondary: '#e33935',
-      tertiary: '#b98d45',
+      primary: '#F7E300',
+      secondary: '#F5F5F7',
+      tertiary: '#DFCC00',
     },
     titles: {
       admin: 'Admin Panel',
@@ -51,7 +51,7 @@ export const deployment: DeploymentConfig = {
     deliveries: true,
   },
   moduleLabels: {
-    deliveries: 'SIPP Deliveries',
+    deliveries: 'Pohanch Deliveries',
   },
 };
 

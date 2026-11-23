@@ -54,7 +54,7 @@ export function NutritionAllergensField({
   ].filter(Boolean).join(' · ');
 
   return (
-    <div className="rounded-xl border border-primary/15 bg-primary/[0.03]">
+    <div className="rounded-xl border border-ink/15 bg-primary/[0.03]">
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
@@ -63,13 +63,13 @@ export function NutritionAllergensField({
         className="flex w-full items-center justify-between gap-3 px-4 py-3 text-start"
       >
         <span className="flex min-w-0 items-center gap-3">
-          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-ink">
             <Leaf aria-hidden="true" className="size-4" />
           </span>
           <span className="min-w-0">
             <span className="flex flex-wrap items-center gap-2 text-sm font-semibold text-foreground">
               {t('title')}
-              <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-primary">{t('optional')}</span>
+              <span className="rounded-md bg-primary/10 px-1.5 py-0.5 text-[11px] font-medium text-ink">{t('optional')}</span>
             </span>
             <span className="block truncate text-xs text-gray-500">{summary || subtitle || t('subtitle')}</span>
           </span>
@@ -81,7 +81,7 @@ export function NutritionAllergensField({
       </button>
 
       {/* Kept mounted while collapsed so the toggles remember their stashed rows. */}
-      <div id={panelId} hidden={!isOpen} className="divide-y divide-gray-200 border-t border-primary/15 bg-white px-4">
+      <div id={panelId} hidden={!isOpen} className="divide-y divide-gray-200 border-t border-ink/15 bg-white px-4">
         <ToggledSection name={nutritionName} label={t('nutritionToggle')} disabled={disabled} emptyRow={{ label: '', value: '' }}>
           <NutritionFactsRows name={nutritionName} disabled={disabled} renderFactExtras={renderNutritionFactExtras} />
         </ToggledSection>

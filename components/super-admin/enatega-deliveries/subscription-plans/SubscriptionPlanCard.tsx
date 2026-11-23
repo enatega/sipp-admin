@@ -40,7 +40,7 @@ export function SubscriptionPlanCard({
   return (
     <div
       className={`w-[350px] relative rounded-xl border bg-white p-5 ${
-        plan.isRecommended ? 'border-primary/60' : 'border-stroke'
+        plan.isRecommended ? 'border-ink/60' : 'border-stroke'
       }`}
     >
       {plan.isRecommended ? (
@@ -61,7 +61,7 @@ export function SubscriptionPlanCard({
           <button
             type="button"
             onClick={() => onEdit(plan)}
-            className="text-mute transition-colors hover:text-primary"
+            className="text-mute transition-colors hover:text-ink"
             aria-label={t('editPlan')}
           >
             <PenLine className="size-4" />
@@ -78,14 +78,14 @@ export function SubscriptionPlanCard({
       </div>
 
       <div className="mb-4">
-        <p className="text-4xl font-bold text-primary">{currencySymbol}{price}</p>
+        <p className="text-4xl font-bold text-ink">{currencySymbol}{price}</p>
         <p className="text-sm text-mute">/{periodLabel}</p>
       </div>
 
       <div className="mb-4 grid grid-cols-2 gap-3 rounded-lg bg-accent p-3">
         <div>
           <p className="text-xs text-mute">{t('commission')}</p>
-          <p className="font-semibold text-primary">{plan.commissionRate}%</p>
+          <p className="font-semibold text-ink">{plan.commissionRate}%</p>
         </div>
         <div>
           <p className="text-xs text-mute">{t('freeOrders')}</p>

@@ -136,7 +136,7 @@ export const EditStoreCommissionForm = ({
             <AppButton
               type="submit"
               className={cn(
-                'px-14 bg-primary text-white hover:bg-primary/80',
+                'px-14 bg-primary text-primary-foreground hover:bg-primary/80',
                 !dirty && '!cursor-not-allowed',
               )}
               isLoading={isSubmitting || isPending}

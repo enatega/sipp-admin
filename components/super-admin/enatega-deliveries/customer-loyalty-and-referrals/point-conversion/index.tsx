@@ -136,7 +136,7 @@ const PointConversion = () => {
                 </span>
               </div>
               <ArrowRight className="size-4 text-muted-foreground" />
-              <span className="font-semibold text-primary">
+              <span className="font-semibold text-ink">
                 {currencySymbol} 1.00
               </span>
             </div>
@@ -163,7 +163,7 @@ const PointConversion = () => {
                 {/* Arrow */}
                 <div className="flex items-center justify-center pb-2">
                   <div className="p-2 rounded-full bg-primary/10">
-                    <ArrowRight className="size-5 text-primary" />
+                    <ArrowRight className="size-5 text-ink" />
                   </div>
                 </div>
 
@@ -173,7 +173,7 @@ const PointConversion = () => {
                     {t('convertedValue')}
                   </label>
                   <div className="h-11 w-full flex items-center px-3 rounded-[12px] border bg-muted/50">
-                    <span className="text-lg font-semibold text-primary">
+                    <span className="text-lg font-semibold text-ink">
                       {currencySymbol} {calculatedValue.toFixed(2)}
                     </span>
                   </div>

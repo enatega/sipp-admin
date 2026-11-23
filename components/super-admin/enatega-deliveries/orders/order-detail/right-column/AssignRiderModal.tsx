@@ -121,7 +121,7 @@ export function AssignRiderModal({ isOpen, onClose, orderId, currentRiderId }: A
           role="status"
           className="flex flex-col items-center justify-center rounded-xl border border-dashed border-sidebar-border bg-accent/30 px-6 py-10 text-center"
         >
-          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-primary/10 text-ink">
             <Bike className="size-6" />
           </div>
           <h4 className="text-base font-semibold text-black">
@@ -188,7 +188,7 @@ export function AssignRiderModal({ isOpen, onClose, orderId, currentRiderId }: A
                     isOffline
                       ? 'bg-gray-100 text-gray-500 hover:bg-gray-100 border-gray-200'
                       : isAvailable
-                      ? 'bg-help-blue/10 text-help-blue hover:bg-help-blue/10 border-help-blue/20'
+                      ? 'bg-primary-soft text-ink hover:bg-primary-soft border-primary-pressed/40'
                       : 'bg-help-orange/10 text-help-orange hover:bg-help-orange/10 border-help-orange/20'
                   }`}
                 >
@@ -224,7 +224,7 @@ export function AssignRiderModal({ isOpen, onClose, orderId, currentRiderId }: A
                 setAssigningId(null);
               }
             }}
-            className="h-8 shrink-0 border-help-blue/30 font-normal text-help-blue hover:text-help-blue/80 hover:bg-help-blue/10 px-4 rounded-sm"
+            className="h-8 shrink-0 border-ink/30 font-normal text-ink hover:text-ink/80 hover:bg-primary-soft px-4 rounded-sm"
             disabled={assigningId !== null || isCurrentRider}
           >
             {isCurrentRider ? 'Assigned' : assigningId === id ? t('assigning') : currentRiderId ? 'Reassign' : t('assignButton')}
@@ -327,7 +327,7 @@ export function AssignRiderModal({ isOpen, onClose, orderId, currentRiderId }: A
                     key={value}
                     type="button"
                     onClick={() => setAvailability(value)}
-                    className={`rounded-md px-3 py-1.5 text-sm capitalize ${availability === value ? 'bg-primary text-white' : 'border text-black'}`}
+                    className={`rounded-md px-3 py-1.5 text-sm capitalize ${availability === value ? 'bg-primary text-primary-foreground' : 'border text-black'}`}
                   >
                     {value}
                   </button>

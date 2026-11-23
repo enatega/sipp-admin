@@ -55,7 +55,7 @@ export default function PendingInvitations() {
             ) : isError ? (
               <TableRow><TableCell colSpan={5}>
                 {t('loadError')}{' '}
-                <button type="button" onClick={() => refetch()} className="text-primary underline underline-offset-2">{t('retry')}</button>
+                <button type="button" onClick={() => refetch()} className="text-ink underline underline-offset-2">{t('retry')}</button>
               </TableCell></TableRow>
             ) : !data?.invitations.length ? (
               <TableRow><TableCell colSpan={5} className="text-center py-6 text-muted-foreground">{t('empty')}</TableCell></TableRow>

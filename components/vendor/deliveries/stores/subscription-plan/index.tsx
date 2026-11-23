@@ -130,14 +130,14 @@ export default function VendorStoreSubscriptionPlanPage() {
         <div className="inline-flex rounded-lg bg-accent p-1">
           <button
             type="button"
-            className={`rounded-md px-8 py-2 text-sm ${billingCycle === 'monthly' ? 'bg-primary text-white' : 'text-mute'}`}
+            className={`rounded-md px-8 py-2 text-sm ${billingCycle === 'monthly' ? 'bg-primary text-primary-foreground' : 'text-mute'}`}
             onClick={() => setBillingCycle('monthly')}
           >
             {t('monthly')}
           </button>
           <button
             type="button"
-            className={`rounded-md px-8 py-2 text-sm ${billingCycle === 'yearly' ? 'bg-primary text-white' : 'text-mute'}`}
+            className={`rounded-md px-8 py-2 text-sm ${billingCycle === 'yearly' ? 'bg-primary text-primary-foreground' : 'text-mute'}`}
             onClick={() => setBillingCycle('yearly')}
           >
             {t('yearly')}

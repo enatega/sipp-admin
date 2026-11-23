@@ -55,7 +55,7 @@ export default function StoreRow({
           )}
         </div>
       </TableCell>
-      <TableCell className="font-medium text-primary">
+      <TableCell className="font-medium text-ink">
         {store.totalOrders.toLocaleString()}
       </TableCell>
 

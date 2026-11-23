@@ -62,12 +62,12 @@ const Filters = () => {
       <AppButton
         variant="secondary"
         onClick={() => setAdvanceFilterOpen(true)}
-        className="text-primary h-11 relative"
+        className="text-ink h-11 relative"
       >
         <ListFilterPlus size={16} className="mr-2" />
         {t('advanceFilters')}
         {hasAdvanceFilters && (
-          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
+          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
             {advanceFilterCount}
           </span>
         )}

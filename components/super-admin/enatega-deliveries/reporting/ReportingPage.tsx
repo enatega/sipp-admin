@@ -50,7 +50,7 @@ export function ReportingPage({ page }: { page: ReportPageName }) {
   return (
     <main className="space-y-5 pb-8">
       <header>
-        <p className="text-sm font-medium text-primary">{t('title')}</p>
+        <p className="text-sm font-medium text-ink">{t('title')}</p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">
           {tPages(`${page}.title`)}
         </h1>

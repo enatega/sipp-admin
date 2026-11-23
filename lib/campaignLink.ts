@@ -7,9 +7,9 @@ export type CampaignLinkInput = {
   channel: string;
   /** The campaign name, for example "weekend_promo". */
   campaign: string;
-  /** The customer website, for example https://www.sippdelivery.com. */
+  /** The customer website, for example https://www.pohanch.com. */
   webOrigin: string;
-  /** The Branch link domain, for example sipp.app.link. Without it only the website link is built. */
+  /** The Branch link domain, for example pohanch.app.link. Without it only the website link is built. */
   branchDomain?: string;
 };
 

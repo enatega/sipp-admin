@@ -61,7 +61,7 @@ export function CampaignLinkBuilder() {
       {qr && <div className="flex items-center gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={qr} alt={t('qrAlt')} width={160} height={160} className="rounded-md border" />
-        <a href={qr} download={`sipp-${channel.trim()}-${campaign.trim()}.png`}>
+        <a href={qr} download={`pohanch-${channel.trim()}-${campaign.trim()}.png`}>
           <AppButton type="button" leftIcon={<Download size={16} />}>{t('downloadQr')}</AppButton>
         </a>
       </div>}

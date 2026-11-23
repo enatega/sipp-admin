@@ -46,7 +46,7 @@ export function ProductPriceField({
         step="0.01"
         min="0"
         placeholder={t('pricePlaceholder')}
-        prefix={<span className="font-semibold text-primary">{symbol}</span>}
+        prefix={<span className="font-semibold text-ink">{symbol}</span>}
         requiredAsterisk
       />
       {showTaxBreakdown ? (
@@ -57,7 +57,7 @@ export function ProductPriceField({
         />
       ) : null}
       {priceAfterDeal !== null ? (
-        <p className="rounded-md border border-primary/20 bg-primary/5 px-3 py-2 text-sm text-primary">
+        <p className="rounded-md border border-ink/20 bg-primary/5 px-3 py-2 text-sm text-ink">
           {t('priceAfterDealLabel')}: {formatCurrency(priceAfterDeal, symbol)}
         </p>
       ) : null}

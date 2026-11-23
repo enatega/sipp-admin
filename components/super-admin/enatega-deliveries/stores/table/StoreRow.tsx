@@ -130,7 +130,7 @@ export default function StoreRow({ store }: StoreRowProps) {
           )}
         </div>
       </TableCell>
-      <TableCell className="font-medium text-primary">
+      <TableCell className="font-medium text-ink">
         {formatCurrency(store?.totalSales, currencySymbol)}
       </TableCell>
 

@@ -353,7 +353,7 @@ export function OrderDetailPage() {
             rows={4}
             autoFocus
             placeholder="Enter rejection reason"
-            className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+            className="mt-4 w-full resize-none rounded-md border bg-white p-3 text-sm outline-none focus:border-ink focus:ring-1 focus:ring-ink"
           />
           <div className="mt-1 text-right text-xs text-muted-foreground">
             {rejectionReason.length}/200

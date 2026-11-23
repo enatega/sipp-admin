@@ -73,7 +73,7 @@ export function AppSettingsTabs() {
       promotionalBanner: null,
       maintenanceEnabled: false,
       maintenanceMessage: '',
-      primaryColor: '#000000',
+      primaryColor: '#F7E300',
       secondaryColor: '#666666',
       tertiaryColor: '#CCCCCC',
     };
@@ -87,7 +87,7 @@ export function AppSettingsTabs() {
       promotionalBanner: apiData.promotional_banner || null,
       maintenanceEnabled: apiData.is_maintenance_mode || false,
       maintenanceMessage: apiData.maintenance_message || '',
-      primaryColor: apiData.primary_color || '#000000',
+      primaryColor: apiData.primary_color || '#F7E300',
       secondaryColor: apiData.secondary_color || '#666666',
       tertiaryColor: apiData.tertiary_color || '#CCCCCC',
     };

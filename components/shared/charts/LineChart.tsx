@@ -98,8 +98,8 @@ function toChartData(
 
   const datasets: RevenueDataset[] = series.map((s) => {
     const color = seriesColors[s.key] ?? {
-      line: '#3B82F6',
-      fill: 'rgba(59,130,246,0.12)',
+      line: '#111111',
+      fill: 'rgba(247,227,0,0.22)',
     };
 
     return {
@@ -180,8 +180,8 @@ export function LineChartCard({
       legend: { display: false },
 
       tooltip: {
-        backgroundColor: '#1F2937',
-        borderColor: '#374151',
+        backgroundColor: '#1C1C1E',
+        borderColor: '#3A3A3C',
         borderWidth: 1,
         padding: 12,
         titleColor: '#F9FAFB',

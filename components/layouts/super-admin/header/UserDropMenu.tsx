@@ -46,7 +46,7 @@ export function UserDropdownMenu() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="flex items-center gap-1 cursor-pointer">
-              <div className="bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center text-sm">
+              <div className="bg-primary-soft rounded-full w-8 h-8 flex items-center justify-center text-sm">
                 G
               </div>
               <ChevronDown size={16} />
@@ -62,7 +62,7 @@ export function UserDropdownMenu() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex items-center gap-1 cursor-pointer">
-            <div className="bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center text-sm">
+            <div className="bg-primary-soft rounded-full w-8 h-8 flex items-center justify-center text-sm">
               {user?.name
                 ? user.name[0].toUpperCase()
                 : user?.email[0].toUpperCase()

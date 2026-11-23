@@ -57,7 +57,7 @@ export default function AdvanceFiltersDialog({
                 <AppButton
                   variant="secondary"
                   onClick={clearAdvanceFilters}
-                  className="text-primary"
+                  className="text-ink"
                 >
                   <FilterX size={16} className="mr-2" />
                   {t('clearFilters')}

@@ -29,7 +29,7 @@ export default function EnategaLoader() {
           <div
             className="pulse-scale relative flex h-24 w-24 items-center justify-center rounded-full shadow-2xl shadow-black/40"
             style={{
-              background: `linear-gradient(to bottom right, ${colors.secondary}, ${colors.primary})`,
+              background: `linear-gradient(to bottom right, ${colors.primary}, ${colors.tertiary})`,
             }}
           >
             {/* Inner pulsing glow */}
@@ -37,7 +37,7 @@ export default function EnategaLoader() {
 
             {/* Lightning icon */}
             <svg
-              className="icon-appear relative z-10 h-10 w-10 text-[#f3f4f6]"
+              className="icon-appear relative z-10 h-10 w-10 text-[#111111]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

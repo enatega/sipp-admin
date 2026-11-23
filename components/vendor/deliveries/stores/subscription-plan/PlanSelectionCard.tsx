@@ -24,8 +24,8 @@ export function PlanSelectionCard({ plan, billingCycle, isSelected, onSelect }: 
       type="button"
       onClick={() => onSelect(plan.id)}
       className={`relative w-full rounded-xl border bg-white p-4 text-left transition-colors ${
-        isSelected ? 'border-primary ring-1 ring-primary/30' : 'border-stroke'
-      } ${plan.isRecommended ? 'border-primary/60' : ''}`}
+        isSelected ? 'border-ink ring-1 ring-ink/30' : 'border-stroke'
+      } ${plan.isRecommended ? 'border-ink/60' : ''}`}
     >
       {plan.isRecommended ? (
         <span className="absolute -top-3 left-4 inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs text-primary-foreground">
@@ -44,7 +44,7 @@ export function PlanSelectionCard({ plan, billingCycle, isSelected, onSelect }: 
       </div>
 
       <div className="mb-4">
-        <p className="text-4xl font-bold text-primary">
+        <p className="text-4xl font-bold text-ink">
           ${billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice}
         </p>
         <p className="text-sm text-mute">/ {billingCycle === 'monthly' ? 'monthly' : 'yearly'}</p>
@@ -53,7 +53,7 @@ export function PlanSelectionCard({ plan, billingCycle, isSelected, onSelect }: 
       <div className="mb-4 grid grid-cols-2 gap-3 rounded-lg bg-accent p-3">
         <div>
           <p className="text-xs text-mute">Commission</p>
-          <p className="font-semibold text-primary">{plan.commissionRate}%</p>
+          <p className="font-semibold text-ink">{plan.commissionRate}%</p>
         </div>
         <div>
           <p className="text-xs text-mute">Free Orders</p>

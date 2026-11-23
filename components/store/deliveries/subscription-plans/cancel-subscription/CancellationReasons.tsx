@@ -63,11 +63,11 @@ export function CancellationReasons() {
               type="button"
               className={cn(
                 'flex w-full items-center gap-2 rounded-md border px-3 py-3 text-left',
-                selectedReason === reason ? 'border-primary bg-primary/5' : 'border-stroke',
+                selectedReason === reason ? 'border-ink bg-primary/5' : 'border-stroke',
               )}
               onClick={() => setSelectedReason(reason)}
             >
-              <Circle className={cn('size-4', selectedReason === reason ? 'text-primary fill-primary/20' : 'text-mute')} />
+              <Circle className={cn('size-4', selectedReason === reason ? 'text-ink fill-ink/20' : 'text-mute')} />
               <span>{reason}</span>
             </button>
           ))}

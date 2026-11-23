@@ -120,8 +120,8 @@ export const Step2Form: React.FC<Step2FormProps> = ({
                           className={cn(
                             'flex flex-col items-center justify-center gap-2 p-4 rounded-lg border-2 transition-all',
                             isSelected
-                              ? 'border-primary bg-primary text-white hover:bg-primary/90'
-                              : 'border-gray-200 bg-white text-gray-700 hover:border-primary hover:bg-primary/5',
+                              ? 'border-ink bg-primary text-primary-foreground hover:bg-primary/90'
+                              : 'border-gray-200 bg-white text-gray-700 hover:border-ink hover:bg-primary/5',
                           )}
                         >
                           {shopType.image ? (
@@ -139,7 +139,7 @@ export const Step2Form: React.FC<Step2FormProps> = ({
                                 'w-12 h-12 rounded-lg flex items-center justify-center text-xl font-bold transition-colors',
                                 isSelected
                                   ? 'bg-white/20 text-white'
-                                  : 'bg-gray-100 text-primary',
+                                  : 'bg-gray-100 text-ink',
                               )}
                             >
                               {shopType.name.charAt(0).toUpperCase()}

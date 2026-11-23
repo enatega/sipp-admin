@@ -268,7 +268,7 @@ export function UsersTable() {
                     <div
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         getRegistrationMethod(user) === 'google'
-                          ? 'bg-primary/10 text-primary'
+                          ? 'bg-primary/10 text-ink'
                           : 'bg-black/10 text-black'
                       }`}
                     >

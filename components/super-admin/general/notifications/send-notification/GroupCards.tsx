@@ -44,7 +44,7 @@ export default function GroupCards({
         <button
           type="button"
           onClick={() => onChange(everyoneSelected ? [] : [...AUDIENCE_GROUPS])}
-          className="rounded-md px-2 py-1 text-sm text-primary hover:bg-primary/10"
+          className="rounded-md px-2 py-1 text-sm text-ink hover:bg-primary/10"
         >
           {everyoneSelected ? t('clearAll') : t('everyone')}
         </button>
@@ -74,7 +74,7 @@ export default function GroupCards({
               className={cn(
                 'rounded-xl border p-3 text-left transition-colors',
                 isSelected
-                  ? 'border-primary bg-primary/10 text-primary'
+                  ? 'border-ink bg-primary/10 text-ink'
                   : 'border-stroke bg-white hover:bg-gray-50',
               )}
             >
@@ -85,7 +85,7 @@ export default function GroupCards({
               <span
                 className={cn(
                   'mt-1 block text-xs',
-                  isSelected ? 'text-primary' : 'text-muted-foreground',
+                  isSelected ? 'text-ink' : 'text-muted-foreground',
                 )}
               >
                 {reach ? t('reachable', { count: reach.pushEnabled }) : '—'}

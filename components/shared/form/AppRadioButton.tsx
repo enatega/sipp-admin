@@ -84,7 +84,7 @@ export function AppRadioButton({
           onChange={handleChange}
           disabled={disabled}
           className={cn(
-            'w-4 h-4 cursor-pointer accent-primary',
+            'w-4 h-4 cursor-pointer accent-ink',
             error && 'border-destructive',
             disabled && 'cursor-not-allowed opacity-50',
           )}

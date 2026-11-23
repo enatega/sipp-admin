@@ -66,8 +66,8 @@ export function StripeModeSection() {
                   className={cn(
                     'rounded-lg border p-3 text-left transition-colors disabled:cursor-not-allowed',
                     isActive
-                      ? 'border-primary bg-primary/5'
-                      : 'bg-slate-50 hover:border-primary/50 disabled:opacity-60',
+                      ? 'border-ink bg-primary/5'
+                      : 'bg-slate-50 hover:border-ink/50 disabled:opacity-60',
                   )}
                 >
                   <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
@@ -80,7 +80,7 @@ export function StripeModeSection() {
                     />
                     {t(`modes.${mode}.title`)}
                     {isActive && (
-                      <span className="rounded bg-primary px-1.5 py-0.5 text-[10px] font-medium uppercase text-white">
+                      <span className="rounded bg-primary px-1.5 py-0.5 text-[10px] font-medium uppercase text-primary-foreground">
                         {t('active')}
                       </span>
                     )}

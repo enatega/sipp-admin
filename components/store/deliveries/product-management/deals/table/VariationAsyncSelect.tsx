@@ -276,7 +276,7 @@ export default function VariationAsyncSelect({
               error
                 ? 'border-destructive'
                 : open && !disabled
-                  ? 'border-primary'
+                  ? 'border-ink'
                   : 'border-stroke',
               (disabled || !storeId || !productId) &&
                 'cursor-not-allowed opacity-70 bg-light',
@@ -321,7 +321,7 @@ export default function VariationAsyncSelect({
                     value={search}
                     onValueChange={setSearch}
                     placeholder={VARIATION_SEARCH_PLACEHOLDER}
-                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
+                    className="h-10 w-full rounded-lg border border-stroke bg-transparent pl-10 pr-4 text-sm outline-none placeholder:text-muted-foreground focus:border-ink"
                     aria-invalid={!!error}
                     aria-describedby={helperId}
                     disabled={disabled || !productId}
@@ -331,7 +331,7 @@ export default function VariationAsyncSelect({
                   type="button"
                   onClick={handleRefresh}
                   disabled={disabled || isFetching || !productId}
-                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-primary disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex h-10 shrink-0 items-center justify-center rounded-lg border border-stroke px-3 text-sm font-medium text-ink disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   <RefreshCw className={cn('size-4', isFetching && 'animate-spin')} />
                 </button>
@@ -359,7 +359,7 @@ export default function VariationAsyncSelect({
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-primary"
+                    className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium text-ink"
                   >
                     <RefreshCw className="size-4" />
                     Refresh
@@ -395,7 +395,7 @@ export default function VariationAsyncSelect({
                           )}
                         </div>
                         {selectedVariationId === variation.id && (
-                          <Check className="size-4 text-primary" />
+                          <Check className="size-4 text-ink" />
                         )}
                       </div>
                     </CommandItem>

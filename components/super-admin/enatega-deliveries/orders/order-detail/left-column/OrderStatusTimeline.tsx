@@ -223,9 +223,9 @@ export function OrderStatusTimeline({ logs = [], status, storeTimezone }: OrderS
                     w-10 h-10 rounded-full flex items-center justify-center p-2 border-2 transition-all duration-300
                     ${
                       isSelected
-                        ? 'border-primary bg-white text-primary'
+                        ? 'border-ink bg-white text-ink'
                         : isActive
-                          ? 'border-primary bg-primary text-white'
+                          ? 'border-ink bg-primary text-primary-foreground'
                           : 'border-dashed border-mute bg-white text-mute'
                     }
                   `}

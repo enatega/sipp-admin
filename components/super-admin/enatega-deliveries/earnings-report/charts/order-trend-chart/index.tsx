@@ -24,17 +24,17 @@ export default function OrderTrendChart({
       title={t('title')}
       description={t('description')}
       legendItems={[
-        { label: tLegend('totalOrders'), color: '#0EA5E9' },
+        { label: tLegend('totalOrders'), color: '#111111' },
         { label: tLegend('inProgressOrders'), color: '#F97316' },
         { label: tLegend('pendingOrders'), color: '#10B981' },
-        { label: tLegend('completedOrders'), color: '#8B5CF6' },
+        { label: tLegend('completedOrders'), color: '#DFCC00' },
         { label: tLegend('totalEarnings'), color: '#F59E0B' },
         { label: tLegend('totalCommission'), color: '#EC4899' },
       ]}
       seriesColors={{
         totalOrders: {
-          line: '#0EA5E9',
-          fill: 'rgba(14,165,233,0.12)',
+          line: '#111111',
+          fill: 'rgba(247,227,0,0.22)',
         },
         inProgressOrders: {
           line: '#F97316',
@@ -45,8 +45,8 @@ export default function OrderTrendChart({
           fill: 'rgba(16,185,129,0.12)',
         },
         completedOrders: {
-          line: '#8B5CF6',
-          fill: 'rgba(139,92,246,0.12)',
+          line: '#DFCC00',
+          fill: 'rgba(223,204,0,0.12)',
         },
         totalEarnings: {
           line: '#F59E0B',

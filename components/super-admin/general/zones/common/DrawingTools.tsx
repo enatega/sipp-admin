@@ -72,7 +72,7 @@ function ToolButton({ tool, isSelected, onClick }: ToolButtonProps) {
     <div
       className={cn(
         'p-4 rounded-md text-center cursor-pointer',
-        isSelected ? 'bg-primary text-white' : 'bg-gray-100',
+        isSelected ? 'bg-primary text-primary-foreground' : 'bg-gray-100',
       )}
       onClick={onClick}
     >

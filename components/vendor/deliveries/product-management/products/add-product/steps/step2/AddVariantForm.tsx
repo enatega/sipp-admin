@@ -52,7 +52,7 @@ export const AddVariantForm: React.FC<AddVariantFormProps> = ({
             placeholder={t('pricePlaceholder')}
             step="0.01"
             min="0"
-            prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+            prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
             value={newVariant.price || ''}
             onChange={(e) =>
               setNewVariant({
@@ -70,7 +70,7 @@ export const AddVariantForm: React.FC<AddVariantFormProps> = ({
             placeholder={t('discountPricePlaceholder')}
             step="0.01"
             min="0"
-            prefix={<span className="font-semibold text-primary">{resolvedCurrencySymbol}</span>}
+            prefix={<span className="font-semibold text-ink">{resolvedCurrencySymbol}</span>}
             value={newVariant.discountPrice || ''}
             onChange={(e) =>
               setNewVariant({

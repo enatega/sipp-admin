@@ -185,8 +185,8 @@ export const StoreTypeForm: React.FC = () => {
                           className={
                             'flex items-center gap-3 rounded-lg border p-4 text-left transition ' +
                             (selected
-                              ? 'border-primary bg-primary/5'
-                              : 'border-stroke hover:border-primary')
+                              ? 'border-ink bg-primary/5'
+                              : 'border-stroke hover:border-ink')
                           }
                         >
                           <input
@@ -195,7 +195,7 @@ export const StoreTypeForm: React.FC = () => {
                             value={opt.value}
                             checked={selected}
                             readOnly
-                            className="w-4 h-4 accent-primary"
+                            className="w-4 h-4 accent-ink"
                           />
                           <div className="text-sm font-medium">{opt.label}</div>
                         </button>

@@ -239,7 +239,7 @@ export const AppDateTimeInput = React.forwardRef<
                   !date && 'text-muted-foreground',
                   error
                     ? 'border-destructive focus:border-destructive'
-                    : 'border-stroke focus:border-primary hover:border-primary',
+                    : 'border-stroke focus:border-ink hover:border-ink',
                   disabled && 'cursor-not-allowed opacity-50',
                 )}
                 aria-invalid={!!error}
@@ -360,7 +360,7 @@ export const AppDateTimeInput = React.forwardRef<
             </PopoverContent>
           </Popover>
 
-          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-primary/70">
+          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-ink/70">
             <CalendarIcon className="h-4 w-4" />
           </span>
         </div>

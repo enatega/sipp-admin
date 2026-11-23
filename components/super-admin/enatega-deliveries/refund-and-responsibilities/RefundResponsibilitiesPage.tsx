@@ -195,7 +195,7 @@ export function RefundResponsibilitiesPage() {
     <div className="space-y-6">
       <div className="my-4 flex flex-wrap items-center justify-between gap-3">
         <Heading title="Refund & Responsibilities" />
-        <button type="button" onClick={() => setIsCreateDialogOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-medium text-white hover:bg-primary/90">
+        <button type="button" onClick={() => setIsCreateDialogOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90">
           <Plus size={18} /> Create Refund
         </button>
       </div>

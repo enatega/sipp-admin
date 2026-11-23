@@ -54,7 +54,7 @@ const Filters = () => {
       </div>
 
       {showClearButton && (
-        <AppButton variant="secondary" onClick={clearFilters} className="text-primary/70">
+        <AppButton variant="secondary" onClick={clearFilters} className="text-ink/70">
           <FilterX size={16} className="mr-2" />
           {t('filters.clearFilters')}
         </AppButton>

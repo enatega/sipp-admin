@@ -217,7 +217,7 @@ export function OrdersHeader({ data, hideStore }: IOrdersHeaderProps) {
                     <SlidersHorizontal size={16} className="mr-2" />
                     {tFilters('advanceFiltersButton')}
                     {activeAdvanceFiltersCount > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
+                      <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
                         {activeAdvanceFiltersCount}
                       </span>
                     )}
@@ -228,7 +228,7 @@ export function OrdersHeader({ data, hideStore }: IOrdersHeaderProps) {
               {hasAnyFilters && (
                 <AppButton
                   variant="secondary"
-                  className="h-11 shadow-sm text-primary/70 border border-sidebar-border w-full sm:w-auto whitespace-nowrap h-11!"
+                  className="h-11 shadow-sm text-ink/70 border border-sidebar-border w-full sm:w-auto whitespace-nowrap h-11!"
                   onClick={clearAllFilters}
                 >
                   <FilterX size={16} className="mr-2" />

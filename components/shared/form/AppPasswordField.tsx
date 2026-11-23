@@ -104,7 +104,7 @@ export const AppPasswordField = React.forwardRef<
               '!w-full h-11 rounded-[12px] bg-transparent text-sm font-normal border focus-visible:ring-0 outline-none pr-10',
               error
                 ? 'border-destructive focus:border-destructive'
-                : 'border-stroke focus:border-primary focus-visible:border-primary',
+                : 'border-stroke focus:border-ink focus-visible:border-ink',
               className,
             )}
             aria-invalid={!!error}
@@ -117,8 +117,8 @@ export const AppPasswordField = React.forwardRef<
             onClick={() => setShow((s) => !s)}
             className={cn(
               'absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center justify-center',
-              'h-6 w-6 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-              'hover:text-primary'
+              'h-6 w-6 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ink',
+              'hover:text-ink'
             )}
             aria-label={show ? 'Hide password' : 'Show password'}
             aria-pressed={show}

@@ -142,7 +142,7 @@ export function EditProductBasicInformationForm({
                 min="0"
                 placeholder={t('pricePlaceholder')}
                 prefix={
-                  <span className="font-semibold text-primary">
+                  <span className="font-semibold text-ink">
                     {resolvedCurrencySymbol}
                   </span>
                 }

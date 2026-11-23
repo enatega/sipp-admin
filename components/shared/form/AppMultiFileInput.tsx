@@ -352,8 +352,8 @@ export const AppMultiFileInput: React.FC<AppMultiFileInputProps> = ({
           error
             ? 'border-destructive'
             : isDragging
-              ? 'border-primary bg-primary/5'
-              : 'border-stroke hover:border-primary',
+              ? 'border-ink bg-primary/5'
+              : 'border-stroke hover:border-ink',
           dropAreaClassName,
         )}
       >
